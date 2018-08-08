@@ -2,4 +2,5 @@
 *.jar
 *.class
 *.iml
-launch.json
+.vscode/
+.idea/
