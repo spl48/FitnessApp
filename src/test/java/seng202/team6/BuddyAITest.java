@@ -37,6 +37,9 @@ public class BuddyAITest
         BuddyAI bud1 = new BuddyAI();
         String userGreeting = bud1.getGreeting(userName1);
         assertEquals(userGreeting, "Hello TestUser");
-        
+        int int1 = 5;
+        int int2 = 6;
+        int result = bud1.multiply(int1, int2);
+        assertEquals(result, 30);
     }
 }
