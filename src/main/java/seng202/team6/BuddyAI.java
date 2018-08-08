@@ -15,7 +15,4 @@ public class BuddyAI
         return "Hello " + userName;
     }
 
-    public int multiply(int int1, int int2){
-        return int1 * int2;
-    }
 }
