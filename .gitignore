@@ -4,4 +4,12 @@
 *.iml
 .vscode/
 .idea/
+<<<<<<< HEAD
 target/
+=======
+<<<<<<< HEAD
+/.metadata/
+=======
+target/
+>>>>>>> 36f1be09b1f4235c40197714fcedeb84577951c5
+>>>>>>> a65ea2ffa5828027cb82b93a2c02c30f2e19b6fb
