@@ -8,4 +8,4 @@ generate_artifacts:
         - mvn -B clean site package
     artifacts:
         paths:
-        - target/MATES-1.0-SNAPSHOT.jar
+        - target/MATES*.jar
