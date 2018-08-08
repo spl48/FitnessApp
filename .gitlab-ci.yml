@@ -2,10 +2,11 @@ junit:
     stage: test
     script:
         - mvn -B clean test
+
 generate_artifacts:
     stage: deploy
     script:
         - mvn -B clean site package
     artifacts:
         paths:
-        - target/MATES-1.0-SNAPSHOT.jar
+        - target/MATES*.jar
