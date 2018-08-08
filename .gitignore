@@ -4,4 +4,4 @@
 *.iml
 .vscode/
 .idea/
-/target/
+target/
