@@ -4,8 +4,4 @@
 *.iml
 .vscode/
 .idea/
-<<<<<<< HEAD
-/.metadata/
-=======
-/target/
->>>>>>> 36f1be09b1f4235c40197714fcedeb84577951c5
+target/
