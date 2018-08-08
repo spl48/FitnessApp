@@ -7,25 +7,22 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class BuddyAITest 
-    extends TestCase
-{
+public class GavinTest
+        extends TestCase {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public BuddyAITest( String testName )
-    {
-        super( testName );
+    public GavinTest(String testName) {
+        super(testName);
     }
 
     /**
      * @return the suite of tests being tested
      */
-    public static Test suite()
-    {
-        return new TestSuite( BuddyAITest.class );
+    public static Test suite() {
+        return new TestSuite(GavinTest.class);
     }
 
     /**
@@ -33,9 +30,10 @@ public class BuddyAITest
      */
     public void testApp()
     {
-        String userName1 = "TestUser";
-        BuddyAI bud1 = new BuddyAI();
-        String userGreeting = bud1.getGreeting(userName1);
-        assertEquals(userGreeting, "Hello TestUser");
+        Gavin gavin = new Gavin();
+        int int1 = 5;
+        int int2 = 6;
+        int result = gavin.multiply(int1, int2);
+        assertEquals(result, 30);
     }
 }
