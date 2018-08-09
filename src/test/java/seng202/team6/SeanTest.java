@@ -33,7 +33,7 @@ public class SeanTest
         Sean sean = new Sean();
         int int1 = 10;
         int int2 = 7;
-        int result = sean.subtract(int1, int2);
+        int result = sean.math_subtract(int1, int2);
         assertEquals(result, 3);
     }
 }
