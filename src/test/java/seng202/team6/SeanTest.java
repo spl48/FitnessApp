@@ -14,7 +14,7 @@ public class SeanTest
      *
      * @param testName name of the test case
      */
-    public GavinTest(String testName) {
+    public SeanTest(String testName) {
         super(testName);
     }
 
@@ -22,7 +22,7 @@ public class SeanTest
      * @return the suite of tests being tested
      */
     public static Test suite() {
-        return new TestSuite(GavinTest.class);
+        return new TestSuite(SeanTest.class);
     }
 
     /**
