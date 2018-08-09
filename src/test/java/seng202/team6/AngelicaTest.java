@@ -7,14 +7,14 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class HelloWorldTest
+public class AngelicaTest
         extends TestCase {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public HelloWorldTest(String testName) {
+    public AngelicaTest(String testName) {
         super(testName);
     }
 
@@ -22,7 +22,7 @@ public class HelloWorldTest
      * @return the suite of tests being tested
      */
     public static Test suite() {
-        return new TestSuite(HelloWorldTest.class);
+        return new TestSuite(AngelicaTest.class);
     }
 
     /**
@@ -30,10 +30,10 @@ public class HelloWorldTest
      */
     public void testApp()
     {
-        HelloWorld hello = new HelloWorld();
+        Angelica sub = new Angelica();
         int int1 = 5;
         int int2 = 6;
-        int result = hello.subtract(int1, int2);
-        assertEquals(result, -1);
+        int result = sub.subtract(int1, int2);
+        assertEquals(result,-1);
     }
 }
