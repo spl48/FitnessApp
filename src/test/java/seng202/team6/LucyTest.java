@@ -18,7 +18,7 @@ public class LucyTest extends TestCase {
      * @return the suite of tests being tested
      */
     public static Test suite() {
-        return new TestSuite(RyanTest.class);
+        return new TestSuite(LucyTest.class);
     }
 
     /**
