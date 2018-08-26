@@ -1,12 +1,11 @@
-package seng202.team6;
+package seng202.team6.models;
 
 /**
- * Hello world!
- *
+ * MATES AI Entity
  */
-public class BuddyAI 
+public class MatesAI 
 {
-    public BuddyAI() {
+    public MatesAI() {
 
     }
 
