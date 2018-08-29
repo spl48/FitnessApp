@@ -1,6 +1,7 @@
 package seng202.team6.models;
 
 /**
+ * User
  * This class implements User and sets the information regarding the User.
  * @author Angelica Dela Cruz
  * @version 1.1, Aug 2018.
