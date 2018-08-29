@@ -1,7 +1,6 @@
 package seng202.team6.models;
 
 /**
- * User
  * This class implements User and sets the information regarding the User.
  * @author Angelica Dela Cruz
  * @version 1.1, Aug 2018.
@@ -23,6 +22,11 @@ public class User
      * The length of the User's date of birth
      */
     private static final int DOB_LENGTH = 8;
+
+    /**
+     * The minimum age of the User
+     */
+    private static final int MIN_AGE = 15;
 
     /**
      * The name of the User
@@ -60,7 +64,7 @@ public class User
     private String username;
 
     /**
-     * The User for the User that sets the name, date of birth, height, weight
+     * The constructor for the User that sets the name, date of birth, height, weight
      * stride length and username for the specific User.
      * @param name A String parameter that is used to set the name of the User.
      * @param dob A String parameter that is used to set the User's dob.
@@ -69,7 +73,7 @@ public class User
      * @param strideLength A type Double parameter that is used to set the length of the stride of the User.
      * @param username A String parameter that is used to set the username of the User.
      */
-    public User(String name, String dob, double height, double weight, double strideLength, String username)
+    public User(String name, String dob, int age, double height, double weight, double strideLength, String username)
     {
         if (name.length() >= MIN_NAME_LENGTH) {
             this.name = name;
@@ -81,6 +85,12 @@ public class User
             this.dob = dob;
         } else {
             this.dob = "DD/MM/YY";
+        }
+
+        if (age >= MIN_AGE) {
+            this.age = age;
+        } else {
+            this.age = 0;
         }
 
         if (height < 0) {
@@ -155,6 +165,29 @@ public class User
     public String getDOB()
     {
         return dob;
+    }
+
+    /**
+     * A function that sets the age of the User to the given Integer parameter age in years.
+     * Checks if age is greater or equal to minimum age, otherwise age is invalid.
+     * @param age An Integer parameter used as the age of the User.
+     */
+    public void setAge(int age)
+    {
+        if (age >= MIN_AGE) {
+            this.age = age;
+        } else {
+            this.age = 0;
+        }
+    }
+
+    /**
+     * A function that returns the age of the User.
+     * @return Returns an Integer that represents the User's age in years.
+     */
+    public int getAge()
+    {
+        return age;
     }
 
     /**
