@@ -6,6 +6,7 @@ package seng202.team6.models;
  * @author Angelica Dela Cruz
  * @version 1.1, Aug 2018.
  */
+
 public class User
 {
     /**
@@ -248,20 +249,8 @@ public class User
      * be identical.
      * @return Returns a String that represents the username of the User.
      */
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
-    }
-
-    public static void main(String[] args)
-    {
-        User user1 = new User("Angelica", "16/09/97", 166.5, 55.0, 2.2, "angelicadelacruz");
-        System.out.println(user1.getName());
-        System.out.println(user1.getDOB());
-        System.out.println(user1.getHeight());
-        System.out.println(user1.getWeight());
-        System.out.println(user1.getStrideLength());
-        System.out.println(user1.getUsername());
     }
 
 }
