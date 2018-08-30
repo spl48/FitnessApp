@@ -3,7 +3,7 @@ package seng202.team6.models;
 import static org.junit.Assert.*;
 
 public class UserTest {
-    User user1 = new User("Angelica", "16/09/97", 166.5, 55.0, 2.2, "acilegna");
+    User user1 = new User("Angelica", "16/09/97", 16,166.5, 55.0, 2.2, "acilegna");
 
     @org.junit.Test
     public void setName()
@@ -38,6 +38,22 @@ public class UserTest {
     public void getDOB()
     {
         assertEquals("16/09/97", user1.getDOB());
+    }
+
+    @org.junit.Test
+    public void setAge()
+    {
+        user1.setAge(3);
+        assertEquals(0, user1.getAge());
+
+        user1.setAge(20);
+        assertEquals(20, user1.getAge());
+    }
+
+    @org.junit.Test
+    public void getAge()
+    {
+        assertEquals(16, user1.getAge());
     }
 
     @org.junit.Test
