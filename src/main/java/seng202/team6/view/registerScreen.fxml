@@ -21,13 +21,13 @@
             <Font size="9.0" />
          </font>
       </Label>
-      <TextField layoutX="585.0" layoutY="163.0" prefHeight="32.0" prefWidth="287.0" promptText="Username" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
+      <TextField fx:id="usernameEntry" layoutX="585.0" layoutY="163.0" prefHeight="32.0" prefWidth="287.0" promptText="Username" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
       <Label layoutX="499.0" layoutY="170.0" style="-fx-color: white;" text="Username: " textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="583.0" layoutY="232.0" prefHeight="33.0" prefWidth="135.0" promptText="First" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
+      <TextField fx:id="firstNameEntry" layoutX="583.0" layoutY="232.0" prefHeight="33.0" prefWidth="135.0" promptText="First" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
       <Pane prefHeight="72.0" prefWidth="1366.0" style="-fx-background-color: rgb(72,142,103); -fx-border-color: transparent transparent black transparent;">
          <children>
             <Label layoutX="585.0" layoutY="20.0" text="User Registration" textFill="WHITE">
@@ -37,7 +37,7 @@
             </Label>
          </children>
       </Pane>
-      <TextField layoutX="733.0" layoutY="232.0" prefHeight="33.0" prefWidth="141.0" promptText="Last" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-font-color: white;" />
+      <TextField fx:id="lastNameEntry" layoutX="733.0" layoutY="232.0" prefHeight="33.0" prefWidth="141.0" promptText="Last" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-font-color: white;" />
       <Label layoutX="478.0" layoutY="283.0" style="-fx-color: white;" text="Date of Birth:" textFill="WHITE">
          <font>
             <Font size="13.0" />
@@ -48,21 +48,21 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <DatePicker layoutX="585.0" layoutY="278.0" prefHeight="29.0" prefWidth="289.0" promptText="21/11/2016" style="-fx-background-color: white;" />
+      <DatePicker fx:id="birthDateEntry" layoutX="585.0" layoutY="278.0" prefHeight="29.0" prefWidth="289.0" promptText="21/11/2016" style="-fx-background-color: white;" />
       <ComboBox fx:id="genderComboBox" layoutX="585.0" layoutY="322.0" prefHeight="29.0" prefWidth="289.0" style="-fx-background-color: white;" />
-      <TextField layoutX="585.0" layoutY="385.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
+      <TextField fx:id="heightEntry" layoutX="585.0" layoutY="385.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
       <Label layoutX="496.0" layoutY="396.0" style="-fx-color: white;" text="Height (cm):" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="585.0" layoutY="432.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
+      <TextField fx:id="weightEntry" layoutX="585.0" layoutY="432.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
       <Label layoutX="495.0" layoutY="441.0" style="-fx-color: white;" text="Weight (kg):" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="585.0" layoutY="478.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
+      <TextField fx:id="strideEntry" layoutX="585.0" layoutY="478.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: rgb(3,93,86); -fx-background-color: white; -fx-color: white;" />
       <Label layoutX="453.0" layoutY="487.0" style="-fx-color: white;" text="Stride Length (feet):" textFill="WHITE">
          <font>
             <Font size="13.0" />
