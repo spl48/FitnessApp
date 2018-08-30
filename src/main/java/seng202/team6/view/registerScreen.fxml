@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="main_window" fx:id="main_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom left, rgb(0,4,58), rgb(0,79, 128));" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="56.0" prefHeight="2.0" prefWidth="314.0" style="-fx-color: white;" text="MOTIVATION AND TRAINING EMPOWERMENT SOFTWARE" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Regular" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="42.0" prefWidth="151.0" style="-fx-color: white;" text="MATES" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Regular" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="155.0" style="-fx-color: white;" text="First Name: " textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="284.0" layoutY="211.0" style="-fx-color: white;" textFill="WHITE">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Button layoutX="481.0" layoutY="318.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="71.0" text="Next" />
+      <TextField layoutX="95.0" layoutY="150.0" style="-fx-background-color: white;" />
+      <Label layoutX="35.0" layoutY="189.0" style="-fx-color: white;" text="Last Name: " textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <TextField layoutX="95.0" layoutY="183.0" style="-fx-background-color: white;" />
+      <TextField layoutX="95.0" layoutY="251.0" style="-fx-background-color: white;" />
+      <Label layoutX="39.0" layoutY="256.0" style="-fx-color: white;" text="Username" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="292.0" style="-fx-color: white;" text="Password:" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="7.0" layoutY="328.0" style="-fx-color: white;" text="Confirm Password:" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <PasswordField layoutX="95.0" layoutY="287.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: white;" />
+      <PasswordField layoutX="95.0" layoutY="322.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: white;" />
+   </children>
+</AnchorPane>
