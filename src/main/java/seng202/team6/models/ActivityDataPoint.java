@@ -1,10 +1,12 @@
 package seng202.team6.models;
 
+import java.time.LocalTime;
+
 /**
  * This class implements ActivityDataPoint which are the Data Points during a User Activity.
  * Sets the required information for the given Activity Data Point.
  * @author Angelica Dela Cruz
- * @version 1.1, Aug 2018.
+ * @version 1.2, Aug 2018.
  */
 public class ActivityDataPoint {
 
@@ -29,14 +31,14 @@ public class ActivityDataPoint {
     private static final double MIN_LATITUDE = -90.0;
 
     /**
-     * The Activity time in minutes
+     * The time at the Activity Data Point
      */
-    private double time;
+    private LocalTime time;
 
     /**
      * The heart rate of the User at the Activity Data Point in bpm
      */
-    private double heartRate;
+    private int heartRate;
 
     /**
      * The latitude of the Activity Data Point in degrees
@@ -54,26 +56,22 @@ public class ActivityDataPoint {
     private double elevation;
 
     /**
-     * The constructor for the ActivityDataPoint that sets the time, heart Rate of the User,
+     * The constructor for the ActivityDataPoint that takes the parameters time, heart rate of the User,
      * latitude, longitude and elevation of the location of the Activity Data Point.
-     * @param time A Double parameter used as the time for the Activity Data Point.
-     * @param heartRate A Double parameter used as the heart rate of the User at the Data Point.
+     * @param time A LocalTime parameter used as the time for the Activity Data Point.
+     * @param heartRate An Double parameter used as the heart rate of the User at the Data Point.
      * @param latitude A Double parameter used as the latitude for the Activity Data Point.
      * @param longitude A Double parameter used as the longitude for the Activity Data Point.
      * @param elevation A Double parameter used as the elevation for the Activity Data Point.
      */
-    public ActivityDataPoint(double time, double heartRate, double latitude, double longitude, double elevation)
+    public ActivityDataPoint(LocalTime time, int heartRate, double latitude, double longitude, double elevation)
     {
-        if (time > 0) {
-            this.time = time;
-        } else {
-            this.time = 0.0;
-        }
+        this.time = time;
 
         if (heartRate > 0) {
             this.heartRate = heartRate;
         } else {
-            this.heartRate = 0.0;
+            this.heartRate = 0;
         }
 
         if ((latitude <= MAX_LATITUDE) && (latitude >= MIN_LATITUDE)){
@@ -96,55 +94,51 @@ public class ActivityDataPoint {
     }
 
     /**
-     * A function that sets the time of the Activity Data Point to the given Double parameter
-     * time in minutes.
-     * @param time A Double parameter used to set as the time for the Activity Data Point.
+     * A function that takes the LocalTime parameter time and sets the time of the Activity Data
+     * Point to the given LocalTime parameter.
+     * @param time A LocalTime parameter used to set as the time for the Activity Data Point.
      */
-    public void setTime(double time)
+    public void setTime(LocalTime time)
     {
-        if (time > 0) {
-            this.time = time;
-        } else {
-            this.time = 0.0;
-        }
+        this.time = time;
     }
 
     /**
-     * A function that returns the time for the Activity Data Point in minutes.
-     * @return Returns a Double that represents the time at the Activity Data Point in
+     * A function that returns the time for the Activity Data Point.
+     * @return Returns a LocalTime that represents the time at the Activity Data Point in
      * minutes.
      */
-    public double getTime()
+    public LocalTime getTime()
     {
         return time;
     }
 
     /**
-     * A function that sets the heart rate of the User at the Activity Data Point
-     * to the given Double parameter heart rate in bpm.
-     * @param heartRate A Double parameter used to set the heart rate of the User in bpm.
+     * A function that takes the parameter heart rate and sets the heart rate of the User at
+     * the Activity Data Point to the given Integer parameter measured in bpm.
+     * @param heartRate An Integer parameter used to set the heart rate of the User in bpm.
      */
-    public void setHeartRate(double heartRate)
+    public void setHeartRate(int heartRate)
     {
         if (heartRate > 0) {
             this.heartRate = heartRate;
         } else {
-            this.heartRate = 0.0;
+            this.heartRate = 0;
         }
     }
 
     /**
      * A function that returns the heart rate of the User at the Activity Data Point in bpm.
-     * @return Returns a Double that represents the heart rate of the User.
+     * @return Returns a Integer that represents the heart rate of the User.
      */
-    public double getHeartRate()
+    public int getHeartRate()
     {
         return heartRate;
     }
 
     /**
-     * A function that sets the latitude for the Activity Data Point in degrees to the
-     * given Double parameter latitude.
+     * A function that takes the parameter latitude and sets the latitude for the Activity
+     * Data Point in degrees to the given Double parameter latitude.
      * @param latitude A Double parameter used as the Activity Data Point latitude.
      */
     public void setLatitude(double latitude)
@@ -166,8 +160,8 @@ public class ActivityDataPoint {
     }
 
     /**
-     * A function that sets the longitude for the Activity Data Point in degrees to the given
-     * Double parameter longitude.
+     * A function that takes the parameter the longitude and sets the longitude for the Activity
+     * Data Point in degrees to the given Double parameter.
      * @param longitude A Double parameter used as the Activity Data Point longitude.
      */
     public void setLongitude(double longitude)
@@ -189,8 +183,8 @@ public class ActivityDataPoint {
     }
 
     /**
-     * A function that sets the elevation of the Activity Data Point to the given Double
-     * parameter elevation.
+     * A function that takes the parameter elevation and sets the elevation of the Activity
+     * Data Point to the given Double parameter.
      * @param elevation A Double parameter used as the Activity Data Point elevation.
      */
     public void setElevation(double elevation)
