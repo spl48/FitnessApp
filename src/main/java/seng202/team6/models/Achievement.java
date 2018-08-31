@@ -3,6 +3,8 @@ package seng202.team6.models;
 /**
  * This class implements Achievement and sets the required information about the Achievement
  * of the User from a specific Goal.
+ * @author Angelica Dela Cruz
+ * @version 1.1, Aug 2018.
  */
 public class Achievement {
 
@@ -17,7 +19,8 @@ public class Achievement {
     private String name;
 
     /**
-     * The constructor for Achievement that sets the name of the Achievement.
+     * The constructor for Achievement that takes the parameter name and sets the
+     * name of the Achievement.
      * @param name A String parameter used as the Achievement name.
      */
     Achievement(String name)
@@ -27,12 +30,12 @@ public class Achievement {
         } else {
             this.name = "invalid";
         }
-
     }
 
     /**
-     * A function that stes the name of the Achievement to the given String parameter
-     * name. Checks if the name is valid.
+     * A function that takes the parameter name and sets the name of the Achievement
+     * to the given String parameter. Checks if the name is valid if the name length
+     * is greater or equal to the minimum name length.
      * @param name A String parameter used as the name of the Achievement.
      */
     public void setName(String name)
@@ -55,7 +58,7 @@ public class Achievement {
 
     /**
      * The template for when the Achievement is printed out:
-     * Lastest Achievement is: ["Achievement Name"]
+     * Latest Achievement is: ["Achievement Name"]
      * @return Returns a String representation of the template for Achievement object.
      */
     @Override
