@@ -12,36 +12,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import seng202.team6.utilities.DataValidation;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class registerController {
 
     @FXML
-    private TextField usernameEntry;
-
-    @FXML
-    private TextField firstNameEntry;
-
-    @FXML
-    private TextField lastNameEntry;
+    private TextField usernameEntry, firstNameEntry, lastNameEntry, heightEntry, weightEntry, strideEntry;
 
     @FXML
     private DatePicker birthDateEntry;
 
     @FXML
     private ComboBox<String> genderComboBox;
-
-    @FXML
-    private TextField heightEntry;
-
-    @FXML
-    private TextField weightEntry;
-
-    @FXML
-    private TextField strideEntry;
 
     private String username, first, last, gender;
     private double height, weight, stride;
@@ -66,10 +51,13 @@ public class registerController {
 
     @FXML
     public void createNewUser(ActionEvent event) throws IOException {
-        System.out.println("Created a new user!!");
         setEnteredData();
-        printData();
-        toStartScreen(event);
+        if (validEnteredData()) {
+            System.out.println("Created a new user!!");
+            printData();
+            toStartScreen(event);
+            //Enter into database
+        }
     }
 
     public void setEnteredData() {
@@ -85,6 +73,17 @@ public class registerController {
         } catch (NumberFormatException e) {
             // Error Pop Up
         }
+    }
+
+    public boolean validEnteredData() {
+        return DataValidation.validateUserName(username) &&
+               DataValidation.validateName(first, "First Name") &&
+               DataValidation.validateName(last, "Last Name") &&
+                DataValidation.validateGender(gender) &&
+                DataValidation.validateBirthDate(birthDate) &&
+                DataValidation.validateDoubleValue(height, "Height", 280, 55) &&
+                DataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
+                DataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
     }
 
     public void printData() {

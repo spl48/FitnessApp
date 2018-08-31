@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SignInController {
+public class loginController {
 
     @FXML
     private ChoiceBox<String> signInSelection;
