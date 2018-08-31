@@ -12,12 +12,18 @@ public class ControllerMainMenu {
     @FXML private BorderPane borderPane;
 
     public void initialize() {
+
+//        eyesView.setFitHeight(768);
+//        eyesView.setFitWidth(220);
+//        borderPane.setLeft(eyesView);
         borderPane.setLeft(Menu());
     }
 
     private VBox Menu() {
-
         VBox vbox = new VBox();
+        Image eyes = new Image(MainMenu.class.getResource("/seng202/team6/resources/pics/eyes.png").toExternalForm());
+        ImageView eyesView = new ImageView(eyes);
+        vbox.getChildren().add(eyesView);
         for (int i = 1; i < 6; i++) {
             vbox.getChildren().add(Item(String.valueOf(i)));
         }
@@ -49,4 +55,5 @@ public class ControllerMainMenu {
                     "-fx-background-radius: 0;");
         });
     }
+
 }

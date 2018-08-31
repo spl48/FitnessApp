@@ -6,21 +6,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.ControllerMainMenu">
-   <left>
-      <HBox prefHeight="768.0" prefWidth="220.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="768.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/pics/menubar.jpg" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-   </left>
    <center>
       <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -58,4 +46,11 @@
          </padding>
       </GridPane>
    </center>
+   <left>
+      <ImageView fitHeight="768.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../resources/pics/menubar.jpg" />
+         </image>
+      </ImageView>
+   </left>
 </BorderPane>
