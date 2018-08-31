@@ -1,25 +1,19 @@
 package seng202.team6.models;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class implements Activity and sets the required information about an Activity
  * the User has done.
  * @author Angelica Dela Cruz
- * @version 1.1, Aug 2018.
+ * @version 1.2, Aug 2018.
  */
 public class Activity
 {
-    /**
-     * The minimum length of the Activity type
-     */
-    private static final int MIN_TYPE_LENGTH = 3;
-
-    /**
-     * The length of the Activity date
-     */
-    private static final int DATE_LENGTH = 8;
-
     /**
      * The type of the Activity
      */
@@ -28,27 +22,37 @@ public class Activity
     /**
      * The date of when the Activity occurred
      */
-    private String date;
+    private LocalDate date;
 
     /**
      * The distance in km
      */
-    private double distance = 0.0;
+    private double distance;
 
     /**
      * The minimum heart rate of the User during the Activity in bpm
      */
-    private double minHeartRate;
+    private int minHeartRate;
 
     /**
      * The maximum heart rate of the User during the Activity in bpm
      */
-    private double maxHeartRate;
+    private int maxHeartRate;
+
+    /**
+     * The start time of the Activity
+     */
+    private LocalTime startTime;
+
+    /**
+     * The end time of the Activity
+     */
+    private LocalTime endTime;
 
     /**
      * The total time of the Activity in minutes
      */
-    private double totalTime;
+    private long totalTime;
 
     /**
      * The activity data of the Activity
@@ -56,29 +60,35 @@ public class Activity
     private ArrayList<ActivityDataPoint> activityData = new ArrayList<ActivityDataPoint>();
 
     /**
-     * The constructor for the Activity that sets the type, date, distance, minimum heart rate, maximum heart
-     * rate and the total time of the  Activity.
+     * The only types of Activities allowed
+     */
+    private static final ArrayList<String> activities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking"));
+
+    /**
+     * The constructor for the Activity that takes the parameters type, date, start time, end time, distance, minimum
+     * heart rate, maximum heart rate and the total time of the  Activity.
      * @param type A String parameter used to set Activity type.
-     * @param date A String parameter used to set the Activity date.
+     * @param date A LocalDate parameter used to set the Activity date.
+     * @param startTime A LocalTime parameter used to set the start time of Activity.
+     * @param endTime A LocalTime parameter used to set the end time of the Activity.
      * @param distance A Double parameter used to set the distance of the Activity from the starting point to end location in km.
      * @param minHeartRate A Double parameter used to set User's minimum heart rate in bpm.
      * @param maxHeartRate A Double parameter used to set User's maximum heart rate in bpm.
-     * @param totalTime A Double parameter used to set the total Activity time in minutes.
      */
-    public Activity(String type, String date, double distance, double minHeartRate, double maxHeartRate, double totalTime)
+    public Activity(String type, LocalDate date, LocalTime startTime, LocalTime endTime, double distance, int minHeartRate, int maxHeartRate)
     {
-        this.totalTime = totalTime;
-
-        if (type.length() >= MIN_TYPE_LENGTH) {
+        if (activities.contains(type)) {
             this.type = type;
         } else {
             this.type = "invalid";
         }
 
-        if (date.length() == DATE_LENGTH) {
-            this.date = date;
-        } else {
-            this.date = "DD/MM/YY";
+        this.date = date;
+
+        if (startTime.isBefore(endTime)) {
+            this.startTime = startTime;
+            this.endTime = endTime;
+            totalTime = Duration.between(startTime, endTime).toMinutes();
         }
 
         if (distance > 0.0) {
@@ -87,34 +97,27 @@ public class Activity
             this.distance = 0.0;
         }
 
-        if (minHeartRate > 0.0) {
+        if (minHeartRate > 0) {
             this.minHeartRate = minHeartRate;
         } else {
-            this.minHeartRate = 0.0;
+            this.minHeartRate = 0;
         }
 
-        if (maxHeartRate > 0.0) {
+        if (maxHeartRate > 0) {
             this.maxHeartRate = maxHeartRate;
         } else {
-            this.maxHeartRate = 0.0;
+            this.maxHeartRate = 0;
         }
-
-        if (totalTime > 0.0) {
-            this.totalTime = totalTime;
-        } else {
-            this.totalTime = 0.0;
-        }
-
     }
 
     /**
-     * A function that sets the type of Activity to the given String parameter type.
-     * Checks if the type is valid.
+     * A function that takes the String parameter type and sets the type of Activity to the given
+     * String parameter if the type is within the valid types of Activities.
      * @param type A String that is used to set the type of Activity.
      */
     public void setType(String type)
     {
-        if (type.length() >= MIN_TYPE_LENGTH) {
+        if (activities.contains(type)) {
             this.type = type;
         } else {
             this.type = "invalid";
@@ -131,31 +134,28 @@ public class Activity
     }
 
     /**
-     * A function that sets the date of when the Activity occurred of the form DD/MM/YY.
-     * Checks if the date is valid or not.
-     * @param date A String parameter used to set the Activity date.
+     * A function that takes a LocalDate parameter date and sets the date of the Activity
+     * to the given parameter.
+     * @param date A LocalDate parameter used to set the Activity date.
      */
-    public void setDate(String date)
+    public void setDate(LocalDate date)
     {
-        if (date.length() == DATE_LENGTH) {
-            this.date = date;
-        } else {
-            this.date = "DD/MM/YY";
-        }
+        this.date = date;
     }
 
     /**
-     * A function that returns the date of the occurrence of the Activity of the form DD/MM/YY.
-     * @return Returns a String that represents when the Activity date is.
+     * A function that returns the date of the occurrence of the Activity.
+     * @return Returns a LocalDate that represents when the Activity date is.
      */
-    public String getDate()
+    public LocalDate getDate()
     {
         return date;
     }
 
     /**
-     * A function that sets the total distance travelled in the Activity in km. Checks if
-     * the distance is greater than 0 to be valid. Otherwise, distance is invalid.
+     * A function that takes the total distance travelled in the Activity in km and
+     * sets the distance to the given Double parameter. Checks if the distance is greater
+     * than 0 to be valid. Otherwise, distance is invalid and is set to 0.0.
      * @param distance A Double parameter used to set the distance of the Activity.
      */
     public void setDistance(double distance)
@@ -177,78 +177,96 @@ public class Activity
     }
 
     /**
-     * A function that sets the minimum heart rate of the User based on the given Double
-     * parameter minHeartRate in bpm. Checks if the given heart rate is valid.
-     * @param minHeartRate A Double that is used to set the User's minimum heart rate.
+     * A function that takes the minimum and maximum heart rate and sets the minimum and maximum heart
+     * rate of the User based on the given Double parameter minHeartRate and maxHeartRate in bpm.
+     * Checks if the min heart rate is less than max heart rate and both must be greater than 0 to be valid.
+     * Otherwise, invalid and the heart rates are set to 0.
+     * @param minHeartRate A Integer that is used to set the User's minimum heart rate.
+     * @param maxHeartRate A Integer that is used to set the User's maximum heart rate.
      */
-    public void setMinHeartRate(double minHeartRate)
+    public void setHeartRate(int minHeartRate, int maxHeartRate)
     {
-        if (minHeartRate > 0.0) {
-            this.minHeartRate = minHeartRate;
+        if ((minHeartRate < 0) || (maxHeartRate < 0)) {
+        this.minHeartRate = 0;
+        this.maxHeartRate = 0;
+        }
+        if (minHeartRate < maxHeartRate) {
+            if ((minHeartRate > 0) && (maxHeartRate > 0)) {
+                this.minHeartRate = minHeartRate;
+                this.maxHeartRate = maxHeartRate;
+            }
         } else {
-            this.minHeartRate = 0.0;
+            this.minHeartRate = 0;
+            this.maxHeartRate = 0;
         }
     }
 
     /**
      * A function that returns the minimum heart rate of the User during the Activity in bpm.
-     * @return Returns a Double that represents the User's minimum heart rate in the
+     * @return Returns a Integer that represents the User's minimum heart rate in the
      * Activity.
      */
-    public double getMinHeartRate()
+    public int getMinHeartRate()
     {
         return minHeartRate;
     }
 
     /**
-     * A function that sets the maximum heart rate of the User based on the given Double
-     * parameter maxHeartRate in bpm. Checks if the given heart rate is valid.
-     * @param maxHeartRate A Double that is used to set the User's maximum heart rate.
-     */
-    public void setMaxHeartRate(double maxHeartRate)
-    {
-        if (maxHeartRate > 0.0) {
-            this.maxHeartRate = maxHeartRate;
-        } else {
-            this.maxHeartRate = 0.0;
-        }
-    }
-
-    /**
      * A function that returns the maximum heart rate of the User during the Activity in bpm.
-     * @return Returns a Double that represents the User's maximum heart rate in the
+     * @return Returns a Integer that represents the User's maximum heart rate in the
      * Activity.
      */
-    public double getMaxHeartRate()
+    public int getMaxHeartRate()
     {
         return maxHeartRate;
     }
 
     /**
-     * A function that sets the total duration of the Activity based on the given Double
-     * parameter totalTime in minutes. Checks if the given total time is valid.
-     * @param totalTime A Double used to set the total Activity time.
+     * A function that takes the parameters the start time and end time and determines
+     * the duration of the Activity from the given times. Checks if the start time is
+     * before the end time to be valid input. Otherwise, invalid.
+     * @param startTime A LocalTime parameter used to set the start time of Activity.
+     * @param endTime A LocalTime parameter used to set the end time of Activity.
      */
-    public void setTotalTime(double totalTime)
+    public void setTime(LocalTime startTime, LocalTime endTime)
     {
-        if (totalTime > 0.0) {
-            this.totalTime = totalTime;
-        } else {
-            this.totalTime = 0.0;
+        if (startTime.isBefore(endTime)) {
+            this.startTime = startTime;
+            this.endTime = endTime;
+            totalTime = Duration.between(startTime, endTime).toMinutes();
         }
     }
 
     /**
-     * A function that returns the total duration of the Activity in minutes.
-     * @return Returns a Double that represents the total Activity time.
+     * A function that returns the start time of the Activity.
+     * @return Returns a LocalTime that represents the Activity start time.
      */
-    public double getTotalTime()
+    public LocalTime getStartTime()
+    {
+        return startTime;
+    }
+
+    /**
+     * A function that returns the end time of the Activity.
+     * @return Returns a LocalTime that represents the Activity end time.
+     */
+    public LocalTime getEndTime()
+    {
+        return endTime;
+    }
+
+    /**
+     * A function that returns the total duration of the Activity in minutes.
+     * @return Returns a Long that represents the total Activity time.
+     */
+    public long getTotalTime()
     {
         return totalTime;
     }
 
     /**
-     * A function that adds activity data point of an Activity.
+     * A function that takes a parameter activity data point and adds activity data point
+     * to an ArrayList of ActivityDataPoint.
      * @param activityData An ActivityDataPoint that is added into the ArrayList for the
      * Activity Data Point
      */
@@ -258,7 +276,7 @@ public class Activity
     }
 
     /**
-     * A function that returns an ArrayList of the ActivityDataPoint of the Activity
+     * A function that returns an ArrayList of type ActivityDataPoint of the Activity.
      * @return Returns an ArrayList that represents the Activity data points.
      */
     public ArrayList<ActivityDataPoint> getActivityData()
