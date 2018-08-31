@@ -61,7 +61,7 @@ public class Achievement {
     @Override
     public String toString()
     {
-        return "Lastest Achievement is: [" + name + "]";
+        return "Latest Achievement is: [" + name + "]";
     }
 
 }
