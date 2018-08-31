@@ -6,6 +6,9 @@ package seng202.team6.models;
  */
 public class Achievement {
 
+    /**
+     * The minimum name length
+     */
     private static final int MIN_NAME_LENGTH = 6;
 
     /**
