@@ -104,11 +104,24 @@
          <top>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="381.0" layoutY="58.0" prefHeight="88.0" prefWidth="409.0" text="ADD WORKOUTS" textFill="WHITE">
+                  <Label layoutX="342.0" layoutY="56.0" prefHeight="88.0" prefWidth="477.0" text="RAW DATA VEIWER" textFill="WHITE">
                      <font>
                         <Font name="NexaBold" size="48.0" />
                      </font>
                   </Label>
+                  <ImageView layoutX="73.0" layoutY="66.0">
+                     <image>
+                        <Image url="@../../../../../Semester%202/SENG202/UI%20Design/back2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="79.0" layoutY="71.0" onMouseClicked="#toWorkoutsScreen">
+                     <image>
+                        <Image url="@../resources/pics/back2.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
                </children>
             </AnchorPane>
          </top>
@@ -123,42 +136,10 @@
                   <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="51.666656494140625" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane prefHeight="167.0" prefWidth="252.0">
-                     <children>
-                        <ImageView layoutX="115.0" layoutY="36.0">
-                           <image>
-                              <Image url="@../resources/pics/addworkout.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                     <children>
-                        <ImageView layoutX="120.0" layoutY="22.0">
-                           <image>
-                              <Image url="@../resources/pics/rawdata.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                     <children>
-                        <Label layoutX="119.0" layoutY="14.0" text="UPLOAD FILE" textFill="WHITE">
-                           <font>
-                              <Font name="NexaBold" size="22.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <Label layoutX="110.0" layoutY="8.0" text="MANUAL ENTRY" textFill="WHITE">
-                           <font>
-                              <Font name="NexaBold" size="22.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane prefHeight="167.0" prefWidth="252.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </center>

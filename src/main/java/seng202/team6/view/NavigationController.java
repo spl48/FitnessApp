@@ -3,6 +3,7 @@ package seng202.team6.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,15 +18,7 @@ import java.io.IOException;
 
 public class NavigationController {
 
-    public void changeScreen(ActionEvent event, String screen) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
-    }
-
-    public void changeScreenImg(MouseEvent event, String screen) throws IOException {
+    public void changeScreen(Event event, String screen) throws IOException {
         Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -34,68 +27,68 @@ public class NavigationController {
     }
 
     @FXML
-    public void toLoginScreen(ActionEvent event) throws IOException {
+    public void toLoginScreen(Event event) throws IOException {
         changeScreen(event, "loginScreen.fxml");
     }
 
     @FXML
-    public void toRegisterScreen(ActionEvent event) throws IOException {
+    public void toRegisterScreen(Event event) throws IOException {
         changeScreen(event, "registerScreen.fxml");
     }
 
     @FXML
-    public void toHomeScreen(ActionEvent event) throws IOException {
+    public void toHomeScreen(Event event) throws IOException {
         changeScreen(event, "HomeScreen.fxml");
     }
 
     @FXML
-    public void toProfileScreen(ActionEvent event) throws IOException {
+    public void toProfileScreen(Event event) throws IOException {
         changeScreen(event, "profileScreen.fxml");
     }
 
     @FXML
-    public void toWorkoutsScreen(ActionEvent event) throws IOException {
-        changeScreen(event, "WorkoutsScreenSplash.fxml");
+        public void toWorkoutsScreen(Event event) throws IOException {
+            changeScreen(event, "WorkoutsScreenSplash.fxml");
     }
 
     @FXML
-    public void toGoalsScreen(ActionEvent event) throws IOException {
+    public void toGoalsScreen(Event event) throws IOException {
         changeScreen(event, "GoalsScreen.fxml");
     }
 
     @FXML
-    public void toCalendarScreen(ActionEvent event) throws IOException {
+    public void toCalendarScreen(Event event) throws IOException {
         changeScreen(event, "CalendarScreen.fxml");
     }
 
     @FXML
-    public void toHealthScreen(ActionEvent event) throws IOException {
+    public void toHealthScreen(Event event) throws IOException {
         changeScreen(event, "HealthScreen.fxml");
     }
 
     @FXML
-    public void toRawDataVeiwer(MouseEvent event) throws IOException {
-        changeScreenImg(event, "RawDataVeiwer.fxml");
+    public void toRawDataVeiwer(Event event) throws IOException {
+        changeScreen(event, "RawDataVeiwer.fxml");
     }
 
     @FXML
-    public void toWorkoutAnalysis(MouseEvent event) throws IOException {
-        changeScreenImg(event, "WorkoutAnalysis.fxml");
+    public void toWorkoutAnalysis(Event event) throws IOException {
+        changeScreen(event, "WorkoutAnalysis.fxml");
     }
 
     @FXML
-    public void toAddWorkout(MouseEvent event) throws IOException {
-        changeScreenImg(event, "AddWorkout.fxml");
+    public void toAddWorkout(Event event) throws IOException {
+        changeScreen(event, "AddWorkout.fxml");
     }
 
     @FXML
-    public void toWorkoutManualEntry(MouseEvent event) throws IOException {
-        changeScreenImg(event, "WorkoutManualEntry.fxml");
+    public void toWorkoutManualEntry(Event event) throws IOException {
+        changeScreen(event, "WorkoutManualEntry.fxml");
     }
 
     @FXML
-    public void toUploadWorkoutFile(MouseEvent event) throws IOException {
-        changeScreenImg(event, "WorkoutUpload.fxml");
+    public void toUploadWorkoutFile(Event event) throws IOException {
+        changeScreen(event, "WorkoutUpload.fxml");
     }
     
     
