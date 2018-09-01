@@ -42,11 +42,6 @@ public class Goal
     private ArrayList<String> reminders = new ArrayList<String>();
 
     /**
-     * The achievements earned by the User
-     */
-    private ArrayList<Achievement> achievements = new ArrayList<Achievement>();
-
-    /**
      * The congratulatory message for the User once the Goal is achieved
      */
     private String congratulationMessage;
@@ -167,26 +162,6 @@ public class Goal
     public ArrayList<String> getReminders()
     {
         return reminders;
-    }
-
-    /**
-     * A function that takes an Achievement parameter achievement earned and adds the
-     * Achievement earned by the User to its ArrayList of Achievements.
-     * @param achievement An Achievement parameter that represents User achievement.
-     */
-    public void addAchievements(Achievement achievement)
-    {
-        this.achievements.add(achievement);
-    }
-
-    /**
-     * A function that returns an ArrayList of Achievements of the User from their Goal.
-     * @return Returns ArrayList of Achievement that represents the earned achievements of the
-     * User from their Goal.
-     */
-    public ArrayList<Achievement> getAchievements()
-    {
-        return achievements;
     }
 
     /**
