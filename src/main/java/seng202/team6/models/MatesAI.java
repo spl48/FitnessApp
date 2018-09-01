@@ -47,6 +47,25 @@ public class MatesAI
     }
 
     /**
+     * A function that takes a parameter name and sets the name of MATES AI to
+     * the given String parameter name.
+     * @param name A String parameter used as name of MATES AI.
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    /**
+     * A function that returns the name of MATES AI.
+     * @return Returns a String representation of the MATES AI name.
+     */
+    public String getName()
+    {
+        return name;
+    }
+
+    /**
      * A function that takes the parameter user and sets the greeting of
      * MATES AI specifically for the given user.
      * @param user A User of the application.
