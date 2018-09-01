@@ -44,7 +44,7 @@ public class Goal
     /**
      * The achievements earned by the User
      */
-    private ArrayList<Achievement> achievementEarned = new ArrayList<Achievement>();
+    private ArrayList<Achievement> achievements = new ArrayList<Achievement>();
 
     /**
      * The congratulatory message for the User once the Goal is achieved
@@ -172,11 +172,11 @@ public class Goal
     /**
      * A function that takes an Achievement parameter achievement earned and adds the
      * Achievement earned by the User to its ArrayList of Achievements.
-     * @param achievementEarned An Achievement parameter that represents User achievement.
+     * @param achievement An Achievement parameter that represents User achievement.
      */
-    public void addAchievementEarned(Achievement achievementEarned)
+    public void addAchievements(Achievement achievement)
     {
-        this.achievementEarned.add(achievementEarned);
+        this.achievements.add(achievement);
     }
 
     /**
@@ -184,9 +184,9 @@ public class Goal
      * @return Returns ArrayList of Achievement that represents the earned achievements of the
      * User from their Goal.
      */
-    public ArrayList<Achievement> getAchievementEarned()
+    public ArrayList<Achievement> getAchievements()
     {
-        return achievementEarned;
+        return achievements;
     }
 
     /**
