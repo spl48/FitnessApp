@@ -76,16 +76,6 @@ public class Profile
     }
 
     /**
-     * A function that takes the parameter user and sets the username of the
-     * Profile to the User's chosen username.
-     * @param user A User parameter that is the Profile User.
-     */
-    public void setUsername(User user)
-    {
-        username = user.getUsername();
-    }
-
-    /**
      * A function that takes a Goal parameter and adds the goal to an ArrayList
      * of Goal.
      * @param goal A Goal parameter that is added to an ArrayList of Goal.
