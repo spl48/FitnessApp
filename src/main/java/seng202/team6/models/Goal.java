@@ -1,20 +1,16 @@
 package seng202.team6.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * This class implements Goal and sets the required information about a Goal specified by
  * the User.
  * @author Angelica Dela Cruz
- * @version 1.1, Aug 2018.
+ * @version 1.2, Aug 2018.
  */
 public class Goal
 {
-    /**
-     * The date length
-     */
-    private int DATE_LENGTH = 8;
-
     /**
      * The minimum goal name length
      */
@@ -28,12 +24,12 @@ public class Goal
     /**
      * The date that the Goal is created.
      */
-    private String dateSet;
+    private LocalDate dateSet;
 
     /**
      * The date that the Goal is achieved.
      */
-    private String dateAchieved;
+    private LocalDate dateAchieved;
 
     /**
      * The status if the Goal has been reached (true) or not (false)
@@ -56,18 +52,14 @@ public class Goal
     private String congratulationMessage;
 
     /**
-     * The constructor for the Goal that sets the date created and name for the specific
-     * Goal.
-     * @param dateSet A String parameter that is used to set the date the Goal is created.
+     * The constructor for the Goal that takes the parameter date set and goal name and sets
+     * the date created and goal name for the specific Goal.
+     * @param dateSet A LocalDate parameter that is used to set the date the Goal is created.
      * @param goalName A String parameter that is used to set the name of the Goal.
      */
-    public Goal(String goalName, String dateSet)
+    public Goal(String goalName, LocalDate dateSet)
     {
-        if (dateSet.length() == DATE_LENGTH) {
-            this.dateSet = dateSet;
-        } else {
-            this.dateSet = "DD/MM/YY";
-        }
+        this.dateSet = dateSet;
 
         if (goalName.length() >= MIN_GOAL_NAME_LENGTH) {
             this.goalName = goalName;
@@ -77,8 +69,9 @@ public class Goal
     }
 
     /**
-     * A function that sets the name of the Goal to the given String parameter goalName.
-     * Checks if the name of the Goal is valid.
+     * A function that takes the parameter name and sets the name of the Goal
+     * to the given String parameter goalName. Checks if the name of the Goal
+     * is valid if the name length is greater or equal to the min name length.
      * @param goalName A String parameter used to set the Goal's name.
      */
     public void setGoalName(String goalName)
@@ -91,7 +84,7 @@ public class Goal
     }
 
     /**
-     * A function that returns the name of the Goal.
+     * A function that returns the name of the specific Goal.
      * @return Returns a String that represents the name of the Goal.
      */
     public String getGoalName()
@@ -100,55 +93,46 @@ public class Goal
     }
 
     /**
-     * A function that sets the date of when the Goal is created to the given String
-     * parameter dateSet of the form DD/MM/YY. Checks if the date is valid if the date
-     * is equal to the date length.
-     * @param dateSet A String parameter used to set the date Goal is created by the User.
+     * A function that takes the parameter date set and sets the date of when the Goal
+     * is created to the given LocalDate parameter.
+     * @param dateSet A LocalDate parameter used to set the date Goal is created by the User.
      */
-    public void setDateSet(String dateSet)
+    public void setDateSet(LocalDate dateSet)
     {
-        if (dateSet.length() == DATE_LENGTH) {
-            this.dateSet = dateSet;
-        } else {
-            this.dateSet = "DD/MM/YY";
-        }
+        this.dateSet = dateSet;
     }
 
     /**
      * A function that returns the date that the Goal is created.
-     * @return Returns a String that represents the date the Goal is set.
+     * @return Returns a LocalDate that represents the date the Goal is set.
      */
-    public String getDateSet()
+    public LocalDate getDateSet()
     {
         return dateSet;
     }
 
     /**
-     * A function that sets the date of when the Goal is achieved of the form DD/MM/YY.
-     * Checks if the parameter dateAchieved is valid if the length is equal to date length.
-     * @param dateAchieved A String parameter used to set when the Goal is achieved.
+     * A function that takes the parameter date achieved and sets the date of when the Goal
+     * is achieved to the given parameter.
+     * @param dateAchieved A LocalDate parameter used to set the date of when the Goal is achieved.
      */
-    public void setDateAchieved(String dateAchieved)
+    public void setDateAchieved(LocalDate dateAchieved)
     {
-        if (dateAchieved.length() == DATE_LENGTH) {
-            this.dateAchieved = dateAchieved;
-        } else {
-            this.dateAchieved = "DD/MM/YY";
-        }
+        this.dateAchieved = dateAchieved;
     }
 
     /**
-     * A function that returns when the date of the Goal is achieved.
-     * @return Returns a String that represents when the Goal is achieved.
+     * A function that returns the date of when the Goal is achieved.
+     * @return Returns a LocalDate that represents when the Goal is achieved.
      */
-    public String getDateAchieved()
+    public LocalDate getDateAchieved()
     {
         return dateAchieved;
     }
 
     /**
-     * A function that sets the status of the Goal's progress if the Goal has been
-     * achieve (true) or not (false).
+     * A function that takes a Boolean parameter and sets the status of the Goal's progress
+     * if the Goal has been achieved (true) or not (false) based on the given parameter.
      * @param goalReached A Boolean parameter used to set the status of the Goal.
      */
     public void setGoalReached(boolean goalReached)
@@ -167,8 +151,8 @@ public class Goal
     }
 
     /**
-     * A function that adds a reminder in the ArrayList of Strings containing the
-     * reminders for the specific Goal.
+     * A function that takes a String parameter reminder and adds the reminder in the
+     * ArrayList of Strings containing the reminders for the specific Goal.
      * @param reminder A String parameter added to the ArrayList reminders.
      */
     public void addReminders(String reminder)
@@ -186,7 +170,8 @@ public class Goal
     }
 
     /**
-     * A function that adds the Achievement earned by the User to its achievements.
+     * A function that takes an Achievement parameter achievement earned and adds the
+     * Achievement earned by the User to its ArrayList of Achievements.
      * @param achievementEarned An Achievement parameter that represents User achievement.
      */
     public void addAchievementEarned(Achievement achievementEarned)
@@ -195,8 +180,8 @@ public class Goal
     }
 
     /**
-     * A function that returns the Achievementd earned by the User from the Goal.
-     * @return Returns an Achievement that represents the earned achievements of the
+     * A function that returns an ArrayList of Achievements of the User from their Goal.
+     * @return Returns ArrayList of Achievement that represents the earned achievements of the
      * User from their Goal.
      */
     public ArrayList<Achievement> getAchievementEarned()
@@ -205,8 +190,8 @@ public class Goal
     }
 
     /**
-     * A function that sets the congratulatory message for the User once the Goal is
-     * accomplished.
+     * A function that takes a String parameter message and sets the congratulatory message
+     * for the User to the given parameter.
      * @param congratulationMessage A String that represents an acknowledgement of user
      * Achievement.
      */
@@ -224,31 +209,5 @@ public class Goal
     public String getCongratulationMessage()
     {
         return congratulationMessage;
-    }
-
-    public static void main(String[] args)
-    {
-        Goal goal = new Goal("Lose 5 kgs", "30/08/18");
-        goal.setGoalName("Lose 1 kg");
-        System.out.println(goal.getGoalName());
-
-        goal.setDateSet("15/09/18");
-        System.out.println(goal.getDateSet());
-
-        goal.setDateAchieved("20/09/18");
-        System.out.println(goal.getDateAchieved());
-
-        goal.setGoalReached(true);
-        System.out.println(goal.getGoalReached());
-
-        goal.addReminders("Loss 0.5 more kg to achieve your Goal!");
-        System.out.println(goal.getReminders());
-
-        Achievement achievement = new Achievement("Weight Loss of 1 kg");
-        goal.addAchievementEarned(achievement);
-        System.out.println(goal.getAchievementEarned());
-
-        goal.setCongratulationMessage("Congratulations on losing 1 kg!");
-        System.out.println(goal.getCongratulationMessage());
     }
 }
