@@ -22,7 +22,9 @@ public class DataValidation {
 
     public static boolean validateUserName(String username) {
         boolean valid = false;
-        if (username.length() > 6) {
+        if (username.length() == 0) {
+            errorBoxController.displayErrorPopUP("Username Entry Invalid", "Please provide a username.");
+        } else if (username.length() > 6) {
             errorBoxController.displayErrorPopUP("Username Entry Invalid", "Username too long\nPlease ensure username is less than 6 characters.");
         } else {
             valid = true;
@@ -59,6 +61,10 @@ public class DataValidation {
 
     public static boolean validateBirthDate(LocalDate dob) {
        boolean valid = false;
+       if (dob == null) {
+           errorBoxController.displayErrorPopUP("Invalid Date of Birth", "Please provide a date of birth.");
+           return false;
+       }
        int birthYear = dob.getYear();
        int currYear = Calendar.getInstance().get(Calendar.YEAR);
        if (birthYear > currYear - 5 || birthYear < currYear - 100) {
@@ -70,6 +76,11 @@ public class DataValidation {
     }
 
     public static boolean validateGender(String gender) {
-        return gender == "Female" || gender == "Male";
+        if (gender == "") {
+            errorBoxController.displayErrorPopUP("Empty Gender Field", "Please provide a gender.");
+            return false;
+        } else {
+            return gender == "Female" || gender == "Male";
+        }
      }
 }

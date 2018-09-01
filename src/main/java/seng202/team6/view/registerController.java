@@ -79,8 +79,8 @@ public class registerController {
         return DataValidation.validateUserName(username) &&
                DataValidation.validateName(first, "First Name") &&
                DataValidation.validateName(last, "Last Name") &&
-                DataValidation.validateGender(gender) &&
                 DataValidation.validateBirthDate(birthDate) &&
+                DataValidation.validateGender(gender) &&
                 DataValidation.validateDoubleValue(height, "Height", 280, 55) &&
                 DataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
                 DataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
