@@ -37,16 +37,6 @@ public class Goal
     private boolean goalReached = false;
 
     /**
-     * The ArrayList of the reminders for the Goal
-     */
-    private ArrayList<String> reminders = new ArrayList<String>();
-
-    /**
-     * The congratulatory message for the User once the Goal is achieved
-     */
-    private String congratulationMessage;
-
-    /**
      * The constructor for the Goal that takes the parameter date set and goal name and sets
      * the date created and goal name for the specific Goal.
      * @param dateSet A LocalDate parameter that is used to set the date the Goal is created.
@@ -145,44 +135,4 @@ public class Goal
         return goalReached;
     }
 
-    /**
-     * A function that takes a String parameter reminder and adds the reminder in the
-     * ArrayList of Strings containing the reminders for the specific Goal.
-     * @param reminder A String parameter added to the ArrayList reminders.
-     */
-    public void addReminders(String reminder)
-    {
-        reminders.add(reminder);
-    }
-
-    /**
-     * A function that returns the ArrayList of reminders specific to the Goal.
-     * @return Returns an ArrayList that represents the Goal's reminders.
-     */
-    public ArrayList<String> getReminders()
-    {
-        return reminders;
-    }
-
-    /**
-     * A function that takes a String parameter message and sets the congratulatory message
-     * for the User to the given parameter.
-     * @param congratulationMessage A String that represents an acknowledgement of user
-     * Achievement.
-     */
-    public void setCongratulationMessage(String congratulationMessage)
-    {
-        this.congratulationMessage = congratulationMessage;
-    }
-
-    /**
-     * A function that returns the congratulatory message to the User from the
-     * Goal.
-     * @return Returns a String that shows a message as an acknowledgement of
-     * User Achievement.
-     */
-    public String getCongratulationMessage()
-    {
-        return congratulationMessage;
-    }
 }
