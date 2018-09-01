@@ -83,4 +83,14 @@ public class DataValidation {
             return gender == "Female" || gender == "Male";
         }
      }
+
+    public static boolean validUserProfile(String userProfile) {
+        boolean valid = false;
+        if (userProfile == null) {
+            errorBoxController.displayErrorPopUP("Error", "Please select a profile");
+        } else {
+            valid = true;
+        }
+        return valid;
+    }
 }

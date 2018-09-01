@@ -17,7 +17,7 @@ public class startScreenController {
 
     @FXML
     public void toLoginScreen(ActionEvent event) throws IOException {
-        System.out.println("Changing to the login screen!!!!");
+        System.out.println("Changing to the login screen ggggggg!!!!");
         Parent loginParent = FXMLLoader.load(getClass().getResource("loginScreen.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -10,7 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
-
+import seng202.team6.utilities.DataValidation;
+import seng202.team6.view.errorBoxController;
 import java.io.IOException;
 
 public class loginController {
@@ -24,14 +25,20 @@ public class loginController {
         signInSelection.setItems(availableChoices);
     }
 
-    public void login() {
+    @FXML
+    public void login(ActionEvent event) throws IOException {
         String userProfile = signInSelection.getSelectionModel().getSelectedItem();
         System.out.println("User signed in: " + userProfile);
+        Parent loginParent = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+        Scene loginScene = new Scene(loginParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(loginScene);
+        appStage.show();
     }
+
 
     @FXML
     public void toStartScreen(ActionEvent event) throws IOException {
-        System.out.println("Changing to the login screen!!!!");
         Parent loginParent = FXMLLoader.load(getClass().getResource("startScreen.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
