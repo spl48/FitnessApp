@@ -22,7 +22,7 @@ public class ActivityList {
     private ArrayList<Activity> activities = new ArrayList<Activity>();
 
     /**
-     * The allow Activity types
+     * The allowed Activity types
      */
     private static final ArrayList<String> allowedActivities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking"));
 
