@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main_window" fx:id="main_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(to bottom left, rgb(67,179,119), rgb(178,228,201));" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.NavigationController">
+<AnchorPane id="main_window" fx:id="main_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(to bottom left, rgb(67,179,119), rgb(178,228,201));" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.startScreenController">
    <children>
       <Label layoutX="445.0" layoutY="191.0" prefHeight="20.0" prefWidth="477.0" style="-fx-color: white;" text="MOTIVATION AND TRAINING EMPOWERMENT SOFTWARE" textFill="WHITE">
          <font>

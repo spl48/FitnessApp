@@ -10,8 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
-import seng202.team6.utilities.DataValidation;
-import seng202.team6.view.errorBoxController;
 import java.io.IOException;
 
 public class loginController {

@@ -16,7 +16,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class NavigationController {
+public class MainMenuNavigation {
+
+    @FXML
+    private Button homeButton;
+
+    private static Button selected;
 
     public void changeScreen(Event event, String screen) throws IOException {
         Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
@@ -24,6 +29,11 @@ public class NavigationController {
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);
         appStage.show();
+    }
+
+    public void changeMenuScreen(Event event, String screen) throws IOException {
+        changeScreen(event, screen);
+        changeSelected(event);
     }
 
     @FXML
@@ -38,69 +48,55 @@ public class NavigationController {
 
     @FXML
     public void toHomeScreen(Event event) throws IOException {
-        changeScreen(event, "HomeScreen.fxml");
+        changeMenuScreen(event, "HomeScreen.fxml");
     }
 
     @FXML
     public void toProfileScreen(Event event) throws IOException {
-        changeScreen(event, "profileScreen.fxml");
+        changeMenuScreen(event, "profileScreen.fxml");
     }
 
     @FXML
         public void toWorkoutsScreen(Event event) throws IOException {
-            changeScreen(event, "WorkoutsScreenSplash.fxml");
+        changeMenuScreen(event, "WorkoutsScreenSplash.fxml");
     }
 
     @FXML
     public void toGoalsScreen(Event event) throws IOException {
-        changeScreen(event, "GoalsScreen.fxml");
+        changeMenuScreen(event, "GoalsScreen.fxml");
     }
 
     @FXML
     public void toCalendarScreen(Event event) throws IOException {
-        changeScreen(event, "CalendarScreen.fxml");
+        changeMenuScreen(event, "CalendarScreen.fxml");
     }
 
     @FXML
     public void toHealthScreen(Event event) throws IOException {
-        changeScreen(event, "HealthScreen.fxml");
+        changeMenuScreen(event, "HealthScreen.fxml");
     }
 
     @FXML
-    public void toRawDataVeiwer(Event event) throws IOException {
-        changeScreen(event, "RawDataVeiwer.fxml");
-    }
-
-    @FXML
-    public void toWorkoutAnalysis(Event event) throws IOException {
-        changeScreen(event, "WorkoutAnalysis.fxml");
-    }
-
-    @FXML
-    public void toAddWorkout(Event event) throws IOException {
-        changeScreen(event, "AddWorkout.fxml");
-    }
-
-    @FXML
-    public void toWorkoutManualEntry(Event event) throws IOException {
-        changeScreen(event, "WorkoutManualEntry.fxml");
-    }
-
-    @FXML
-    public void toUploadWorkoutFile(Event event) throws IOException {
-        changeScreen(event, "WorkoutUpload.fxml");
+    public void changeSelected(Event event) {
+        selected.setStyle("-fx-background-color:#b2e4ca;");
+        selected = (Button) event.getSource();
+        selected.setStyle("-fx-background-color:#85ab97;");
     }
     
-    
     @FXML
-    public void darkenButton(MouseEvent event) {
+    public void darkenButton(Event event) {
         Button btn = (Button) event.getSource();
         btn.setStyle("-fx-background-color:#85ab97;");
     }
 
     @FXML
     public void lightenButton(MouseEvent event){
+        if (selected == null) {
+            selected = homeButton;
+        }
         Button btn = (Button) event.getSource();
-        btn.setStyle("-fx-background-color:#b2e4ca;");
+        if (!btn.getId().equals(selected.getId())) {
+            btn.setStyle("-fx-background-color:#b2e4ca;");
+        }
     }
 }
