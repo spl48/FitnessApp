@@ -37,16 +37,6 @@ public class MainMenuNavigation {
     }
 
     @FXML
-    public void toLoginScreen(Event event) throws IOException {
-        changeScreen(event, "loginScreen.fxml");
-    }
-
-    @FXML
-    public void toRegisterScreen(Event event) throws IOException {
-        changeScreen(event, "registerScreen.fxml");
-    }
-
-    @FXML
     public void toHomeScreen(Event event) throws IOException {
         changeMenuScreen(event, "HomeScreen.fxml");
     }
