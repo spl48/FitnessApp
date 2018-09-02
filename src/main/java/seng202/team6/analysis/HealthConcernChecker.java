@@ -22,7 +22,7 @@ public class HealthConcernChecker {
         ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
         int age = profile.getUser().getAge();
 
-        double minHeartRateRisk = 208 - 0.7 * age;    // lowest heart rate for which a user is at risk
+        double minHeartRateRisk = 208 - 0.7 * age;    // Lowest heart rate for which a user is at risk
 
         for (Activity walk : walkingData) {
             if (walk.getMinHeartRate() >= minHeartRateRisk); // User is at risk
@@ -43,9 +43,9 @@ public class HealthConcernChecker {
         ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
         int age = profile.getUser().getAge();
 
-        if (age >= 18) {
+        if (age >= 18) { // User is an adult
             for (Activity walk : walkingData) {
-                if (walk.getMinHeartRate() < 50) {
+                if (walk.getMinHeartRate() < 50) { // User is at risk for Bradycardia
                     return true;
                 }
             }
@@ -61,7 +61,7 @@ public class HealthConcernChecker {
      * @return A boolean expression for if a user is at risk for Bradycardia.
      */
     public boolean checkCardiovascularMortality(Profile profile) {
-        if (profile.getUser().getAge() < 18) { // user is a child
+        if (profile.getUser().getAge() < 18) { // User is a child
             return false;
         }
 
