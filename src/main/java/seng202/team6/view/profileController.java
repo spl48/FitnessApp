@@ -1,9 +1,17 @@
 package seng202.team6.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import seng202.team6.models.User;
 
+import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,8 +36,11 @@ public class profileController {
         birthDateLabel.setText(currUser.getDOB().format(formatter));
     }
 
-    public void toEditProfile() {
-
-
+    public void toEditProfile(Event event) throws IOException {
+        Parent loginParent = FXMLLoader.load(getClass().getResource("EditProfileScreen.fxml"));
+        Scene loginScene = new Scene(loginParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(loginScene);
+        appStage.show();
     }
 }

@@ -1,6 +1,8 @@
 package seng202.team6.view;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,7 +23,11 @@ public class errorBoxController {
         Label label = new Label();
         label.setText(message);
         Button closeButton = new Button("OK");
-        closeButton.setOnAction((e -> errorWindow.close()));
+        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                errorWindow.close();
+            }
+        });
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, closeButton);
