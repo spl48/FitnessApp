@@ -22,12 +22,28 @@ public class HealthConcernChecker {
         ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
         int age = profile.getUser().getAge();
 
-        double minHeartRateRisk = 208 - 0.7 * age;    // Lowest heart rate for which a user is at risk
+//        double minHeartRateRisk = 208 - 0.7 * age;    // Lowest heart rate for which a user is at risk
+//
+//        for (Activity walk : walkingData) {
+//            if (walk.getMinHeartRate() >= minHeartRateRisk); // User is at risk
+//                return true;
+//            }
 
-        for (Activity walk : walkingData) {
-            if (walk.getMinHeartRate() >= minHeartRateRisk); // User is at risk
+        if ( age > 11 && age < 15) {
+            for (Activity walk : walkingData) {
+            if (walk.getMinHeartRate() >= 119); // User is at risk for Tachycardia
                 return true;
             }
+            return false;
+        }
+
+        if (age >= 15) {
+            for (Activity walk : walkingData) {
+                if (walk.getMinHeartRate() >= 100); // User is at risk for Tachycardia
+                return true;
+            }
+            return false;
+        }
 
         return false;
     }
