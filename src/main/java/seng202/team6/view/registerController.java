@@ -77,8 +77,8 @@ public class registerController {
 
     public boolean validEnteredData() {
         return DataValidation.validateUserName(username) &&
-               DataValidation.validateName(first, "First Name") &&
-               DataValidation.validateName(last, "Last Name") &&
+                DataValidation.validateName(first, "First Name") &&
+                DataValidation.validateName(last, "Last Name") &&
                 DataValidation.validateBirthDate(birthDate) &&
                 DataValidation.validateGender(gender) &&
                 DataValidation.validateDoubleValue(height, "Height", 280, 55) &&
