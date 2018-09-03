@@ -7,6 +7,26 @@ import seng202.team6.view.errorBoxController;
 
 public class DataValidation {
 
+    /**
+     * The minimum length of the User's first name
+     */
+    private static final int MIN_NAME_LENGTH = 2;
+
+    /**
+     * The maximum length of the User's username
+     */
+    private static final int MAX_USERNAME_LENGTH = 12;
+
+    /**
+     * The minimum length of the User's username
+     */
+    private static final int MIN_USERNAME_LENGTH = 3;
+
+    /**
+     * The minimum age of the User
+     */
+    private static final int MIN_AGE = 5;
+
     public static boolean isAlpha(String string) {
 
         char[] chars = string.toCharArray();
