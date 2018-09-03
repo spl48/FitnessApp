@@ -11,26 +11,15 @@ import java.time.temporal.ChronoUnit;
 
 public class User
 {
+    /**
+     * The first name of the User
+     */
+    private String firstName;
 
     /**
-     * The minimum length of the User's name
+     * The last name of the User
      */
-    private static final int MIN_NAME_LENGTH = 2;
-
-    /**
-     * The minimum length of the User's username
-     */
-    private static final int MIN_USERNAME_LENGTH = 6;
-
-    /**
-     * The minimum age of the User
-     */
-    private static final int MIN_AGE = 5;
-
-    /**
-     * The name of the User
-     */
-    private String name;
+    private String lastName;
 
     /**
      * The date of birth of the User
@@ -41,6 +30,11 @@ public class User
      * The age of the User
      */
     private int age;
+
+    /**
+     * The gender of User
+     */
+    private String gender;
 
     /**
      * The height of the User
@@ -64,104 +58,89 @@ public class User
 
     /**
      * The constructor for the User that takes the parameter name, dob, age height, weight, stride length and username.
-     * @param name A String parameter that is used to set the name of the User.
+     * @param firstName A String parameter that is used to set the first name of the User.
+     * @param lastName A String parameter that is used to set the last name of the User.
      * @param dob A LocalDate parameter that is used to set the User's dob.
-     * @param age An Integer parameter used to set the User's age.
      * @param height A type Double parameter that is used to set the height of the User.
      * @param weight A type Double parameter that is used to set the weight of the User.
      * @param strideLength A type Double parameter that is used to set the length of the stride of the User.
      * @param username A String parameter that is used to set the username of the User.
      */
-    public User(String name, LocalDate dob, int age, double height, double weight, double strideLength, String username)
+    public User(String firstName, String lastName, LocalDate dob, String gender, double height, double weight, double strideLength, String username)
     {
-        if (name.length() >= MIN_NAME_LENGTH) {
-            this.name = name;
-        } else {
-            this.name = "invalid";
-        }
+        this.firstName = firstName;
+        this.lastName = lastName;
 
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
-        LocalDate invalid = LocalDate.now().plus(-5, ChronoUnit.YEARS);
 
-        if ((year - dob.getYear()) >= MIN_AGE && (month - dob.getMonthValue()) >= 0) {
+        int yearBirth = year - dob.getYear();
+        int monthBirth = month - dob.getMonthValue();
+
+        if (monthBirth >= 0) {
             this.dob = dob;
-            this.age = age;
+            this.age = yearBirth;
         } else {
-            this.age = MIN_AGE;
-            this.dob = invalid;
+            this.age = yearBirth - 1;
+            this.dob = dob;
         }
 
-        if (height < 0) {
-            this.height = 0.0;
-        } else {
-            this.height = height;
-        }
-
-        if (weight < 0) {
-            this.weight = 0.0;
-        } else {
-            this.weight = weight;
-        }
-
-        if (strideLength < 0) {
-            this.strideLength = 0.0;
-        } else {
-            this.strideLength = strideLength;
-        }
-
-        if ((username.length()) >= MIN_USERNAME_LENGTH) {
-            this.username = username;
-        } else {
-            this.username = "invalid";
-        }
+        this.gender = gender;
+        this.height = height;
+        this.weight = weight;
+        this.strideLength = strideLength;
+        this.username = username;
     }
 
     /**
-     * A function that takes a String parameter name and sets the name of the User to
-     * the given String parameter. Checks that the name is valid if the length of the name
-     * is greater or equal to minimum name length. Otherwise, name is set to invalid.
-     * @param name A String parameter that is used to set the name of the User.
+     * A function that takes a String parameter first name and last name and sets the name of the User to
+     * the given String parameters.
+     * @param firstName A String parameter that is used to set the first name of the User.
+     * @param lastName A String parameter that is used to set the last name of the User.
      */
-    public void setName(String name)
+    public void setName(String firstName, String lastName)
     {
-        if (name.length() >= MIN_NAME_LENGTH) {
-            this.name = name;
-        } else {
-            this.name = "invalid";
-        }
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     /**
-     * A function that returns the name of the User.
-     * @return Returns a String that represents the User's name.
+     * A function that returns the first name of the User.
+     * @return Returns a String that represents the User's first name.
      */
-    public String getName()
+    public String getFirstName()
     {
-        return name;
+        return firstName;
     }
 
     /**
-     * A function that takes an Integer parameter age and a LocalDate parameter dob
-     * and sets the age of the User to the given parameter in years and dob of the User.
-     * Checks if age and dob is valid if the User's age and dob coincide with the
-     * minimum age. If not age is set to min age and date is set to a default date.
-     * A date that is 5 years before.
-     * @param age An Integer parameter used as the age of the User.
+     * A function that returns the last name of the User.
+     * @return Returns a String that represents the User's last name.
+     */
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    /**
+     * A function that takes a LocalDate parameter dob and sets the age of the User
+     * to the given parameter in years and dob of the User based on the date of birth.
      * @param dob A LocalDate parameter that is used to set the User's dob.
      */
-    public void setAgeAndDOB(int age, LocalDate dob)
+    public void setAgeAndDOB(LocalDate dob)
     {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
-        LocalDate invalid = LocalDate.now().plus(-5, ChronoUnit.YEARS);
 
-        if ((year - dob.getYear()) >= MIN_AGE && (month - dob.getMonthValue()) >= 0) {
+        int yearBirth = year - dob.getYear();
+        int monthBirth = month - dob.getMonthValue();
+
+        if (monthBirth >= 0) {
             this.dob = dob;
-            this.age = age;
+            this.age = yearBirth;
         } else {
-            this.age = MIN_AGE;
-            this.dob = invalid;
+            this.age = yearBirth - 1;
+            this.dob = dob;
         }
     }
 
@@ -185,17 +164,12 @@ public class User
 
     /**
      * A function that takes the Double parameter height and sets the height of
-     * the User to the given parameter height in cm. Checks if height is
-     * greater than 0, otherwise invalid and is set to 0.0.
+     * the User to the given parameter height in cm.
      * @param height A Double parameter that is used as the height of the User.
      */
     public void setHeight(double height)
     {
-        if (height < 0.0) {
-            this.height = 0.0;
-        } else {
-            this.height = height;
-        }
+        this.height = height;
     }
 
     /**
@@ -209,17 +183,12 @@ public class User
 
     /**
      * A function that takes the Double parameter weight and sets the weight of the
-     * User to the given parameter in kgs. Checks if weight is greater than 0.
-     * Otherwise, weight is invalid and set to 0.0.
+     * User to the given parameter in kgs.
      * @param weight A Double parameter that is used as the weight of the User in kg.
      */
     public void setWeight(double weight)
     {
-        if (weight < 0.0) {
-            this.weight = 0.0;
-        } else {
-            this.weight = weight;
-        }
+        this.weight = weight;
     }
 
     /**
@@ -233,19 +202,13 @@ public class User
 
     /**
      * A function that takes the Double parameter stride length and sets the length
-     * of the stride of the User to the given Double parameter in feet. Checks if
-     * stride length is greater than 0. Otherwise, invalid stride length and is set to
-     * 0.0.
+     * of the stride of the User to the given Double parameter in feet.
      * @param strideLength A Double parameter that is used as the stride length of the User
      * in feet.
      */
     public void setStrideLength(double strideLength)
     {
-        if (strideLength < 0.0) {
-            this.strideLength = 0.0;
-        } else {
-            this.strideLength = strideLength;
-        }
+       this.strideLength = strideLength;
     }
 
     /**
@@ -266,11 +229,7 @@ public class User
      */
     public void setUsername(String username)
     {
-        if ((username.length()) < MIN_USERNAME_LENGTH) {
-            this.username = "invalid";
-        } else {
-            this.username = username;
-        }
+        this.username = username;
     }
 
     /**
