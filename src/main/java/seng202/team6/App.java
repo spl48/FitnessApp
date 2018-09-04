@@ -28,7 +28,7 @@ public class App
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        loader.importDataFromCSV(1, "c:/Users/Gavin/Desktop/SENG202/sample_data.csv", test);
+        loader.importDataFromCSV(1, "C:\\Users\\dhlam\\OneDrive - University of Canterbury\\2018\\Semester 2\\SENG202\\Deliverable 1\\Sample Data.csv", test);
         ResultSet rsa;
         ResultSet rsaa;
         try {

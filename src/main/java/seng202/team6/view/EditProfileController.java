@@ -37,14 +37,14 @@ public class EditProfileController {
     private LocalDate birthDate;
 
     public void initialize() {
-        User testUser = new User("Joe Bloggs", LocalDate.of(2011, 5,8), 31, 1.65, 70, 2.5, "jbl32andmore"); //Test instance
+        User testUser = new User("Joe","Bloggs", LocalDate.of(2011, 5,8), "male",31, 1.65, 70, "jbl74ddddddddd"); //Test instance
         User currUser = testUser; //Replace with database current user.
 
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");
         genderField.setItems(availableChoices);
 
-        fnameField.setText(currUser.getName());
-        lnameField.setText(currUser.getName());
+        fnameField.setText(currUser.getFirstName());
+        lnameField.setText(currUser.getLastName());
         usernameField.setText(currUser.getUsername());
         genderField.setValue("Male");
         heightField.setText(Double.toString(currUser.getHeight()));

@@ -68,15 +68,15 @@ public class MainMenuNavigation {
 
     @FXML
     public void changeSelected(Event event) {
-        selected.setStyle("-fx-background-color:#b2e4ca;");
+        selected.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
         selected = (Button) event.getSource();
-        selected.setStyle("-fx-background-color:#85ab97;");
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
     
     @FXML
     public void darkenButton(Event event) {
         Button btn = (Button) event.getSource();
-        btn.setStyle("-fx-background-color:#85ab97;");
+        btn.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
     @FXML
@@ -86,7 +86,7 @@ public class MainMenuNavigation {
         }
         Button btn = (Button) event.getSource();
         if (!btn.getId().equals(selected.getId())) {
-            btn.setStyle("-fx-background-color:#b2e4ca;");
+            btn.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
         }
     }
 }

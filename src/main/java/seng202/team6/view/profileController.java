@@ -22,10 +22,10 @@ public class profileController {
     private Label nameLabel, usernameLabel, birthDateLabel, genderLabel, heightLabel, weightLabel, strideLabel;
 
     public void initialize() {
-        User testUser = new User("Joe Bloggs", LocalDate.of(2011, 5,8), 31, 1.65, 70, 2.5, "jbl32andmore"); //Test instance
+        User testUser = new User("Joe","Bloggs", LocalDate.of(2011, 5,8), "male",31, 1.65, 70, "jbl74ddddddddd"); //Test instance
         User currUser = testUser; //Replace with database current user.
 
-        nameLabel.setText(currUser.getName());
+        nameLabel.setText(currUser.getFirstName());
         usernameLabel.setText(currUser.getUsername());
         genderLabel.setText("Male");
         heightLabel.setText(Double.toString(currUser.getHeight()));

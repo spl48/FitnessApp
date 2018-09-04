@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="80.0" prefWidth="1366.0" style="-fx-background-color: rgb(76,76,76);" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.HeaderInit">
+   <children>
+      <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="1278.0" layoutY="16.0">
+         <image>
+            <Image url="@../resources/pics/profileDefault2.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1157.0" layoutY="16.0" text="JOE" textFill="WHITE">
+         <font>
+            <Font name="NexaBold" size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="1157.0" layoutY="41.0" text="BLOGGS" textFill="WHITE">
+         <font>
+            <Font name="NexaBold" size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="11.0" prefHeight="58.0" prefWidth="168.0" text="LOGO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="41.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

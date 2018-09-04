@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.WorkoutsNavigator">
    <top>
-      <AnchorPane prefHeight="110.0" prefWidth="1454.0" style="-fx-background-color: rgb(76,76,76);" BorderPane.alignment="CENTER" />
+      <fx:include source="header.fxml"/>
    </top>
    <left>
       <fx:include source="sidebar.fxml"/>
