@@ -163,6 +163,24 @@ public class User
     }
 
     /**
+     * A function that takes a String parameter gender and sets the Gender of the User to
+     * given parameter.
+     * @param gender A String that is used as the gender of the User.
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * A function that returns the User gender (Female or Male).
+     * @return Returns a String representing the User gender.
+     */
+    public String getGender()
+    {
+        return gender;
+    }
+
+    /**
      * A function that takes the Double parameter height and sets the height of
      * the User to the given parameter height in cm.
      * @param height A Double parameter that is used as the height of the User.
