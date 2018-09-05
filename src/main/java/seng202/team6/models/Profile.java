@@ -13,11 +13,6 @@ public class Profile
     private User user;
 
     /**
-     * The username of the User that the Profile is associated with
-     */
-    private String username;
-
-    /**
      * The Goals of the User that the Profile is associated with
      */
     private ArrayList<Goal> goals = new ArrayList<Goal>();
