@@ -7,8 +7,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="80.0" prefWidth="1366.0" style="-fx-background-color: rgb(76,76,76);" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.HeaderInit">
-   <children>
+<!--used to be prefHeight="80.0"-->
+<AnchorPane prefHeight="0.0" prefWidth="1366.0" style="-fx-background-color: rgb(76,76,76);" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.HeaderInit">
+   <!--<children>
       <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="1278.0" layoutY="16.0">
          <image>
             <Image url="@../resources/pics/profileDefault2.png" />
@@ -29,5 +30,5 @@
             <Font name="System Bold" size="41.0" />
          </font>
       </Label>
-   </children>
+   </children>-->
 </AnchorPane>
