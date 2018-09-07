@@ -4,16 +4,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import javafx.scene.chart.CategoryAxis;
 
-public class ActivityGraph extends Application {
+public class WorkoutAnalysisController {
 
     private Activity makeTestRun() {
         LocalDate inputDate = LocalDate.of(2018, 10, 9);
@@ -30,40 +34,14 @@ public class ActivityGraph extends Application {
         return testActivity;
     }
 
+    @FXML
+    private ChoiceBox<String> activityTypeSelection;
 
-    @Override public void start(Stage stage) {
-        stage.setTitle("Line Chart Sample");
-        final CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Time");
-        //defining the axes
-        final NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Heart Rate (BPM)");
-        //creating the chart
-        final LineChart<String,Number> lineChart =
-                new LineChart<String,Number>(xAxis,yAxis);
-
-        lineChart.setTitle("Heart Rate");
-        //defining a series
-        XYChart.Series series = new XYChart.Series();
-        series.setName("My portfolio");
-        //populating the series with data
-        Activity testRun = makeTestRun();
-
-        for (ActivityDataPoint point : testRun.getActivityData()) {
-
-            series.getData().add(new XYChart.Data(point.getTime().toString(), point.getHeartRate()));
-        }
-
-
-        Scene scene  = new Scene(lineChart,800,600);
-        lineChart.getData().add(series);
-
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+        // This method is called by the FXMLLoader when initialization is complete
+    void initialize() {
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("lem72", "rch141", "gon12", "dla72", "spl8");
+        activityTypeSelection.setItems(availableChoices);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
-
