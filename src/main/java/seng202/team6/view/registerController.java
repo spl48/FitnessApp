@@ -3,19 +3,28 @@ package seng202.team6.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.utilities.DataValidation;
+import seng202.team6.utilities.GeneralUtilities;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+
+import static javafx.scene.paint.Color.rgb;
 
 public class registerController {
 
@@ -40,9 +49,9 @@ public class registerController {
     }
 
     @FXML
-    public void toStartScreen(ActionEvent event) throws IOException {
+    public void toStartScreen(Event event) throws IOException {
         System.out.println("Changing to the login screen!!!!");
-        Parent loginParent = FXMLLoader.load(getClass().getResource("startScreen.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("startScreen2.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);
@@ -50,11 +59,14 @@ public class registerController {
     }
 
     @FXML
-    public void createNewUser(ActionEvent event) throws IOException {
+    public void createNewUser(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
+        GeneralUtilities.printResultSet(DatabaseManager.displayUsers());
         setEnteredData();
         if (validEnteredData()) {
             System.out.println("Created a new user!!");
             printData();
+            DatabaseManager.addUser(username);
+            DatabaseManager.displayUsers();
             toStartScreen(event);
             //Enter into database
         }
@@ -95,6 +107,30 @@ public class registerController {
         System.out.println("Height: " + height);
         System.out.println("Weight: " + weight);
         System.out.println("Stride Length: " + stride);
+    }
+
+    @FXML
+    public void darkenButton(Event event) {
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:rgb(51,145,133);");
+    }
+
+    @FXML
+    public void lightenButton(MouseEvent event){
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:rgb(63,179,164);");
+    }
+
+    @FXML
+    public void darkenCircle(Event event) {
+        Circle circle = (Circle) event.getSource();
+        circle.setFill(rgb(63,179,164));
+    }
+
+    @FXML
+    public void lightenCircle(MouseEvent event){
+        Circle circle = (Circle) event.getSource();
+        circle.setFill(rgb(51,145,133));
     }
 
 

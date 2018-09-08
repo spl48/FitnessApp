@@ -23,8 +23,10 @@ public class errorBoxController {
         Label label = new Label();
         label.setText(message);
         Button closeButton = new Button("OK");
+
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent event) {
                 errorWindow.close();
             }
         });

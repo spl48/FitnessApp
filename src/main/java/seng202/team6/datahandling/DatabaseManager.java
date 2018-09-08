@@ -6,7 +6,7 @@ public class DatabaseManager implements DataLoader {
     private static Connection con;
     private static boolean hasData = false;
 
-    public ResultSet displayUsers() throws SQLException, ClassNotFoundException {
+    public static ResultSet displayUsers() throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
@@ -34,13 +34,13 @@ public class DatabaseManager implements DataLoader {
     }
 
 
-    private void getConnection() throws ClassNotFoundException, SQLException {
+    private static void getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         con = DriverManager.getConnection("jdbc:sqlite:Data.db");
         initialiseDatabase();
     }
 
-    private void initialiseDatabase() throws SQLException {
+    private static void initialiseDatabase() throws SQLException {
         if(!hasData) {
             hasData = true;
             Statement state = con.createStatement();
@@ -84,7 +84,7 @@ public class DatabaseManager implements DataLoader {
         return con;
     }
 
-    public void addUser(String username) throws SQLException, ClassNotFoundException {
+    public static void addUser(String username) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }

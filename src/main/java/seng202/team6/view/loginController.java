@@ -37,7 +37,7 @@ public class loginController {
 
     @FXML
     public void toStartScreen(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("startScreen.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("startScreen2.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);
