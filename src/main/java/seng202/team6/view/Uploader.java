@@ -1,5 +1,7 @@
 package seng202.team6.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -7,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -14,6 +17,16 @@ import java.io.File;
 import java.io.IOException;
 
 public class Uploader {
+
+    @FXML
+    private ChoiceBox<String> sessionType_E;
+
+    @FXML // This method is called by the FXMLLoader when initialization is complete
+    void initialize() {
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
+        sessionType_E.setItems(availableChoices);
+    }
+
 
     /**
      * Opens up a file selection window and allows user to select a desired .csv file.
@@ -53,4 +66,6 @@ public class Uploader {
     public void toAddWorkout(Event event) throws IOException {
         changeScreen(event, "AddWorkout.fxml");
     }
+
+
 }
