@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import seng202.team6.controller.ApplicationManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.utilities.DataValidation;
 import seng202.team6.utilities.GeneralUtilities;
@@ -23,6 +24,7 @@ import seng202.team6.utilities.GeneralUtilities;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static javafx.scene.paint.Color.rgb;
 
@@ -65,7 +67,8 @@ public class registerController {
         if (validEnteredData()) {
             System.out.println("Created a new user!!");
             printData();
-            DatabaseManager.addUser(username);
+            System.out.println(birthDate.toString());
+            DatabaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight);
             DatabaseManager.displayUsers();
             toStartScreen(event);
             //Enter into database

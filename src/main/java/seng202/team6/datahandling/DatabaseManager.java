@@ -34,11 +34,11 @@ public class DatabaseManager implements DataLoader {
         return res;
     }
 
-    public ArrayList<String> getUsernames() throws SQLException, ClassNotFoundException {
+    public static ArrayList<String> getUsernames() throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
-        ArrayList<String> users = new ArrayList<>();
+        ArrayList<String> users = new ArrayList<String>();
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM user");
         while(res.next()){
