@@ -28,7 +28,6 @@ public class MainMenuNavigation {
         if (selected == null) {
             selected = homeButton;
         }
-        System.out.println("Initializing: " + selected.getId());
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
         //ObservableList<String> availableChoices = FXCollections.observableArrayList("lem72", "rch141", "gon12", "dla72", "spl8");
         // signInSelection.setItems(availableChoices);
