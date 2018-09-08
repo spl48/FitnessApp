@@ -27,22 +27,23 @@
       </Pane>
    </top>
    <center>
-      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+      <GridPane fx:id="profileGrid" alignment="CENTER" BorderPane.alignment="CENTER">
         <columnConstraints>
+            <!--<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />-->
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+          <!--<RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+            <RowConstraints />
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />-->
         </rowConstraints>
          <BorderPane.margin>
             <Insets left="50.0" right="50.0" top="60.0" />
          </BorderPane.margin>
          <children>
-            <Circle fill="DODGERBLUE" radius="70.0" stroke="#8a8a8a00" strokeType="INSIDE" strokeWidth="2.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <!--<Circle fill="DODGERBLUE" radius="70.0" stroke="#8a8a8a00" strokeType="INSIDE" strokeWidth="2.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <ImageView fitHeight="86.0" fitWidth="70.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../resources/pics/userIcon.png" />
@@ -59,8 +60,8 @@
                <image>
                   <Image url="@../resources/pics/userIcon.png" />
                </image>
-            </ImageView>
-            <Button fx:id="startUser" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#changeSelected" prefHeight="226.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-color: transparent transparent rgb(200,200,200) transparent; -fx-border-width: 4; -fx-background-radius: 0;" text="user23" textFill="#727272" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            </ImageView>-->
+            <!--<Button fx:id="startUser" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#changeSelected" prefHeight="226.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-color: transparent transparent rgb(200,200,200) transparent; -fx-border-width: 4; -fx-background-radius: 0;" text="user23" textFill="#727272" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="NexaBold" size="23.0" />
                </font>
@@ -83,7 +84,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </Button>
+            </Button>-->
          </children>
       </GridPane>
    </center>
