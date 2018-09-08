@@ -1,43 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main_window" fx:id="main_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(to bottom left, rgb(67,179,119), rgb(178,228,201));" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.loginController">
-   <children>
-      <ChoiceBox fx:id="signInSelection" layoutX="639.0" layoutY="336.0" prefHeight="37.0" prefWidth="289.0" style="-fx-background-color: white;" />
-      <Label layoutX="14.0" layoutY="56.0" prefHeight="2.0" prefWidth="314.0" style="-fx-color: white;" text="MOTIVATION AND TRAINING EMPOWERMENT SOFTWARE" textFill="WHITE">
-         <font>
-            <Font name="SansSerif Regular" size="11.0" />
-         </font>
-      </Label>
-      <Label layoutX="438.0" layoutY="342.0" style="-fx-color: white;" text="Please select a user profile:" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Pane layoutX="-14.0" prefHeight="72.0" prefWidth="1382.0" style="-fx-background-color: rgb(72,142,103); -fx-border-color: transparent transparent black transparent;">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.loginController">
+   <top>
+      <Pane prefHeight="72.0" prefWidth="1382.0" style="-fx-background-color: rgb(62,71,88); -fx-border-color: transparent transparent black transparent;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="589.0" layoutY="21.0" text="User Selection " textFill="WHITE">
+            <Label layoutX="554.0" layoutY="20.0" text="PROFILIE SELECTION" textFill="WHITE">
                <font>
-                  <Font name="SansSerif Bold" size="26.0" />
+                  <Font name="NexaBold" size="27.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Button fx:id="back_button" layoutX="55.0" layoutY="646.0" mnemonicParsing="false" onAction="#toStartScreen" prefHeight="37.0" prefWidth="153.0" style="-fx-background-color: rgb(63,179,164);" text="BACK" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Button fx:id="back_button1" layoutX="463.0" layoutY="646.0" mnemonicParsing="false" onAction="#login" prefHeight="37.0" prefWidth="440.0" style="-fx-background-color: rgb(63,179,164);" text="LOGIN" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-   </children>
-</AnchorPane>
+   </top>
+   <center>
+      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="210.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <BorderPane.margin>
+            <Insets left="50.0" right="50.0" top="60.0" />
+         </BorderPane.margin>
+         <children>
+            <Circle fill="DODGERBLUE" radius="70.0" stroke="#8a8a8a00" strokeType="INSIDE" strokeWidth="2.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="86.0" fitWidth="70.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../resources/pics/userIcon.png" />
+               </image>
+            </ImageView>
+            <Circle fill="#154a7c" radius="70.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="86.0" fitWidth="70.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../resources/pics/userIcon.png" />
+               </image>
+            </ImageView>
+            <Circle fill="#a3c5e4" layoutX="443.0" layoutY="283.0" radius="70.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="86.0" fitWidth="70.0" layoutX="403.0" layoutY="234.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../resources/pics/userIcon.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="startUser" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#changeSelected" prefHeight="226.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-color: transparent transparent rgb(200,200,200) transparent; -fx-border-width: 4; -fx-background-radius: 0;" text="user23" textFill="#727272" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="NexaBold" size="23.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button alignment="BOTTOM_CENTER" layoutX="343.0" layoutY="88.0" mnemonicParsing="false" onAction="#changeSelected" prefHeight="226.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-color: transparent transparent rgb(200,200,200) transparent; -fx-border-width: 1; -fx-background-radius: 0;" text="user24" textFill="#727272" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="NexaLight" size="23.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button alignment="BOTTOM_CENTER" layoutX="538.0" layoutY="81.0" mnemonicParsing="false" onAction="#changeSelected" prefHeight="226.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-border-color: transparent transparent rgb(200,200,200) transparent; -fx-border-width: 1; -fx-background-radius: 0;" text="user25" textFill="#727272" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="NexaLight" size="23.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+   <bottom>
+      <Pane prefHeight="155.0" prefWidth="1366.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="loginButton" layoutX="499.0" layoutY="24.0" mnemonicParsing="false" onAction="#login" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="41.0" prefWidth="368.0" style="-fx-background-color: rgb(63,179,164);" text="LOGIN" textFill="WHITE">
+               <font>
+                  <Font name="NexaBold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Circle fx:id="backButton" fill="#3fb3a4" layoutX="115.0" layoutY="44.0" onMouseClicked="#toStartScreen" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Circle>
+            <ImageView fitHeight="20.0" fitWidth="11.0" layoutX="109.0" layoutY="34.0" onMouseClicked="#toStartScreen">
+               <image>
+                  <Image url="@../resources/pics/arrow.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </Pane>
+   </bottom>
+</BorderPane>
