@@ -60,6 +60,8 @@ public class DatabaseManager implements DataLoader {
                         + "end text,"
                         + "FOREIGN KEY(userid) REFERENCES user(userid));";
                 activityTableStatement.execute(activityTablesql);
+                //Create workouts table
+
                 //Create records table
                 Statement recordTableStatement = con.createStatement();
                 String recordTablesql = "CREATE TABLE IF NOT EXISTS record(activityid INTEGER,"
