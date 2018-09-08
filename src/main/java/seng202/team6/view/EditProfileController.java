@@ -87,7 +87,7 @@ public class EditProfileController {
         }
     }
 
-    public boolean validEnteredData() {
+    public boolean validEnteredData() throws IOException {
         return DataValidation.validateUserName(username) &&
                 DataValidation.validateName(first, "First Name") &&
                 DataValidation.validateName(last, "Last Name") &&
