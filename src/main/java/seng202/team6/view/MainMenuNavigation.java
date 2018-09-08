@@ -23,6 +23,17 @@ public class MainMenuNavigation {
 
     private static Button selected;
 
+    @FXML // This method is called by the FXMLLoader when initialization is complete
+    void initialize() {
+        if (selected == null) {
+            selected = homeButton;
+        }
+        System.out.println("Initializing: " + selected.getId());
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+        //ObservableList<String> availableChoices = FXCollections.observableArrayList("lem72", "rch141", "gon12", "dla72", "spl8");
+        // signInSelection.setItems(availableChoices);
+    }
+
     public void changeScreen(Event event, String screen) throws IOException {
         Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
         Scene loginScene = new Scene(loginParent);
@@ -31,43 +42,45 @@ public class MainMenuNavigation {
         appStage.show();
     }
 
-    public void changeMenuScreen(Event event, String screen) throws IOException {
-        changeScreen(event, screen);
+    public void changeMenuScreen(ActionEvent event, String screen) throws IOException {
         changeSelected(event);
+        changeScreen(event, screen);
     }
 
     @FXML
-    public void toHomeScreen(Event event) throws IOException {
+    public void toHomeScreen(ActionEvent event) throws IOException {
         changeMenuScreen(event, "HomeScreen.fxml");
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
     @FXML
-    public void toProfileScreen(Event event) throws IOException {
+    public void toProfileScreen(ActionEvent event) throws IOException {
         changeMenuScreen(event, "profileScreen.fxml");
     }
 
     @FXML
-        public void toWorkoutsScreen(Event event) throws IOException {
+        public void toWorkoutsScreen(ActionEvent event) throws IOException {
         changeMenuScreen(event, "WorkoutsScreenSplash.fxml");
     }
 
     @FXML
-    public void toGoalsScreen(Event event) throws IOException {
+    public void toGoalsScreen(ActionEvent event) throws IOException {
         changeMenuScreen(event, "GoalsScreen.fxml");
     }
 
     @FXML
-    public void toCalendarScreen(Event event) throws IOException {
+    public void toCalendarScreen(ActionEvent event) throws IOException {
         changeMenuScreen(event, "CalendarScreen.fxml");
     }
 
     @FXML
-    public void toHealthScreen(Event event) throws IOException {
+    public void toHealthScreen(ActionEvent event) throws IOException {
         changeMenuScreen(event, "HealthScreen.fxml");
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
     @FXML
-    public void changeSelected(Event event) {
+    public void changeSelected(ActionEvent event) {
         selected.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
         selected = (Button) event.getSource();
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
