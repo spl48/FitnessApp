@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.profileController">
    <top>
-      <fx:include source="header.fxml"/>
+      <fx:include source="header.fxml" />
    </top>
    <left>
       <fx:include source="sidebar.fxml" />
@@ -95,7 +95,7 @@
                               <Font name="NexaLight" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="nameLabel" layoutX="145.0" layoutY="165.0" text="Joseph " GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="firstNameLabel" layoutX="145.0" layoutY="165.0" text="Joseph " GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="NexaLight" size="18.0" />
                            </font>
@@ -130,7 +130,7 @@
                               <Font name="NexaBold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="nameLabel1" layoutX="147.0" layoutY="106.0" text="Bloggs" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label fx:id="lastNameLabel" layoutX="147.0" layoutY="106.0" text="Bloggs" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="NexaLight" size="18.0" />
                            </font>

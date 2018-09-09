@@ -259,5 +259,17 @@ public class User
     {
         return username;
     }
+
+    public void printUser() {
+        System.out.println("-----------------------------------------");
+        System.out.println("User: " + username);
+        System.out.println("-----------------------------------------");
+        System.out.println("First Name: " + firstName);
+        System.out.println("Last Name: " + lastName);
+        System.out.println("Date of Birth: " + dob.toString());
+        System.out.println("Gender: " + gender);
+        System.out.println("Height: " + height);
+        System.out.println("Weight: " + weight);
+    }
 }
 

@@ -1,7 +1,12 @@
 package seng202.team6.datahandling;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+
+import org.apache.commons.lang3.ObjectUtils.Null;
+
+import seng202.team6.models.User;
 
 public class DatabaseManager implements DataLoader {
     private static Connection con;
@@ -16,6 +21,30 @@ public class DatabaseManager implements DataLoader {
         ResultSet res = state.executeQuery("SELECT * FROM user");
         return res;
     }
+
+    public static User getUser(String aUsername) throws SQLException, ClassNotFoundException {
+        if(con == null) {
+            getConnection();
+        }
+
+        Statement statement = con.createStatement();
+        String sqlString = "SELECT * FROM user WHERE username LIKE '" + aUsername + "'";
+        System.out.println(sqlString);
+        ResultSet userData = statement.executeQuery("SELECT * FROM user WHERE username LIKE '" + aUsername + "'");
+   
+        int id = userData.getInt("userid");
+        String firstName = userData.getString("firstname");
+        String lastName = userData.getString("lastname");
+        String dobString = userData.getString("dateofbirth");
+        String gender = userData.getString("gender");
+        Double height = userData.getDouble("height");
+        Double weight = userData.getDouble("weight");
+
+        LocalDate dob = LocalDate.parse(dobString);
+        User user = new User(firstName, lastName, dob, gender, height, weight, 2.0, aUsername); 
+        return user; 
+    }
+
     public ResultSet displayActivities() throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();

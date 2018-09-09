@@ -8,7 +8,7 @@ public class ApplicationManager {
         currentUserID = username;
     }
 
-    public String getCurrentUserID() {
+    public static String getCurrentUserID() {
         return currentUserID;
     }
 
