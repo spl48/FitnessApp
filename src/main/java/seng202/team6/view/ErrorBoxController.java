@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -75,5 +76,15 @@ public class ErrorBoxController {
         stage.close();
     }
 
+    @FXML
+    public void darkenButton(Event event) {
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:rgb(51,145,133);");
+    }
 
+    @FXML
+    public void lightenButton(MouseEvent event){
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:rgb(63,179,164);");
+    }
 }
