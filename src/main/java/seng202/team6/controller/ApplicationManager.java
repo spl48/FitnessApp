@@ -2,7 +2,6 @@ package seng202.team6.controller;
 
 import java.sql.SQLException;
 
-import seng202.team6.datahandling.DatabaseDataWriter;
 import seng202.team6.datahandling.DatabaseManager;
 
 public class ApplicationManager {
@@ -10,6 +9,8 @@ public class ApplicationManager {
     private static String currentUserID;
 
     private static DatabaseManager databaseManager;
+
+    private static ErrorBoxController errorBoxController = new ErrorBoxController();
 
     public static void setCurrentUser(String username) {
         currentUserID = username;
@@ -25,6 +26,10 @@ public class ApplicationManager {
 
     public static void initializeDatabaseManager()  throws ClassNotFoundException, SQLException  {
         databaseManager = new DatabaseManager();
+    }
+
+    public static void displayPopUp(String title, String message) {
+        errorBoxController.displayErrorPopUP(title, message);
     }
 
 }

@@ -1,10 +1,9 @@
 package seng202.team6.utilities;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Calendar;
 
-import seng202.team6.view.ErrorBoxController;
+import seng202.team6.controller.ErrorBoxController;
 
 public class DataValidation {
 
@@ -43,7 +42,7 @@ public class DataValidation {
         return true;
     }
 
-    public static boolean validateUserName(String username) throws IOException {
+    public static boolean validateUserName(String username) {
         boolean valid = false;
         if (username.length() == 0) {
             errorBoxController.displayErrorPopUP("Username Entry Invalid", "Please provide a username.");
@@ -55,7 +54,7 @@ public class DataValidation {
         return valid;
     }
 
-    public static boolean validateName(String name, String nameType) throws IOException {
+    public static boolean validateName(String name, String nameType) {
         boolean valid = false;
         String errorTitle = nameType + " Entry Invalid";
         if (name.length() < 2) {
@@ -70,7 +69,7 @@ public class DataValidation {
         return valid;
     }
 
-    public static boolean validateDoubleValue(Double value, String valueName, double upper, double lower) throws IOException {
+    public static boolean validateDoubleValue(Double value, String valueName, double upper, double lower) {
         boolean valid = false;
         String errorTitle = valueName + " Entry Invalid";
         if (value > upper || value < lower) {
@@ -82,7 +81,7 @@ public class DataValidation {
         return valid;
     }
 
-    public static boolean validateBirthDate(LocalDate dob) throws IOException {
+    public static boolean validateBirthDate(LocalDate dob) {
        boolean valid = false;
        if (dob == null) {
            errorBoxController.displayErrorPopUP("Invalid Date of Birth", "Please provide a date of birth.");
@@ -98,7 +97,7 @@ public class DataValidation {
        return valid;
     }
 
-    public static boolean validateGender(String gender) throws IOException {
+    public static boolean validateGender(String gender) {
         if (gender == "") {
             errorBoxController.displayErrorPopUP("Empty Gender Field", "Please provide a gender.");
             return false;
@@ -107,7 +106,7 @@ public class DataValidation {
         }
      }
 
-    public static boolean validUserProfile(String userProfile) throws IOException {
+    public static boolean validUserProfile(String userProfile) {
         boolean valid = false;
         if (userProfile == null) {
             errorBoxController.displayErrorPopUP("Error", "Please select a profile");

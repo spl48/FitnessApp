@@ -1,8 +1,9 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,8 +43,8 @@ public class workoutManualEntryController {
     }
 
     @FXML
-    public void toWorkOutScreen(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("WorkoutsScreenSplash.fxml"));
+    public void toWorkOutScreen(Event event) throws IOException {
+        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/WorkoutsScreenSplash.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);

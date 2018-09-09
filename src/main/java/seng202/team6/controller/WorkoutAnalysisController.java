@@ -1,4 +1,4 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,6 +19,16 @@ import javafx.scene.chart.CategoryAxis;
 
 public class WorkoutAnalysisController {
 
+    @FXML
+    private ChoiceBox<String> activityTypeSelection;
+
+    @FXML
+        // This method is called by the FXMLLoader when initialization is complete
+    void initialize() {
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("lem72", "rch141", "gon12", "dla72", "spl8");
+        activityTypeSelection.setItems(availableChoices);
+    }
+
     private Activity makeTestRun() {
         LocalDate inputDate = LocalDate.of(2018, 10, 9);
         LocalTime time1 = LocalTime.of(5, 30);
@@ -32,16 +42,6 @@ public class WorkoutAnalysisController {
         testActivity.addActivityData(p2);
         testActivity.addActivityData(p3);
         return testActivity;
-    }
-
-    @FXML
-    private ChoiceBox<String> activityTypeSelection;
-
-    @FXML
-        // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("lem72", "rch141", "gon12", "dla72", "spl8");
-        activityTypeSelection.setItems(availableChoices);
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang3.ObjectUtils.Null;
 
+import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.User;
 
 public class DatabaseManager implements DataLoader {
@@ -26,16 +27,25 @@ public class DatabaseManager implements DataLoader {
         return res;
     }
 
-    public User getUser(String aUsername) throws SQLException, ClassNotFoundException {
+    /**
+     * Given a username, finds the details of that user in the data base and 
+     * returns a User object with these details.
+     * @param aUsername The username used to lookup the user in the database.
+     * @return A user object with the details of the user with the given username.
+     * @throws SQLException Occurs when there is an error in the query process.
+     */
+    public User getUser(String aUsername) throws SQLException {
+        // Checks the connection to the database.
         if(con == null) {
             getConnection();
         }
 
+        // Trys to query the database for a user.
         Statement statement = con.createStatement();
         String sqlString = "SELECT * FROM user WHERE username LIKE '" + aUsername + "'";
-        System.out.println(sqlString);
         ResultSet userData = statement.executeQuery("SELECT * FROM user WHERE username LIKE '" + aUsername + "'");
-   
+
+        // Gets data from the database.
         int id = userData.getInt("userid");
         String firstName = userData.getString("firstname");
         String lastName = userData.getString("lastname");
@@ -43,8 +53,9 @@ public class DatabaseManager implements DataLoader {
         String gender = userData.getString("gender");
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
-
         LocalDate dob = LocalDate.parse(dobString);
+
+        // Creates a User model using database data.
         User user = new User(firstName, lastName, dob, gender, height, weight, 2.0, aUsername, id); 
         return user; 
     }
@@ -81,10 +92,17 @@ public class DatabaseManager implements DataLoader {
         return users;
     }
 
-    private void getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.sqlite.JDBC");
-        con = DriverManager.getConnection("jdbc:sqlite:Data.db");
-        initialiseDatabase();
+    private void getConnection() {
+        
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:Data.db");
+            initialiseDatabase();
+        } catch (ClassNotFoundException e) {
+            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!");
+        } catch (SQLException e) {
+            ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.");
+        }
     }
 
     private void initialiseDatabase() throws SQLException {

@@ -1,4 +1,4 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,12 +12,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import seng202.team6.controller.ApplicationManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.datahandling.FileDataLoader;
 import seng202.team6.models.User;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -45,7 +43,7 @@ public class Uploader {
      */
     @FXML
     public String fileSelector(ActionEvent event) throws SQLException, ClassNotFoundException {
-        
+
         String filePath = null;
 
         FileChooser fc = new FileChooser();
@@ -86,7 +84,7 @@ public class Uploader {
 
     @FXML
     public void toAddWorkout(Event event) throws IOException {
-        changeScreen(event, "AddWorkout.fxml");
+        changeScreen(event, "../view/AddWorkout.fxml");
     }
 
 

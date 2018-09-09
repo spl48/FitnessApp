@@ -10,9 +10,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<!--used to be prefHeight="80.0"-->
 
-<AnchorPane prefHeight="50.0" prefWidth="1366.0" style="-fx-background-color: rgb(76,76,76);" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.HeaderController">
+<AnchorPane prefHeight="50.0" prefWidth="1366.0" style="-fx-background-color: rgb(76,76,76);" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HeaderController">
    <children>
       <ImageView fx:id="profileImg" fitHeight="41.0" fitWidth="41.0" layoutX="1305.0" layoutY="5.0">
          <image>

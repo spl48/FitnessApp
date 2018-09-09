@@ -1,4 +1,4 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,14 +28,27 @@ import java.util.ArrayList;
 
 import static javafx.scene.paint.Color.rgb;
 
-public class registerController {
+/**
+ * <h1>Register Controller</h1>
+ * <p>Initialises and applies functionality to the Register screen allowing users to make profiles in the database</p>
+ */
+public class registerController extends GUIUtilities {
 
+    /**
+     * User details textual fields.
+     */
     @FXML
     private TextField usernameEntry, firstNameEntry, lastNameEntry, heightEntry, weightEntry, strideEntry;
 
+    /**
+     * Date Picker for user to choose thier birth date.
+     */
     @FXML
     private DatePicker birthDateEntry;
 
+    /**
+     *
+     */
     @FXML
     private ComboBox<String> genderComboBox;
 
@@ -54,7 +67,7 @@ public class registerController {
     @FXML
     public void toStartScreen(Event event) throws IOException {
         System.out.println("Changing to the login screen!!!!");
-        Parent loginParent = FXMLLoader.load(getClass().getResource("startScreen2.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/startScreen2.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);
@@ -112,30 +125,4 @@ public class registerController {
         System.out.println("Weight: " + weight);
         System.out.println("Stride Length: " + stride);
     }
-
-    @FXML
-    public void darkenButton(Event event) {
-        Button btn = (Button) event.getSource();
-        btn.setStyle("-fx-background-color:rgb(51,145,133);");
-    }
-
-    @FXML
-    public void lightenButton(MouseEvent event){
-        Button btn = (Button) event.getSource();
-        btn.setStyle("-fx-background-color:rgb(63,179,164);");
-    }
-
-    @FXML
-    public void darkenCircle(Event event) {
-        Circle circle = (Circle) event.getSource();
-        circle.setFill(rgb(63,179,164));
-    }
-
-    @FXML
-    public void lightenCircle(MouseEvent event){
-        Circle circle = (Circle) event.getSource();
-        circle.setFill(rgb(51,145,133));
-    }
-
-
 }

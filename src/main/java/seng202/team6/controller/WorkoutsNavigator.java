@@ -1,4 +1,4 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -24,32 +24,32 @@ public class WorkoutsNavigator {
 
     @FXML
         public void toWorkoutsScreen(Event event) throws IOException {
-        changeScreen(event, "WorkoutsScreenSplash.fxml");
+        changeScreen(event, "../view/WorkoutsScreenSplash.fxml");
     }
 
     @FXML
     public void toRawDataVeiwer(Event event) throws IOException {
-        changeScreen(event, "RawDataVeiwer.fxml");
+        changeScreen(event, "../view/RawDataVeiwer.fxml");
     }
 
     @FXML
     public void toWorkoutAnalysis(Event event) throws IOException {
-        changeScreen(event, "WorkoutAnalysis.fxml");
+        changeScreen(event, "../view/WorkoutAnalysis.fxml");
     }
 
     @FXML
     public void toAddWorkout(Event event) throws IOException {
-        changeScreen(event, "AddWorkout.fxml");
+        changeScreen(event, "../view/AddWorkout.fxml");
     }
 
     @FXML
     public void toWorkoutManualEntry(Event event) throws IOException {
-        changeScreen(event, "WorkoutManualEntry.fxml");
+        changeScreen(event, "../view/WorkoutManualEntry.fxml");
     }
 
     @FXML
     public void toUploadWorkoutFile(Event event) throws IOException {
-        changeScreen(event, "WorkoutUpload.fxml");
+        changeScreen(event, "../view/WorkoutUpload.fxml");
     }
 
 }

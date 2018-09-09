@@ -1,4 +1,4 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +20,7 @@ public class startScreenController {
 
     @FXML
     public void toLoginScreen(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("loginScreen.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/loginScreen.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);
@@ -29,7 +29,7 @@ public class startScreenController {
 
     @FXML
     public void toRegisterScreen(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("registerScreen2.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/registerScreen2.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);
