@@ -59,7 +59,7 @@
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="workoutFileUploadButton" layoutX="433.0" layoutY="55.0" mnemonicParsing="false" onAction="#fileSelector" prefHeight="58.0" prefWidth="285.0" style="-fx-background-color: rgb(118,162,235);" text="UPLOAD FILE" textFill="WHITE">
+                  <Button fx:id="workoutFileUploadButton" layoutX="433.0" layoutY="55.0" mnemonicParsing="false" onAction="#uploadActivity" prefHeight="58.0" prefWidth="285.0" style="-fx-background-color: rgb(118,162,235);" text="UPLOAD FILE" textFill="WHITE">
                      <font>
                         <Font name="NexaBold" size="20.0" />
                      </font>

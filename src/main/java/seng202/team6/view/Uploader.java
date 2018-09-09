@@ -12,17 +12,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import seng202.team6.controller.ApplicationManager;
+import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.datahandling.FileDataLoader;
+import seng202.team6.models.User;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Uploader {
 
     @FXML
     private ChoiceBox<String> sessionType_E;
 
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+    private User currUser;
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    void initialize() throws SQLException, ClassNotFoundException {
+        currUser = databaseManager.getUser(ApplicationManager.getCurrentUserID()); //Replace with database current user.
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
         sessionType_E.setItems(availableChoices);
     }
@@ -34,7 +44,8 @@ public class Uploader {
      * @return The complete path for a selected .csv file from the users filing system.
      */
     @FXML
-    public String fileSelector(ActionEvent event) {
+    public String fileSelector(ActionEvent event) throws SQLException, ClassNotFoundException {
+        
         String filePath = null;
 
         FileChooser fc = new FileChooser();
@@ -48,9 +59,20 @@ public class Uploader {
         } else {
             System.out.println("File not valid!");
         }
-        System.out.println("File path: " + filePath);
 
         return filePath;
+    }
+
+    @FXML
+    public void uploadActivity(ActionEvent event)  throws SQLException, ClassNotFoundException{
+
+        String filePath = fileSelector(event);
+        if (filePath != null) {
+            FileDataLoader loader = new FileDataLoader();
+            loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
+        } else {
+            System.out.println("Nothing is selected!");
+        }
     }
 
 

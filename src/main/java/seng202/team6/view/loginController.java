@@ -29,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.view.GUIUtilities;
 
 import java.awt.Color;
 import java.io.IOException;

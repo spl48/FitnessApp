@@ -13,7 +13,7 @@ public class DatabaseManager implements DataLoader {
     private boolean hasData = false;
 
     public DatabaseManager() throws ClassNotFoundException, SQLException {
-        getConnection();
+       getConnection();
     }
 
     public ResultSet displayUsers() throws SQLException, ClassNotFoundException {
@@ -71,7 +71,7 @@ public class DatabaseManager implements DataLoader {
         if(con == null) {
             getConnection();
         }
-        System.out.println("Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        
         ArrayList<String> users = new ArrayList<String>();
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM user");

@@ -33,6 +33,8 @@ public class FileDataLoader implements DataLoader {
     */
 
     public void importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager){
+
+        System.out.println("Here");
         try {
             //Change this to local at some point
             CSVReader reader = new CSVReader(new FileReader(CSVLocation));
