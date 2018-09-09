@@ -260,6 +260,11 @@ public class User
         return username;
     }
 
+    public String getFullName() 
+    {
+        return firstName + " " + lastName;
+    }
+
     public void printUser() {
         System.out.println("-----------------------------------------");
         System.out.println("User: " + username);

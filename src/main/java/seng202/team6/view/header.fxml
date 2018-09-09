@@ -24,9 +24,9 @@
             <Image url="@../resources/pics/downArrrow.png" />
          </image>
       </ImageView>
-      <MenuBar layoutX="1100.0" layoutY="8.0" prefHeight="35.0" prefWidth="205.0" styleClass="headerMenu" stylesheets="@../resources/css/test.css">
+      <MenuBar layoutX="1048.0" layoutY="8.0" prefHeight="35.0" prefWidth="258.0" styleClass="headerMenu" stylesheets="@../resources/css/test.css">
         <menus>
-          <Menu mnemonicParsing="false" styleClass="menuItem" text="JOE BLOGGS">
+          <Menu fx:id="usernameMenu" mnemonicParsing="false" styleClass="menuItem" text="JOE BLOGGS">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#toStartScreen" style="-fx-text-fill: black; -fx-font-size: 18px;" text="Logout" />
                   <MenuItem mnemonicParsing="false" onAction="#toStartScreen" style="-fx-text-fill: black; -fx-font-size: 18;" text="Exit" />
