@@ -37,7 +37,7 @@ public class EditProfileController {
     private LocalDate birthDate;
 
     public void initialize() {
-        User testUser = new User("Joe","Bloggs", LocalDate.of(2011, 5,8), "male",31, 1.65, 70, "jbl74ddddddddd"); //Test instance
+        User testUser = new User("Joe","Bloggs", LocalDate.of(2011, 5,8), "male",31, 1.65, 70, "jbl74ddddddddd", 123); //Test instance
         User currUser = testUser; //Replace with database current user.
 
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");

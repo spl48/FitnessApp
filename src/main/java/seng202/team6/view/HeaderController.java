@@ -21,14 +21,16 @@ import java.sql.SQLException;
 public class HeaderController {
 
     @FXML
-    Node profileImg;
+    private Node profileImg;
 
     @FXML
-    Menu usernameMenu;
+    private Menu usernameMenu;
+
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
     
     @FXML
     void initialize() throws SQLException, ClassNotFoundException {
-        User currUser = DatabaseManager.getUser(ApplicationManager.getCurrentUserID()); //Replace with database current user.
+        User currUser = databaseManager.getUser(ApplicationManager.getCurrentUserID()); //Replace with database current user.
         usernameMenu.setText(currUser.getFullName().toUpperCase());
     }
 

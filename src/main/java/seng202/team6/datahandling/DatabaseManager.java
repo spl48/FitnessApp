@@ -9,10 +9,14 @@ import org.apache.commons.lang3.ObjectUtils.Null;
 import seng202.team6.models.User;
 
 public class DatabaseManager implements DataLoader {
-    private static Connection con;
-    private static boolean hasData = false;
+    private Connection con;
+    private boolean hasData = false;
 
-    public static ResultSet displayUsers() throws SQLException, ClassNotFoundException {
+    public DatabaseManager() throws ClassNotFoundException, SQLException {
+        getConnection();
+    }
+
+    public ResultSet displayUsers() throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
@@ -22,7 +26,7 @@ public class DatabaseManager implements DataLoader {
         return res;
     }
 
-    public static User getUser(String aUsername) throws SQLException, ClassNotFoundException {
+    public User getUser(String aUsername) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
@@ -41,7 +45,7 @@ public class DatabaseManager implements DataLoader {
         Double weight = userData.getDouble("weight");
 
         LocalDate dob = LocalDate.parse(dobString);
-        User user = new User(firstName, lastName, dob, gender, height, weight, 2.0, aUsername); 
+        User user = new User(firstName, lastName, dob, gender, height, weight, 2.0, aUsername, id); 
         return user; 
     }
 
@@ -63,10 +67,11 @@ public class DatabaseManager implements DataLoader {
         return res;
     }
 
-    public static ArrayList<String> getUsernames() throws SQLException, ClassNotFoundException {
+    public ArrayList<String> getUsernames() throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
+        System.out.println("Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         ArrayList<String> users = new ArrayList<String>();
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM user");
@@ -76,13 +81,13 @@ public class DatabaseManager implements DataLoader {
         return users;
     }
 
-    private static void getConnection() throws ClassNotFoundException, SQLException {
+    private void getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         con = DriverManager.getConnection("jdbc:sqlite:Data.db");
         initialiseDatabase();
     }
 
-    private static void initialiseDatabase() throws SQLException {
+    private void initialiseDatabase() throws SQLException {
         if(!hasData) {
             hasData = true;
             Statement state = con.createStatement();
@@ -136,7 +141,7 @@ public class DatabaseManager implements DataLoader {
         return con;
     }
 
-    public static void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight) throws SQLException, ClassNotFoundException {
+    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
@@ -152,7 +157,7 @@ public class DatabaseManager implements DataLoader {
         prep.execute();
     }
 
-    public static void addActivity(int userid, String description, String start, String end, String workout) throws SQLException, ClassNotFoundException {
+    public void addActivity(int userid, String description, String start, String end, String workout) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }

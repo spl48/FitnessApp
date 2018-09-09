@@ -42,6 +42,7 @@ public class registerController {
     private String username, first, last, gender;
     private double height, weight, stride;
     private LocalDate birthDate;
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -62,14 +63,14 @@ public class registerController {
 
     @FXML
     public void createNewUser(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
-        GeneralUtilities.printResultSet(DatabaseManager.displayUsers());
+        GeneralUtilities.printResultSet(databaseManager.displayUsers());
         setEnteredData();
         if (validEnteredData()) {
             System.out.println("Created a new user!!");
             printData();
             System.out.println(birthDate.toString());
-            DatabaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight);
-            DatabaseManager.displayUsers();
+            databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight);
+            databaseManager.displayUsers();
             toStartScreen(event);
             //Enter into database
         }

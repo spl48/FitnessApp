@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -31,7 +32,6 @@ import seng202.team6.datahandling.DatabaseManager;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.nio.channels.SeekableByteChannel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -44,12 +44,15 @@ public class loginController extends GUIUtilities{
     private GridPane profileGrid;
 
     private static Button selected;
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+    
+
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException, ClassNotFoundException {
         //selected = startUser;
         int index = 0;
-        ArrayList<String> usernames = DatabaseManager.getUsernames();
+        ArrayList<String> usernames = databaseManager.getUsernames();
         for (String user : usernames) {
             addProfile(profileGrid, index++, user);
         }
@@ -139,7 +142,11 @@ public class loginController extends GUIUtilities{
 
         selectProfileButton.setAlignment(Pos.BOTTOM_CENTER);
         selectProfileButton.setMnemonicParsing(false);
-        selectProfileButton.setOnAction(e -> changeSelected(e));
+        selectProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                loginController.this.changeSelected(e);
+            }
+        });
         selectProfileButton.setPrefHeight(226.0);
         selectProfileButton.setPrefWidth(180.0);
         selectProfileButton.setStyle("-fx-border-width:1; " +

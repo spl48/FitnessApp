@@ -46,14 +46,14 @@ public class ControllerMainMenu {
     }
 
     private void menuDecorator(Button btn) {
-        btn.setOnMouseEntered(value -> {
+        /*btn.setOnMouseEntered(value -> {
             btn.setStyle("-fx-background-color:#85ab97;" +
                     "-fx-background-radius: 0;");
         });
         btn.setOnMouseExited(value -> {
             btn.setStyle("-fx-background-color:#b2e4ca;" +
                     "-fx-background-radius: 0;");
-        });
+        });*/
     }
 
 }

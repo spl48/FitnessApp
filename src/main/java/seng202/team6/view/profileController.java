@@ -23,12 +23,14 @@ public class profileController {
 
     @FXML
     private Label firstNameLabel, lastNameLabel, usernameLabel, birthDateLabel, genderLabel, heightLabel, weightLabel, strideLabel;
+    
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
 
         //User testUser = new User("Joe","Bloggs", LocalDate.of(2011, 5,8), "male",31, 1.65, 70, "jbl74ddddddddd"); //Test instance
-        User currUser = DatabaseManager.getUser(ApplicationManager.getCurrentUserID()); //Replace with database current user.
+        User currUser = databaseManager.getUser(ApplicationManager.getCurrentUserID()); //Replace with database current user.
         currUser.printUser();
 
         firstNameLabel.setText(currUser.getFirstName());
