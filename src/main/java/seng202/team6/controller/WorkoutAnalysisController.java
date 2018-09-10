@@ -3,27 +3,24 @@ package seng202.team6.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
-import javafx.stage.Stage;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
-import javafx.scene.chart.CategoryAxis;
 
+/**
+ * <h1>Activity Analysis Controller</h1>
+ * <p>Initialises and applies functionality to the Activity Analysis screen allowing the user to select existing
+ * activities then view corresponding statistics and visualisations./p>
+ */
 public class WorkoutAnalysisController {
 
     @FXML
     private ChoiceBox<String> activityTypeSelection;
 
     @FXML
-        // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         ObservableList<String> availableChoices = FXCollections.observableArrayList("lem72", "rch141", "gon12", "dla72", "spl8");
         activityTypeSelection.setItems(availableChoices);

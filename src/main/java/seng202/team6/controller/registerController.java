@@ -5,28 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import seng202.team6.controller.ApplicationManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.utilities.DataValidation;
-import seng202.team6.utilities.GeneralUtilities;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-
-import static javafx.scene.paint.Color.rgb;
 
 /**
  * <h1>Register Controller</h1>
@@ -47,49 +33,71 @@ public class registerController extends GUIUtilities {
     private DatePicker birthDateEntry;
 
     /**
-     *
+     * Drop down field for user to pick thier gender.
      */
     @FXML
     private ComboBox<String> genderComboBox;
 
+    /**
+     * User Registering textual details.
+     */
     private String username, first, last, gender;
+
+    /**
+     * User registering numeric details.
+     */
     private double height, weight, stride;
+
+    /**
+     * The date of birth of the user.
+     */
     private LocalDate birthDate;
+
+    /**
+     * The Application Database Manager.
+     */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    /**
+     * Initialises the gender options for the drop down box.
+     */
+    @FXML
     void initialize() {
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");
         genderComboBox.setItems(availableChoices);
     }
 
+    /**
+     * Redirects the user to the start screen when the back button clicked.
+     * @param event When the back button is clicked.
+     */
     @FXML
-    public void toStartScreen(Event event) throws IOException {
-        System.out.println("Changing to the login screen!!!!");
-        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/startScreen2.fxml"));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
+    public void toStartScreen(Event event) {
+        changeScreen(event, "../view/startScreen2.fxml");
     }
 
+    /**
+     * Creates a new user with validated data from the input register form.
+     * @param event When the user clicks the register button.
+     * @throws ClassNotFoundException Error when getting class in database.
+     * @throws SQLException Error with database.
+     */
     @FXML
-    public void createNewUser(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
-        GeneralUtilities.printResultSet(databaseManager.displayUsers());
+    public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
         setEnteredData();
         if (validEnteredData()) {
-            System.out.println("Created a new user!!");
-            printData();
-            System.out.println(birthDate.toString());
+            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + "!!");
             databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight);
-            databaseManager.displayUsers();
             toStartScreen(event);
-            //Enter into database
         }
     }
 
-    public void setEnteredData() {
+    /**
+     * Sets the class variables to the data from the form. Checks if the numeric data can be converted,
+     * if not displays an error pop up.
+     */
+    private void setEnteredData() {
         username = usernameEntry.getText();
         first = firstNameEntry.getText();
         last = lastNameEntry.getText();
@@ -100,11 +108,15 @@ public class registerController extends GUIUtilities {
             weight = Double.parseDouble(weightEntry.getText());
             stride = Double.parseDouble(strideEntry.getText());
         } catch (NumberFormatException e) {
-            // Error Pop Up
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!");
         }
     }
 
-    public boolean validEnteredData() throws IOException {
+    /**
+     * Validates all the entered user details from top to bottom, displaying error pop ups accordingly.
+     * @return Whether all the entered user details are valid.
+     */
+    private boolean validEnteredData() {
         return DataValidation.validateUserName(username) &&
                 DataValidation.validateName(first, "First Name") &&
                 DataValidation.validateName(last, "Last Name") &&
@@ -113,16 +125,5 @@ public class registerController extends GUIUtilities {
                 DataValidation.validateDoubleValue(height, "Height", 280, 55) &&
                 DataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
                 DataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
-    }
-
-    public void printData() {
-        System.out.println("Username: " + username);
-        System.out.println("First Name: " + first);
-        System.out.println("Last Name: " + last);
-        System.out.println("Gender: " + gender);
-        System.out.println("Birth Date: " + birthDate);
-        System.out.println("Height: " + height);
-        System.out.println("Weight: " + weight);
-        System.out.println("Stride Length: " + stride);
     }
 }

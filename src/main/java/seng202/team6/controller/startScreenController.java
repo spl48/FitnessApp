@@ -1,47 +1,49 @@
 package seng202.team6.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
-import java.io.IOException;
+/**
+ * <h1>Start Screen Controller</h1>
+ * <p>Initialises and applies functionality to the Start screen allowing the user to navigate to login or register.</p>
+ */
+public class startScreenController extends GUIUtilities {
 
-public class startScreenController {
-
+    /**
+     * Directs the user to the login screen.
+     * @param event When the login button is clicked.
+     */
     @FXML
-    public void toLoginScreen(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/loginScreen.fxml"));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
+    public void toLoginScreen(ActionEvent event) {
+        changeScreen(event, "../view/loginScreen.fxml");
     }
 
+    /**
+     * Directs the user to the register screen.
+     * @param event When the user clicks the Register button.
+     */
     @FXML
-    public void toRegisterScreen(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/registerScreen2.fxml"));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
+    public void toRegisterScreen(ActionEvent event) {
+        changeScreen(event, "../view/registerScreen2.fxml");
     }
 
+    /**
+     * Darkens the button.
+     * @param event User enters button area with mouse.
+     */
     @FXML
     public void darkenButton(Event event) {
         Button btn = (Button) event.getSource();
         btn.setStyle("-fx-background-color:rgb(51,145,133);");
     }
 
+    /**
+     * Lightens the button.
+     * @param event User exits button area with mouse.
+     */
     @FXML
     public void lightenButton(MouseEvent event){
         Button btn = (Button) event.getSource();

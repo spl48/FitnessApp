@@ -12,43 +12,63 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class WorkoutsNavigator {
+/**
+ * <h1>Workouts navigator.</h1> //Could potentially be called workouts screen controller where all other workout screens inherit from.
+ * <p>Provides navigation methods for the Workouts area./p>
+ */
+public class WorkoutsNavigator extends GUIUtilities {
 
-    public void changeScreen(Event event, String screen) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
-    }
-
+    /**
+     * Navigates the user to the Workouts Splash Screen.
+     * @param event When the user clicks on a button directing to this screen.
+     */
     @FXML
-        public void toWorkoutsScreen(Event event) throws IOException {
+    public void toWorkoutsScreen(Event event) {
         changeScreen(event, "../view/WorkoutsScreenSplash.fxml");
     }
 
+    /**
+     * Navigates the user to the Raw Data Viewer Screen..
+     * @param event When the user clicks on a button directing to this screen.
+     */
     @FXML
-    public void toRawDataVeiwer(Event event) throws IOException {
+    public void toRawDataVeiwer(Event event) {
         changeScreen(event, "../view/RawDataVeiwer.fxml");
     }
 
+    /**
+     * Navigates the user to the Workouts Analysis Screen.
+     * @param event When the user clicks on a button directing to this screen.
+     */
     @FXML
-    public void toWorkoutAnalysis(Event event) throws IOException {
+    public void toWorkoutAnalysis(Event event) {
         changeScreen(event, "../view/WorkoutAnalysis.fxml");
     }
 
+    /**
+     * Navigates the user to the Add Workouts Screen.
+     * @param event When the user clicks on a button directing to this screen.
+     */
     @FXML
-    public void toAddWorkout(Event event) throws IOException {
+    public void toAddWorkout(Event event) {
         changeScreen(event, "../view/AddWorkout.fxml");
     }
 
+    /**
+     * Navigates the user to the Workouts Manual Entry Screen.
+     * @param event When the user clicks on a button directing to this screen.
+     */
     @FXML
-    public void toWorkoutManualEntry(Event event) throws IOException {
+    public void toWorkoutManualEntry(Event event) {
         changeScreen(event, "../view/WorkoutManualEntry.fxml");
     }
 
+    /**
+     * Navigates the user to the Upload Workouts Screen.
+     * @param event When the user clicks on a button directing to this screen.
+     */
     @FXML
-    public void toUploadWorkoutFile(Event event) throws IOException {
+    public void toUploadWorkoutFile(Event event) {
         changeScreen(event, "../view/WorkoutUpload.fxml");
     }
 

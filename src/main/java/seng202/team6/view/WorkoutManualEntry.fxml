@@ -126,6 +126,9 @@
                      <font>
                         <Font name="NexaBold" size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children></Pane>
          </bottom>
