@@ -30,7 +30,7 @@ import javafx.scene.chart.CategoryAxis;
  * <p>Initialises and applies functionality to the Activity Analysis screen allowing the user to select existing
  * activities then view corresponding statistics and visualisations./p>
  */
-public class WorkoutAnalysisController {
+public class WorkoutAnalysisController extends WorkoutsNavigator {
 
 	private ArrayList<String> currentSeriesTypes = new ArrayList();
 
@@ -50,26 +50,16 @@ public class WorkoutAnalysisController {
         activityTypeSelection.getSelectionModel().select("Heart Rate");
     }
 
-    public void changeScreen(Event event, String screen) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
-    }
-
-    @FXML
-    public void toWorkoutsScreen(Event event) throws IOException {
-        changeScreen(event, "WorkoutsScreenSplash.fxml");
-    }
-
     public void newGraph() {
     	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
     	if (!currentSeriesTypes.contains(seriesType) || currentSeriesTypes.size() > 1) {
 	    	currentSeriesTypes.clear();
 	        analysisGraph.getData().clear();
 	        addSeries();
-    	}
+    	} else {
+    	    String errorMessage = String.format("Already displaying %s data ya dinguss", seriesType);
+            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage);
+        }
     }
 
     public void addSeries() {
@@ -106,7 +96,7 @@ public class WorkoutAnalysisController {
 	        currentSeriesTypes.add(seriesType);
 	        analysisGraph.getData().add(series);
     	} else {
-    		System.out.println("Already on graph");
+    		ApplicationManager.displayPopUp("YA DINGUSS!", "Can't compare two of the same data types ya dinguss");
     	}
     }
 
