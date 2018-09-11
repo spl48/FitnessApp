@@ -57,6 +57,11 @@ public class User
     private String username;
 
     /**
+     * The userID used by the database.
+     */
+    private int userID;
+
+    /**
      * The constructor for the User that takes the parameter name, dob, age height, weight, stride length and username.
      * @param firstName A String parameter that is used to set the first name of the User.
      * @param lastName A String parameter that is used to set the last name of the User.
@@ -65,8 +70,9 @@ public class User
      * @param weight A type Double parameter that is used to set the weight of the User.
      * @param strideLength A type Double parameter that is used to set the length of the stride of the User.
      * @param username A String parameter that is used to set the username of the User.
+     * @param userID The user ID.
      */
-    public User(String firstName, String lastName, LocalDate dob, String gender, double height, double weight, double strideLength, String username)
+    public User(String firstName, String lastName, LocalDate dob, String gender, double height, double weight, double strideLength, String username, int userID)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -259,5 +265,32 @@ public class User
     {
         return username;
     }
+
+    public String getFullName() 
+    {
+        return firstName + " " + lastName;
+    }
+
+    public void setUserID(int id) {
+        userID = id;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void printUser() {
+        System.out.println("-----------------------------------------");
+        System.out.println("User: " + username);
+        System.out.println("-----------------------------------------");
+        System.out.println("User ID: " + userID);
+        System.out.println("First Name: " + firstName);
+        System.out.println("Last Name: " + lastName);
+        System.out.println("Date of Birth: " + dob.toString());
+        System.out.println("Gender: " + gender);
+        System.out.println("Height: " + height);
+        System.out.println("Weight: " + weight);
+    }
+
 }
 

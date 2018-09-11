@@ -3,7 +3,7 @@ package seng202.team6.utilities;
 import java.time.LocalDate;
 import java.util.Calendar;
 
-import seng202.team6.view.errorBoxController;
+import seng202.team6.controller.ErrorBoxController;
 
 public class DataValidation {
 
@@ -26,6 +26,8 @@ public class DataValidation {
      * The minimum age of the User
      */
     private static final int MIN_AGE = 5;
+
+    private static ErrorBoxController errorBoxController = new ErrorBoxController();
 
     public static boolean isAlpha(String string) {
 

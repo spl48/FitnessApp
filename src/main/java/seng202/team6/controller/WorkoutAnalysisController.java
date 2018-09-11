@@ -1,4 +1,4 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -27,7 +26,7 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 import javafx.scene.chart.CategoryAxis;
 
 public class WorkoutAnalysisController {
-	
+
 	private ArrayList<String> currentSeriesTypes = new ArrayList();
 
     @FXML
@@ -73,14 +72,14 @@ public class WorkoutAnalysisController {
     	if (!currentSeriesTypes.contains(seriesType)) {
 	        //defining the axes
     		xAxis.setLabel("Time");
-	        
-	
+
+
 	        //analysisGraph.setTitle("Heart Rate");
 	        //defining a series
 	        XYChart.Series series = new XYChart.Series();
 	        //populating the series with data
 	        Activity testRun = makeTestRun();
-	
+
 	        String ActivityType = activityTypeSelection.getSelectionModel().getSelectedItem();
 	        series.setName(ActivityType);
 	        for (ActivityDataPoint point : testRun.getActivityData()) {

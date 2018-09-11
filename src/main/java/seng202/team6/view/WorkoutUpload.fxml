@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.Uploader">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.Uploader">
    <top>
       <fx:include source="header.fxml" />
    </top>
@@ -24,9 +24,9 @@
       <fx:include source="sidebar.fxml" />
    </left>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="703.0" prefWidth="986.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="118.0" prefWidth="1150.0" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="333.0" layoutY="57.0" prefHeight="88.0" prefWidth="474.0" text="WORKOUT UPLOAD" textFill="WHITE">
                      <font>
@@ -45,10 +45,13 @@
             </AnchorPane>
          </top>
          <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="358.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin></Pane>
          </left>
          <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER" />
          </right>
          <BorderPane.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -56,7 +59,7 @@
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="workoutFileUploadButton" layoutX="433.0" layoutY="55.0" mnemonicParsing="false" onAction="#fileSelector" prefHeight="58.0" prefWidth="285.0" style="-fx-background-color: rgb(118,162,235);" text="UPLOAD FILE" textFill="WHITE">
+                  <Button fx:id="workoutFileUploadButton" layoutX="433.0" layoutY="55.0" mnemonicParsing="false" onAction="#uploadActivity" prefHeight="58.0" prefWidth="285.0" style="-fx-background-color: rgb(118,162,235);" text="UPLOAD FILE" textFill="WHITE">
                      <font>
                         <Font name="NexaBold" size="20.0" />
                      </font>
@@ -67,7 +70,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <GridPane prefHeight="357.0" prefWidth="750.0">
+                  <GridPane layoutX="52.0" layoutY="35.0" prefHeight="323.0" prefWidth="705.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

@@ -1,4 +1,4 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import seng202.team6.view.MainMenu;
 
 public class ControllerMainMenu {
     @FXML private BorderPane borderPane;
@@ -46,14 +47,14 @@ public class ControllerMainMenu {
     }
 
     private void menuDecorator(Button btn) {
-        btn.setOnMouseEntered(value -> {
+        /*btn.setOnMouseEntered(value -> {
             btn.setStyle("-fx-background-color:#85ab97;" +
                     "-fx-background-radius: 0;");
         });
         btn.setOnMouseExited(value -> {
             btn.setStyle("-fx-background-color:#b2e4ca;" +
                     "-fx-background-radius: 0;");
-        });
+        });*/
     }
 
 }

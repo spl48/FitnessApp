@@ -1,38 +1,61 @@
-package seng202.team6.view;
+package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import seng202.team6.utilities.DataValidation;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
-public class workoutManualEntryController {
-
-    @FXML
-    private TextField startTime_E, endTime_E, maxHR_E, minHR_E, sessionName_E;
-
-    @FXML
-    private TextArea notes_E;
-
-    @FXML
-    private DatePicker sessionDate_E;
-
-    @FXML
-    private ChoiceBox<String> sessionType_E;
+/**
+ * <h1>Activity Manual Entry Controller</h1>
+ * <p>Initialises and applies functionality to the Activity Entry screen. Allows the user to manually enter their
+ * Activity data./p>
+ */
+public class workoutManualEntryController extends GUIUtilities {
 
     // Note start and end time will be time objects of sort when research best way to represent and get input from using
     // gui.
+    /**
+     * Text fields for activity entry form.
+     */
+    @FXML
+    private TextField startTime_E, endTime_E, maxHR_E, minHR_E, sessionName_E;
+
+
+    /**
+     * Text area space for user to supply any additional workout notes.
+     */
+    @FXML
+    private TextArea notes_E;
+
+    /**
+     * Date Picker for the user to select the date of the activity.
+     */
+    @FXML
+    private DatePicker sessionDate_E;
+
+    /**
+     * Choice box for the user to select the activity type.
+     */
+    @FXML
+    private ChoiceBox<String> sessionType_E;
+
+    /**
+     * Textual activity details.
+     */
     private String sessionName, sessionType, notes, startTime, endTime;
+
+    /**
+     * Maximum and minimum Heart rate of the user for the activity entered.
+     */
     private double maxHR, minHR;
+
+    /**
+     * The date of the activity.
+     */
     private LocalDate sessionDate;
 
 
@@ -42,29 +65,34 @@ public class workoutManualEntryController {
         sessionType_E.setItems(availableChoices);
     }
 
+    /**
+     * Redirects the user back to the workouts splash screen.
+     * @param event When the user clicks the back button.
+     */
     @FXML
-    public void toWorkOutScreen(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("WorkoutsScreenSplash.fxml"));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
+    public void toWorkOutScreen(Event event) {
+        changeScreen(event, "../view/WorkoutsScreenSplash.fxml");
     }
 
+    /**
+     * Enters thr activity into the database if it is valid.
+     * @param event When the user clicks create Activity.
+     */
     @FXML
-    public void createActivity(ActionEvent event) throws IOException {
+    public void createActivity(ActionEvent event) {
         setEnteredData();
         if (validEnteredData()) {
             System.out.println("Created a new activity!!");
             printData();
             toWorkOutScreen(event);
             //Enter into database
-        } else {
-            //Error pop up
         }
     }
 
-    public void setEnteredData() {
+    /**
+     * Sets the data in the activity form to the corresponding class attributes.
+     */
+    private void setEnteredData() {
         sessionName = sessionName_E.getText();
         startTime = startTime_E.getText();
         endTime = endTime_E.getText();
@@ -75,11 +103,15 @@ public class workoutManualEntryController {
             minHR = Double.parseDouble(minHR_E.getText());
             maxHR = Double.parseDouble(maxHR_E.getText());
         } catch (NumberFormatException e) {
-            // Error Pop Up
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!");
         }
     }
 
-public boolean validEnteredData() {
+    /**
+     * Validates the entered activity data, displaying error pop ups when relevant.
+     * @return Whether all fields are valid.
+     */
+    private boolean validEnteredData() {
 //        return DataValidation.validateUserName(username) &&
 //                DataValidation.validateName(first, "First Name") &&
 //                DataValidation.validateName(last, "Last Name") &&
@@ -91,7 +123,10 @@ public boolean validEnteredData() {
     return true;
 }
 
-    public void printData() {
+    /**
+     * Prints all the workout data for testing purposes - can get rid of later.
+     */
+    private void printData() {
         System.out.println("Session Name: " + sessionName);
         System.out.println("Session Type: " + sessionType);
         System.out.println("Session Date: " + sessionDate);
