@@ -25,6 +25,11 @@ import seng202.team6.models.ActivityDataPoint;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import javafx.scene.chart.CategoryAxis;
 
+/**
+ * <h1>Activity Analysis Controller</h1>
+ * <p>Initialises and applies functionality to the Activity Analysis screen allowing the user to select existing
+ * activities then view corresponding statistics and visualisations./p>
+ */
 public class WorkoutAnalysisController {
 
 	private ArrayList<String> currentSeriesTypes = new ArrayList();
