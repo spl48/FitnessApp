@@ -2,9 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.WorkoutsNavigator">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.WorkoutAnalysisController">
    <top>
       <fx:include source="header.fxml" />
    </top>
@@ -60,15 +60,17 @@
                   <AnchorPane prefHeight="167.0" prefWidth="252.0">
                      <children>
                         <ChoiceBox layoutX="281.0" layoutY="25.0" prefWidth="150.0" />
-                        <LineChart layoutX="-54.0" layoutY="324.0" prefHeight="490.0" prefWidth="826.0">
+                        <LineChart fx:id="analysisGraph" layoutX="-54.0" layoutY="324.0" prefHeight="490.0" prefWidth="826.0">
                           <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <NumberAxis side="BOTTOM" fx:id="xAxis"/>
                           </xAxis>
                           <yAxis>
-                            <NumberAxis side="LEFT" />
+                            <NumberAxis side="LEFT" fx:id="yAxis"/>
                           </yAxis>
                         </LineChart>
-                        <ChoiceBox layoutX="216.0" layoutY="275.0" prefHeight="25.0" prefWidth="325.0" />
+                        <ChoiceBox fx:id="activityTypeSelection" layoutX="61.0" layoutY="275.0" prefHeight="25.0" prefWidth="325.0" />
+                        <Button fx:id="graphButton" layoutX="431.0" layoutY="275.0" mnemonicParsing="false" onAction="#newGraph" text="Show me da graph!!" />
+                        <Button fx:id="compareButton" layoutX="597.0" layoutY="275.0" mnemonicParsing="false" onAction="#addSeries" text="Compare dat shiz!!!" />
                      </children></AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />

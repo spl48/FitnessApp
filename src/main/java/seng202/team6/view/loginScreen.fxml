@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main_window" fx:id="main_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(to bottom left, rgb(67,179,119), rgb(178,228,201));" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.loginController">
+<AnchorPane id="main_window" fx:id="main_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: linear-gradient(to bottom left, rgb(67,179,119), rgb(178,228,201));" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.view.loginController">
    <children>
       <ChoiceBox fx:id="signInSelection" layoutX="639.0" layoutY="336.0" prefHeight="37.0" prefWidth="289.0" style="-fx-background-color: white;" />
       <Label layoutX="14.0" layoutY="56.0" prefHeight="2.0" prefWidth="314.0" style="-fx-color: white;" text="MOTIVATION AND TRAINING EMPOWERMENT SOFTWARE" textFill="WHITE">

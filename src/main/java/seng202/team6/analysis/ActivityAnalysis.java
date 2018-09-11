@@ -3,6 +3,7 @@ package seng202.team6.analysis;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Math.abs;
 
@@ -44,6 +45,23 @@ public class ActivityAnalysis {
         }
 
         return totalDistance;
+    }
+    
+    public double findDistanceFromStart(Activity activity, int index) {
+        double latitudeDist;
+        double longitudeDist;
+        double totalDistance = 0;
+        ArrayList<ActivityDataPoint> dataPoints = activity.getActivityData();
+        int currentIndex = 0;
+
+        for (currentIndex = 0; currentIndex < index; currentIndex++) {
+            latitudeDist = abs(dataPoints.get(currentIndex + 1).getLatitude() - dataPoints.get(currentIndex).getLatitude());
+            longitudeDist = abs(dataPoints.get(currentIndex + 1).getLongitude() - dataPoints.get(currentIndex).getLongitude());
+
+            totalDistance = totalDistance + latitudeDist + longitudeDist;
+        }
+
+        return totalDistance*100;
     }
 
     public double findTotalTime(Activity activity) {
