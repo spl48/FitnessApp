@@ -6,10 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import seng202.team6.analysis.Position;
-import seng202.team6.analysis.Route;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
+import seng202.team6.models.Position;
+import seng202.team6.models.Route;
 
 import java.net.URL;
 import java.time.LocalDate;
