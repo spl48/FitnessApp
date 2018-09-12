@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.workoutManualEntryController">
+   <top>
+      <fx:include source="header.fxml" />
+   </top>
+   <left>
+      <fx:include source="sidebar.fxml" />
+   </left>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
+         <top>
+            <AnchorPane prefHeight="164.0" prefWidth="1140.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="272.0" layoutY="54.0" prefHeight="88.0" prefWidth="661.0" text="WORKOUT MANUAL ENTRY" textFill="WHITE">
+                     <font>
+                        <Font name="NexaBold" size="48.0" />
+                     </font>
+                  </Label>
+                  <ImageView layoutX="79.0" layoutY="71.0" onMouseClicked="#toWorkOutScreen">
+                     <image>
+                        <Image url="@../resources/pics/back2.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="206.33334350585938" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="206.33334350585938" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="206.33334350585938" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Start Time" textFill="WHITE" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="82.0" text="Session Type" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="26.0" text="Notes" textFill="WHITE" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="26.0" text="Max Heart Rate" textFill="WHITE" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="26.0" text="Finish Time" textFill="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="193.0" text="Min Heart Rate" textFill="WHITE" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="sessionType_E" prefHeight="25.0" prefWidth="387.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="sessionName_E" GridPane.columnIndex="1" />
+                  <TextField fx:id="endTime_E" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="maxHR_E" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="minHR_E" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextArea fx:id="notes_E" prefHeight="111.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.rowSpan="2">
+                     <GridPane.margin>
+                        <Insets top="10.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                  <Label layoutX="10.0" layoutY="54.0" text="Session Name" textFill="WHITE">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="startTime_E" layoutX="230.0" layoutY="18.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label layoutX="10.0" layoutY="52.0" text="Date" textFill="WHITE" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="sessionDate_E" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </center>
+         <bottom>
+            <Pane prefHeight="119.0" prefWidth="1140.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="submitSession" layoutX="428.0" layoutY="27.0" mnemonicParsing="false" onAction="#createActivity" prefHeight="47.0" prefWidth="285.0" style="-fx-background-color: rgb(118,162,235);" text="SUBMIT" textFill="WHITE">
+                     <font>
+                        <Font name="NexaBold" size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children></Pane>
+         </bottom>
+         <left>
+            <Pane prefHeight="332.0" prefWidth="350.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="332.0" prefWidth="350.0" BorderPane.alignment="CENTER" />
+         </right>
+         <BorderPane.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </BorderPane.margin>
+      </BorderPane>
+   </center>
+</BorderPane>

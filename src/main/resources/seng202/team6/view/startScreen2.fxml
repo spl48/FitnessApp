@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgb(62,71,88);" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.startScreenController">
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="80.0" minHeight="8.0" prefHeight="8.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#toRegisterScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: rgb(63,179,164); -fx-border-radius: 15px;" text="REGISTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <font>
+                  <Font name="NexaBold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="signInButton" mnemonicParsing="false" onAction="#toLoginScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: rgb(63,179,164); -fx-border-radius: 15px;" text="LOGIN" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font name="NexaBold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Label prefHeight="66.0" prefWidth="191.0" style="-fx-color: white;" text="MATES" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="NexaBold" size="54.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="477.0" style="-fx-color: white;" text="MOTIVATION AND TRAINING EMPOWERMENT SOFTWARE" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font name="NexaLight" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+   <bottom>
+      <Pane prefHeight="313.0" prefWidth="1366.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <Pane prefHeight="109.0" prefWidth="1366.0" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <Pane prefHeight="459.0" prefWidth="430.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="459.0" prefWidth="430.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

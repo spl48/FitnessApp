@@ -84,6 +84,7 @@ public class DatabaseManager implements DataLoader {
         }
         
         ArrayList<String> users = new ArrayList<String>();
+        System.out.println("Here");
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM user");
         while(res.next()){
@@ -99,8 +100,10 @@ public class DatabaseManager implements DataLoader {
             con = DriverManager.getConnection("jdbc:sqlite:Data.db");
             initialiseDatabase();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
             ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!");
         } catch (SQLException e) {
+            e.printStackTrace();
             ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.");
         }
     }
