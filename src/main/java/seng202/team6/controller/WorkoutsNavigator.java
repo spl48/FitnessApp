@@ -72,4 +72,9 @@ public class WorkoutsNavigator extends GUIUtilities {
         changeScreen(event, "../view/WorkoutUpload.fxml");
     }
 
+    @FXML
+    public void toMaps(Event event) {
+        changeScreen(event, "../view/MapsScreen.fxml");
+    }
+
 }
