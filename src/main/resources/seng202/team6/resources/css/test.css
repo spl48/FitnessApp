@@ -1,0 +1,30 @@
+
+.headerMenu .label {
+	-fx-text-fill: white;
+	-fx-font-size: 21px;
+	-fx-font-family: "Nexa Bold";
+}
+
+.headerMenu .label:hover {
+	-fx-text-fill: lightGray;
+}
+
+.headerMenu:focused {
+	-fx-background-color: transparent;
+}
+
+.headerMenu {
+	-fx-background-color: transparent;
+}
+
+.menu-item:focused {
+     -fx-background-color: #969A9F;
+}
+
+.context-menu:focused {
+     -fx-background-color: #969A9F;
+}
+
+.menu:focused {
+	-fx-background-color: transparent;
+}
