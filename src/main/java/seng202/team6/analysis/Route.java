@@ -18,6 +18,10 @@ public class Route {
         }
     }
 
+    public Route(Position ...points) {
+        Collections.addAll(route, points);
+    }
+
     public String toJSONArray() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
