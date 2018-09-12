@@ -30,10 +30,14 @@ import javafx.scene.chart.CategoryAxis;
  * <p>Initialises and applies functionality to the Activity Analysis screen allowing the user to select existing
  * activities then view corresponding statistics and visualisations./p>
  */
-public class WorkoutAnalysisController {
+public class WorkoutAnalysisController extends WorkoutsNavigator {
 
-	private ArrayList<String> currentSeriesTypes = new ArrayList();
+	private ArrayList<Activity> currentSeriesTypes = new ArrayList();
+    private ArrayList<Activity> activities = new ArrayList();
+    private String curSeriesType;
 
+    @FXML
+    private ChoiceBox<String> activitySelection;
     @FXML
     private ChoiceBox<String> activityTypeSelection;
     @FXML
@@ -48,45 +52,46 @@ public class WorkoutAnalysisController {
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation");
         activityTypeSelection.setItems(availableChoices);
         activityTypeSelection.getSelectionModel().select("Heart Rate");
-    }
+        Activity testRun1 = makeTestRun1();
+        Activity testRun2 = makeTestRun2();
+        activities.add(testRun1);
+        activities.add(testRun2);
+        ObservableList<String> availableActivities = FXCollections.observableArrayList(testRun1.getDate().toString(), testRun2.getDate().toString());
+        activitySelection.setItems(availableActivities);
+        activitySelection.getSelectionModel().select(testRun1.getDate().toString());
 
-    public void changeScreen(Event event, String screen) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
-    }
-
-    @FXML
-    public void toWorkoutsScreen(Event event) throws IOException {
-        changeScreen(event, "WorkoutsScreenSplash.fxml");
     }
 
     public void newGraph() {
+        int activity = activitySelection.getSelectionModel().getSelectedIndex();
+        Activity testRun = activities.get(activity);
     	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-    	if (!currentSeriesTypes.contains(seriesType) || currentSeriesTypes.size() > 1) {
+    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == testRun && curSeriesType == seriesType){
+            ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph");
+        } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
 	    	currentSeriesTypes.clear();
 	        analysisGraph.getData().clear();
+            curSeriesType = seriesType;
 	        addSeries();
-    	}
+    	} else {
+            String errorMessage = String.format("Already displaying data for %s ya dinguss", testRun.getDate().toString());
+            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage);
+        }
     }
 
     public void addSeries() {
+        int activity = activitySelection.getSelectionModel().getSelectedIndex();
+        Activity testRun = activities.get(activity);
     	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-    	if (!currentSeriesTypes.contains(seriesType)) {
+    	if (!currentSeriesTypes.contains(testRun) && seriesType == curSeriesType) {
 	        //defining the axes
     		xAxis.setLabel("Time");
-
-
-	        //analysisGraph.setTitle("Heart Rate");
 	        //defining a series
 	        XYChart.Series series = new XYChart.Series();
 	        //populating the series with data
-	        Activity testRun = makeTestRun();
 
 	        String ActivityType = activityTypeSelection.getSelectionModel().getSelectedItem();
-	        series.setName(ActivityType);
+	        series.setName(testRun.getDate().toString() + " " + ActivityType);
 	        for (ActivityDataPoint point : testRun.getActivityData()) {
 	        	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
 	            if (ActivityType == "Heart Rate") {
@@ -103,14 +108,14 @@ public class WorkoutAnalysisController {
 	            	series.getData().add(new XYChart.Data(duration.toMinutes(), point.getElevation()));
 	            }
 	        }
-	        currentSeriesTypes.add(seriesType);
+	        currentSeriesTypes.add(testRun);
 	        analysisGraph.getData().add(series);
     	} else {
-    		System.out.println("Already on graph");
+    		ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss");
     	}
     }
 
-    private Activity makeTestRun() {
+    private Activity makeTestRun1() {
         LocalDate inputDate = LocalDate.of(2018, 10, 9);
         LocalTime time1 = LocalTime.of(5, 30);
         LocalTime time2 = LocalTime.of(5, 40);
@@ -125,6 +130,30 @@ public class WorkoutAnalysisController {
         ActivityDataPoint p4 = new ActivityDataPoint(time4, 104, -43.522371, 172.589474, 88);
         ActivityDataPoint p5 = new ActivityDataPoint(time5, 101, -43.530834, 172.586771, 88);
         ActivityDataPoint p6 = new ActivityDataPoint(time6, 98, -43.530029, 172.582520, 92);
+        testActivity.addActivityData(p1);
+        testActivity.addActivityData(p2);
+        testActivity.addActivityData(p3);
+        testActivity.addActivityData(p4);
+        testActivity.addActivityData(p5);
+        testActivity.addActivityData(p6);
+        return testActivity;
+    }
+
+    private Activity makeTestRun2() {
+        LocalDate inputDate = LocalDate.of(2018, 10, 12);
+        LocalTime time1 = LocalTime.of(12, 30);
+        LocalTime time2 = LocalTime.of(12, 35);
+        LocalTime time3 = LocalTime.of(12, 55);
+        LocalTime time4 = LocalTime.of(13, 8);
+        LocalTime time5 = LocalTime.of(13, 17);
+        LocalTime time6 = LocalTime.of(13, 36);
+        Activity testActivity = new Activity("Running", inputDate, time1, time6, 4.00, 80, 120);
+        ActivityDataPoint p1 = new ActivityDataPoint(time1, 89, -43.530029, 172.582520, 88);
+        ActivityDataPoint p2 = new ActivityDataPoint(time2, 88, -43.523584, 172.579179, 107);
+        ActivityDataPoint p3 = new ActivityDataPoint(time3, 93, -43.519975, 172.579222, 19);
+        ActivityDataPoint p4 = new ActivityDataPoint(time4, 120, -43.522371, 172.589474, 32);
+        ActivityDataPoint p5 = new ActivityDataPoint(time5, 118, -43.530834, 172.586771, 50);
+        ActivityDataPoint p6 = new ActivityDataPoint(time6, 98, -43.530029, 172.582520, 76);
         testActivity.addActivityData(p1);
         testActivity.addActivityData(p2);
         testActivity.addActivityData(p3);
