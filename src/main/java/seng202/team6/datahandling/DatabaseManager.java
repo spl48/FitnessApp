@@ -53,10 +53,11 @@ public class DatabaseManager implements DataLoader {
         String gender = userData.getString("gender");
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
+        Double stridelength = userData.getDouble("stridelength");
         LocalDate dob = LocalDate.parse(dobString);
 
         // Creates a User model using database data.
-        User user = new User(firstName, lastName, dob, gender, height, weight, 2.0, aUsername, id); 
+        User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, aUsername, id);
         return user; 
     }
 
@@ -99,9 +100,9 @@ public class DatabaseManager implements DataLoader {
             con = DriverManager.getConnection("jdbc:sqlite:Data.db");
             initialiseDatabase();
         } catch (ClassNotFoundException e) {
-            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!");
+            //ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!");
         } catch (SQLException e) {
-            ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.");
+            //ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.");
         }
     }
 
@@ -122,7 +123,8 @@ public class DatabaseManager implements DataLoader {
                         + "lastname text,"
                         + "gender text,"
                         + "height REAL,"
-                        + "weight REAL);";
+                        + "weight REAL,"
+                        + "stridelength REAL);";
                 userTableStatement.execute(userTablesql);
                 //Create activities table
                 Statement activityTableStatement = con.createStatement();
@@ -146,9 +148,16 @@ public class DatabaseManager implements DataLoader {
                         + "FOREIGN KEY(activityid) REFERENCES activity(activityid));";
                 recordTableStatement.execute(recordTablesql);
                 //inserting some sample data
-                String sqlprep1 = "INSERT INTO user(username) VALUES(?)";
+                String sqlprep1 = "INSERT INTO user(username, dateofbirth, firstname, lastname, gender, height, weight, stridelength) VALUES(?,?,?,?,?,?,?,?)";
                 PreparedStatement prep = con.prepareStatement(sqlprep1);
                 prep.setString(1, "Billythekidzz");
+                prep.setString(2, "1998-23-08");
+                prep.setString(3, "Gavin");
+                prep.setString(4, "Ong");
+                prep.setString(5, "male");
+                prep.setDouble(6, 170.0);
+                prep.setDouble(7, 65.0);
+                prep.setDouble(8, 2.0);
                 prep.execute();
                 System.out.println("User tables built");
             }
@@ -159,11 +168,11 @@ public class DatabaseManager implements DataLoader {
         return con;
     }
 
-    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight) throws SQLException, ClassNotFoundException {
+    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight, double stridelength) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight) VALUES(?,?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength) VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setString(1, username);
         prep.setString(2, dob);
@@ -172,6 +181,7 @@ public class DatabaseManager implements DataLoader {
         prep.setString(5, gender);
         prep.setDouble(6, height);
         prep.setDouble(7, weight);
+        prep.setDouble(8, stridelength);
         prep.execute();
     }
 
