@@ -84,4 +84,23 @@ public class ActivityAnalysis {
 
         return calories;
     }
+
+    public double findCaloriesBurnedFromStart(Activity activity, long activityTime, User user) {
+        double metValue;
+        double calories;
+        double userWeight = user.getWeight();
+        String activityType = activity.getType();
+
+        if (activityType == "Walking") {
+            metValue = 4.3;
+        } else if (activityType == "Running") {
+            metValue = 9.8;
+        } else {
+            metValue = 8;
+        }
+
+        calories = metValue * 3.5 * userWeight / 200 * activityTime / 1000;
+
+        return calories;
+    }
 }
