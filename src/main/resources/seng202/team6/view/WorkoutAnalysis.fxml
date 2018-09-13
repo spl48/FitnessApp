@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
    <top>
       <fx:include source="header.fxml" />
    </top>
@@ -70,7 +70,7 @@
                         </LineChart>
                         <ChoiceBox fx:id="activityTypeSelection" layoutX="168.0" layoutY="274.0" prefHeight="26.0" prefWidth="238.0" />
                         <Button fx:id="graphButton" layoutX="424.0" layoutY="275.0" mnemonicParsing="false" onAction="#newGraph" text="Show me da graph!!" />
-                        <Button fx:id="compareButton" layoutX="606.0" layoutY="274.0" mnemonicParsing="false" onAction="#addSeries" text="Compare dat shiz!!!" />
+                        <Button fx:id="compareButton" layoutX="606.0" layoutY="274.0" mnemonicParsing="false" onAction="#addSeries" text="Compare" />
                      </children></AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
