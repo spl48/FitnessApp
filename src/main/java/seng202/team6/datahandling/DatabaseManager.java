@@ -100,9 +100,9 @@ public class DatabaseManager implements DataLoader {
             con = DriverManager.getConnection("jdbc:sqlite:Data.db");
             initialiseDatabase();
         } catch (ClassNotFoundException e) {
-            //ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!");
+            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!");
         } catch (SQLException e) {
-            //ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.");
+            ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.");
         }
     }
 
