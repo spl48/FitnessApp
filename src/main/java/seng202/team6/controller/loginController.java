@@ -2,6 +2,7 @@ package seng202.team6.controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -185,7 +186,11 @@ public class loginController extends GUIUtilities{
         // Sets the formatting of the selection button.
         selectProfileButton.setAlignment(Pos.BOTTOM_CENTER);
         selectProfileButton.setMnemonicParsing(false);
-        selectProfileButton.setOnAction(loginController.this::changeSelected);
+        selectProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                loginController.this.changeSelected(event);
+            }
+        });
         selectProfileButton.setPrefHeight(226.0);
         selectProfileButton.setPrefWidth(180.0);
         selectProfileButton.setStyle(getButtonStyle("1"));

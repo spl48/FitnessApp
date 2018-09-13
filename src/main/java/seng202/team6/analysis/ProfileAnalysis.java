@@ -20,9 +20,9 @@ public class ProfileAnalysis {
      */
     public double calculateBMI(Profile profile) {
         double weight = profile.getUser().getWeight();
-        double height = profile.getUser().getWeight(); //TODO i'm assuming height is in metres
+        double height = profile.getUser().getHeight();
 
-        return weight / (height * height);
+        return weight / (height * height * 1000);
     }
 
 
@@ -131,6 +131,8 @@ public class ProfileAnalysis {
         return totalDistance;
 
     }
+
+
 
     /**
      * A function that determines and returns the maximum step count from all a users activities.

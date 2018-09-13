@@ -57,7 +57,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         activities.add(testRun1);
         activities.add(testRun2);
         ObservableList<String> availableActivities = FXCollections.observableArrayList(testRun1.getDate().toString(), testRun2.getDate().toString());
+        System.out.println(availableActivities);
         activitySelection.setItems(availableActivities);
+        System.out.println(testRun1.getDate().toString().getClass().getName());
         activitySelection.getSelectionModel().select(testRun1.getDate().toString());
 
     }
