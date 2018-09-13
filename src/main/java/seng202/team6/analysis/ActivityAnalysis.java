@@ -25,10 +25,10 @@ public class ActivityAnalysis {
         return maxHeartRate;
     }
 
-    public double findMaximumStepCount(Activity activity) {
-
-        return 1;
+    public double findStepCount(Activity activity, User user) {
+        return (activity.getDistance() * 1000 / user.getStrideLength() * 30.48);
     }
+
 
     public double findTotalDistance(Activity activity) {
         double latitudeDist;
