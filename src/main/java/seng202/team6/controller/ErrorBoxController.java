@@ -88,6 +88,11 @@ public class ErrorBoxController extends GUIUtilities {
                 Scene scene = new Scene(root, 400, 350);
                 errorWindow.setScene(scene);
                 errorWindow.showAndWait();
+            } else if (type == "notification") {
+                Parent root = FXMLLoader.load(getClass().getResource("../view/notificationPopUp.fxml"));
+                Scene scene = new Scene(root, 400, 350);
+                errorWindow.setScene(scene);
+                errorWindow.showAndWait();
             }
 
         } catch (IOException e) {
