@@ -150,7 +150,7 @@ public class EditProfileController {
             weight = Double.parseDouble(weightField.getText());
             stride = Double.parseDouble(strideField.getText());
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Type", "Please ensure measurement fields are numeric values.");
+            ApplicationManager.displayPopUp("Invalid Type", "Please ensure measurement fields are numeric values.", "error");
         }
     }
 

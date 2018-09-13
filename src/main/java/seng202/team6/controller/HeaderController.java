@@ -46,7 +46,7 @@ public class HeaderController {
             User currUser = databaseManager.getUser(ApplicationManager.getCurrentUserID()); //Replace with database current user.
             usernameMenu.setText(currUser.getFullName().toUpperCase());
         } catch (SQLException e) {
-            ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.");
+            ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.", "error");
         }
     }
 

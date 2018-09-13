@@ -27,13 +27,13 @@ public class registerController extends GUIUtilities {
     private TextField usernameEntry, firstNameEntry, lastNameEntry, heightEntry, weightEntry, strideEntry;
 
     /**
-     * Date Picker for user to choose thier birth date.
+     * Date Picker for user to choose their birth date.
      */
     @FXML
     private DatePicker birthDateEntry;
 
     /**
-     * Drop down field for user to pick thier gender.
+     * Drop down field for user to pick their gender.
      */
     @FXML
     private ComboBox<String> genderComboBox;
@@ -87,7 +87,7 @@ public class registerController extends GUIUtilities {
     public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
         setEnteredData();
         if (validEnteredData()) {
-            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + "!!");
+            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + "!!", "confirmation");
             databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
             toStartScreen(event);
         }
@@ -108,7 +108,7 @@ public class registerController extends GUIUtilities {
             weight = Double.parseDouble(weightEntry.getText());
             stride = Double.parseDouble(strideEntry.getText());
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!");
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
     }
 

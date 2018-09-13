@@ -1,10 +1,13 @@
 package seng202.team6.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,13 +46,24 @@ public class ErrorBoxController extends GUIUtilities {
         errorText.setWrapText(true);
     }
 
+    @FXML
+    public void lightenButton(MouseEvent event){
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:rgb(79,79,79);");
+    }
+
+    @FXML
+    public void darkenButton(Event event) {
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:rgb(55,55,55);");
+    }
 
     /**
      * Displays the error pop up with title and message using the fxml file for style.
      * @param title The title of the error pop up.
      * @param message The message contained within the error pop up.
      */
-    public void displayErrorPopUP(String title, String message) {
+    public void displayErrorPopUP(String title, String message, String type) {
         
         // Sets the class properties to the error message and title.
         errorMessage = message.toUpperCase();
@@ -64,10 +78,18 @@ public class ErrorBoxController extends GUIUtilities {
         // Tries to load the error box fxml and displays it.
         // Otherwise, shows error on the terminal.
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("../view/errorPopUp.fxml"));
-            Scene scene = new Scene(root, 400, 350);
-            errorWindow.setScene(scene);
-            errorWindow.showAndWait();
+            if (type == "error") {
+                Parent root = FXMLLoader.load(getClass().getResource("../view/errorPopUp.fxml"));
+                Scene scene = new Scene(root, 400, 350);
+                errorWindow.setScene(scene);
+                errorWindow.showAndWait();
+            } else if (type == "confirmation") {
+                Parent root = FXMLLoader.load(getClass().getResource("../view/confirmationPopUp.fxml"));
+                Scene scene = new Scene(root, 400, 350);
+                errorWindow.setScene(scene);
+                errorWindow.showAndWait();
+            }
+
         } catch (IOException e) {
             System.out.println("Loading error\nSorry, could not load page.");
         }

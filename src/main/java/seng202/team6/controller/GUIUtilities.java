@@ -75,7 +75,7 @@ public class GUIUtilities {
             appStage.setScene(loginScene);
             appStage.show();
         } catch (IOException e) {
-            ApplicationManager.displayPopUp("Error Loading Screen", "Sorry there has been a problem loading: \n" + screen);
+            ApplicationManager.displayPopUp("Error Loading Screen", "Sorry there has been a problem loading: \n" + screen, "error");
             e.printStackTrace();
         }
     }

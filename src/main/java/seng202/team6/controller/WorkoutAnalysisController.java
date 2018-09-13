@@ -73,7 +73,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         Activity testRun = activities.get(activity);
     	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
     	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == testRun && curSeriesType == seriesType){
-            ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph");
+            ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
         } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
 	    	currentSeriesTypes.clear();
 	        analysisGraph.getData().clear();
@@ -85,7 +85,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             }
         } else {
             String errorMessage = String.format("Already displaying data for %s ya dinguss", testRun.getDate().toString());
-            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage);
+            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage, "error");
         }
     }
 
@@ -132,7 +132,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	        currentSeriesTypes.add(testRun);
 	        analysisGraph.getData().add(series);
     	} else {
-    		ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss");
+    		ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss", "error");
     	}
     }
 

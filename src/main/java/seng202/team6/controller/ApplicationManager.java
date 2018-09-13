@@ -28,8 +28,8 @@ public class ApplicationManager {
         databaseManager = new DatabaseManager();
     }
 
-    public static void displayPopUp(String title, String message) {
-        errorBoxController.displayErrorPopUP(title, message);
+    public static void displayPopUp(String title, String message, String type) {
+        errorBoxController.displayErrorPopUP(title, message, type);
     }
 
 }

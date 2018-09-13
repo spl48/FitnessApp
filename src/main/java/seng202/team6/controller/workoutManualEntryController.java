@@ -103,7 +103,7 @@ public class workoutManualEntryController extends GUIUtilities {
             minHR = Double.parseDouble(minHR_E.getText());
             maxHR = Double.parseDouble(maxHR_E.getText());
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!");
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
     }
 
