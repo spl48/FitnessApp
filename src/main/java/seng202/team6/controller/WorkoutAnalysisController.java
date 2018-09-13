@@ -1,6 +1,7 @@
 package seng202.team6.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +21,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import seng202.team6.analysis.ActivityAnalysis;
+import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import static java.time.temporal.ChronoUnit.MINUTES;
@@ -36,6 +38,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private ArrayList<Activity> activities = new ArrayList();
     private String curSeriesType;
 
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+
     @FXML
     private ChoiceBox<String> activitySelection;
     @FXML
@@ -49,7 +53,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation");
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
         activityTypeSelection.setItems(availableChoices);
         activityTypeSelection.getSelectionModel().select("Heart Rate");
         Activity testRun1 = makeTestRun1();
@@ -74,14 +78,18 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	    	currentSeriesTypes.clear();
 	        analysisGraph.getData().clear();
             curSeriesType = seriesType;
-	        addSeries();
-    	} else {
+            try {
+                addSeries();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
             String errorMessage = String.format("Already displaying data for %s ya dinguss", testRun.getDate().toString());
             ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage);
         }
     }
 
-    public void addSeries() {
+    public void addSeries() throws SQLException {
         int activity = activitySelection.getSelectionModel().getSelectedIndex();
         Activity testRun = activities.get(activity);
     	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
@@ -108,6 +116,17 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	            } else if (ActivityType == "Elevation") {
 	            	yAxis.setLabel("Elevation (M)");
 	            	series.getData().add(new XYChart.Data(duration.toMinutes(), point.getElevation()));
+	            } else if  (ActivityType == "Calories") {
+                    String userName = null;
+                    yAxis.setLabel("Calories Burned");
+                    ActivityAnalysis activityAnalysis = new ActivityAnalysis();
+                    try {
+                        userName = databaseManager.getUsernames().get(1);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    double calories = activityAnalysis.findCaloriesBurnedFromStart(testRun, duration.toMinutes(), databaseManager.getUser(userName));
+                    series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
 	            }
 	        }
 	        currentSeriesTypes.add(testRun);

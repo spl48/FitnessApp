@@ -2,8 +2,9 @@ package seng202.team6.analysis;
 
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
+import seng202.team6.models.User;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Math.abs;
 
@@ -24,10 +25,10 @@ public class ActivityAnalysis {
         return maxHeartRate;
     }
 
-    public double findMaximumStepCount(Activity activity) {
-
-        return 1;
+    public double findStepCount(Activity activity, User user) {
+        return (activity.getDistance() * 1000 / user.getStrideLength() * 30.48);
     }
+
 
     public double findTotalDistance(Activity activity) {
         double latitudeDist;
@@ -46,7 +47,7 @@ public class ActivityAnalysis {
 
         return totalDistance;
     }
-    
+
     public double findDistanceFromStart(Activity activity, int index) {
         double latitudeDist;
         double longitudeDist;
@@ -64,8 +65,42 @@ public class ActivityAnalysis {
         return totalDistance*100;
     }
 
-    public double findTotalTime(Activity activity) {
+    public double findCaloriesBurned(Activity activity, User user) {
+        double metValue;
+        double calories;
+        double userWeight = user.getWeight();
+        long activityTime = activity.getTotalTime();
+        String activityType = activity.getType();
 
-        return 1;
+        if (activityType == "Walking") {
+            metValue = 4.3;
+        } else if (activityType == "Running") {
+            metValue = 9.8;
+        } else {
+            metValue = 8;
+        }
+
+        calories = metValue * 3.5 * userWeight / 200 * activityTime / 1000;
+
+        return calories;
+    }
+
+    public double findCaloriesBurnedFromStart(Activity activity, long activityTime, User user) {
+        double metValue;
+        double calories;
+        double userWeight = user.getWeight();
+        String activityType = activity.getType();
+
+        if (activityType == "Walking") {
+            metValue = 4.3;
+        } else if (activityType == "Running") {
+            metValue = 9.8;
+        } else {
+            metValue = 8;
+        }
+
+        calories = metValue * 3.5 * userWeight / 200 * activityTime / 1000;
+
+        return calories;
     }
 }

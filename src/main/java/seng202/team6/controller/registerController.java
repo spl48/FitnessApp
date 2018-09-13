@@ -88,7 +88,7 @@ public class registerController extends GUIUtilities {
         setEnteredData();
         if (validEnteredData()) {
             ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + "!!");
-            databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight);
+            databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
             toStartScreen(event);
         }
     }

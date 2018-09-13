@@ -1,4 +1,4 @@
-package seng202.team6.analysis;
+package seng202.team6.models;
 
 
 
@@ -16,6 +16,10 @@ public class Route {
         for (Position point : points) {
             route.add(point);
         }
+    }
+
+    public Route(Position ...points) {
+        Collections.addAll(route, points);
     }
 
     public String toJSONArray() {
