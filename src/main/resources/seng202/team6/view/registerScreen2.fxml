@@ -86,7 +86,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="weightEntry" alignment="CENTER" prefHeight="35.0" prefWidth="300.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+            <TextField fx:id="weightEntry" prefHeight="35.0" prefWidth="300.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
