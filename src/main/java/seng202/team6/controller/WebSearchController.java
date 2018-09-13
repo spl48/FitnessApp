@@ -10,6 +10,7 @@ public class WebSearchController {
 
     public void initialize() {
         WebEngine engine = webView.getEngine();
-        engine.load("https://www.google.co.nz");
+        engine.load("https://www.google.co.nz/search?q=tachycardia&oq=tachycardia&aqs=chrome");
+
     }
 }

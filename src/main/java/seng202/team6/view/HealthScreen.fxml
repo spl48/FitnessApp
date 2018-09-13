@@ -31,7 +31,7 @@
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </BorderPane.margin>
          <center>
-            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#toWebSearchScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: rgb(63,179,164); -fx-border-radius: 15px;" text="Search" textFill="WHITE"></Button>
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#toWebSearchScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: rgb(63,179,164); -fx-border-radius: 15px;" text="Search" textFill="WHITE" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </center>
