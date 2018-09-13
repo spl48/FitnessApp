@@ -154,7 +154,7 @@ public class DatabaseManager implements DataLoader {
                 String sqlprep1 = "INSERT INTO user(username, dateofbirth, firstname, lastname, gender, height, weight, stridelength) VALUES(?,?,?,?,?,?,?,?)";
                 PreparedStatement prep = con.prepareStatement(sqlprep1);
                 prep.setString(1, "Billythekidzz");
-                prep.setString(2, "1998-23-08");
+                prep.setString(2, "1998-08-23");
                 prep.setString(3, "Gavin");
                 prep.setString(4, "Ong");
                 prep.setString(5, "male");
@@ -200,5 +200,10 @@ public class DatabaseManager implements DataLoader {
         prep.setString(4, end);
         prep.setString(5, workout);
         prep.execute();
+    }
+
+
+    public void getActivities(int userid) {
+
     }
 }
