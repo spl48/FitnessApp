@@ -96,6 +96,8 @@ public class User
         this.weight = weight;
         this.strideLength = strideLength;
         this.username = username;
+
+        this.userID = userID;
     }
 
     /**
@@ -266,15 +268,28 @@ public class User
         return username;
     }
 
+    /**
+     * Returns the String representation of Full Name of the User.
+     * @return Returns the Full Name of the User.
+     */
     public String getFullName() 
     {
         return firstName + " " + lastName;
     }
 
+    /**
+     * A function that takes an Integer id and sets the User ID to the given
+     * parameter.
+     * @param id An Integer parameter that is used as the User ID.
+     */
     public void setUserID(int id) {
         userID = id;
     }
 
+    /**
+     * A function that returns the user ID of the User.
+     * @return Returns an Integer that represents the User ID.
+     */
     public int getUserID() {
         return userID;
     }
