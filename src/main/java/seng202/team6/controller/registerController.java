@@ -9,7 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.utilities.DataValidation;
+import seng202.team6.utilities.UserDataValidation;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -117,13 +117,13 @@ public class registerController extends GUIUtilities {
      * @return Whether all the entered user details are valid.
      */
     private boolean validEnteredData() {
-        return DataValidation.validateUserName(username) &&
-                DataValidation.validateName(first, "First Name") &&
-                DataValidation.validateName(last, "Last Name") &&
-                DataValidation.validateBirthDate(birthDate) &&
-                DataValidation.validateGender(gender) &&
-                DataValidation.validateDoubleValue(height, "Height", 280, 55) &&
-                DataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
-                DataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
+        return UserDataValidation.validateUserName(username) &&
+                UserDataValidation.validateName(first, "First Name") &&
+                UserDataValidation.validateName(last, "Last Name") &&
+                UserDataValidation.validateBirthDate(birthDate) &&
+                UserDataValidation.validateGender(gender) &&
+                UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
+                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
+                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
     }
 }

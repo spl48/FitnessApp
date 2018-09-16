@@ -112,14 +112,14 @@ public class workoutManualEntryController extends GUIUtilities {
      * @return Whether all fields are valid.
      */
     private boolean validEnteredData() {
-//        return DataValidation.validateUserName(username) &&
-//                DataValidation.validateName(first, "First Name") &&
-//                DataValidation.validateName(last, "Last Name") &&
-//                DataValidation.validateBirthDate(birthDate) &&
-//                DataValidation.validateGender(gender) &&
-//                DataValidation.validateDoubleValue(height, "Height", 280, 55) &&
-//                DataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
-//                DataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
+//        return UserDataValidation.validateUserName(username) &&
+//                UserDataValidation.validateName(first, "First Name") &&
+//                UserDataValidation.validateName(last, "Last Name") &&
+//                UserDataValidation.validateBirthDate(birthDate) &&
+//                UserDataValidation.validateGender(gender) &&
+//                UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
+//                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
+//                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
     return true;
 }
 

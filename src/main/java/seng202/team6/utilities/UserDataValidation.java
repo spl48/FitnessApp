@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 import seng202.team6.controller.ErrorBoxController;
 
-public class DataValidation {
+public class UserDataValidation {
 
     /**
      * The minimum length of the User's first name
