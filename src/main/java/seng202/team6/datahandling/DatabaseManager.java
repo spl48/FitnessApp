@@ -2,11 +2,13 @@ package seng202.team6.datahandling;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.ObjectUtils.Null;
 
 import seng202.team6.controller.ApplicationManager;
+import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
 public class DatabaseManager implements DataLoader {
@@ -85,7 +87,6 @@ public class DatabaseManager implements DataLoader {
         }
         
         ArrayList<String> users = new ArrayList<String>();
-        System.out.println("Here");
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM user");
         while(res.next()){
@@ -203,7 +204,46 @@ public class DatabaseManager implements DataLoader {
     }
 
 
-    public void getActivities(int userid) {
+    public ArrayList<Integer> getActivities(int userid) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
 
+        ArrayList<Integer> activities = new ArrayList<Integer>();
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery("SELECT activityid FROM activity WHERE userid = " + userid);
+        while(res.next()){
+            activities.add(res.getInt("activityid"));
+        }
+        return activities;
+    }
+
+    public ArrayList<ActivityDataPoint>  getActivityRecords(int activityID) throws SQLException {
+        // Checks the connection to the database.
+        if(con == null) {
+            getConnection();
+        }
+
+        // Tries to query the database for a user.
+        Statement statement = con.createStatement();
+        ResultSet recordData = statement.executeQuery("SELECT * FROM record WHERE activityID = " + activityID );
+        ArrayList<ActivityDataPoint> records = new ArrayList<ActivityDataPoint>();
+
+        // Gets data from the database.
+        while(recordData.next()) {
+            int id = recordData.getInt("activityid");
+            String dateTime = recordData.getString("datetime");
+            Integer heartRate = recordData.getInt("heartrate");
+            Double latitude = recordData.getDouble("latitude");
+            Double longitude = recordData.getDouble("longitude");
+            Double elevation = recordData.getDouble("elevation");
+            LocalTime time = LocalTime.NOON;
+
+            ActivityDataPoint record = new ActivityDataPoint(time, heartRate, latitude, longitude, elevation);
+            records.add(record);
+        }
+
+        // Creates a User model using database data.
+        return records;
     }
 }
