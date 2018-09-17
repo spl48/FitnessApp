@@ -47,7 +47,7 @@
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <manifestEntries>
-                                <Main-Class>seng202.team6.view.Main</Main-Class>
+                                <Main-Class>seng202.team6.Main</Main-Class>
                                 <X-Compile-Source-JDK>1.8</X-Compile-Source-JDK>
                                 <X-Compile-Target-JDK>1.8</X-Compile-Target-JDK>
                             </manifestEntries>
@@ -71,19 +71,14 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>-->
         </plugins>
-        <resources>
+        <!--<resources>
             <resource>
                 <directory> src/resources </directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                </includes>
             </resource>
-        </resources>
+        </resources>-->
     </build>
 </project>
