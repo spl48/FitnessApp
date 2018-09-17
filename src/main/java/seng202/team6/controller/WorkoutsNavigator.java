@@ -24,7 +24,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toWorkoutsScreen(Event event) {
-        changeScreen(event, "../view/WorkoutsScreenSplash.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml");
     }
 
     /**
@@ -33,7 +33,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toRawDataVeiwer(Event event) {
-        changeScreen(event, "../view/RawDataVeiwer.fxml");
+        changeScreen(event, "/seng202/team6/view/RawDataVeiwer.fxml");
     }
 
     /**
@@ -42,7 +42,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toWorkoutAnalysis(Event event) {
-        changeScreen(event, "../view/WorkoutAnalysis.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutAnalysis.fxml");
     }
 
     /**
@@ -51,7 +51,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toAddWorkout(Event event) {
-        changeScreen(event, "../view/AddWorkout.fxml");
+        changeScreen(event, "/seng202/team6/view/AddWorkout.fxml");
     }
 
     /**
@@ -60,7 +60,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toWorkoutManualEntry(Event event) {
-        changeScreen(event, "../view/WorkoutManualEntry.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutManualEntry.fxml");
     }
 
     /**
@@ -69,12 +69,12 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toUploadWorkoutFile(Event event) {
-        changeScreen(event, "../view/WorkoutUpload.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutUpload.fxml");
     }
 
     @FXML
     public void toMaps(Event event) {
-        changeScreen(event, "../view/MapsScreen.fxml");
+        changeScreen(event, "/seng202/team6/view/MapsScreen.fxml");
     }
 
 }

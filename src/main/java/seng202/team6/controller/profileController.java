@@ -62,6 +62,6 @@ public class profileController extends GUIUtilities {
      * @param event When the edit toggle button is pressed.
      */
     public void toEditProfile(Event event) {
-        changeScreen(event, "../view/EditProfileScreen.fxml");
+        changeScreen(event, "/seng202/team6/view/EditProfileScreen.fxml");
     }
 }

@@ -57,7 +57,7 @@ public class HeaderController {
     @FXML
     public void toStartScreen() {
         try {
-            Parent loginParent = FXMLLoader.load(getClass().getResource("../view/startScreen2.fxml"));
+            Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/startScreen2.fxml"));
             Scene loginScene = new Scene(loginParent);
             Stage appStage = (Stage) (profileImg.getScene().getWindow());
             appStage.setScene(loginScene);
