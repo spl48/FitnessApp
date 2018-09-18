@@ -1,5 +1,6 @@
 package seng202.team6.controller;
 
+import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
@@ -22,7 +23,7 @@ public class HomeScreenController {
 	int userid = ApplicationManager.getCurrentUserID();
     
     @FXML
-    private ChoiceBox<String> activityTypeSelection;
+    private ComboBox activityTypeSelection;
     @FXML
     private NumberAxis xAxis;
     @FXML
@@ -32,15 +33,18 @@ public class HomeScreenController {
     
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 	
+    @FXML // This method is called by the FXMLLoader when initialization is complete
     public void initialize() {
 		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
 	    activityTypeSelection.setItems(activityDataTypes);
 	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
+	    newGraph();
     }
     
-    public void newGraph() {
+    @FXML
+    private void newGraph() {
     	
-    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
+    	String seriesType = activityTypeSelection.getValue().toString();
         analysisGraph.getData().clear();
         try {
             addSeries();
@@ -50,17 +54,15 @@ public class HomeScreenController {
     }
     
     public void addSeries() throws SQLException {
-    	//int activityID = databaseManager.getActivityIDs(userid).get(-1);
-        //Activity activity = databaseManager.getActivityRecords(activityID);
         Activity testRun = makeTestRun1();
-    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
+    	String seriesType = activityTypeSelection.getValue().toString();
         //defining the axes
 		xAxis.setLabel("Time");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         //populating the series with data
 
-        String activityDataType = activityTypeSelection.getSelectionModel().getSelectedItem();
+        String activityDataType = activityTypeSelection.getValue().toString();
         series.setName(testRun.getDate().toString() + " " + activityDataType);
         for (ActivityDataPoint point : testRun.getActivityData()) {
         	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
