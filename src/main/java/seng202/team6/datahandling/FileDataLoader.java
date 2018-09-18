@@ -115,6 +115,13 @@ public class FileDataLoader implements DataLoader {
                     //if(nextLine[0])
                 }
             }
+            activityEndDate = previousLine[0];
+            activityEndTime = previousLine[1];
+            end = convertToDateTimeFormat(activityEndDate, activityEndTime);
+            String sql = "UPDATE activity SET end = ? WHERE activityid = " + activityid;
+            PreparedStatement updateEnd = databaseManager.getCon().prepareStatement(sql);
+            updateEnd.setString(1, end);
+            updateEnd.execute();
         }
         catch(Exception e)
         {

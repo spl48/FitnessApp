@@ -1,7 +1,6 @@
 package seng202.team6.models;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 /**
  * This class implements User and sets the information regarding the User.

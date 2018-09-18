@@ -96,7 +96,7 @@ public class HomeScreenController {
         LocalTime time4 = LocalTime.of(5, 55);
         LocalTime time5 = LocalTime.of(6, 10);
         LocalTime time6 = LocalTime.of(6, 15);
-        Activity testActivity = new Activity("Running", inputDate, time1, time6, 4.00, 80, 120);
+        Activity testActivity = new Activity(10, "Running", "test description", inputDate, inputDate, time1, time6);
         ActivityDataPoint p1 = new ActivityDataPoint(time1, 85, -43.530029, 172.582520, 88);
         ActivityDataPoint p2 = new ActivityDataPoint(time2, 120, -43.523584, 172.579179, 100);
         ActivityDataPoint p3 = new ActivityDataPoint(time3, 111, -43.519975, 172.579222, 94);
