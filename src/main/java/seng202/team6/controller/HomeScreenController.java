@@ -13,10 +13,15 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import seng202.team6.analysis.ActivityAnalysis;
+import seng202.team6.analysis.ProfileAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
+import seng202.team6.models.User;
 
 public class HomeScreenController {
 
@@ -30,14 +35,29 @@ public class HomeScreenController {
     private NumberAxis yAxis;
     @FXML
     private LineChart<Number,Number> analysisGraph;
-    
+    @FXML
+    private Text BMIText;
+    @FXML
+    private Text weightType;
+
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
-	
-    @FXML // This method is called by the FXMLLoader when initialization is complete
-    public void initialize() {
+
+
+	@FXML
+    public void initialize() throws SQLException{
 		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
 	    activityTypeSelection.setItems(activityDataTypes);
 	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
+
+        String userName = ApplicationManager.getCurrentUsername(); //TODO put this stuff outside functiom?? -- used again later
+	    User user = databaseManager.getUser(userName);
+
+        ProfileAnalysis profileAnalysis = new ProfileAnalysis();
+        double BMI = profileAnalysis.calculateBMI(user);
+        String BMIString = String.format("%.1f", BMI);
+        BMIText.setText(BMIString);
+
+        weightType.setText(profileAnalysis.analyseBMI(BMI));
 	    newGraph();
     }
     
@@ -54,6 +74,8 @@ public class HomeScreenController {
     }
     
     public void addSeries() throws SQLException {
+    	//int activityID = databaseManager.getActivityIDs(userid).get(-1);
+        //Activity activity = databaseManager.getActivityRecords(activityID);
         Activity testRun = makeTestRun1();
     	String seriesType = activityTypeSelection.getValue().toString();
         //defining the axes
@@ -98,7 +120,7 @@ public class HomeScreenController {
         LocalTime time4 = LocalTime.of(5, 55);
         LocalTime time5 = LocalTime.of(6, 10);
         LocalTime time6 = LocalTime.of(6, 15);
-        Activity testActivity = new Activity("Running", inputDate, time1, time6, 4.00, 80, 120);
+        Activity testActivity = new Activity(10, "Running", "test description", inputDate, inputDate, time1, time6);
         ActivityDataPoint p1 = new ActivityDataPoint(time1, 85, -43.530029, 172.582520, 88);
         ActivityDataPoint p2 = new ActivityDataPoint(time2, 120, -43.523584, 172.579179, 100);
         ActivityDataPoint p3 = new ActivityDataPoint(time3, 111, -43.519975, 172.579222, 94);
