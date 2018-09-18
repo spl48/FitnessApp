@@ -81,13 +81,13 @@ public class HomeScreenController {
                 yAxis.setLabel("Calories Burned");
                 ActivityAnalysis activityAnalysis = new ActivityAnalysis();
                 userName = ApplicationManager.getCurrentUsername();
-                double calories = activityAnalysis.findCaloriesBurnedFromStart(60, duration.toMinutes(), databaseManager.getUser(userName));
+                double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
                 series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
             }
         }
         analysisGraph.getData().add(series);
     }
-
+    
     private Activity makeTestRun1() {
         LocalDate inputDate = LocalDate.of(2018, 10, 9);
         LocalTime time1 = LocalTime.of(5, 30);
