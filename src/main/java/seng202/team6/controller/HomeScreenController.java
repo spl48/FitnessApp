@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,18 +40,28 @@ public class HomeScreenController {
     private Text BMIText;
     @FXML
     private Text weightType;
+    @FXML
+    private Text stepCount;
 
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
 	@FXML
-    public void initialize() throws SQLException{
+    public void initialize() throws SQLException {
 		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
 	    activityTypeSelection.setItems(activityDataTypes);
 	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
 
+
+        setBMIInfo();
+        setStepsInfo();
+	    newGraph();
+    }
+
+    @FXML
+    private void setBMIInfo() throws SQLException{
         String userName = ApplicationManager.getCurrentUsername(); //TODO put this stuff outside functiom?? -- used again later
-	    User user = databaseManager.getUser(userName);
+        User user = databaseManager.getUser(userName);
 
         ProfileAnalysis profileAnalysis = new ProfileAnalysis();
         double BMI = profileAnalysis.calculateBMI(user);
@@ -58,9 +69,25 @@ public class HomeScreenController {
         BMIText.setText(BMIString);
 
         weightType.setText(profileAnalysis.analyseBMI(BMI));
-	    newGraph();
     }
-    
+
+    @FXML
+    private void setStepsInfo() throws SQLException{
+        DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+        int userId = ApplicationManager.getCurrentUserID();
+        String userName = ApplicationManager.getCurrentUserName();
+        User user = databaseManager.getUser(userName);
+        ArrayList<Activity> activities = databaseManager.getActivities(userId);
+
+        ProfileAnalysis profileAnalysis = new ProfileAnalysis();
+
+        double strideLength = user.getStrideLength();
+
+        double totalSteps = profileAnalysis.findTotalStepCount(activities, strideLength);
+        String totalStepsString = String.format("%.0f", totalSteps);
+        stepCount.setText(totalStepsString);
+    }
+
     @FXML
     private void newGraph() {
     	

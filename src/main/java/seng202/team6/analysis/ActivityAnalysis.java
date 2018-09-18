@@ -25,8 +25,12 @@ public class ActivityAnalysis {
         return maxHeartRate;
     }
 
-    public double findStepCount(Activity activity, User user) {
-        return (activity.getDistance() * 1000 / user.getStrideLength() * 30.48);
+    public double findStepCount(Activity activity, double strideLength) {
+        //todo change this to only count run and walk steps!
+        System.out.println(activity.getType());
+        int finalIndex = activity.getActivityData().size();
+        double distance = findDistanceFromStart(activity, finalIndex - 1);
+        return (distance * 1000 / strideLength * 30.48);
     }
 
 
