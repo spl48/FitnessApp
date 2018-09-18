@@ -324,4 +324,81 @@ public class DatabaseManager implements DataLoader {
         return description.getString(1);
     }
 
+    public void updateFirstName(String firstName) throws SQLException {
+        // Checks the connection to the database.
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET firstname = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateFirstName = con.prepareStatement(sql);
+        updateFirstName.setString(1, firstName);
+        updateFirstName.execute();
+    }
+    public void updateLastName(String lastName) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET lastname = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateLastName = con.prepareStatement(sql);
+        updateLastName.setString(1, lastName);
+        updateLastName.execute();
+
+    }
+    public void updateUsername(String userName) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET username = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateUsername = con.prepareStatement(sql);
+        updateUsername.setString(1, userName);
+        updateUsername.execute();
+        ApplicationManager.setCurrentUsername(userName);
+    }
+    public void updateDateOfBirth(LocalDate dateOfBirth) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET dateofbirth = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateUsername = con.prepareStatement(sql);
+        System.out.println(dateOfBirth.toString());
+        updateUsername.setString(1, dateOfBirth.toString());
+        updateUsername.execute();
+    }
+    public void updateGender(String gender) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET gender = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateGender = con.prepareStatement(sql);
+        updateGender.setString(1, gender);
+        updateGender.execute();
+
+    }
+    public void updateHeight(double height) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET height = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateHeight = con.prepareStatement(sql);
+        updateHeight.setDouble(1, height);
+        updateHeight.execute();
+    }
+    public void updateWeight(double weight) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET weight = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateWeight = con.prepareStatement(sql);
+        updateWeight.setDouble(1, weight);
+        updateWeight.execute();
+    }
+    public void updateStrideLength(double strideLength) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        String sql = "UPDATE user SET stridelength = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateStrideLength = con.prepareStatement(sql);
+        updateStrideLength.setDouble(1, strideLength);
+        updateStrideLength.execute();
+    }
 }

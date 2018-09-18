@@ -116,16 +116,22 @@ public class EditProfileController {
      * @param event When the user clicks the UPDATE button.
      * @throws IOException When the profile screen fxml in toProfile cannot be loaded.
      */
-    public void updateProfile(ActionEvent event) throws IOException {
+    public void updateProfile(ActionEvent event) throws IOException, SQLException {
         
         setEnteredData(); // Sets the class variables to the entered data.
-        
         if (validEnteredData()) {
             System.out.println("Updated User Data!!"); //Testing - can be replaced with a confirmation message later...
             
             // ENTER DATA INTO DATABASE
-            
-            printData(); // Testing 
+            ApplicationManager.getDatabaseManager().updateFirstName(first);
+            ApplicationManager.getDatabaseManager().updateLastName(last);
+            ApplicationManager.getDatabaseManager().updateUsername(username);
+            ApplicationManager.getDatabaseManager().updateGender(gender);
+            ApplicationManager.getDatabaseManager().updateDateOfBirth(birthDate);
+            ApplicationManager.getDatabaseManager().updateHeight(height);
+            ApplicationManager.getDatabaseManager().updateWeight(weight);
+            ApplicationManager.getDatabaseManager().updateStrideLength(stride);
+            printData(); // Testing
             toProfile(event); // Directs back to the profile screen.
         }
     }

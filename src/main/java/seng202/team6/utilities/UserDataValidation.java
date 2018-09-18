@@ -46,8 +46,8 @@ public class UserDataValidation {
         boolean valid = false;
         if (username.length() == 0) {
             errorBoxController.displayErrorPopUP("Username Entry Invalid", "Please provide a username.", "error");
-        } else if (username.length() > 6) {
-            errorBoxController.displayErrorPopUP("Username Entry Invalid", "Username too long\nPlease ensure username is less than 6 characters.", "error");
+        } else if (username.length() > MAX_USERNAME_LENGTH) {
+            errorBoxController.displayErrorPopUP("Username Entry Invalid", "Username too long\nPlease ensure username is less than " + MAX_USERNAME_LENGTH + " characters.", "error");
         } else {
             valid = true;
         }
