@@ -6,12 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.Position;
 import seng202.team6.models.Route;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -27,11 +29,13 @@ public class MapsController extends WorkoutsNavigator {
 
     private WebEngine webEngine;
     private ArrayList<Activity> activities = new ArrayList();
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
+        /*
         Activity testRun1 = makeTestRun1();
         Activity testRun2 = makeTestRun2();
         activities.add(testRun1);
@@ -39,6 +43,20 @@ public class MapsController extends WorkoutsNavigator {
         ObservableList<String> availableActivities = FXCollections.observableArrayList(testRun1.getDate().toString() + " " + testRun1.getType(), testRun2.getDate().toString() + " " + testRun2.getType());
         activitySelection.setItems(availableActivities);
         activitySelection.getSelectionModel().select(testRun1.getDate().toString() + " " + testRun1.getType());
+        */
+        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        /*
+        ObservableList<String> availableActivities = FXCollections.observableArrayList(testRun1.getDate().toString(), testRun2.getDate().toString());
+        System.out.println(availableActivities);
+        System.out.println(testRun1.getDate().toString().getClass().getName());
+        activitySelection.getSelectionModel().select(testRun1.getDate().toString());
+        */
+        ObservableList<String> availableActivities = FXCollections.observableArrayList();
+        for (Activity activity : activities){
+            availableActivities.add(activity.getDate().toString());
+        }
+        activitySelection.setItems(availableActivities);
+        activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
 
         webEngine = mapWebView.getEngine();
         webEngine.load(MapsController.class.getResource("map.html").toExternalForm());
@@ -69,7 +87,7 @@ public class MapsController extends WorkoutsNavigator {
         String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
         webEngine.executeScript(scriptToExecute);
     }
-
+/*
     private Activity makeTestRun1() {
         LocalDate inputDate = LocalDate.of(2018, 10, 9);
         LocalTime time1 = LocalTime.of(5, 30);
@@ -138,4 +156,5 @@ public class MapsController extends WorkoutsNavigator {
         testActivity.addActivityData(p13);
         return testActivity;
     }
+    */
 }

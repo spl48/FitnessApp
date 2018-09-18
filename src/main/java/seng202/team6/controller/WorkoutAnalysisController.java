@@ -52,20 +52,29 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private LineChart<Number,Number> analysisGraph;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    void initialize() throws SQLException {
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
         activityTypeSelection.setItems(availableChoices);
         activityTypeSelection.getSelectionModel().select("Heart Rate");
+        /*
         Activity testRun1 = makeTestRun1();
         Activity testRun2 = makeTestRun2();
         activities.add(testRun1);
         activities.add(testRun2);
+        */
+        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        /*
         ObservableList<String> availableActivities = FXCollections.observableArrayList(testRun1.getDate().toString(), testRun2.getDate().toString());
         System.out.println(availableActivities);
-        activitySelection.setItems(availableActivities);
         System.out.println(testRun1.getDate().toString().getClass().getName());
         activitySelection.getSelectionModel().select(testRun1.getDate().toString());
-
+        */
+        ObservableList<String> availableActivities = FXCollections.observableArrayList();
+        for (Activity activity : activities){
+            availableActivities.add(activity.getDate().toString());
+        }
+        activitySelection.setItems(availableActivities);
+        activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
     }
 
     public void newGraph() {
@@ -135,7 +144,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     		ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss", "error");
     	}
     }
-
+/*
     private Activity makeTestRun1() {
         LocalDate inputDate = LocalDate.of(2018, 10, 9);
         LocalTime time1 = LocalTime.of(5, 30);
@@ -183,5 +192,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         testActivity.addActivityData(p6);
         return testActivity;
     }
+    */
 }
 
