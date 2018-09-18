@@ -3,6 +3,7 @@ package seng202.team6.analysis;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityList;
 import seng202.team6.models.Profile;
+import seng202.team6.models.User;
 
 import java.util.ArrayList;
 
@@ -15,14 +16,26 @@ public class ProfileAnalysis {
 
     /**
      * A function that returns the body mass index of a user.
-     * @param profile The profile of a user for which the BMI is being calculated.
+     * @param user the user for which the BMI is being calculated.
      * @return a double that is a users BMI.
      */
-    public double calculateBMI(Profile profile) {
-        double weight = profile.getUser().getWeight();
-        double height = profile.getUser().getHeight();
+    public double calculateBMI(User user) {
+        double weight = user.getWeight();
+        double height = user.getHeight() / 100;
 
-        return weight / (height * height * 1000);
+        return weight / (height * height);
+    }
+
+    public String analyseBMI(double BMI) {
+        if (BMI < 18.5) {
+            return "UnderWeight";
+        } else if (BMI < 24.9) {
+            return "Healthy Weight";
+        } else if (BMI < 29.9) {
+            return "OverWeight";
+        } else {
+            return "Obese";
+        }
     }
 
 
