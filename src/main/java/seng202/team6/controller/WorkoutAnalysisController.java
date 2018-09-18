@@ -128,11 +128,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                     yAxis.setLabel("Calories Burned");
                     ActivityAnalysis activityAnalysis = new ActivityAnalysis();
                     try {
-                        userName = databaseManager.getUsernames().get(1);
+                        userName = databaseManager.getUsernames().get(0);
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-                    double calories = activityAnalysis.findCaloriesBurnedFromStart(testRun, duration.toMinutes(), databaseManager.getUser(userName));
+                    double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
                     series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
 	            }
 	        }
