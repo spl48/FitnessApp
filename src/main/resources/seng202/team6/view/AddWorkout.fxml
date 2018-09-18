@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutsNavigator">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.Uploader">
    <top>
       <fx:include source="header.fxml"/>
    </top>
@@ -54,7 +54,7 @@
                <children>
                   <AnchorPane prefHeight="167.0" prefWidth="252.0">
                      <children>
-                        <ImageView layoutX="115.0" layoutY="36.0" onMouseClicked="#toUploadWorkoutFile">
+                        <ImageView layoutX="115.0" layoutY="36.0" onMouseClicked="#uploadActivity">
                            <image>
                               <Image url="@../resources/pics/addworkout.png" />
                            </image>
