@@ -1,0 +1,114 @@
+package seng202.team6.controller;
+
+import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
+import seng202.team6.analysis.ActivityAnalysis;
+import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.models.Activity;
+import seng202.team6.models.ActivityDataPoint;
+
+public class HomeScreenController {
+
+	int userid = ApplicationManager.getCurrentUserID();
+    
+    @FXML
+    private ChoiceBox<String> activityTypeSelection;
+    @FXML
+    private NumberAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private LineChart<Number,Number> analysisGraph;
+    
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+	
+    public void initialize() {
+		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
+	    activityTypeSelection.setItems(activityDataTypes);
+	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
+    }
+    
+    public void newGraph() {
+    	
+    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
+        analysisGraph.getData().clear();
+        try {
+            addSeries();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addSeries() throws SQLException {
+    	//int activityID = databaseManager.getActivityIDs(userid).get(-1);
+        //Activity activity = databaseManager.getActivityRecords(activityID);
+        Activity testRun = makeTestRun1();
+    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
+        //defining the axes
+		xAxis.setLabel("Time");
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        //populating the series with data
+
+        String activityDataType = activityTypeSelection.getSelectionModel().getSelectedItem();
+        series.setName(testRun.getDate().toString() + " " + activityDataType);
+        for (ActivityDataPoint point : testRun.getActivityData()) {
+        	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
+            if (activityDataType == "Heart Rate") {
+    	        yAxis.setLabel("Heart Rate (BPM)");
+                series.getData().add(new XYChart.Data(duration.toMinutes(), point.getHeartRate()));
+            } else if (activityDataType == "Distance") {
+            	yAxis.setLabel("Total Distance (KM)");
+            	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
+            	int index = testRun.getActivityData().indexOf(point);
+            	double distance = activityAnalysis.findDistanceFromStart(testRun, index);
+                series.getData().add(new XYChart.Data(duration.toMinutes(), distance));
+            } else if (activityDataType == "Elevation") {
+            	yAxis.setLabel("Elevation (M)");
+            	series.getData().add(new XYChart.Data(duration.toMinutes(), point.getElevation()));
+            } else if  (activityDataType == "Calories") {
+                String userName = null;
+                yAxis.setLabel("Calories Burned");
+                ActivityAnalysis activityAnalysis = new ActivityAnalysis();
+                userName = ApplicationManager.getCurrentUsername();
+                double calories = activityAnalysis.findCaloriesBurnedFromStart(testRun, duration.toMinutes(), databaseManager.getUser(userName));
+                series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
+            }
+        }
+        analysisGraph.getData().add(series);
+    }
+    
+    private Activity makeTestRun1() {
+        LocalDate inputDate = LocalDate.of(2018, 10, 9);
+        LocalTime time1 = LocalTime.of(5, 30);
+        LocalTime time2 = LocalTime.of(5, 40);
+        LocalTime time3 = LocalTime.of(5, 45);
+        LocalTime time4 = LocalTime.of(5, 55);
+        LocalTime time5 = LocalTime.of(6, 10);
+        LocalTime time6 = LocalTime.of(6, 15);
+        Activity testActivity = new Activity("Running", inputDate, time1, time6, 4.00, 80, 120);
+        ActivityDataPoint p1 = new ActivityDataPoint(time1, 85, -43.530029, 172.582520, 88);
+        ActivityDataPoint p2 = new ActivityDataPoint(time2, 120, -43.523584, 172.579179, 100);
+        ActivityDataPoint p3 = new ActivityDataPoint(time3, 111, -43.519975, 172.579222, 94);
+        ActivityDataPoint p4 = new ActivityDataPoint(time4, 104, -43.522371, 172.589474, 88);
+        ActivityDataPoint p5 = new ActivityDataPoint(time5, 101, -43.530834, 172.586771, 88);
+        ActivityDataPoint p6 = new ActivityDataPoint(time6, 98, -43.530029, 172.582520, 92);
+        testActivity.addActivityData(p1);
+        testActivity.addActivityData(p2);
+        testActivity.addActivityData(p3);
+        testActivity.addActivityData(p4);
+        testActivity.addActivityData(p5);
+        testActivity.addActivityData(p6);
+        return testActivity;
+    }
+}
