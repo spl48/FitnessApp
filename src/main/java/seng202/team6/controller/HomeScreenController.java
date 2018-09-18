@@ -37,6 +37,10 @@ public class HomeScreenController {
     @FXML
     private LineChart<Number,Number> analysisGraph;
     @FXML
+    private Text graphPanelTitle;
+    @FXML
+    private Text noDataText;
+    @FXML
     private Text BMIText;
     @FXML
     private Text weightType;
@@ -95,10 +99,21 @@ public class HomeScreenController {
     @FXML
     private void newGraph() {
         analysisGraph.getData().clear();
-        try {
-            addSeries();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (activities.size() >= 1) {
+        	analysisGraph.setVisible(true);
+        	activityTypeSelection.setVisible(true);
+        	graphPanelTitle.setVisible(true);
+        	noDataText.setVisible(false);
+	        try {
+	            addSeries();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+        } else {
+        	analysisGraph.setVisible(false);
+        	activityTypeSelection.setVisible(false);
+        	graphPanelTitle.setVisible(false);
+        	noDataText.setVisible(true);
         }
     }
     

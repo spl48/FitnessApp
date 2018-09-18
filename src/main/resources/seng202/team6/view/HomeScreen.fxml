@@ -71,12 +71,17 @@
 	                    <NumberAxis fx:id="yAxis" side="LEFT" />
 	                  </yAxis>
                   </LineChart>
-                  <Text layoutX="103.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latest &lt;Activity Type&gt; " wrappingWidth="222.7294921875">
+                  <Text fx:id="graphPanelTitle" layoutX="103.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latest &lt;Activity Type&gt; " wrappingWidth="222.7294921875">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
                   <ComboBox fx:id="activityTypeSelection" layoutX="326.0" layoutY="16.0" onAction="#newGraph" prefWidth="150.0" />
+                  <Text fx:id="noDataText" layoutX="53.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Activity Data" visible="false" wrappingWidth="459.4970703125">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </children>
