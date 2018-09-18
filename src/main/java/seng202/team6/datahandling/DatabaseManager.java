@@ -74,11 +74,11 @@ public class DatabaseManager implements DataLoader {
         ResultSet res = state.executeQuery("SELECT * FROM record WHERE activityid = " + activityid);
         while(res.next()){
             String datetime = res.getString("datetime");
-            String[] parts = datetime.split("-");
+            String[] parts = datetime.split("T");
             String recordTime = parts[1];
             LocalTime localStartTime = LocalTime.parse(recordTime);
             int heartRate = res.getInt("heartrate");
-            Double latitude = res.getDouble("start");
+            Double latitude = res.getDouble("latitude");
             Double longitude = res.getDouble("longitude");
             Double elevation = res.getDouble("elevation");
             ActivityDataPoint dataPoint = new ActivityDataPoint(localStartTime, heartRate, latitude, longitude, elevation);
@@ -231,12 +231,12 @@ public class DatabaseManager implements DataLoader {
     }
 
     /**
-     *
+     *Takes a userid and returns a list of activities associated with the user
      * @param userid The user id used to look up the user in the database.
      * @return An array list of activities associated with the user id.
      * @throws SQLException
      */
-    public ArrayList<Activity> getActivities(String userid) throws SQLException {
+    public ArrayList<Activity> getActivities(int userid) throws SQLException {
         if(con == null) {
             getConnection();
         }
@@ -246,14 +246,16 @@ public class DatabaseManager implements DataLoader {
         while(res.next()){
             String activityDescription = res.getString("description");
             String activityStart = res.getString("start");
-            String[] startParts = activityStart.split("-");
+            String[] startParts = activityStart.split("T");
             String activityStartDate = startParts[0];
             String activityStartTime = startParts[1];
             String activityEnd = res.getString("end");
-            String[] endParts = activityEnd.split("-");
+            System.out.println(activityEnd);
+            String[] endParts = activityEnd.split("T");
             String activityEndDate = endParts[0];
             String activityEndTime = endParts[1];
-            String activityWorkout = res.getString("workout");
+            //String activityWorkout = res.getString("workout");
+            String activityWorkout = "testworkout";
             int activityid = res.getInt("activityid");
             LocalDate localStartDate = LocalDate.parse(activityStartDate);
             LocalDate localEndDate = LocalDate.parse(activityEndDate);
@@ -264,6 +266,8 @@ public class DatabaseManager implements DataLoader {
             for (ActivityDataPoint dataPoint : dataPoints) {
                 activity.addActivityData(dataPoint);
             }
+            activity.updateMaxHeartRate();
+            activity.updateMinHeartRate();
             activities.add(activity);
         }
         return activities;

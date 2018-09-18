@@ -19,6 +19,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.models.User;
 
 
 import java.sql.SQLException;
@@ -74,11 +75,13 @@ public class loginController extends GUIUtilities{
      * @param event When the login button is clicked.
      */
     @FXML
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws SQLException {
 
         // Sets the current user profile.
         String userProfile = selected.getText();
-        ApplicationManager.setCurrentUser(userProfile);
+        User user = databaseManager.getUser(userProfile);
+        int userid = user.getUserID();
+        ApplicationManager.setCurrentUser(userid, userProfile);
 
         // Directs to the Home Screen.
         changeScreen(event, "/seng202/team6/view/HomeScreen.fxml");

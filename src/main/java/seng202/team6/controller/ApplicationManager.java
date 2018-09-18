@@ -6,17 +6,24 @@ import seng202.team6.datahandling.DatabaseManager;
 
 public class ApplicationManager {
 
-    private static String currentUserID;
+    private static int currentUserID;
+
+    private static String currentUsername;
 
     private static DatabaseManager databaseManager;
 
     private static ErrorBoxController errorBoxController = new ErrorBoxController();
 
-    public static void setCurrentUser(String username) {
-        currentUserID = username;
+    public static void setCurrentUser(int userid, String username) {
+        currentUsername = username;
+        currentUserID = userid;
     }
 
-    public static String getCurrentUserID() {
+    public static String getCurrentUserName() {
+        return currentUsername;
+    }
+
+    public static int getCurrentUserID() {
         return currentUserID;
     }
 

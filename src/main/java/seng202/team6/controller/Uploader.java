@@ -41,7 +41,7 @@ public class Uploader extends GUIUtilities {
      */
     @FXML
     void initialize() throws SQLException {
-        currUser = databaseManager.getUser(ApplicationManager.getCurrentUserID());
+        currUser = databaseManager.getUser(ApplicationManager.getCurrentUserName());
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
         sessionType_E.setItems(availableChoices);
     }
