@@ -1,10 +1,13 @@
 package seng202.team6.analysis;
 
+import seng202.team6.controller.ApplicationManager;
+import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityList;
 import seng202.team6.models.Profile;
 import seng202.team6.models.User;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +39,19 @@ public class ProfileAnalysis {
         } else {
             return "Obese";
         }
+    }
+
+    public double findTotalStepCount(ArrayList<Activity> activities, double strideLength) throws SQLException{
+        double stepCount = 0;
+
+        ActivityAnalysis activityAnalysis = new ActivityAnalysis();
+
+        for (Activity activity : activities) {
+            stepCount += activityAnalysis.findStepCount(activity, strideLength);
+        }
+
+        return stepCount;
+
     }
 
 

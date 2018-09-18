@@ -40,31 +40,58 @@ public class HomeScreenController {
     private Text BMIText;
     @FXML
     private Text weightType;
+    @FXML
+    private Text stepCount;
 
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
     private ArrayList<Activity> activities = new ArrayList();
 
 	@FXML
-    public void initialize() throws SQLException{
+    public void initialize() throws SQLException {
 		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
 	    activityTypeSelection.setItems(activityDataTypes);
 	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
 
+
+        setBMIInfo();
+        setStepsInfo();
+	    newGraph();
+    }
+
+    @FXML
+    private void setBMIInfo() throws SQLException{
         String userName = ApplicationManager.getCurrentUsername(); //TODO put this stuff outside functiom?? -- used again later
-	    User user = databaseManager.getUser(userName);
+        User user = databaseManager.getUser(userName);
 
         ProfileAnalysis profileAnalysis = new ProfileAnalysis();
         double BMI = profileAnalysis.calculateBMI(user);
         String BMIString = String.format("%.1f", BMI);
         BMIText.setText(BMIString);
 
-        
+
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         weightType.setText(profileAnalysis.analyseBMI(BMI));
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
     }
-    
+
+    @FXML
+    private void setStepsInfo() throws SQLException{
+        DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+        int userId = ApplicationManager.getCurrentUserID();
+        String userName = ApplicationManager.getCurrentUserName();
+        User user = databaseManager.getUser(userName);
+        ArrayList<Activity> activities = databaseManager.getActivities(userId);
+
+        ProfileAnalysis profileAnalysis = new ProfileAnalysis();
+
+        double strideLength = user.getStrideLength();
+
+        double totalSteps = profileAnalysis.findTotalStepCount(activities, strideLength);
+        String totalStepsString = String.format("%.0f", totalSteps);
+        stepCount.setText(totalStepsString);
+    }
+
     @FXML
     private void newGraph() {
         analysisGraph.getData().clear();
