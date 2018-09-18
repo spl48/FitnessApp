@@ -21,7 +21,19 @@ public class ApplicationManager {
 
     public static String getCurrentUserName() {
         return currentUsername;
+    public static void setCurrentUsername(String username) {
+        currentUsername = username;
     }
+
+    public static String getCurrentUsername() {
+        return currentUsername;
+    }
+
+    public static int getCurrentUserID() {
+    public static void setCurrentUserID(int id) {
+        currentUserID = id;
+    }
+
 
     public static int getCurrentUserID() {
         return currentUserID;

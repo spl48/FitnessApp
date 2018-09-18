@@ -75,13 +75,17 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
         activitySelection.setItems(availableActivities);
         activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
+        analysisGraph.setCreateSymbols(false);
     }
 
+    /**
+     * Creates a new graph to be displayed in the chart.
+     */
     public void newGraph() {
         int activity = activitySelection.getSelectionModel().getSelectedIndex();
         Activity testRun = activities.get(activity);
     	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == testRun && curSeriesType == seriesType){
+    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == testRun && curSeriesType == seriesType) {
             ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
         } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
 	    	currentSeriesTypes.clear();
@@ -98,6 +102,10 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     public void addSeries() throws SQLException {
         int activity = activitySelection.getSelectionModel().getSelectedIndex();
         Activity testRun = activities.get(activity);
@@ -130,11 +138,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                     yAxis.setLabel("Calories Burned");
                     ActivityAnalysis activityAnalysis = new ActivityAnalysis();
                     try {
-                        userName = databaseManager.getUsernames().get(1);
+                        userName = databaseManager.getUsernames().get(0);
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-                    double calories = activityAnalysis.findCaloriesBurnedFromStart(testRun, duration.toMinutes(), databaseManager.getUser(userName));
+                    double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
                     series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
 	            }
 	        }

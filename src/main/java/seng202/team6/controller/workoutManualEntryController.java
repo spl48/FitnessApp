@@ -6,7 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.commons.lang3.ObjectUtils;
+import seng202.team6.datahandling.DatabaseManager;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -58,6 +61,8 @@ public class workoutManualEntryController extends GUIUtilities {
      */
     private LocalDate sessionDate;
 
+    private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
+
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -79,11 +84,12 @@ public class workoutManualEntryController extends GUIUtilities {
      * @param event When the user clicks create Activity.
      */
     @FXML
-    public void createActivity(ActionEvent event) {
+    public void createActivity(ActionEvent event) throws SQLException, ClassNotFoundException {
         setEnteredData();
         if (validEnteredData()) {
             System.out.println("Created a new activity!!");
             printData();
+            dbManager.addActivity(ApplicationManager.getCurrentUserID(), sessionName, startTime, endTime, null);
             toWorkOutScreen(event);
             //Enter into database
         }

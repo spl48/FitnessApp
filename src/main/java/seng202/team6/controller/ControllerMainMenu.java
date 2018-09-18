@@ -1,7 +1,10 @@
 package seng202.team6.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -11,6 +14,9 @@ import seng202.team6.CSVDemo;
 
 public class ControllerMainMenu {
     @FXML private BorderPane borderPane;
+    
+    @FXML
+    private ChoiceBox<String> activityTypeSelection;
 
     public void initialize() {
 
@@ -18,6 +24,10 @@ public class ControllerMainMenu {
 //        eyesView.setFitWidth(220);
 //        borderPane.setLeft(eyesView);
         borderPane.setLeft(Menu());
+        
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
+        activityTypeSelection.setItems(availableChoices);
+        activityTypeSelection.getSelectionModel().select("Heart Rate");
     }
 
     private VBox Menu() {

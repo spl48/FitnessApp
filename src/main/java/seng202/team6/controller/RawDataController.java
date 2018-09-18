@@ -56,8 +56,7 @@ public class RawDataController extends WorkoutsNavigator{
         rawDataTable.getItems().add(record);
     }
 
-    public void showActivity() {
-        /*
+    public void showActivity() throws SQLException {
         ArrayList<ActivityDataPoint> records = dbManager.getActivityRecords((int) activitySelect.getValue());
         for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
             rawDataTable.getItems().clear();
@@ -66,6 +65,5 @@ public class RawDataController extends WorkoutsNavigator{
         for (ActivityDataPoint record : records) {
             addRecordToTable(record);
         }
-        */
     }
 }

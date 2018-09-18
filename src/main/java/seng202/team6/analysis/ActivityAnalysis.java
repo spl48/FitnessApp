@@ -85,22 +85,37 @@ public class ActivityAnalysis {
         return calories;
     }
 
-    public double findCaloriesBurnedFromStart(Activity activity, long activityTime, User user) {
-        double metValue;
-        double calories;
-        double userWeight = user.getWeight();
-        String activityType = activity.getType();
+    public double findCaloriesBurnedFromStart(long activityTime, double heartRate, User user) {
 
-        if (activityType == "Walking") {
-            metValue = 4.3;
-        } else if (activityType == "Running") {
-            metValue = 9.8;
+        double calories = 0;
+        double userWeight = user.getWeight();
+        String gender = user.getGender();
+        double userAge = user.getAge();
+
+        if (gender == "Male") {
+            calories = ((userAge * 0.2017) - (userWeight * 0.09036) + (heartRate * 0.6309) - 55.0969) * activityTime / 4.184;
         } else {
-            metValue = 8;
+            calories = ((userAge * 0.074) - (userWeight * 0.05741) + (heartRate * 0.4472) - 20.4022) * activityTime / 4.184;
         }
 
-        calories = metValue * 3.5 * userWeight / 200 * activityTime / 1000;
-
         return calories;
+    }
+
+
+    public String getActivityType (Activity activity){
+        double averageSpeed = (activity.getTotalTime() / 60) / (activity.getDistance()); // in km per hour
+        int brisk_walking_pace = 5;
+        int fast_running_pace = 12;
+
+        if (averageSpeed <= brisk_walking_pace) {
+            return "Walking";
+        } else if (averageSpeed <= fast_running_pace) {
+            return "Running";
+        } else {
+            return "Cycling";
+        }
+
+
+
     }
 }

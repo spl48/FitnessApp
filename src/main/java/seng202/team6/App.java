@@ -28,7 +28,7 @@ public class App
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        loader.importDataFromCSV(1, "C:\\Users\\Sean\\Desktop\\School\\SENG202\\MATES\\Team6-Fitness-App\\src\\main\\java\\seng202\\team6\\resources\\sample_data.csv", test);
+        loader.importDataFromCSV(1, "C:\\Users\\seanp\\Desktop\\School\\SENG202\\Team6-Fitness-App\\src\\main\\resources\\seng202\\team6\\resources\\sample_data.csv", test);
         ResultSet rsa;
         ResultSet rsaa;
         try {
