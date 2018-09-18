@@ -81,7 +81,7 @@ public class loginController extends GUIUtilities{
         ApplicationManager.setCurrentUser(userProfile);
 
         // Directs to the Home Screen.
-        changeScreen(event, "../view/HomeScreen.fxml");
+        changeScreen(event, "/seng202/team6/view/HomeScreen.fxml");
     }
 
 
@@ -91,7 +91,7 @@ public class loginController extends GUIUtilities{
      */
     @FXML
     public void toStartScreen(Event event) {
-        changeScreen(event, "../view/startScreen2.fxml");
+        changeScreen(event, "/seng202/team6/view/startScreen2.fxml");
     }
 
 

@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import seng202.team6.view.MainMenu;
+import seng202.team6.CSVDemo;
 
 public class ControllerMainMenu {
     @FXML private BorderPane borderPane;
@@ -22,7 +22,7 @@ public class ControllerMainMenu {
 
     private VBox Menu() {
         VBox vbox = new VBox();
-        Image eyes = new Image(MainMenu.class.getResource("/seng202/team6/resources/pics/eyes.png").toExternalForm());
+        Image eyes = new Image(CSVDemo.MainMenu.class.getResource("/seng202/team6/resources/pics/eyes.png").toExternalForm());
         ImageView eyesView = new ImageView(eyes);
         vbox.getChildren().add(eyesView);
         for (int i = 1; i < 6; i++) {
@@ -33,7 +33,7 @@ public class ControllerMainMenu {
     }
 
     private HBox Item(String icon) {
-        Image image = new Image(MainMenu.class.getResource("/seng202/team6/resources/mainmenu/" + icon + ".png").toExternalForm());
+        Image image = new Image(CSVDemo.MainMenu.class.getResource("/seng202/team6/resources/mainmenu/" + icon + ".png").toExternalForm());
         ImageView imageView = new ImageView(image);
         Button btn = new Button();
         btn.setGraphic(imageView);

@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 
 /**
  * <h1>Start Screen Controller</h1>
@@ -12,13 +13,17 @@ import javafx.scene.input.MouseEvent;
  */
 public class startScreenController extends GUIUtilities {
 
+    @FXML
+    private Button signInButton;
+
+
     /**
      * Directs the user to the login screen.
      * @param event When the login button is clicked.
      */
     @FXML
     public void toLoginScreen(ActionEvent event) {
-        changeScreen(event, "../view/loginScreen.fxml");
+        changeScreen(event, "/seng202/team6/view/loginScreen.fxml");
     }
 
     /**
@@ -27,7 +32,7 @@ public class startScreenController extends GUIUtilities {
      */
     @FXML
     public void toRegisterScreen(ActionEvent event) {
-        changeScreen(event, "../view/registerScreen2.fxml");
+        changeScreen(event, "/seng202/team6/view/registerScreen2.fxml");
     }
 
     /**

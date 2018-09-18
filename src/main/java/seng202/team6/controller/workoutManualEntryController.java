@@ -71,7 +71,7 @@ public class workoutManualEntryController extends GUIUtilities {
      */
     @FXML
     public void toWorkOutScreen(Event event) {
-        changeScreen(event, "../view/WorkoutsScreenSplash.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml");
     }
 
     /**

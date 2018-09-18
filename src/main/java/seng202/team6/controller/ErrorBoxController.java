@@ -79,17 +79,17 @@ public class ErrorBoxController extends GUIUtilities {
         // Otherwise, shows error on the terminal.
         try {
             if (type == "error") {
-                Parent root = FXMLLoader.load(getClass().getResource("../view/errorPopUp.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/errorPopUp.fxml"));
                 Scene scene = new Scene(root, 400, 350);
                 errorWindow.setScene(scene);
                 errorWindow.showAndWait();
             } else if (type == "confirmation") {
-                Parent root = FXMLLoader.load(getClass().getResource("../view/confirmationPopUp.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/confirmationPopUp.fxml"));
                 Scene scene = new Scene(root, 400, 350);
                 errorWindow.setScene(scene);
                 errorWindow.showAndWait();
             } else if (type == "notification") {
-                Parent root = FXMLLoader.load(getClass().getResource("../view/notificationPopUp.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/notificationPopUp.fxml"));
                 Scene scene = new Scene(root, 400, 350);
                 errorWindow.setScene(scene);
                 errorWindow.showAndWait();

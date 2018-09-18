@@ -103,7 +103,7 @@ public class EditProfileController {
      * @throws IOException When the profile screen fxml cannot be loaded.
      */
     public void toProfile(Event event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("../view/profileScreen.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/profileScreen.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(loginScene);

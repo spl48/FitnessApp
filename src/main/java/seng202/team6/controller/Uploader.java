@@ -93,7 +93,7 @@ public class Uploader extends GUIUtilities {
      */
     @FXML
     public void toAddWorkout(Event event) {
-        changeScreen(event, "../view/AddWorkout.fxml");
+        changeScreen(event, "/seng202/team6/view/AddWorkout.fxml");
     }
 
 

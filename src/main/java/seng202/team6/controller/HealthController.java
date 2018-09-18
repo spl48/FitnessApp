@@ -10,6 +10,6 @@ import javafx.scene.input.MouseEvent;
 public class HealthController extends GUIUtilities{
     @FXML
     public void toWebSearchScreen(ActionEvent event) {
-        changeScreen(event, "../view/WebSearch.fxml");
+        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
     }
 }

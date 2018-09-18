@@ -51,7 +51,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toHomeScreen(ActionEvent event) {
-        changeMenuScreen(event, "../view/HomeScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/HomeScreen.fxml");
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
@@ -61,7 +61,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toProfileScreen(ActionEvent event) {
-        changeMenuScreen(event, "../view/profileScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/profileScreen.fxml");
     }
 
     /**
@@ -70,7 +70,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
         public void toWorkoutsScreen(ActionEvent event) {
-        changeMenuScreen(event, "../view/WorkoutsScreenSplash.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml");
     }
 
     /**
@@ -79,7 +79,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toGoalsScreen(ActionEvent event) {
-        changeMenuScreen(event, "../view/GoalsScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen.fxml");
     }
 
     /**
@@ -88,7 +88,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toCalendarScreen(ActionEvent event) {
-        changeMenuScreen(event, "../view/CalendarScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/CalendarScreen.fxml");
     }
 
     /**
@@ -97,7 +97,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toHealthScreen(ActionEvent event) {
-        changeMenuScreen(event, "../view/HealthScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/HealthScreen.fxml");
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
