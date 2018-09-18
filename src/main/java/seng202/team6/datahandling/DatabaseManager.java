@@ -204,7 +204,7 @@ public class DatabaseManager implements DataLoader {
     }
 
 
-    public ArrayList<Integer> getActivities(int userid) throws SQLException {
+    public ArrayList<Integer> getActivityIDs(int userid) throws SQLException {
         if(con == null) {
             getConnection();
         }
