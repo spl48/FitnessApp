@@ -81,7 +81,7 @@ public class HomeScreenController {
                 yAxis.setLabel("Calories Burned");
                 ActivityAnalysis activityAnalysis = new ActivityAnalysis();
                 userName = ApplicationManager.getCurrentUsername();
-                double calories = activityAnalysis.findCaloriesBurnedFromStart(testRun, duration.toMinutes(), databaseManager.getUser(userName));
+                double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
                 series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
             }
         }

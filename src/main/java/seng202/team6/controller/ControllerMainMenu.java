@@ -14,9 +14,7 @@ import seng202.team6.CSVDemo;
 
 public class ControllerMainMenu {
     @FXML private BorderPane borderPane;
-    
-    @FXML
-    private ChoiceBox<String> activityTypeSelection;
+
 
     public void initialize() {
 
@@ -25,9 +23,7 @@ public class ControllerMainMenu {
 //        borderPane.setLeft(eyesView);
         borderPane.setLeft(Menu());
         
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
-        activityTypeSelection.setItems(availableChoices);
-        activityTypeSelection.getSelectionModel().select("Heart Rate");
+       
     }
 
     private VBox Menu() {
