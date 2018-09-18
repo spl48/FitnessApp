@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,7 +42,7 @@ public class HomeScreenController {
     private Text weightType;
 
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
-
+    private ArrayList<Activity> activities = new ArrayList();
 
 	@FXML
     public void initialize() throws SQLException{
@@ -57,14 +58,15 @@ public class HomeScreenController {
         String BMIString = String.format("%.1f", BMI);
         BMIText.setText(BMIString);
 
+        
+        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         weightType.setText(profileAnalysis.analyseBMI(BMI));
 	    newGraph();
+	    analysisGraph.setCreateSymbols(false);
     }
     
     @FXML
     private void newGraph() {
-    	
-    	String seriesType = activityTypeSelection.getValue().toString();
         analysisGraph.getData().clear();
         try {
             addSeries();
@@ -74,12 +76,12 @@ public class HomeScreenController {
     }
     
     public void addSeries() throws SQLException {
-    	//int activityID = databaseManager.getActivityIDs(userid).get(-1);
-        //Activity activity = databaseManager.getActivityRecords(activityID);
-        Activity testRun = makeTestRun1();
+        //Activity testRun = makeTestRun1();
+    	int lastIndex = activities.size() - 1;
+    	Activity testRun = activities.get(lastIndex);
     	String seriesType = activityTypeSelection.getValue().toString();
         //defining the axes
-		xAxis.setLabel("Time");
+		xAxis.setLabel("Time (Minutes)");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         //populating the series with data
