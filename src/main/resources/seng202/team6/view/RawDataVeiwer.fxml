@@ -47,11 +47,11 @@
          <center>
             <TableView fx:id="rawDataTable" prefHeight="472.0" prefWidth="734.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn minWidth="0.0" prefWidth="116.8001708984375" text="Time" />
+                <!--<TableColumn minWidth="0.0" prefWidth="116.8001708984375" text="Time" />
                   <TableColumn prefWidth="123.9998779296875" text="Heart Rate (bpm)" />
                   <TableColumn minWidth="0.0" prefWidth="107.2000732421875" text="Latitude" />
                   <TableColumn minWidth="0.0" prefWidth="76.7999267578125" text="Longitude" />
-                  <TableColumn minWidth="8.0" prefWidth="119.2000732421875" text="Elevation (m)" />
+                  <TableColumn minWidth="8.0" prefWidth="119.2000732421875" text="Elevation (m)" />-->
               </columns>
                <BorderPane.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

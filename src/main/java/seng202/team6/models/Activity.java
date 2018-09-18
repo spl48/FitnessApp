@@ -15,14 +15,29 @@ import java.util.Arrays;
 public class Activity
 {
     /**
+     * The ID of the Activity
+     */
+    private int activityid;
+
+    /**
      * The type of the Activity
      */
     private String type;
 
     /**
+     * The type of the Activity
+     */
+    private String description;
+
+    /**
      * The date of when the Activity occurred
      */
     private LocalDate date;
+
+    /**
+     * The date of when the Activity ended
+     */
+    private LocalDate endDate;
 
     /**
      * The distance in km
@@ -67,36 +82,41 @@ public class Activity
     /**
      * The constructor for the Activity that takes the parameters type, date, start time, end time, distance, minimum
      * heart rate, maximum heart rate and the total time of the  Activity.
+     * @param activityid A String parameter used to set Activity type.
      * @param type A String parameter used to set Activity type.
+     * @param description A String parameter used to set the Activity description.
      * @param date A LocalDate parameter used to set the Activity date.
+     * @param endDate A LocalDate parameter used to set the Activity end date.
      * @param startTime A LocalTime parameter used to set the start time of Activity.
      * @param endTime A LocalTime parameter used to set the end time of the Activity.
-     * @param distance A Double parameter used to set the distance of the Activity from the starting point to end location in km.
-     * @param minHeartRate A Double parameter used to set User's minimum heart rate in bpm.
-     * @param maxHeartRate A Double parameter used to set User's maximum heart rate in bpm.
+     //* @param distance A Double parameter used to set the distance of the Activity from the starting point to end location in km.
+     //* @param minHeartRate A Double parameter used to set User's minimum heart rate in bpm.
+     //* @param maxHeartRate A Double parameter used to set User's maximum heart rate in bpm.
      */
-    public Activity(String type, LocalDate date, LocalTime startTime, LocalTime endTime, double distance, int minHeartRate, int maxHeartRate)
+    public Activity(int activityid, String type, String description, LocalDate date, LocalDate endDate, LocalTime startTime, LocalTime endTime)
     {
         if (activities.contains(type)) {
             this.type = type;
         } else {
             this.type = "invalid";
         }
-
+        this.description = description;
+        this.activityid = activityid;
         this.date = date;
-
+        this.endDate = endDate;
         if (startTime.isBefore(endTime)) {
             this.startTime = startTime;
             this.endTime = endTime;
             totalTime = Duration.between(startTime, endTime).toMinutes();
         }
-
+/*
         if (distance > 0.0) {
             this.distance = distance;
         } else {
             this.distance = 0.0;
         }
-
+*/
+/*
         if (minHeartRate > 0) {
             this.minHeartRate = minHeartRate;
         } else {
@@ -108,6 +128,7 @@ public class Activity
         } else {
             this.maxHeartRate = 0;
         }
+*/
     }
 
     /**
@@ -282,5 +303,26 @@ public class Activity
     public ArrayList<ActivityDataPoint> getActivityData()
     {
         return activityData;
+    }
+
+    public int getActivityid(){
+        return activityid;
+    }
+
+    public void updateMinHeartRate(){
+        minHeartRate = 1000;
+        for (ActivityDataPoint dataPoint : activityData){
+            if(dataPoint.getHeartRate() < minHeartRate){
+                minHeartRate = dataPoint.getHeartRate();
+            }
+        }
+    }
+    public void updateMaxHeartRate(){
+        maxHeartRate = 1000;
+        for (ActivityDataPoint dataPoint : activityData){
+            if(dataPoint.getHeartRate() > maxHeartRate){
+                maxHeartRate = dataPoint.getHeartRate();
+            }
+        }
     }
 }

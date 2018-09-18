@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
@@ -25,7 +26,7 @@ public class RawDataController extends WorkoutsNavigator{
     private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
     public void initialize() throws SQLException {
-        User currUser = dbManager.getUser(ApplicationManager.getCurrentUsername());
+        User currUser = dbManager.getUser(ApplicationManager.getCurrentUserName());
         ObservableList<Integer> activityList = FXCollections.observableArrayList(dbManager.getActivityIDs(currUser.getUserID()));
         activitySelect.setItems(activityList);
         setupTable();

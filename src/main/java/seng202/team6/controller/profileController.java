@@ -39,7 +39,7 @@ public class profileController extends GUIUtilities {
     public void initialize() throws SQLException {
 
         // Gets the current user object.
-        User currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
+        User currUser = databaseManager.getUser(ApplicationManager.getCurrentUserName()); //Replace with database current user.
 
         // Sets the top name display.
         topNameLabel.setText(currUser.getFullName().toUpperCase());

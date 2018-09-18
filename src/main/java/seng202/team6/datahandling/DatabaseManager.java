@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.apache.commons.lang3.ObjectUtils.Null;
 
 import seng202.team6.controller.ApplicationManager;
+import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
@@ -61,6 +62,29 @@ public class DatabaseManager implements DataLoader {
         // Creates a User model using database data.
         User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, aUsername, id);
         return user; 
+    }
+
+    public ArrayList<ActivityDataPoint> getDataPoints(Activity activity) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        int activityid = activity.getActivityid();
+        Statement state = con.createStatement();
+        ArrayList<ActivityDataPoint> dataPoints = new ArrayList<>();
+        ResultSet res = state.executeQuery("SELECT * FROM record WHERE activityid = " + activityid);
+        while(res.next()){
+            String datetime = res.getString("datetime");
+            String[] parts = datetime.split("T");
+            String recordTime = parts[1];
+            LocalTime localStartTime = LocalTime.parse(recordTime);
+            int heartRate = res.getInt("heartrate");
+            Double latitude = res.getDouble("latitude");
+            Double longitude = res.getDouble("longitude");
+            Double elevation = res.getDouble("elevation");
+            ActivityDataPoint dataPoint = new ActivityDataPoint(localStartTime, heartRate, latitude, longitude, elevation);
+            dataPoints.add(dataPoint);
+        }
+        return dataPoints;
     }
 
     public ResultSet displayActivities() throws SQLException, ClassNotFoundException {
@@ -136,6 +160,7 @@ public class DatabaseManager implements DataLoader {
                         + "description text,"
                         + "start text,"
                         + "end text,"
+                        + "distance REAL"
                         + "workout text,"
                         + "FOREIGN KEY(userid) REFERENCES user(userid));";
                 activityTableStatement.execute(activityTablesql);
@@ -189,21 +214,20 @@ public class DatabaseManager implements DataLoader {
         prep.execute();
     }
 
-    public void addActivity(int userid, String description, String start, String end, String workout) throws SQLException, ClassNotFoundException {
+    public void addActivity(int userid, String description, String start, String end, String workout, double distance) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO activity(userid,description,start,end,workout) VALUES(?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO activity(userid,description,start,end,distance,workout) VALUES(?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setInt(1, userid);
         prep.setString(2, description);
         prep.setString(3, start);
         prep.setString(4, end);
-        prep.setString(5, workout);
+        prep.setDouble(5, distance);
+        prep.setString(6, workout);
         prep.execute();
     }
-
-
     public ArrayList<Integer> getActivityIDs(int userid) throws SQLException {
         if(con == null) {
             getConnection();
@@ -214,6 +238,48 @@ public class DatabaseManager implements DataLoader {
         ResultSet res = state.executeQuery("SELECT activityid FROM activity WHERE userid = " + userid);
         while(res.next()){
             activities.add(res.getInt("activityid"));
+        }
+        return activities;
+    }
+    /**
+     *Takes a userid and returns a list of activities associated with the user
+     * @param userid The user id used to look up the user in the database.
+     * @return An array list of activities associated with the user id.
+     * @throws SQLException
+     */
+    public ArrayList<Activity> getActivities(int userid) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        ArrayList<Activity> activities = new ArrayList<>();
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid);
+        while(res.next()){
+            String activityDescription = res.getString("description");
+            String activityStart = res.getString("start");
+            String[] startParts = activityStart.split("T");
+            String activityStartDate = startParts[0];
+            String activityStartTime = startParts[1];
+            String activityEnd = res.getString("end");
+            System.out.println(activityEnd);
+            String[] endParts = activityEnd.split("T");
+            String activityEndDate = endParts[0];
+            String activityEndTime = endParts[1];
+            //String activityWorkout = res.getString("workout");
+            String activityWorkout = "testworkout";
+            int activityid = res.getInt("activityid");
+            LocalDate localStartDate = LocalDate.parse(activityStartDate);
+            LocalDate localEndDate = LocalDate.parse(activityEndDate);
+            LocalTime localStartTime = LocalTime.parse(activityStartTime);
+            LocalTime localEndTime = LocalTime.parse(activityEndTime);
+            Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime);
+            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+            for (ActivityDataPoint dataPoint : dataPoints) {
+                activity.addActivityData(dataPoint);
+            }
+            activity.updateMaxHeartRate();
+            activity.updateMinHeartRate();
+            activities.add(activity);
         }
         return activities;
     }
@@ -246,4 +312,6 @@ public class DatabaseManager implements DataLoader {
         // Creates a User model using database data.
         return records;
     }
+
+
 }

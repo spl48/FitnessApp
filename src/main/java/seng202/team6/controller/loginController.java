@@ -19,6 +19,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.models.User;
 
 
 import java.sql.SQLException;
@@ -64,7 +65,7 @@ public class loginController extends GUIUtilities{
             addProfile(profileGrid, index++, user);
         }
 
-        // Sets the style of t0:00:03he selected user profile.
+        // Sets the style of the selected user profile.
         selected.setStyle(getButtonStyle("4"));
         selected.setFont(Font.font("Nexa Bold", 23));
     }
@@ -78,8 +79,9 @@ public class loginController extends GUIUtilities{
 
         // Sets the current user profile.
         String userProfile = selected.getText();
-        ApplicationManager.setCurrentUsername(userProfile);
-        ApplicationManager.setCurrentUserID(ApplicationManager.getDatabaseManager().getUser(userProfile).getUserID());
+        User user = databaseManager.getUser(userProfile);
+        int userid = user.getUserID();
+        ApplicationManager.setCurrentUser(userid, userProfile);
 
         // Directs to the Home Screen.
         changeScreen(event, "/seng202/team6/view/HomeScreen.fxml");

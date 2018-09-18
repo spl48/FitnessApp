@@ -17,7 +17,13 @@ import java.sql.SQLException;
  * <h1>File Uploader GUI Controller</h1>
  * <p>Initialises and applies functionality to the File Upload screen allowing the user to upload Activities</p>
  */
-public class Uploader extends WorkoutsNavigator {
+public class ActivityUploaderController extends WorkoutsNavigator {
+
+    /**
+     * Session/Activity type ?? Might actually be redundant since multiple activities in file.
+     */
+    @FXML
+    private ChoiceBox<String> sessionType_E;
 
     /**
      * The application database manager.
@@ -36,6 +42,8 @@ public class Uploader extends WorkoutsNavigator {
     @FXML
     void initialize() throws SQLException {
         currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername());
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
+        sessionType_E.setItems(availableChoices);
     }
 
 
@@ -79,4 +87,15 @@ public class Uploader extends WorkoutsNavigator {
             System.out.println("Nothing is selected!");
         }
     }
+
+    /**
+     * Directs the user back to the add workout screen.
+     * @param event When the user clicks the back button.
+     */
+    @FXML
+    public void toAddWorkout(Event event) {
+        changeScreen(event, "/seng202/team6/view/AddWorkout.fxml");
+    }
+
+
 }
