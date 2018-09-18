@@ -312,4 +312,6 @@ public class DatabaseManager implements DataLoader {
         // Creates a User model using database data.
         return records;
     }
+
+
 }
