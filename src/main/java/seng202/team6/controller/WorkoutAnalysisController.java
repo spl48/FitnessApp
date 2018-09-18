@@ -65,7 +65,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         activitySelection.setItems(availableActivities);
         System.out.println(testRun1.getDate().toString().getClass().getName());
         activitySelection.getSelectionModel().select(testRun1.getDate().toString());
-
+        analysisGraph.setCreateSymbols(false);
     }
 
     public void newGraph() {

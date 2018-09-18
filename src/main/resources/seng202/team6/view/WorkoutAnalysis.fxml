@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
    <top>
       <fx:include source="header.fxml" />
    </top>
@@ -60,7 +60,7 @@
                   <AnchorPane prefHeight="167.0" prefWidth="252.0">
                      <children>
                         <ChoiceBox fx:id="activitySelection" layoutY="275.0" prefWidth="150.0" />
-                        <LineChart fx:id="analysisGraph" layoutX="-54.0" layoutY="324.0" prefHeight="490.0" prefWidth="826.0">
+                        <LineChart fx:id="analysisGraph" layoutX="-54.0" layoutY="324.0" prefHeight="490.0" prefWidth="826.0" style="-fx-background-color: gainsboro;">
                           <xAxis>
                             <NumberAxis side="BOTTOM" fx:id="xAxis" />
                           </xAxis>
