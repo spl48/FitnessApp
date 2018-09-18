@@ -89,7 +89,7 @@ public class workoutManualEntryController extends GUIUtilities {
         if (validEnteredData()) {
             System.out.println("Created a new activity!!");
             printData();
-            dbManager.addActivity(ApplicationManager.getCurrentUserID(), sessionName, startTime, endTime, null);
+            dbManager.addActivity(ApplicationManager.getCurrentUserID(), "test description", startTime, endTime, sessionName, 10.0);
             toWorkOutScreen(event);
             //Enter into database
         }
