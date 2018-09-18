@@ -103,4 +103,22 @@ public class ActivityAnalysis {
 
         return calories;
     }
+
+
+    public String getActivityType (Activity activity){
+        double averageSpeed = (activity.getTotalTime() / 60) / (activity.getDistance()); // in km per hour
+        int brisk_walking_pace = 5;
+        int fast_running_pace = 12;
+
+        if (averageSpeed <= brisk_walking_pace) {
+            return "Walking";
+        } else if (averageSpeed <= fast_running_pace) {
+            return "Running";
+        } else {
+            return "Cycling";
+        }
+
+
+
+    }
 }
