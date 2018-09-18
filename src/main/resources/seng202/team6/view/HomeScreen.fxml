@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -7,12 +13,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
    <top>
-       <fx:include source="header.fxml"/>
+       <fx:include source="header.fxml" />
    </top>
    <left>
-       <fx:include source="sidebar.fxml"/>
+       <fx:include source="sidebar.fxml" />
    </left>
    <center>
       <GridPane BorderPane.alignment="CENTER">
@@ -44,6 +50,22 @@
                <GridPane.margin>
                   <Insets bottom="8.0" left="4.0" right="8.0" top="4.0" />
                </GridPane.margin>
+               <children>
+                  <LineChart layoutX="33.0" layoutY="40.0" prefHeight="293.0" prefWidth="500.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <Text layoutX="91.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latest &lt;Activity Type&gt; " wrappingWidth="222.7294921875">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="activityTypeSelection" layoutX="328.0" layoutY="18.0" prefWidth="150.0" />
+               </children>
             </AnchorPane>
          </children>
       </GridPane>

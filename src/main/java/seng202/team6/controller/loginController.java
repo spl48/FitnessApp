@@ -64,7 +64,7 @@ public class loginController extends GUIUtilities{
             addProfile(profileGrid, index++, user);
         }
 
-        // Sets the style of the selected user profile.
+        // Sets the style of t0:00:03he selected user profile.
         selected.setStyle(getButtonStyle("4"));
         selected.setFont(Font.font("Nexa Bold", 23));
     }
