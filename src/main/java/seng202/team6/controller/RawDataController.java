@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +23,9 @@ public class RawDataController extends WorkoutsNavigator{
 
     @FXML
     private ChoiceBox activitySelect;
+
+    @FXML
+    private Label descriptionLabel;
 
     private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
@@ -65,5 +69,8 @@ public class RawDataController extends WorkoutsNavigator{
         for (ActivityDataPoint record : records) {
             addRecordToTable(record);
         }
+
+        descriptionLabel.setText("Description: " + dbManager.getActivityDescription((int) activitySelect.getValue()));
+
     }
 }

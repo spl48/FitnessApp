@@ -313,5 +313,15 @@ public class DatabaseManager implements DataLoader {
         return records;
     }
 
+    public String getActivityDescription(int activityID) throws SQLException {
+        // Checks the connection to the database.
+        if(con == null) {
+            getConnection();
+        }
+        // Tries to query the database for a user.
+        Statement statement = con.createStatement();
+        ResultSet description = statement.executeQuery("SELECT description FROM activity WHERE activityID = " + activityID );
+        return description.getString(1);
+    }
 
 }
