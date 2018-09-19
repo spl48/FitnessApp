@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Nexa Bold';
+    src: url("NexaBold.otf");
+}
+
+/*.root {*/
+    /*background-color: lightblue;*/
+    /*-fx-font-family: "Nexa Bold";*/
+/*}*/
+
+.text {
+    -fx-font-family: "Nexa Bold";
+    -fx-font-size: 22;
+}
+
+/*#homeButton {*/
+    /*-fx-font-family: "Nexa Bold";*/
+/*}*/
+
+.button {
+    -fx-background-color:transparent;
+}
+
+.button:hover {
+    -fx-background-color:red;
+}

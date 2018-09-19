@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 
 
 /**
@@ -33,6 +34,8 @@ public class MainMenuNavigation extends GUIUtilities {
             selected = homeButton;
         }
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+
+        homeButton.setStyle("-fx-normal-background: #b2e4ca; -fx-hovered-background: #85ab97; -fx-background-radius: 0;");
     }
 
     /**

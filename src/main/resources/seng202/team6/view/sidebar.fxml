@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="194.0" style="-fx-background-color: rgb(178,228,201);" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
+<AnchorPane prefHeight="650.0" prefWidth="194.0" style="-fx-background-color: rgb(178,228,201);" stylesheets="@../resources/css/font.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
     <BorderPane.margin>
         <Insets top="8.0" />
     </BorderPane.margin>
@@ -34,9 +34,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#toHomeScreen" onMouseClicked="#changeSelected" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="72.0" prefWidth="210.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HOME" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#toHomeScreen" onMouseClicked="#changeSelected" prefHeight="72.0" prefWidth="210.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HOME" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                     <font>
-                        <Font name="NexaBold" size="22.0" />
+                        <Font name="Nexa Bold" size="22.0" />
                     </font>
                     <GridPane.margin>
                         <Insets />
@@ -80,7 +80,7 @@
                         <ColorAdjust />
                     </effect>
                 </Button>
-                <Button fx:id="healthButton" mnemonicParsing="false" onAction="#toHealthScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="81.0" prefWidth="356.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HEALTH" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                <Button fx:id="healthButton" styleClass="button" mnemonicParsing="false" onAction="#toHealthScreen" prefHeight="81.0" prefWidth="356.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HEALTH" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                     <font>
                         <Font name="NexaBold" size="22.0" />
                     </font>
