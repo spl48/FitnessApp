@@ -25,6 +25,21 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     private static Button selected;
 
+    @FXML
+    private Button profileButton;
+
+    @FXML
+    private Button workoutsButton;
+
+    @FXML
+    private Button calendarButton;
+
+    @FXML
+    private Button goalsButton;
+
+    @FXML
+    private Button healthButton;
+
     /**
      * Initialising the selected menu item to home by default when first loaded and applying formatting.
      */
@@ -36,6 +51,11 @@ public class MainMenuNavigation extends GUIUtilities {
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
 
         homeButton.setStyle("-fx-normal-background: #b2e4ca; -fx-hovered-background: #85ab97; -fx-background-radius: 0;");
+        profileButton.setStyle("-fx-normal-background: #b2e4ca; -fx-hovered-background: #85ab97; -fx-background-radius: 0;");
+        workoutsButton.setStyle("-fx-normal-background: #b2e4ca; -fx-hovered-background: #85ab97; -fx-background-radius: 0;");
+        calendarButton.setStyle("-fx-normal-background: #b2e4ca; -fx-hovered-background: #85ab97; -fx-background-radius: 0;");
+        goalsButton.setStyle("-fx-normal-background: #b2e4ca; -fx-hovered-background: #85ab97; -fx-background-radius: 0;");
+        healthButton.setStyle("-fx-normal-background: #b2e4ca; -fx-hovered-background: #85ab97; -fx-background-radius: 0;");
     }
 
     /**

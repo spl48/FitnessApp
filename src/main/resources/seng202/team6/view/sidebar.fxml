@@ -45,7 +45,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="profileButton" mnemonicParsing="false" onAction="#toProfileScreen" onMouseClicked="#changeSelected" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="246.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="PROFILE" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                <Button fx:id="profileButton" mnemonicParsing="false" onAction="#toProfileScreen" onMouseClicked="#changeSelected" prefHeight="82.0" prefWidth="246.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="PROFILE" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                     <font>
                         <Font name="NexaBold" size="22.0" />
                     </font>
@@ -53,7 +53,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="goalsButton" mnemonicParsing="false" onAction="#toGoalsScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="300.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="GOALS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                <Button fx:id="goalsButton" mnemonicParsing="false" onAction="#toGoalsScreen" prefHeight="82.0" prefWidth="300.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="GOALS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                     <font>
                         <Font name="NexaBold" size="22.0" />
                     </font>
@@ -61,7 +61,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="calendarButton" mnemonicParsing="false" onAction="#toCalendarScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="302.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="CALENDAR" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                <Button fx:id="calendarButton" mnemonicParsing="false" onAction="#toCalendarScreen" prefHeight="82.0" prefWidth="302.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="CALENDAR" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                     <font>
                         <Font name="NexaBold" size="22.0" />
                     </font>
@@ -69,7 +69,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="workoutsButton" layoutX="10.0" layoutY="92.0" mnemonicParsing="false" onAction="#toWorkoutsScreen" onMouseClicked="#changeSelected" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="294.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="WORKOUTS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                <Button fx:id="workoutsButton" layoutX="10.0" layoutY="92.0" mnemonicParsing="false" onAction="#toWorkoutsScreen" onMouseClicked="#changeSelected" prefHeight="82.0" prefWidth="294.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="WORKOUTS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                     <font>
                         <Font name="NexaBold" size="22.0" />
                     </font>
@@ -80,7 +80,7 @@
                         <ColorAdjust />
                     </effect>
                 </Button>
-                <Button fx:id="healthButton" styleClass="button" mnemonicParsing="false" onAction="#toHealthScreen" prefHeight="81.0" prefWidth="356.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HEALTH" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                <Button fx:id="healthButton" mnemonicParsing="false" onAction="#toHealthScreen" prefHeight="81.0" prefWidth="356.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" styleClass="button" text="HEALTH" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                     <font>
                         <Font name="NexaBold" size="22.0" />
                     </font>

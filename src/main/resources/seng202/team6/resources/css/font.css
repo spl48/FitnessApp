@@ -18,9 +18,9 @@
 /*}*/
 
 .button {
-    -fx-background-color:transparent;
+    -fx-background-color:-fx-normal-background;
 }
 
 .button:hover {
-    -fx-background-color:red;
+    -fx-background-color: -fx-hovered-background;
 }
