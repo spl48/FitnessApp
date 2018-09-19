@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.ObjectUtils.Null;
-
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -76,7 +74,7 @@ public class DatabaseManager implements DataLoader {
             String datetime = res.getString("datetime");
             String[] parts = datetime.split("T");
             String recordTime = parts[1];
-            LocalTime localStartTime = LocalTime.parse(recordTime);
+            LocalTime localStartTime = DataHandlerUtilities.parseTime(recordTime);
             int heartRate = res.getInt("heartrate");
             Double latitude = res.getDouble("latitude");
             Double longitude = res.getDouble("longitude");
@@ -268,14 +266,14 @@ public class DatabaseManager implements DataLoader {
             //String activityWorkout = res.getString("workout");
             String activityWorkout = "testworkout";
             int activityid = res.getInt("activityid");
-            LocalDate localStartDate = LocalDate.parse(activityStartDate);
-            LocalDate localEndDate = LocalDate.parse(activityEndDate);
-            if(activityStartTime.length() == 7){
-                String newActivityStartTime = activityStartTime;
-                activityStartTime = "0" + newActivityStartTime;
-            }
-            LocalTime localStartTime = LocalTime.parse(activityStartTime);
-            LocalTime localEndTime = LocalTime.parse(activityEndTime);
+            //LocalDate localStartDate = LocalDate.parse(activityStartDate);
+
+            LocalDate localStartDate = DataHandlerUtilities.parseDate(activityStartDate);
+            LocalDate localEndDate = DataHandlerUtilities.parseDate(activityEndDate);
+
+            LocalTime localStartTime = DataHandlerUtilities.parseTime(activityStartTime);
+            LocalTime localEndTime = DataHandlerUtilities.parseTime(activityEndTime);
+
             Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime);
             ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
             for (ActivityDataPoint dataPoint : dataPoints) {
@@ -405,6 +403,5 @@ public class DatabaseManager implements DataLoader {
         updateStrideLength.setDouble(1, strideLength);
         updateStrideLength.execute();
     }
-
 
 }
