@@ -62,7 +62,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             availableActivities.add(activity.getDate().toString());
         }
         activitySelection.setItems(availableActivities);
-        activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
+        if (activities.size() >= 1) {
+        	activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
+        }
         analysisGraph.setCreateSymbols(false);
     }
 
@@ -70,24 +72,28 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * Creates a new graph to be displayed in the chart.
      */
     public void newGraph() {
-        int activity = activitySelection.getSelectionModel().getSelectedIndex();
-        Activity testRun = activities.get(activity);
-    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == testRun && curSeriesType == seriesType) {
-            ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
-        } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
-	    	currentSeriesTypes.clear();
-	        analysisGraph.getData().clear();
-            curSeriesType = seriesType;
-            try {
-                addSeries();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            String errorMessage = String.format("Already displaying data for %s ya dinguss", testRun.getDate().toString());
-            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage, "error");
-        }
+    	if (activities.size() >= 1) {
+	        int activity = activitySelection.getSelectionModel().getSelectedIndex();
+	        Activity testRun = activities.get(activity);
+	    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
+	    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == testRun && curSeriesType == seriesType) {
+	            ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
+	        } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
+		    	currentSeriesTypes.clear();
+		        analysisGraph.getData().clear();
+	            curSeriesType = seriesType;
+	            try {
+	                addSeries();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            String errorMessage = String.format("Already displaying data for %s ya dinguss", testRun.getDate().toString());
+	            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage, "error");
+	        }
+    	} else {
+    		ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
+    	}
     }
 
     /**
@@ -95,50 +101,60 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * @throws SQLException
      */
     public void addSeries() throws SQLException {
-        int activity = activitySelection.getSelectionModel().getSelectedIndex();
-        Activity testRun = activities.get(activity);
-    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-    	if (!currentSeriesTypes.contains(testRun) && seriesType == curSeriesType) {
-	        //defining the axes
-    		xAxis.setLabel("Time");
-	        //defining a series
-	        XYChart.Series series = new XYChart.Series();
-	        //populating the series with data
-
-	        String ActivityType = activityTypeSelection.getSelectionModel().getSelectedItem();
-	        series.setName(testRun.getDate().toString() + " " + ActivityType);
-	        for (ActivityDataPoint point : testRun.getActivityData()) {
-	        	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
-	            if (ActivityType == "Heart Rate") {
-	    	        yAxis.setLabel("Heart Rate (BPM)");
-	                series.getData().add(new XYChart.Data(duration.toMinutes(), point.getHeartRate()));
-	            } else if (ActivityType == "Distance") {
-	            	yAxis.setLabel("Total Distance (KM)");
-	            	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-	            	int index = testRun.getActivityData().indexOf(point);
-	            	double distance = activityAnalysis.findDistanceFromStart(testRun, index);
-	                series.getData().add(new XYChart.Data(duration.toMinutes(), distance));
-	            } else if (ActivityType == "Elevation") {
-	            	yAxis.setLabel("Elevation (M)");
-	            	series.getData().add(new XYChart.Data(duration.toMinutes(), point.getElevation()));
-	            } else if  (ActivityType == "Calories") {
-                    String userName = null;
-                    yAxis.setLabel("Calories Burned");
-                    ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-                    try {
-                        userName = databaseManager.getUsernames().get(0);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
-                    series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
-	            }
-	        }
-	        currentSeriesTypes.add(testRun);
-	        analysisGraph.getData().add(series);
+    	if (activities.size() >= 1) {
+	        int activity = activitySelection.getSelectionModel().getSelectedIndex();
+	        Activity testRun = activities.get(activity);
+	    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
+	    	if (!currentSeriesTypes.contains(testRun) && seriesType == curSeriesType) {
+		        //defining the axes
+	    		xAxis.setLabel("Time");
+		        
+		        //populating the series with data
+		        addData(testRun);
+		        
+	    	} else {
+	    		ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss", "error");
+	    	}
     	} else {
-    		ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss", "error");
+    		ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
     	}
     }
+    
+    public void addData(Activity testRun) throws SQLException {
+    	//defining a series
+        XYChart.Series series = new XYChart.Series();
+    	String ActivityType = activityTypeSelection.getSelectionModel().getSelectedItem();
+        series.setName(testRun.getDate().toString() + " " + ActivityType);
+    	for (ActivityDataPoint point : testRun.getActivityData()) {
+        	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
+            if (ActivityType == "Heart Rate") {
+    	        yAxis.setLabel("Heart Rate (BPM)");
+                series.getData().add(new XYChart.Data(duration.toMinutes(), point.getHeartRate()));
+            } else if (ActivityType == "Distance") {
+            	yAxis.setLabel("Total Distance (KM)");
+            	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
+            	int index = testRun.getActivityData().indexOf(point);
+            	double distance = activityAnalysis.findDistanceFromStart(testRun, index);
+                series.getData().add(new XYChart.Data(duration.toMinutes(), distance));
+            } else if (ActivityType == "Elevation") {
+            	yAxis.setLabel("Elevation (M)");
+            	series.getData().add(new XYChart.Data(duration.toMinutes(), point.getElevation()));
+            } else if  (ActivityType == "Calories") {
+                String userName = null;
+                yAxis.setLabel("Calories Burned");
+                ActivityAnalysis activityAnalysis = new ActivityAnalysis();
+                try {
+                    userName = databaseManager.getUsernames().get(0);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
+                series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
+            }
+        }
+    	currentSeriesTypes.add(testRun);
+        analysisGraph.getData().add(series);
+    }
 }
+
 
