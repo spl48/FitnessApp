@@ -127,18 +127,20 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         series.setName(testRun.getDate().toString() + " " + ActivityType);
     	for (ActivityDataPoint point : testRun.getActivityData()) {
         	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
+        	double time = duration.toMillis() / 6000;
+        	time = time / 10;
             if (ActivityType == "Heart Rate") {
     	        yAxis.setLabel("Heart Rate (BPM)");
-                series.getData().add(new XYChart.Data(duration.toMinutes(), point.getHeartRate()));
+                series.getData().add(new XYChart.Data(time, point.getHeartRate()));
             } else if (ActivityType == "Distance") {
             	yAxis.setLabel("Total Distance (KM)");
             	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
             	int index = testRun.getActivityData().indexOf(point);
             	double distance = activityAnalysis.findDistanceFromStart(testRun, index);
-                series.getData().add(new XYChart.Data(duration.toMinutes(), distance));
+                series.getData().add(new XYChart.Data(time, distance));
             } else if (ActivityType == "Elevation") {
             	yAxis.setLabel("Elevation (M)");
-            	series.getData().add(new XYChart.Data(duration.toMinutes(), point.getElevation()));
+            	series.getData().add(new XYChart.Data(time, point.getElevation()));
             } else if  (ActivityType == "Calories") {
                 String userName = null;
                 yAxis.setLabel("Calories Burned");
@@ -149,7 +151,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                     e.printStackTrace();
                 }
                 double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
-                series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
+                series.getData().add(new XYChart.Data(time, calories));
             }
         }
     	currentSeriesTypes.add(testRun);

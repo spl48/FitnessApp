@@ -132,25 +132,27 @@ public class HomeScreenController {
         series.setName(testRun.getDate().toString() + " " + activityDataType);
         for (ActivityDataPoint point : testRun.getActivityData()) {
         	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
+        	double time = duration.toMillis() / 6000;
+        	time = time / 10;
             if (activityDataType == "Heart Rate") {
     	        yAxis.setLabel("Heart Rate (BPM)");
-                series.getData().add(new XYChart.Data(duration.toMinutes(), point.getHeartRate()));
+                series.getData().add(new XYChart.Data(time, point.getHeartRate()));
             } else if (activityDataType == "Distance") {
             	yAxis.setLabel("Total Distance (KM)");
             	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
             	int index = testRun.getActivityData().indexOf(point);
             	double distance = activityAnalysis.findDistanceFromStart(testRun, index);
-                series.getData().add(new XYChart.Data(duration.toMinutes(), distance));
+                series.getData().add(new XYChart.Data(time, distance));
             } else if (activityDataType == "Elevation") {
             	yAxis.setLabel("Elevation (M)");
-            	series.getData().add(new XYChart.Data(duration.toMinutes(), point.getElevation()));
+            	series.getData().add(new XYChart.Data(time, point.getElevation()));
             } else if  (activityDataType == "Calories") {
                 String userName = null;
                 yAxis.setLabel("Calories Burned");
                 ActivityAnalysis activityAnalysis = new ActivityAnalysis();
                 userName = ApplicationManager.getCurrentUsername();
-                double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
-                series.getData().add(new XYChart.Data(duration.toMinutes(), calories));
+                double calories = activityAnalysis.findCaloriesBurnedFromStart(time, point.getHeartRate(), databaseManager.getUser(userName));
+                series.getData().add(new XYChart.Data(time, calories));
             }
         }
         analysisGraph.getData().add(series);
