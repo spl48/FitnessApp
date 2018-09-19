@@ -14,6 +14,8 @@ public class ApplicationManager {
 
     private static ErrorBoxController errorBoxController = new ErrorBoxController();
 
+    private static int currentActivityNumber = 0;
+
     public static void setCurrentUser(int userid, String username) {
         currentUsername = username;
         currentUserID = userid;
@@ -49,6 +51,14 @@ public class ApplicationManager {
 
     public static void displayPopUp(String title, String message, String type) {
         errorBoxController.displayErrorPopUP(title, message, type);
+    }
+
+    public static int getCurrentActivityNumber(){
+        return currentActivityNumber;
+    }
+
+    public static void setCurrentActivityNumber(int activityNumber) {
+        currentActivityNumber = activityNumber;
     }
 
 }

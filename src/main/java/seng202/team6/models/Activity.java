@@ -79,6 +79,8 @@ public class Activity
      */
     private static final ArrayList<String> activities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking"));
 
+    private String notes;
+
     /**
      * The constructor for the Activity that takes the parameters type, date, start time, end time, distance, minimum
      * heart rate, maximum heart rate and the total time of the  Activity.
@@ -324,5 +326,13 @@ public class Activity
                 maxHeartRate = dataPoint.getHeartRate();
             }
         }
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notesToSet) {
+        notes = notesToSet;
     }
 }

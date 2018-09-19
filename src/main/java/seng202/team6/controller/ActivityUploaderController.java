@@ -5,13 +5,19 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.datahandling.FileDataLoader;
+import seng202.team6.models.Activity;
+import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * <h1>File Uploader GUI Controller</h1>
@@ -23,12 +29,14 @@ public class ActivityUploaderController extends WorkoutsNavigator {
      * Session/Activity type ?? Might actually be redundant since multiple activities in file.
      */
     @FXML
-    private ChoiceBox<String> sessionType_E;
+    private TableView activityTable;
 
     /**
      * The application database manager.
      */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+
+    private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
     /**
      * The current user which is signed in.
@@ -43,50 +51,52 @@ public class ActivityUploaderController extends WorkoutsNavigator {
     void initialize() throws SQLException {
         currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername());
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
-        sessionType_E.setItems(availableChoices);
+        setupTable();
+        showActivity();
     }
 
+    private void setupTable() {
+        TableColumn idCol = new TableColumn("ID");
+        idCol.setCellValueFactory(new PropertyValueFactory<>("activityid"));
 
-    /**
-     * Opens up a file selection window and allows user to select a desired .csv file.
-     * @return The complete path for a selected .csv file from the users filing system.
-     */
-    @FXML
-    private String fileSelector() {
+        TableColumn descriptionCol = new TableColumn("Description");
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        // Initialising the file path.
-        String filePath = null;
+        TableColumn dateCol = new TableColumn("Date");
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        // Creating and showing the file chooser.
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        File selectedFile = fc.showOpenDialog(null);
+        TableColumn typeCol = new TableColumn("Type");
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
-        // Checks if a valid csv file was selected.
-        if (selectedFile != null) {
-            filePath = selectedFile.getAbsolutePath();
-        } else {
-            System.out.println("File not valid!");
+        TableColumn notesCol = new TableColumn("Notes");
+        notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
+
+
+        activityTable.getColumns().addAll(idCol, descriptionCol, dateCol, typeCol, notesCol);
+    }
+
+    public void addRecordToTable(Activity activity) throws SQLException {
+        activityTable.getItems().add(activity);
+    }
+
+    public void showActivity() throws SQLException {
+        ArrayList<Activity> activities = dbManager.getActivities(ApplicationManager.getCurrentUserID());
+        for ( int i = 0; i<activityTable.getItems().size(); i++) {
+            activityTable.getItems().clear();
         }
 
-        return filePath;
-    }
-
-    /**
-     * Uploads a csv activities file to the database.
-     */
-    @FXML
-    public void uploadActivity(Event event) {
-
-        String filePath = fileSelector();
-        if (filePath != null) {
-            FileDataLoader loader = new FileDataLoader();
-            loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
-            changeScreen(event, "/seng202/team6/view/WorkoutUpload.fxml");
-        } else {
-            System.out.println("Nothing is selected!");
+        for (Activity activity : activities) {
+            addRecordToTable(activity);
         }
+
+
     }
+
+
+    public void uploadActivity() {
+
+    }
+
 
     /**
      * Directs the user back to the add workout screen.

@@ -401,4 +401,6 @@ public class DatabaseManager implements DataLoader {
         updateStrideLength.setDouble(1, strideLength);
         updateStrideLength.execute();
     }
+
+
 }
