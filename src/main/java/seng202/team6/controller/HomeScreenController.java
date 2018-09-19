@@ -28,12 +28,18 @@ public class HomeScreenController {
 
 	int userid = ApplicationManager.getCurrentUserID();
     
+	/**
+     * A choice box to select the data type to be displayed on graph. E.g "Heart rate", "Distance", etc.
+     */
     @FXML
     private ComboBox activityTypeSelection;
     @FXML
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
+    /**
+     * The line chart that displays the activity data
+     */
     @FXML
     private LineChart<Number,Number> analysisGraph;
     @FXML
@@ -48,11 +54,14 @@ public class HomeScreenController {
     private Text stepCount;
 
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+    /**
+	 * Array that has all the activities the user can select to display on the graph
+	 */
     private ArrayList<Activity> activities = new ArrayList();
 
 	@FXML
     public void initialize() throws SQLException {
-		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
+		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
 	    activityTypeSelection.setItems(activityDataTypes);
 	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
 
@@ -96,6 +105,9 @@ public class HomeScreenController {
         stepCount.setText(totalStepsString);
     }
 
+    /**
+     * Creates a new graph to be displayed in the chart.
+     */
     @FXML
     private void newGraph() {
         analysisGraph.getData().clear();
@@ -116,11 +128,14 @@ public class HomeScreenController {
         	noDataText.setVisible(true);
         }
     }
-    
+    /**
+     *Adds a series of data from the most recent activity to the chart
+     * @throws SQLException
+     */
     public void addSeries() throws SQLException {
-        //Activity testRun = makeTestRun1();
+        //Activity selectedActivity = makeselectedActivity1();
     	int lastIndex = activities.size() - 1;
-    	Activity testRun = activities.get(lastIndex);
+    	Activity selectedActivity = activities.get(lastIndex);
     	String seriesType = activityTypeSelection.getValue().toString();
         //defining the axes
 		xAxis.setLabel("Time (Minutes)");
@@ -129,9 +144,9 @@ public class HomeScreenController {
         //populating the series with data
 
         String activityDataType = activityTypeSelection.getValue().toString();
-        series.setName(testRun.getDate().toString() + " " + activityDataType);
-        for (ActivityDataPoint point : testRun.getActivityData()) {
-        	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
+        series.setName(selectedActivity.getDate().toString() + " " + activityDataType);
+        for (ActivityDataPoint point : selectedActivity.getActivityData()) {
+        	Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
         	double time = duration.toMillis() / 6000;
         	time = time / 10;
             if (activityDataType == "Heart Rate") {
@@ -140,8 +155,8 @@ public class HomeScreenController {
             } else if (activityDataType == "Distance") {
             	yAxis.setLabel("Total Distance (KM)");
             	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-            	int index = testRun.getActivityData().indexOf(point);
-            	double distance = activityAnalysis.findDistanceFromStart(testRun, index);
+            	int index = selectedActivity.getActivityData().indexOf(point);
+            	double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
                 series.getData().add(new XYChart.Data(time, distance));
             } else if (activityDataType == "Elevation") {
             	yAxis.setLabel("Elevation (M)");
@@ -156,29 +171,5 @@ public class HomeScreenController {
             }
         }
         analysisGraph.getData().add(series);
-    }
-    
-    private Activity makeTestRun1() {
-        LocalDate inputDate = LocalDate.of(2018, 10, 9);
-        LocalTime time1 = LocalTime.of(5, 30);
-        LocalTime time2 = LocalTime.of(5, 40);
-        LocalTime time3 = LocalTime.of(5, 45);
-        LocalTime time4 = LocalTime.of(5, 55);
-        LocalTime time5 = LocalTime.of(6, 10);
-        LocalTime time6 = LocalTime.of(6, 15);
-        Activity testActivity = new Activity(10, "Running", "test description", inputDate, inputDate, time1, time6);
-        ActivityDataPoint p1 = new ActivityDataPoint(time1, 85, -43.530029, 172.582520, 88);
-        ActivityDataPoint p2 = new ActivityDataPoint(time2, 120, -43.523584, 172.579179, 100);
-        ActivityDataPoint p3 = new ActivityDataPoint(time3, 111, -43.519975, 172.579222, 94);
-        ActivityDataPoint p4 = new ActivityDataPoint(time4, 104, -43.522371, 172.589474, 88);
-        ActivityDataPoint p5 = new ActivityDataPoint(time5, 101, -43.530834, 172.586771, 88);
-        ActivityDataPoint p6 = new ActivityDataPoint(time6, 98, -43.530029, 172.582520, 92);
-        testActivity.addActivityData(p1);
-        testActivity.addActivityData(p2);
-        testActivity.addActivityData(p3);
-        testActivity.addActivityData(p4);
-        testActivity.addActivityData(p5);
-        testActivity.addActivityData(p6);
-        return testActivity;
     }
 }

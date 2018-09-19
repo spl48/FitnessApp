@@ -34,28 +34,56 @@ import javafx.scene.chart.CategoryAxis;
  */
 public class WorkoutAnalysisController extends WorkoutsNavigator {
 
+	/**
+	 * Array that stores the Activity's that are currently being displayed in the graph
+	 */
 	private ArrayList<Activity> currentSeriesTypes = new ArrayList();
+	/**
+	 * Array that has all the activities the user can select to display on the graph
+	 */
     private ArrayList<Activity> activities = new ArrayList();
+    /**
+     * A string of the current data type being displayed on the graph. E.g "Heart rate", "Distance", etc.
+     */
     private String curSeriesType;
 
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
+    /**
+     * A choice box to select the desired activity to be displayed on graph
+     */
     @FXML
     private ChoiceBox<String> activitySelection;
+    /**
+     * A choice box to select the data type to be displayed on graph. E.g "Heart rate", "Distance", etc.
+     */
     @FXML
     private ChoiceBox<String> activityTypeSelection;
+    /**
+     * x axis of chart
+     */
     @FXML
     private NumberAxis xAxis;
+    /**
+     * y axis of graph
+     */
     @FXML
     private NumberAxis yAxis;
+    /**
+     * The line chart that displays the activity data
+     */
     @FXML
     private LineChart<Number,Number> analysisGraph;
 
+    /**
+     * Initializes chart to display latest activity.
+     * @throws SQLException
+     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(availableChoices);
-        activityTypeSelection.getSelectionModel().select("Heart Rate");
+        activityTypeSelection.getSelectionModel().select(availableChoices.get(0));
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities){
@@ -74,9 +102,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     public void newGraph() {
     	if (activities.size() >= 1) {
 	        int activity = activitySelection.getSelectionModel().getSelectedIndex();
-	        Activity testRun = activities.get(activity);
+	        Activity selectedActivity = activities.get(activity);
 	    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-	    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == testRun && curSeriesType == seriesType) {
+	    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == selectedActivity && curSeriesType == seriesType) {
 	            ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
 	        } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
 		    	currentSeriesTypes.clear();
@@ -88,7 +116,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	                e.printStackTrace();
 	            }
 	        } else {
-	            String errorMessage = String.format("Already displaying data for %s ya dinguss", testRun.getDate().toString());
+	            String errorMessage = String.format("Already displaying data for %s ya dinguss", selectedActivity.getDate().toString());
 	            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage, "error");
 	        }
     	} else {
@@ -97,20 +125,19 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     }
 
     /**
-     *
+     *Adds a series of data to the chart
      * @throws SQLException
      */
     public void addSeries() throws SQLException {
     	if (activities.size() >= 1) {
 	        int activity = activitySelection.getSelectionModel().getSelectedIndex();
-	        Activity testRun = activities.get(activity);
+	        Activity selectedActivity = activities.get(activity);
 	    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-	    	if (!currentSeriesTypes.contains(testRun) && seriesType == curSeriesType) {
+	    	if (!currentSeriesTypes.contains(selectedActivity) && seriesType == curSeriesType) {
 		        //defining the axes
-	    		xAxis.setLabel("Time");
-		        
+	    		xAxis.setLabel("Time (Minutes)");
 		        //populating the series with data
-		        addData(testRun);
+		        addData(selectedActivity);
 		        
 	    	} else {
 	    		ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss", "error");
@@ -120,13 +147,18 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     	}
     }
     
-    public void addData(Activity testRun) throws SQLException {
+    /**
+     * Adds the required data to the current series to be displayed on the chart.
+     * @param selectedActivity The activity whose data will be added to the chart
+     * @throws SQLException
+     */
+    public void addData(Activity selectedActivity) throws SQLException {
     	//defining a series
         XYChart.Series series = new XYChart.Series();
     	String ActivityType = activityTypeSelection.getSelectionModel().getSelectedItem();
-        series.setName(testRun.getDate().toString() + " " + ActivityType);
-    	for (ActivityDataPoint point : testRun.getActivityData()) {
-        	Duration duration = Duration.between(testRun.getStartTime(), point.getTime());
+        series.setName(selectedActivity.getDate().toString() + " " + ActivityType);
+    	for (ActivityDataPoint point : selectedActivity.getActivityData()) {
+        	Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
         	double time = duration.toMillis() / 6000;
         	time = time / 10;
             if (ActivityType == "Heart Rate") {
@@ -135,8 +167,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             } else if (ActivityType == "Distance") {
             	yAxis.setLabel("Total Distance (KM)");
             	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-            	int index = testRun.getActivityData().indexOf(point);
-            	double distance = activityAnalysis.findDistanceFromStart(testRun, index);
+            	int index = selectedActivity.getActivityData().indexOf(point);
+            	double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
                 series.getData().add(new XYChart.Data(time, distance));
             } else if (ActivityType == "Elevation") {
             	yAxis.setLabel("Elevation (M)");
@@ -154,7 +186,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 series.getData().add(new XYChart.Data(time, calories));
             }
         }
-    	currentSeriesTypes.add(testRun);
+    	currentSeriesTypes.add(selectedActivity);
         analysisGraph.getData().add(series);
     }
 }
