@@ -270,6 +270,10 @@ public class DatabaseManager implements DataLoader {
             int activityid = res.getInt("activityid");
             LocalDate localStartDate = LocalDate.parse(activityStartDate);
             LocalDate localEndDate = LocalDate.parse(activityEndDate);
+            if(activityStartTime.length() == 7){
+                String newActivityStartTime = activityStartTime;
+                activityStartTime = "0" + newActivityStartTime;
+            }
             LocalTime localStartTime = LocalTime.parse(activityStartTime);
             LocalTime localEndTime = LocalTime.parse(activityEndTime);
             Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime);
