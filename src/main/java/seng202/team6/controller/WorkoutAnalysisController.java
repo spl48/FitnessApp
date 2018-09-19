@@ -81,9 +81,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(availableChoices);
-        activityTypeSelection.getSelectionModel().select("Heart Rate");
+        activityTypeSelection.getSelectionModel().select(availableChoices.get(0));
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities){
@@ -135,7 +135,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
 	    	if (!currentSeriesTypes.contains(selectedActivity) && seriesType == curSeriesType) {
 		        //defining the axes
-	    		xAxis.setLabel("Time");
+	    		xAxis.setLabel("Time (Minutes)");
 		        //populating the series with data
 		        addData(selectedActivity);
 		        

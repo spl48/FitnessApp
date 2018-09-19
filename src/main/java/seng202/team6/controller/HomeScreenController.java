@@ -28,12 +28,18 @@ public class HomeScreenController {
 
 	int userid = ApplicationManager.getCurrentUserID();
     
+	/**
+     * A choice box to select the data type to be displayed on graph. E.g "Heart rate", "Distance", etc.
+     */
     @FXML
     private ComboBox activityTypeSelection;
     @FXML
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
+    /**
+     * The line chart that displays the activity data
+     */
     @FXML
     private LineChart<Number,Number> analysisGraph;
     @FXML
@@ -48,11 +54,14 @@ public class HomeScreenController {
     private Text stepCount;
 
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+    /**
+	 * Array that has all the activities the user can select to display on the graph
+	 */
     private ArrayList<Activity> activities = new ArrayList();
 
 	@FXML
     public void initialize() throws SQLException {
-		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Heart Rate", "Distance", "Elevation", "Calories");
+		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
 	    activityTypeSelection.setItems(activityDataTypes);
 	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
 
@@ -96,6 +105,9 @@ public class HomeScreenController {
         stepCount.setText(totalStepsString);
     }
 
+    /**
+     * Creates a new graph to be displayed in the chart.
+     */
     @FXML
     private void newGraph() {
         analysisGraph.getData().clear();
@@ -116,7 +128,10 @@ public class HomeScreenController {
         	noDataText.setVisible(true);
         }
     }
-    
+    /**
+     *Adds a series of data from the most recent activity to the chart
+     * @throws SQLException
+     */
     public void addSeries() throws SQLException {
         //Activity selectedActivity = makeselectedActivity1();
     	int lastIndex = activities.size() - 1;
