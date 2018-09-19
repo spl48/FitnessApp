@@ -120,7 +120,7 @@ public class ActivityAnalysis {
         return calories;
     }
 
-    public double findCaloriesBurnedFromStart(long activityTime, double heartRate, User user) {
+    public double findCaloriesBurnedFromStart(double time, double heartRate, User user) {
 
         double calories = 0;
         double userWeight = user.getWeight();
@@ -128,9 +128,9 @@ public class ActivityAnalysis {
         double userAge = user.getAge();
 
         if (gender == "Male") {
-            calories = ((userAge * 0.2017) - (userWeight * 0.09036) + (heartRate * 0.6309) - 55.0969) * activityTime / 4.184;
+            calories = ((userAge * 0.2017) - (userWeight * 0.09036) + (heartRate * 0.6309) - 55.0969) * time / 4.184;
         } else {
-            calories = ((userAge * 0.074) - (userWeight * 0.05741) + (heartRate * 0.4472) - 20.4022) * activityTime / 4.184;
+            calories = ((userAge * 0.074) - (userWeight * 0.05741) + (heartRate * 0.4472) - 20.4022) * time / 4.184;
         }
 
         return calories;
