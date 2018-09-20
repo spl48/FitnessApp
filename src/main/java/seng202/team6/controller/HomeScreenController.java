@@ -88,23 +88,23 @@ public class HomeScreenController {
 
 
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
-        weightType.setText(profileAnalysis.analyseBMI(BMI));
+        weightType.setText("(" + profileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
 
 
         if (HealthConcernChecker.checkTachycardia()) {
-            healthConcerns += "Tachycardia\n";
+            healthConcerns += "-" + "Tachycardia\n".toUpperCase();
             healthConcernsText.setText(healthConcerns);
         }
 
         if (HealthConcernChecker.checkBradycardia()) {
-            healthConcerns += "Bradycardia\n";
+            healthConcerns += "-" + "Bradycardia\n".toUpperCase();
             healthConcernsText.setText(healthConcerns);
         }
 
         if (HealthConcernChecker.checkCardiovascularMortality()) {
-            healthConcerns += "Cardiac Diseases\n";
+            healthConcerns += "-" + "Cardiac Diseases\n".toUpperCase();
             healthConcernsText.setText(healthConcerns);
         }
     }
@@ -157,6 +157,7 @@ public class HomeScreenController {
         //Activity selectedActivity = makeselectedActivity1();
     	int lastIndex = activities.size() - 1;
     	Activity selectedActivity = activities.get(lastIndex);
+        graphPanelTitle.setText("LATEST " + selectedActivity.getType().toUpperCase() + " ACTIVITY");
     	String seriesType = activityTypeSelection.getValue().toString();
         //defining the axes
 		xAxis.setLabel("Time (Minutes)");
