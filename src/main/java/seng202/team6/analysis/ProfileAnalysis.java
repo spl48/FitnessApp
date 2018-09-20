@@ -29,6 +29,11 @@ public class ProfileAnalysis {
         return weight / (height * height);
     }
 
+    /** A function that determines a users weight catagory,
+     * from there BMI.
+     * @param BMI the BMI of the user
+     * @return a string of the category for the users weight
+     */
     public String analyseBMI(double BMI) {
         if (BMI < 18.5) {
             return "UnderWeight";
@@ -41,16 +46,24 @@ public class ProfileAnalysis {
         }
     }
 
-    public double findTotalStepCount(ArrayList<Activity> activities, double strideLength) throws SQLException{
-        double stepCount = 0;
+    /** A function that determines the total steps across all
+     * walking and running activities of a user.
+     * @param activities an ArrayList of activities to be analysed
+     * @param strideLength the stride length of a user in feet
+     * @return a double for the number of steps taken
+     */
+    public double findTotalStepCount(ArrayList<Activity> activities, double strideLength){
+        double totalStepCount = 0;
+        double currentStepCount = 0;
 
         ActivityAnalysis activityAnalysis = new ActivityAnalysis();
 
         for (Activity activity : activities) {
-            stepCount += activityAnalysis.findStepCount(activity, strideLength);
+            currentStepCount = activityAnalysis.findStepCount(activity, strideLength);          // Finds the step count for 1 activity
+            totalStepCount += currentStepCount;
         }
 
-        return stepCount;
+        return totalStepCount;
 
     }
 
@@ -163,13 +176,13 @@ public class ProfileAnalysis {
 
 
 
-    /**
-     * A function that determines and returns the maximum step count from all a users activities.
-     * @param profile The profile for the user that the maximum step count is being calculated.
-     * @return A double which is a users maximum step count.
-     */
-    public double findMaximumStepCount (Profile profile){
-        return 1;
-    }
+//    /**
+//     * A function that determines and returns the maximum step count from all a users activities.
+//     * @param profile The profile for the user that the maximum step count is being calculated.
+//     * @return A double which is a users maximum step count.
+//     */
+//    public double findMaximumStepCount (Profile profile){
+//        return 1;
+//    }
 
 }
