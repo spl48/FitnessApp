@@ -136,12 +136,12 @@ public class ActivityAnalysis {
         return calories;
     }
 
-    public double calculateAverageSpeed(Activity activity) {
+    public static double calculateAverageSpeed(Activity activity) {
         return (activity.getTotalTime() / 60) / (activity.getDistance());
     }
 
 
-    public String getActivityType (Activity activity){
+    public static String getActivityType (Activity activity){
         double averageSpeed = calculateAverageSpeed(activity);
         int brisk_walking_pace = 5;
         int fast_running_pace = 12;
