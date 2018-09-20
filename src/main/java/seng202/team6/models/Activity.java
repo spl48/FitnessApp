@@ -1,5 +1,6 @@
 package seng202.team6.models;
 
+import seng202.team6.analysis.ActivityAnalysis;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -153,6 +154,14 @@ public class Activity
     {
         return type;
     }
+
+    /**
+     * A function that updates the Activity type to the given type.
+     */
+    public void updateType() {
+        type = ActivityAnalysis.getActivityType(this);
+    }
+
 
     /**
      * A function that sets the Activity Description to the given String parameter
