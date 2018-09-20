@@ -14,11 +14,11 @@ public class DatabaseManager implements DataLoader {
     private Connection con;
     private boolean hasData = false;
 
-    public DatabaseManager() throws ClassNotFoundException, SQLException {
+    public DatabaseManager() {
        getConnection();
     }
 
-    public ResultSet displayUsers() throws SQLException, ClassNotFoundException {
+    public ResultSet displayUsers() throws SQLException {
         if(con == null) {
             getConnection();
         }
@@ -212,7 +212,7 @@ public class DatabaseManager implements DataLoader {
         prep.execute();
     }
 
-    public void addActivity(int userid, String description, String start, String end, String workout, double distance) throws SQLException, ClassNotFoundException {
+    public void addActivity(int userid, String description, String start, String end, String workout, double distance) throws SQLException {
         if(con == null) {
             getConnection();
         }
@@ -259,7 +259,6 @@ public class DatabaseManager implements DataLoader {
             String activityStartDate = startParts[0];
             String activityStartTime = startParts[1];
             String activityEnd = res.getString("end");
-            System.out.println(activityEnd);
             String[] endParts = activityEnd.split("T");
             String activityEndDate = endParts[0];
             String activityEndTime = endParts[1];
@@ -279,6 +278,7 @@ public class DatabaseManager implements DataLoader {
             for (ActivityDataPoint dataPoint : dataPoints) {
                 activity.addActivityData(dataPoint);
             }
+            activity.updateType();
             activity.updateMaxHeartRate();
             activity.updateMinHeartRate();
             activities.add(activity);

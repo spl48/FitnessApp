@@ -1,5 +1,7 @@
 package seng202.team6.models;
 
+import seng202.team6.analysis.ActivityAnalysis;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -328,11 +330,19 @@ public class Activity
         }
     }
 
+    public void updateType() {
+        type = ActivityAnalysis.getActivityType(this);
+    }
+
     public String getNotes() {
         return notes;
     }
 
     public void setNotes(String notesToSet) {
         notes = notesToSet;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
