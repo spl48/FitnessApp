@@ -75,8 +75,8 @@ public class ActivityTest extends TestCase {
     }
 
     public void testSetEndDate() {
-        activity1.setStartDate(date2);
-        assertEquals(date2, activity1.getStartDate());
+        activity1.setEndDate(date2);
+        assertEquals(date2, activity1.getEndDate());
     }
 
     public void testGetStartDate() {
@@ -105,6 +105,20 @@ public class ActivityTest extends TestCase {
 
     public void testGetTotalTime() {
         assertEquals(totalTime, activity1.getTotalTime());
+    }
+
+    public void testSetDistance() {
+        // Invalid Input
+        activity1.setDistance(-10.0);
+        assertEquals(0.0, activity1.getDistance(), 0.1);
+        // Valid Input
+        activity1.setDistance(30.0);
+        assertEquals(30.0, activity1.getDistance(), 0.1);
+    }
+
+    public void testGetDistance() {
+        activity1.setDistance(30.0);
+        assertEquals(30.0, activity1.getDistance(), 0.1);
     }
 
     public void testUpdateMinHeartRate() {
