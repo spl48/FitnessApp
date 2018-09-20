@@ -1,10 +1,7 @@
 package seng202.team6.models;
 
-import seng202.team6.analysis.ActivityAnalysis;
-
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -331,13 +328,6 @@ public class Activity
     public int getMinHeartRate()
     {
         return minHeartRate;
-
-    public void updateType() {
-        type = ActivityAnalysis.getActivityType(this);
-    }
-
-    public String getNotes() {
-        return notes;
     }
 
     /**
@@ -369,6 +359,5 @@ public class Activity
     {
         return activityData;
     }
-
-
 }
+
