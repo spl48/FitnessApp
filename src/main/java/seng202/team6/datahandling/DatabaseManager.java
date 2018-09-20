@@ -253,27 +253,8 @@ public class DatabaseManager implements DataLoader {
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid);
         while(res.next()){
-            String activityDescription = res.getString("description");
-            String activityStart = res.getString("start");
-            String[] startParts = activityStart.split("T");
-            String activityStartDate = startParts[0];
-            String activityStartTime = startParts[1];
-            String activityEnd = res.getString("end");
-            String[] endParts = activityEnd.split("T");
-            String activityEndDate = endParts[0];
-            String activityEndTime = endParts[1];
-            //String activityWorkout = res.getString("workout");
-            String activityWorkout = "testworkout";
-            int activityid = res.getInt("activityid");
-            //LocalDate localStartDate = LocalDate.parse(activityStartDate);
 
-            LocalDate localStartDate = DataHandlerUtilities.parseDate(activityStartDate);
-            LocalDate localEndDate = DataHandlerUtilities.parseDate(activityEndDate);
-
-            LocalTime localStartTime = DataHandlerUtilities.parseTime(activityStartTime);
-            LocalTime localEndTime = DataHandlerUtilities.parseTime(activityEndTime);
-
-            Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime);
+            Activity activity = extractActivity(res);
             ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
             for (ActivityDataPoint dataPoint : dataPoints) {
                 activity.addActivityData(dataPoint);
@@ -301,28 +282,8 @@ public class DatabaseManager implements DataLoader {
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND workout = " + workout);
         while(res.next()){
-            String activityDescription = res.getString("description");
-            String activityStart = res.getString("start");
-            String[] startParts = activityStart.split("T");
-            String activityStartDate = startParts[0];
-            String activityStartTime = startParts[1];
-            String activityEnd = res.getString("end");
-            System.out.println(activityEnd);
-            String[] endParts = activityEnd.split("T");
-            String activityEndDate = endParts[0];
-            String activityEndTime = endParts[1];
-            //String activityWorkout = res.getString("workout");
-            String activityWorkout = "testworkout";
-            int activityid = res.getInt("activityid");
-            //LocalDate localStartDate = LocalDate.parse(activityStartDate);
 
-            LocalDate localStartDate = DataHandlerUtilities.parseDate(activityStartDate);
-            LocalDate localEndDate = DataHandlerUtilities.parseDate(activityEndDate);
-
-            LocalTime localStartTime = DataHandlerUtilities.parseTime(activityStartTime);
-            LocalTime localEndTime = DataHandlerUtilities.parseTime(activityEndTime);
-
-            Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime);
+            Activity activity = extractActivity(res);
             ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
             for (ActivityDataPoint dataPoint : dataPoints) {
                 activity.addActivityData(dataPoint);
@@ -372,6 +333,44 @@ public class DatabaseManager implements DataLoader {
         Statement statement = con.createStatement();
         ResultSet description = statement.executeQuery("SELECT description FROM activity WHERE activityID = " + activityID );
         return description.getString(1);
+    }
+
+    public Activity extractActivity(ResultSet res) throws SQLException {
+        String activityDescription = res.getString("description");
+        String activityStart = res.getString("start");
+        String[] startParts = activityStart.split("T");
+        String activityStartDate = startParts[0];
+        String activityStartTime = startParts[1];
+        String activityEnd = res.getString("end");
+        System.out.println(activityEnd);
+        String[] endParts = activityEnd.split("T");
+        String activityEndDate = endParts[0];
+        String activityEndTime = endParts[1];
+        String activityWorkout = "testworkout";
+        int activityid = res.getInt("activityid");
+
+        LocalDate localStartDate = DataHandlerUtilities.parseDate(activityStartDate);
+        LocalDate localEndDate = DataHandlerUtilities.parseDate(activityEndDate);
+
+        LocalTime localStartTime = DataHandlerUtilities.parseTime(activityStartTime);
+        LocalTime localEndTime = DataHandlerUtilities.parseTime(activityEndTime);
+
+        Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime);
+
+        return activity;
+    }
+
+    public Activity getActivity(int activityID) throws SQLException {
+        // Checks the connection to the database.
+        if(con == null) {
+            getConnection();
+        }
+        // Tries to query the database for a user.
+        Statement statement = con.createStatement();
+        ResultSet res = statement.executeQuery("SELECT * FROM activity WHERE activityID = " + activityID );
+        Activity activity = extractActivity(res);
+
+        return activity;
     }
 
     public void updateFirstName(String firstName) throws SQLException {
