@@ -321,7 +321,6 @@ public class Activity
      * A function that updates the maximum heart rate of the User.
      */
     public void updateMaxHeartRate(){
-        maxHeartRate = 1000;
         for (ActivityDataPoint dataPoint : activityData){
             if(dataPoint.getHeartRate() > maxHeartRate){
                 maxHeartRate = dataPoint.getHeartRate();
