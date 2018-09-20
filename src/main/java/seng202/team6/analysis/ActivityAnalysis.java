@@ -4,9 +4,11 @@ import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
+
 import java.util.ArrayList;
 
-import static java.lang.Math.abs;
+
+import static java.lang.Math.*;
 
 
 public class ActivityAnalysis {
@@ -30,7 +32,8 @@ public class ActivityAnalysis {
         System.out.println(activity.getType());
         int finalIndex = activity.getActivityData().size();
         double distance = findDistanceFromStart(activity, finalIndex - 1);
-        return (distance * 1000 / strideLength * 30.48);
+        System.out.println(distance / (strideLength * 0.0003048));
+        return (distance / (strideLength * 0.0003048));
     }
 
 
@@ -52,22 +55,50 @@ public class ActivityAnalysis {
         return totalDistance;
     }
 
+    /** Finds the total distance covered from the start of an activity
+     * to a particular activity point at an index in that same activity
+     * and returns this as a double.
+     * @param activity
+     * @param index the index for the activity point the distance is being calculated up to.
+     * @return a double represting the distance covered
+     */
     public double findDistanceFromStart(Activity activity, int index) {
-        double latitudeDist;
-        double longitudeDist;
+
         double totalDistance = 0;
-        ArrayList<ActivityDataPoint> dataPoints = activity.getActivityData();
         int currentIndex = 0;
 
-        for (currentIndex = 0; currentIndex < index; currentIndex++) {
-            latitudeDist = abs(dataPoints.get(currentIndex + 1).getLatitude() - dataPoints.get(currentIndex).getLatitude());
-            longitudeDist = abs(dataPoints.get(currentIndex + 1).getLongitude() - dataPoints.get(currentIndex).getLongitude());
+        ArrayList<ActivityDataPoint> dataPoints = activity.getActivityData();
 
-            totalDistance = totalDistance + latitudeDist + longitudeDist;
+        double currentLongitude;
+        double nextLongitude;
+        double currentLatitude;
+        double nextLatitude;
+
+        for (currentIndex = 0; currentIndex < index; currentIndex++) {
+            currentLongitude = dataPoints.get(currentIndex).getLongitude();
+            nextLongitude = dataPoints.get(currentIndex + 1).getLongitude();
+            currentLatitude = dataPoints.get(currentIndex).getLatitude();
+            nextLatitude = dataPoints.get(currentIndex + 1).getLatitude();
+
+            double theta = currentLongitude - nextLongitude;
+            double dist = sin(deg2rad(currentLatitude)) * sin(deg2rad(nextLatitude)) + cos(deg2rad(currentLatitude)) * cos(deg2rad(nextLatitude)) * cos(deg2rad(theta));
+            dist = acos(dist);
+            dist = rad2deg(dist);
+            dist = dist * 60 * 1.1515;
+            dist = dist * 1.609344;
+            totalDistance += dist;
+
         }
 
-        return totalDistance*100;
+        return totalDistance;
     }
+
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+        private static double rad2deg(double rad) {
+            return (rad * 180 / Math.PI);
+        }
 
     public double findCaloriesBurned(Activity activity, User user) {
         double metValue;
@@ -89,7 +120,7 @@ public class ActivityAnalysis {
         return calories;
     }
 
-    public double findCaloriesBurnedFromStart(long activityTime, double heartRate, User user) {
+    public double findCaloriesBurnedFromStart(double time, double heartRate, User user) {
 
         double calories = 0;
         double userWeight = user.getWeight();
@@ -97,17 +128,21 @@ public class ActivityAnalysis {
         double userAge = user.getAge();
 
         if (gender == "Male") {
-            calories = ((userAge * 0.2017) - (userWeight * 0.09036) + (heartRate * 0.6309) - 55.0969) * activityTime / 4.184;
+            calories = ((userAge * 0.2017) - (userWeight * 0.09036) + (heartRate * 0.6309) - 55.0969) * time / 4.184;
         } else {
-            calories = ((userAge * 0.074) - (userWeight * 0.05741) + (heartRate * 0.4472) - 20.4022) * activityTime / 4.184;
+            calories = ((userAge * 0.074) - (userWeight * 0.05741) + (heartRate * 0.4472) - 20.4022) * time / 4.184;
         }
 
         return calories;
     }
 
+    public static double calculateAverageSpeed(Activity activity) {
+        return (activity.getTotalTime() / 60) / (activity.getDistance());
+    }
 
-    public String getActivityType (Activity activity){
-        double averageSpeed = (activity.getTotalTime() / 60) / (activity.getDistance()); // in km per hour
+
+    public static String getActivityType (Activity activity){
+        double averageSpeed = calculateAverageSpeed(activity);
         int brisk_walking_pace = 5;
         int fast_running_pace = 12;
 

@@ -1,14 +1,18 @@
 package seng202.team6.controller;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.datahandling.FileDataLoader;
 import seng202.team6.models.Activity;
@@ -30,6 +34,21 @@ public class ActivityUploaderController extends WorkoutsNavigator {
      */
     @FXML
     private TableView activityTable;
+
+    @FXML
+    private TableColumn idCol;
+
+    @FXML
+    private TableColumn descriptionCol;
+
+    @FXML
+    private TableColumn dateCol;
+
+    @FXML
+    private TableColumn typeCol;
+
+    @FXML
+    private TableColumn notesCol;
 
     /**
      * The application database manager.
@@ -55,27 +74,49 @@ public class ActivityUploaderController extends WorkoutsNavigator {
         showActivity();
     }
 
-    private void setupTable() {
-        TableColumn idCol = new TableColumn("ID");
-        idCol.setCellValueFactory(new PropertyValueFactory<>("activityid"));
+    public static class Typ {
 
-        TableColumn descriptionCol = new TableColumn("Description");
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        private final SimpleStringProperty typ;
 
-        TableColumn dateCol = new TableColumn("Date");
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        public Typ(String typ) {
+            this.typ = new SimpleStringProperty(typ);
+        }
 
-        TableColumn typeCol = new TableColumn("Type");
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        public String getTyp() {
+            return this.typ.get();
+        }
 
-        TableColumn notesCol = new TableColumn("Notes");
-        notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
+        public StringProperty typProperty() {
+            return this.typ;
+        }
 
+        public void setTyp(String typ) {
+            this.typ.set(typ);
+        }
 
-        activityTable.getColumns().addAll(idCol, descriptionCol, dateCol, typeCol, notesCol);
+        @Override
+        public String toString() {
+            return typ.get();
+        }
+
     }
 
-    public void addRecordToTable(Activity activity) throws SQLException {
+    private void setupTable() {
+//
+//        activityTable.setEditable(true);
+//        Callback<TableColumn<Activity, String>, TableCell<Activity, String>> cellFactory
+//                = (TableColumn<Activity, String> param) -> new EditingCell();
+//        Callback<TableColumn<Activity, Typ>, TableCell<Activity, Typ>> comboBoxCellFactory
+//                = (TableColumn<Activity, Typ> param) -> new ComboBoxEditingCell();
+
+        idCol.setCellValueFactory(new PropertyValueFactory<>("activityid"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
+    }
+
+    public void addRecordToTable(Activity activity) {
         activityTable.getItems().add(activity);
     }
 
@@ -86,10 +127,17 @@ public class ActivityUploaderController extends WorkoutsNavigator {
         }
 
         for (Activity activity : activities) {
+            System.out.println("Activity Name: " + activity.getDescription());
             addRecordToTable(activity);
         }
 
 
+    }
+
+    public void editNotes(TableColumn.CellEditEvent editedCell) {
+        Activity activitySelected = (Activity) activityTable.getSelectionModel().getSelectedItem();
+
+        activitySelected.setNotes(editedCell.getNewValue().toString());
     }
 
 

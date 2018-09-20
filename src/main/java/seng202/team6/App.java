@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class App 
 {
-    public static void main( String[] args ) throws ClassNotFoundException, SQLException
+    public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
         System.out.println("Testing Testing");
@@ -24,8 +24,6 @@ public class App
         try {
             rs = test.displayUsers();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         loader.importDataFromCSV(1, "C:\\Users\\seanp\\Desktop\\School\\SENG202\\Team6-Fitness-App\\src\\main\\resources\\seng202\\team6\\resources\\sample_data.csv", test);
@@ -40,10 +38,10 @@ public class App
             while(rsaa.next()) {
                 System.out.println(rsaa.getInt("activityid") + " " + rsaa.getString("datetime") + " " + rsaa.getDouble("longitude")+ " " + rsaa.getDouble("latitude"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
 }
