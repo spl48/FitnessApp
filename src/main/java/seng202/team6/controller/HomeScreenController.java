@@ -144,7 +144,7 @@ public class HomeScreenController {
         //populating the series with data
 
         String activityDataType = activityTypeSelection.getValue().toString();
-        series.setName(selectedActivity.getDate().toString() + " " + activityDataType);
+        series.setName(selectedActivity.getStartDate().toString() + " " + activityDataType);
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
         	Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
         	double time = duration.toMillis() / 6000;

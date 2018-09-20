@@ -39,10 +39,10 @@ public class MapsController extends WorkoutsNavigator {
         if (activities.size() >= 1) {
 	        ObservableList<String> availableActivities = FXCollections.observableArrayList();
 	        for (Activity activity : activities){
-	            availableActivities.add(activity.getDate().toString());
+	            availableActivities.add(activity.getStartDate().toString());
 	        }
 	        activitySelection.setItems(availableActivities);
-	        activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
+	        activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
         }
 
         webEngine = mapWebView.getEngine();

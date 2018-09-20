@@ -87,11 +87,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities){
-            availableActivities.add(activity.getDate().toString());
+            availableActivities.add(activity.getStartDate().toString());
         }
         activitySelection.setItems(availableActivities);
         if (activities.size() >= 1) {
-        	activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
+        	activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
         }
         analysisGraph.setCreateSymbols(false);
     }
@@ -116,7 +116,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	                e.printStackTrace();
 	            }
 	        } else {
-	            String errorMessage = String.format("Already displaying data for %s ya dinguss", selectedActivity.getDate().toString());
+	            String errorMessage = String.format("Already displaying data for %s ya dinguss", selectedActivity.getStartDate().toString());
 	            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage, "error");
 	        }
     	} else {
@@ -156,7 +156,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     	//defining a series
         XYChart.Series series = new XYChart.Series();
     	String ActivityType = activityTypeSelection.getSelectionModel().getSelectedItem();
-        series.setName(selectedActivity.getDate().toString() + " " + ActivityType);
+        series.setName(selectedActivity.getStartDate().toString() + " " + ActivityType);
     	for (ActivityDataPoint point : selectedActivity.getActivityData()) {
         	Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
         	double time = duration.toMillis() / 6000;
