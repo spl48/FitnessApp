@@ -18,6 +18,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import seng202.team6.analysis.ActivityAnalysis;
+import seng202.team6.analysis.HealthConcernChecker;
 import seng202.team6.analysis.ProfileAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
@@ -52,6 +53,8 @@ public class HomeScreenController {
     private Text weightType;
     @FXML
     private Text stepCount;
+    @FXML
+    private Text healthConcernsText;
 
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
     /**
@@ -66,15 +69,17 @@ public class HomeScreenController {
 	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
 
 
-        setBMIInfo();
+        setHealthInfo();
         setStepsInfo();
 	    newGraph();
     }
 
     @FXML
-    private void setBMIInfo() throws SQLException{
+    private void setHealthInfo() throws SQLException{
+
         String userName = ApplicationManager.getCurrentUsername(); //TODO put this stuff outside functiom?? -- used again later
         User user = databaseManager.getUser(userName);
+        String healthConcerns = "";
 
         ProfileAnalysis profileAnalysis = new ProfileAnalysis();
         double BMI = profileAnalysis.calculateBMI(user);
@@ -86,6 +91,22 @@ public class HomeScreenController {
         weightType.setText(profileAnalysis.analyseBMI(BMI));
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
+
+
+        if (HealthConcernChecker.checkTachycardia()) {
+            healthConcerns += "Tachycardia\n";
+            healthConcernsText.setText(healthConcerns);
+        }
+
+        if (HealthConcernChecker.checkBradycardia()) {
+            healthConcerns += "Bradycardia\n";
+            healthConcernsText.setText(healthConcerns);
+        }
+
+        if (HealthConcernChecker.checkCardiovascularMortality()) {
+            healthConcerns += "Cardiac Diseases\n";
+            healthConcernsText.setText(healthConcerns);
+        }
     }
 
     @FXML
