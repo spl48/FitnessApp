@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
@@ -74,6 +74,14 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private LineChart<Number,Number> analysisGraph;
+    @FXML
+    private ComboBox yearSelection;
+    @FXML
+    private ComboBox monthSelection;
+    @FXML
+    private ComboBox daySelection;
+    
+    private Set<Integer> yearSet = new HashSet<>();
 
     /**
      * Initializes chart to display latest activity.
@@ -81,9 +89,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
-        activityTypeSelection.setItems(availableChoices);
-        activityTypeSelection.getSelectionModel().select(availableChoices.get(0));
+        ObservableList<String> dataChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
+        activityTypeSelection.setItems(dataChoices);
+        activityTypeSelection.getSelectionModel().select(dataChoices.get(0));
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities){
@@ -92,8 +100,55 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         activitySelection.setItems(availableActivities);
         if (activities.size() >= 1) {
         	activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
+        	populateComboBoxes();
         }
         analysisGraph.setCreateSymbols(false);
+    }
+    
+    private void populateComboBoxes() {
+    	ArrayList<String> thirtyOneDayMonths = new ArrayList<>(Arrays.asList("January", "March", "May", "July", "August", "October", "December"));
+    	ArrayList<String> thirtyDayMonths = new ArrayList<>(Arrays.asList("April","June", "September", "November"));
+    	for (Activity activity : activities) {
+    		LocalDate date = activity.getDate();
+    		yearSet.add(date.getYear());
+    	}
+    	ObservableList<String> monthChoices = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+    	ObservableList<Integer> dayChoices = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29);
+    	monthSelection.getSelectionModel().select(monthChoices.get(0));
+    	daySelection.getSelectionModel().select(dayChoices.get(0));
+    	String month = monthSelection.getValue().toString();
+    	if (thirtyOneDayMonths.contains(month)) {
+    		dayChoices.add(30);
+    		dayChoices.add(31);
+    	} else if (thirtyDayMonths.contains(month)) {
+    		dayChoices.add(30);
+    	}
+    	ObservableList<Integer> yearOptions = FXCollections.observableArrayList();
+    	List yearList = new ArrayList(yearSet);
+    	yearOptions.addAll(yearList);
+    	yearSelection.getSelectionModel().select(yearOptions.get(1)); //TODO
+    	yearSelection.getItems().setAll(yearOptions);
+    	monthSelection.setItems(monthChoices);
+    	daySelection.setItems(dayChoices);
+    }
+    
+    @FXML
+    private void updateActivityComboBox() {
+    	ObservableList<String> availableActivities = FXCollections.observableArrayList();
+    	int selectedYear = Integer.parseInt(yearSelection.getValue().toString());
+    	String selectedMonth = monthSelection.getValue().toString();
+    	int selectedDay = Integer.parseInt(daySelection.getValue().toString());
+    	for (Activity activity : activities) {
+    		LocalDate activityDate = activity.getDate();
+    		if (activityDate.getYear() == selectedYear && activityDate.getMonth().toString().equalsIgnoreCase(selectedMonth) && (activityDate.getDayOfMonth() == selectedDay || selectedDay == 0)) {
+    			availableActivities.add(activity.getDate().toString());
+    		}
+    	}
+    	if (availableActivities.size() >= 1) {
+    		activitySelection.getSelectionModel().select(availableActivities.get(0).toString());
+    	}
+    	activitySelection.getItems().setAll(availableActivities);
+    	
     }
 
     /**

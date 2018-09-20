@@ -50,7 +50,8 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ChoiceBox fx:id="yearSelection" layoutX="93.0" layoutY="174.0" prefHeight="25.0" prefWidth="112.0" />
+                  <Button fx:id="compareButton" layoutX="985.0" layoutY="177.0" mnemonicParsing="false" onAction="#addSeries" text="Compare" />
+                  <ComboBox fx:id="yearSelection" layoutX="100.0" layoutY="176.0" onAction="#updateActivityComboBox" prefHeight="25.0" prefWidth="106.0" />
                </children>
             </AnchorPane>
          </top>
@@ -68,7 +69,7 @@
                <children>
                   <AnchorPane prefHeight="167.0" prefWidth="252.0">
                      <children>
-                        <ChoiceBox fx:id="activitySelection" layoutX="166.0" layoutY="278.0" prefHeight="25.0" prefWidth="105.0" />
+                        <ChoiceBox fx:id="activitySelection" layoutX="314.0" layoutY="277.0" prefHeight="25.0" prefWidth="105.0" />
                         <LineChart fx:id="analysisGraph" layoutX="-54.0" layoutY="324.0" prefHeight="490.0" prefWidth="826.0" style="-fx-background-color: gainsboro;">
                           <xAxis>
                             <NumberAxis side="BOTTOM" fx:id="xAxis" />
@@ -77,10 +78,10 @@
                             <NumberAxis fx:id="yAxis" side="LEFT" />
                           </yAxis>
                         </LineChart>
-                        <ChoiceBox fx:id="activityTypeSelection" layoutX="299.0" layoutY="277.0" prefHeight="26.0" prefWidth="174.0" />
-                        <Button fx:id="graphButton" layoutX="505.0" layoutY="275.0" mnemonicParsing="false" onAction="#newGraph" text="Show me da graph!!" />
-                        <Button fx:id="compareButton" layoutX="674.0" layoutY="275.0" mnemonicParsing="false" onAction="#addSeries" text="Compare" />
-                        <ChoiceBox fx:id="monthSelection" layoutX="14.0" layoutY="278.0" prefHeight="25.0" prefWidth="128.0" />
+                        <ChoiceBox fx:id="activityTypeSelection" layoutX="433.0" layoutY="276.0" prefHeight="26.0" prefWidth="174.0" />
+                        <Button fx:id="graphButton" layoutX="621.0" layoutY="277.0" mnemonicParsing="false" onAction="#newGraph" text="Show me da graph!!" />
+                        <ComboBox fx:id="daySelection" layoutX="148.0" layoutY="277.0" onAction="#updateActivityComboBox" prefWidth="150.0" />
+                        <ComboBox fx:id="monthSelection" layoutX="14.0" layoutY="277.0" onAction="#updateActivityComboBox" prefHeight="25.0" prefWidth="118.0" />
                      </children></AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
