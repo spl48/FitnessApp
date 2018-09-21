@@ -34,19 +34,6 @@ import javafx.scene.chart.CategoryAxis;
  */
 public class WorkoutAnalysisController extends WorkoutsNavigator {
 
-	/**
-	 * Array that stores the Activity's that are currently being displayed in the graph
-	 */
-	private ArrayList<Activity> currentSeriesTypes = new ArrayList();
-	/**
-	 * Array that has all the activities the user can select to display on the graph
-	 */
-    private ArrayList<Activity> activities = new ArrayList();
-    /**
-     * A string of the current data type being displayed on the graph. E.g "Heart rate", "Distance", etc.
-     */
-    private String curSeriesType;
-
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
     /**
@@ -74,19 +61,58 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private LineChart<Number,Number> analysisGraph;
-    @FXML
+	/**
+	 * Combobox to select year to filter activities by
+	 */
+	@FXML
     private ComboBox yearSelection;
+	/**
+	 * Combobox to select month to filter activities by
+	 */
     @FXML
     private ComboBox monthSelection;
+	/**
+	 * Combobox to select day to filter activities by
+	 */
     @FXML
     private ComboBox daySelection;
 
+	/**
+	 * Array that stores the Activity's that are currently being displayed in the graph
+	 */
+	private ArrayList<Activity> currentSeriesTypes = new ArrayList();
+	/**
+	 * Array that has all the activities the user can select to display on the graph
+	 */
+	private ArrayList<Activity> activities = new ArrayList();
+	/**
+	 * A string of the current data type being displayed on the graph. E.g "Heart rate", "Distance", etc.
+	 */
+	private String curSeriesType;
+	/**
+	 * The set of all years the user has activity data for
+	 */
     private Set<String> yearSet = new HashSet<>();
+	/**
+	 * List of days with 31 days as strings
+	 */
 	ArrayList<String> thirtyOneDayMonths = new ArrayList<>(Arrays.asList("January", "March", "May", "July", "August", "October", "December"));
+	/**
+	 * List of days wih 30 days as strings
+	 */
 	ArrayList<String> thirtyDayMonths = new ArrayList<>(Arrays.asList("April","June", "September", "November"));
+	/**
+	 * List of all months as strings
+	 */
 	ObservableList<String> monthChoices = FXCollections.observableArrayList("All", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+	/**
+	 * List of days in a month as Strings up to day 29
+	 */
 	ObservableList<String> dayChoices = FXCollections.observableArrayList("All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29");
-
+	/**
+	 * List of possible data types to be displayed on the graph
+	 */
+	ObservableList<String> dataChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
 
 
 	/**
@@ -95,18 +121,15 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
-        ObservableList<String> dataChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(dataChoices);
-        activityTypeSelection.getSelectionModel().select(dataChoices.get(0));
-       // activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
-		activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activityTypeSelection.getSelectionModel().select(0);
+        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
-        for (Activity activity : activities){
+        for (Activity activity : activities) { // Add all activities to available activities initially
             availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
         }
         activitySelection.setItems(availableActivities);
         if (activities.size() >= 1) {
-        	//activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
         	populateComboBoxes();
         	activitySelection.getSelectionModel().select(0);
         }
@@ -115,6 +138,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 		daySelection.setDisable(true);
     }
 
+	/**
+	 * Populates the year combobox with the yearSet data, month combobox with all months in year, and day combobox with all days in the month
+	 */
     private void populateComboBoxes() {
     	yearSet.add("All");
     	for (Activity activity : activities) {
@@ -132,7 +158,10 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     	daySelection.setItems(dayChoices);
     }
 
-    @FXML
+	/**
+	 * Updates the activity selector combobox to display only the activities that meet the seleced criteria
+	 */
+	@FXML
     private void updateActivityComboBox() {
 		int selectedYearInt = 0;
 		int selectedDayInt = 0;
@@ -141,15 +170,16 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     	String selectedYear = yearSelection.getValue().toString();
     	String selectedMonth = monthSelection.getValue().toString();
     	String selectedDay = daySelection.getValue().toString();
+		if (!selectedYear.equals("All")) {
+			selectedYearInt = Integer.parseInt(selectedYear); //Turns string of chosen year into an int
+		}
+		if (!selectedDay.equals("All")) {
+			selectedDayInt = Integer.parseInt(selectedDay); //Turns string of chosen day into an int
+		}
+		//Goes through all activities of the user and adds the ones that match the filtering criteria to the available activities list
     	for (Activity activity : activities) {
     		LocalDate activityDate = activity.getStartDate();
 			activitySelection.setDisable(false);
-			if (!selectedYear.equals("All")) {
-				selectedYearInt = Integer.parseInt(selectedYear);
-			}
-			if (!selectedDay.equals("All")) {
-				selectedDayInt = Integer.parseInt(selectedDay);
-			}
     		if (selectedYear.equals("All")) { //Display all activities
 				availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
 				monthSelection.getSelectionModel().select(0);
