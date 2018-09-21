@@ -70,14 +70,13 @@ public class Uploader extends WorkoutsNavigator {
     @FXML
     public void uploadActivity(Event event) {
 
-        /*String filePath = fileSelector();
+        String filePath = fileSelector();
         if (filePath != null) {
             FileDataLoader loader = new FileDataLoader();
             loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
             changeScreen(event, "/seng202/team6/view/WorkoutUpload.fxml");
         } else {
             System.out.println("Nothing is selected!");
-        }*/
-        changeScreen(event, "/seng202/team6/view/WorkoutUpload.fxml");
+        }
     }
 }

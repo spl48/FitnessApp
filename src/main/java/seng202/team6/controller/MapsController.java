@@ -19,11 +19,16 @@ public class MapsController extends WorkoutsNavigator {
 
     @FXML
     private WebView mapWebView;
-
+    /**
+     * A choice box to select the desired activity to be displayed on graph
+     */
     @FXML
     private ChoiceBox<String> activitySelection;
 
     private WebEngine webEngine;
+    /**
+     * Array that has all the activities the user can select to display on the graph
+     */
     private ArrayList<Activity> activities = new ArrayList();
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
@@ -45,6 +50,11 @@ public class MapsController extends WorkoutsNavigator {
         webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
     }
 
+    /**
+     * Returns the Route of the given activity
+     * @param activity
+     * @return Route object of given activity's latitude and longitude coordinates
+     */
     private Route makeRoute(Activity activity) {
         ArrayList<Position> positions = new ArrayList<Position>();
         for (ActivityDataPoint point : activity.getActivityData()) {
@@ -57,7 +67,9 @@ public class MapsController extends WorkoutsNavigator {
         return route;
     }
 
-
+    /**
+     * Checks if user has any activities and displays the selected activity if yes, otherwise displays popup informing user to upload data
+     */
     @FXML
     private void initMap() {
     	if (activities.size() >= 1) {
@@ -70,6 +82,10 @@ public class MapsController extends WorkoutsNavigator {
         }
     }
 
+    /**
+     * Displays the given out
+     * @param newRoute route to be displayed
+     */
     private void displayRoute(Route newRoute) {
         String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
         webEngine.executeScript(scriptToExecute);

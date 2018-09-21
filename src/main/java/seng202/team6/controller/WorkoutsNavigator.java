@@ -33,7 +33,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toRawDataVeiwer(Event event) {
-        changeScreen(event, "/seng202/team6/view/RawDataVeiwer.fxml");
+        changeScreen(event, "/seng202/team6/view/RawDataVeiwer2.fxml");
     }
 
     /**

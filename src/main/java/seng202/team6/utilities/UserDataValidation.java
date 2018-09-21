@@ -3,6 +3,7 @@ package seng202.team6.utilities;
 import java.time.LocalDate;
 import java.util.Calendar;
 
+import seng202.team6.controller.ApplicationManager;
 import seng202.team6.controller.ErrorBoxController;
 
 public class UserDataValidation {
@@ -50,6 +51,7 @@ public class UserDataValidation {
             errorBoxController.displayErrorPopUP("Username Entry Invalid", "Username too long\nPlease ensure username is less than " + MAX_USERNAME_LENGTH + " characters.", "error");
         } else {
             valid = true;
+            System.out.println("Username OK");
         }
         return valid;
     }
@@ -64,6 +66,7 @@ public class UserDataValidation {
         } else if (!isAlpha(name)) {
             errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
         } else {
+            System.out.println(nameType + " OK");
             valid = true;
         }
         return valid;
@@ -76,6 +79,7 @@ public class UserDataValidation {
             String errorMessage = valueName + " is not in range.\nPlease ensure " + valueName + " is in the range " + lower + " to " + upper;
             errorBoxController.displayErrorPopUP(errorTitle, errorMessage, "error");
         } else {
+            System.out.println(valueName + " OK");
             valid = true;
         }
         return valid;
@@ -92,18 +96,23 @@ public class UserDataValidation {
        if (birthYear > currYear - 5 || birthYear < currYear - 100) {
            errorBoxController.displayErrorPopUP("Invalid Date of Birth", "Year out of range.", "error");
        } else {
+           System.out.println("Birthdate OK");
            valid = true;
        }
        return valid;
     }
 
     public static boolean validateGender(String gender) {
+        boolean valid = false;
         if (gender == "") {
             errorBoxController.displayErrorPopUP("Empty Gender Field", "Please provide a gender.", "error");
-            return false;
+        } else if (!(gender == "Female" || gender == "Male")) {
+            ApplicationManager.displayPopUp("Incorrect Gender", "Please make sure the gender is valid!", "error");
         } else {
-            return gender == "Female" || gender == "Male";
+            System.out.println("Gender OK");
+            valid = true;
         }
+        return valid;
      }
 
     public static boolean validUserProfile(String userProfile) {
@@ -111,6 +120,7 @@ public class UserDataValidation {
         if (userProfile == null) {
             errorBoxController.displayErrorPopUP("Error", "Please select a profile", "error");
         } else {
+            System.out.println("Profile OK");
             valid = true;
         }
         return valid;

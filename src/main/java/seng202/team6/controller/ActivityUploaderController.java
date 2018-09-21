@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * <h1>File Uploader GUI Controller</h1>
  * <p>Initialises and applies functionality to the File Upload screen allowing the user to upload Activities</p>
  */
-public class ActivityUploaderController extends WorkoutsNavigator {
+public class    ActivityUploaderController extends WorkoutsNavigator {
 
     /**
      * Session/Activity type ?? Might actually be redundant since multiple activities in file.
