@@ -39,7 +39,7 @@
 
                   <Text layoutX="247.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR BMI IS" wrappingWidth="89.7294921875" />
                   <Text layoutX="223.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU ARE AT RISK OF" />
-                  <Text layoutX="240.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="soon to be health concerns.." wrappingWidth="135.7294921875" />
+                  <Text fx:id="healthConcernsText" layoutX="240.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="soon to be health concerns.." wrappingWidth="135.7294921875" />
                   <Text fx:id="BMIText" layoutX="269.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                   <Text fx:id="weightType" layoutX="223.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="185.7294921875" />
                </children>

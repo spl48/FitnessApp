@@ -6,12 +6,17 @@ import seng202.team6.models.User;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 import static java.lang.Math.*;
 
 
 public class ActivityAnalysis {
+
+    private static ArrayList<String> runningWords = new ArrayList<String>(Arrays.asList("run", "running", "jog", "jogging"));
+    private static ArrayList<String> walkingWords = new ArrayList<String>(Arrays.asList("walk", "walking", "hike", "hiking"));
+    private static ArrayList<String> cyclingWords = new ArrayList<String>(Arrays.asList("bike", "biking", "cycle", "cycling"));
 
     public double findMaximumHeartRate(Activity activity) {
         double maxHeartRate = 0;
@@ -136,25 +141,42 @@ public class ActivityAnalysis {
         return calories;
     }
 
-    public double calculateAverageSpeed(Activity activity) {
+    public static double calculateAverageSpeed(Activity activity) {
         return (activity.getTotalTime() / 60) / (activity.getDistance());
     }
 
 
-    public String getActivityType (Activity activity){
-        double averageSpeed = calculateAverageSpeed(activity);
-        int brisk_walking_pace = 5;
-        int fast_running_pace = 12;
+    public static String getActivityType (Activity activity){
 
-        if (averageSpeed <= brisk_walking_pace) {
-            return "Walking";
-        } else if (averageSpeed <= fast_running_pace) {
-            return "Running";
-        } else {
-            return "Cycling";
+        String activityType = null;
+        String activityDescription = activity.getDescription();
+        String [] words = activityDescription.split(" ");
+        double averageSpeed = calculateAverageSpeed(activity);
+
+        for (String word : words) {
+            if (runningWords.contains(word.toLowerCase())) {
+                activityType = "Running";
+            } else if (walkingWords.contains(word.toLowerCase())) {
+                activityType = "Walking";
+            } else if (cyclingWords.contains(word.toLowerCase())) {
+                activityType = "Cycling";
+            }
         }
 
+        if (activityType == null) {
+            int brisk_walking_pace = 5;
+            int fast_running_pace = 12;
 
+            if (averageSpeed <= brisk_walking_pace) {
+                activityType = "Walking";
+            } else if (averageSpeed <= fast_running_pace) {
+                activityType = "Running";
+            } else {
+                activityType = "Cycling";
+            }
+        }
+
+        return activityType;
 
     }
 }

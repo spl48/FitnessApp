@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -13,7 +23,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="194.0" style="-fx-background-color: rgb(178,228,201);" stylesheets="@../resources/css/font.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
+<AnchorPane prefHeight="650.0" prefWidth="194.0" style="-fx-background-color: rgb(178,228,201);" stylesheets="@../resources/css/font.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
     <BorderPane.margin>
         <Insets top="8.0" />
     </BorderPane.margin>
@@ -34,65 +44,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#toHomeScreen" onMouseClicked="#changeSelected" prefHeight="72.0" prefWidth="210.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HOME" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                    <font>
-                        <Font name="Nexa Bold" size="22.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets />
-                    </GridPane.margin>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="profileButton" mnemonicParsing="false" onAction="#toProfileScreen" onMouseClicked="#changeSelected" prefHeight="82.0" prefWidth="246.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="PROFILE" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-                    <font>
-                        <Font name="NexaBold" size="22.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="goalsButton" mnemonicParsing="false" onAction="#toGoalsScreen" prefHeight="82.0" prefWidth="300.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="GOALS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="5">
-                    <font>
-                        <Font name="NexaBold" size="22.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="calendarButton" mnemonicParsing="false" onAction="#toCalendarScreen" prefHeight="82.0" prefWidth="302.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="CALENDAR" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-                    <font>
-                        <Font name="NexaBold" size="22.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="workoutsButton" layoutX="10.0" layoutY="92.0" mnemonicParsing="false" onAction="#toWorkoutsScreen" onMouseClicked="#changeSelected" prefHeight="82.0" prefWidth="294.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="WORKOUTS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="3">
-                    <font>
-                        <Font name="NexaBold" size="22.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                    <effect>
-                        <ColorAdjust />
-                    </effect>
-                </Button>
-                <Button fx:id="healthButton" mnemonicParsing="false" onAction="#toHealthScreen" prefHeight="81.0" prefWidth="356.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" styleClass="button" text="HEALTH" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="6">
-                    <font>
-                        <Font name="NexaBold" size="22.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
             <ImageView fitHeight="94.0" fitWidth="139.0" GridPane.halignment="CENTER">
                <image>
                   <Image url="@../resources/pics/eyes.png" />
                </image>
             </ImageView>
+            <JFXButton fx:id="homeButton" onAction="#toHomeScreen" prefHeight="82.0" prefWidth="246.0" text="HOME" textFill="WHITE" GridPane.rowIndex="1" />
+            <JFXButton fx:id="profileButton" onAction="#toProfileScreen" prefHeight="82.0" prefWidth="246.0" text="PROFILE" textFill="WHITE" GridPane.rowIndex="2" />
+            <JFXButton fx:id="workoutsButton" onAction="#toWorkoutsScreen" prefHeight="82.0" prefWidth="246.0" text="WORKOUTS" textFill="WHITE" GridPane.rowIndex="3" />
+            <JFXButton fx:id="calendarScreen" onAction="#toCalendarScreen" prefHeight="82.0" prefWidth="246.0" text="CALENDAR" textFill="WHITE" GridPane.rowIndex="4" />
+            <JFXButton fx:id="goalsButton" onAction="#toGoalsScreen" prefHeight="82.0" prefWidth="246.0" text="GOALS" textFill="WHITE" GridPane.rowIndex="5" />
+            <JFXButton fx:id="healthButton" onAction="#toHealthScreen" prefHeight="82.0" prefWidth="246.0" text="HEALTH" textFill="WHITE" GridPane.rowIndex="6" />
             </children>
         </GridPane>
     </children>
