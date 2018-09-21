@@ -82,8 +82,14 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private ComboBox daySelection;
 
     private Set<Integer> yearSet = new HashSet<>();
+	ArrayList<String> thirtyOneDayMonths = new ArrayList<>(Arrays.asList("January", "March", "May", "July", "August", "October", "December"));
+	ArrayList<String> thirtyDayMonths = new ArrayList<>(Arrays.asList("April","June", "September", "November"));
+	ObservableList<String> monthChoices = FXCollections.observableArrayList("All", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+	ObservableList<Integer> dayChoices = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29);
 
-    /**
+
+
+	/**
      * Initializes chart to display latest activity.
      * @throws SQLException
      */
@@ -99,35 +105,27 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
         activitySelection.setItems(availableActivities);
         if (activities.size() >= 1) {
-        	activitySelection.getSelectionModel().select(activities.get(0).getDate().toString());
+        	//activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
         	populateComboBoxes();
         	activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
         }
         analysisGraph.setCreateSymbols(false);
+		monthSelection.setDisable(true);
+		daySelection.setDisable(true);
     }
 
     private void populateComboBoxes() {
-    	ArrayList<String> thirtyOneDayMonths = new ArrayList<>(Arrays.asList("January", "March", "May", "July", "August", "October", "December"));
-    	ArrayList<String> thirtyDayMonths = new ArrayList<>(Arrays.asList("April","June", "September", "November"));
     	for (Activity activity : activities) {
-    		LocalDate date = activity.getDate();
+    		LocalDate date = activity.getStartDate();
     		yearSet.add(date.getYear());
     	}
-    	ObservableList<String> monthChoices = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-    	ObservableList<Integer> dayChoices = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29);
     	monthSelection.getSelectionModel().select(monthChoices.get(0));
     	daySelection.getSelectionModel().select(dayChoices.get(0));
-    	String month = monthSelection.getValue().toString();
-    	if (thirtyOneDayMonths.contains(month)) {
-    		dayChoices.add(30);
-    		dayChoices.add(31);
-    	} else if (thirtyDayMonths.contains(month)) {
-    		dayChoices.add(30);
-    	}
     	ObservableList<Integer> yearOptions = FXCollections.observableArrayList();
     	List yearList = new ArrayList(yearSet);
+    	yearOptions.add(0);
     	yearOptions.addAll(yearList);
-    	yearSelection.getSelectionModel().select(yearOptions.get(1)); //TODO
+    	yearSelection.getSelectionModel().select(yearOptions.get(0));
     	yearSelection.getItems().setAll(yearOptions);
     	monthSelection.setItems(monthChoices);
     	daySelection.setItems(dayChoices);
@@ -135,21 +133,47 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
     @FXML
     private void updateActivityComboBox() {
+		dayChoices = FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29);
     	ObservableList<String> availableActivities = FXCollections.observableArrayList();
     	int selectedYear = Integer.parseInt(yearSelection.getValue().toString());
     	String selectedMonth = monthSelection.getValue().toString();
     	int selectedDay = Integer.parseInt(daySelection.getValue().toString());
     	for (Activity activity : activities) {
-    		LocalDate activityDate = activity.getDate();
-    		if (activityDate.getYear() == selectedYear && activityDate.getMonth().toString().equalsIgnoreCase(selectedMonth) && (activityDate.getDayOfMonth() == selectedDay || selectedDay == 0)) {
-    			availableActivities.add(activity.getDate().toString());
-    		}
+    		LocalDate activityDate = activity.getStartDate();
+			activitySelection.setDisable(false);
+    		if (selectedYear == 0) { //Display all activities
+				availableActivities.add(activity.getStartDate().toString());
+				monthSelection.getSelectionModel().select(0);
+				monthSelection.setDisable(true);
+				daySelection.getSelectionModel().select(0);
+				daySelection.setDisable(true);
+			} else if (selectedYear == activityDate.getYear() && selectedMonth.equalsIgnoreCase("all")) { //display all activities in given year
+				availableActivities.add(activity.getStartDate().toString());
+				daySelection.getSelectionModel().select(0);
+				daySelection.setDisable(true);
+				monthSelection.setDisable(false);
+			} else if (selectedYear == activityDate.getYear() && selectedMonth.equalsIgnoreCase(activityDate.getMonth().toString()) && selectedDay == 0) { //display all activities in given year and month
+				availableActivities.add(activity.getStartDate().toString());
+				daySelection.setDisable(false);
+			} else if (selectedYear == activityDate.getYear() && selectedMonth.equalsIgnoreCase(activityDate.getMonth().toString()) && selectedDay == activityDate.getDayOfMonth()) { //display activitie on given day
+				availableActivities.add(activity.getStartDate().toString());
+			}
     	}
+		if (thirtyOneDayMonths.contains(selectedMonth)) {
+			dayChoices.add(30);
+			dayChoices.add(31);
+		} else if (thirtyDayMonths.contains(selectedMonth)) {
+			dayChoices.add(30);
+		}
     	if (availableActivities.size() >= 1) {
-    		activitySelection.getSelectionModel().select(availableActivities.get(0).toString());
-    	}
-    	activitySelection.getItems().setAll(availableActivities);
-
+			activitySelection.getItems().setAll(availableActivities);
+    		activitySelection.getSelectionModel().select(0);
+    	} else {
+			ObservableList<String> noData = FXCollections.observableArrayList("No Activities");
+			activitySelection.getItems().setAll("No Activities");
+    		activitySelection.setDisable(true);
+		}
+		daySelection.setItems(dayChoices);
     }
 
     /**
