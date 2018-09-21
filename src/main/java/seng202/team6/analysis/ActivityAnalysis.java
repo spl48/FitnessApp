@@ -18,7 +18,7 @@ public class ActivityAnalysis {
     private static ArrayList<String> walkingWords = new ArrayList<String>(Arrays.asList("walk", "walking", "hike", "hiking"));
     private static ArrayList<String> cyclingWords = new ArrayList<String>(Arrays.asList("bike", "biking", "cycle", "cycling"));
 
-    public double findMaximumHeartRate(Activity activity) {
+    public static double findMaximumHeartRate(Activity activity) {
         double maxHeartRate = 0;
         double currentHeartRate;
 
@@ -31,6 +31,22 @@ public class ActivityAnalysis {
 
         return maxHeartRate;
     }
+
+    public static double findMinimumHeartRate(Activity activity) {
+        ArrayList<ActivityDataPoint> dataPoints = activity.getActivityData();
+        double minHeartRate = dataPoints.get(0).getHeartRate();
+        double currentHeartRate;
+
+        for (ActivityDataPoint dataPoint : dataPoints) {
+            currentHeartRate = dataPoint.getHeartRate();
+            if (currentHeartRate < minHeartRate) {
+                minHeartRate = currentHeartRate;
+            }
+        }
+
+        return minHeartRate;
+    }
+
 
     public double findStepCount(Activity activity, double strideLength) {
         //todo change this to only count run and walk steps!
