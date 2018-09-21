@@ -45,7 +45,6 @@ public class User
      */
     private double weight;
 
-
     /**
      * The length of the stride of the User
      */

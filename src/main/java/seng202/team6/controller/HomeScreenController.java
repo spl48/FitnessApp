@@ -168,29 +168,33 @@ public class HomeScreenController {
 
         String activityDataType = activityTypeSelection.getValue().toString();
         series.setName(selectedActivity.getStartDate().toString() + " " + activityDataType);
+        ActivityAnalysis activityAnalysis = new ActivityAnalysis();
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
         	Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
         	double time = duration.toMillis() / 6000;
         	time = time / 10;
-            if (activityDataType == "Heart Rate") {
-    	        yAxis.setLabel("Heart Rate (BPM)");
-                series.getData().add(new XYChart.Data(time, point.getHeartRate()));
-            } else if (activityDataType == "Distance") {
-            	yAxis.setLabel("Total Distance (KM)");
-            	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-            	int index = selectedActivity.getActivityData().indexOf(point);
-            	double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
-                series.getData().add(new XYChart.Data(time, distance));
-            } else if (activityDataType == "Elevation") {
-            	yAxis.setLabel("Elevation (M)");
-            	series.getData().add(new XYChart.Data(time, point.getElevation()));
-            } else if  (activityDataType == "Calories") {
-                String userName = null;
-                yAxis.setLabel("Calories Burned");
-                ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-                userName = ApplicationManager.getCurrentUsername();
-                double calories = activityAnalysis.findCaloriesBurnedFromStart(time, point.getHeartRate(), databaseManager.getUser(userName));
-                series.getData().add(new XYChart.Data(time, calories));
+            switch (activityDataType) {
+                case ("Heart Rate"):
+                    yAxis.setLabel("Heart Rate (BPM)");
+                    series.getData().add(new XYChart.Data(time, point.getHeartRate()));
+                    break;
+                case ("Distance"):
+                    yAxis.setLabel("Total Distance (KM)");
+
+                    int index = selectedActivity.getActivityData().indexOf(point);
+                    double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
+                    series.getData().add(new XYChart.Data(time, distance));
+                    break;
+                case ("Elevation"):
+                    yAxis.setLabel("Elevation (M)");
+                    series.getData().add(new XYChart.Data(time, point.getElevation()));
+                    break;
+                case ("Calories"):
+                    String userName = ApplicationManager.getCurrentUserName();
+                    yAxis.setLabel("Calories Burned");
+                    double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
+                    series.getData().add(new XYChart.Data(time, calories));
+                    break;
             }
         }
         analysisGraph.getData().add(series);
