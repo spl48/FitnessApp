@@ -7,9 +7,8 @@ import seng202.team6.models.User;
 import java.util.ArrayList;
 
 /**
- * This class implements ProfileAnalysis and analyses a users activities.
- * @author
- * @version 1.1, Aug 2018.
+ * This class analyses a users profile. With methods that
+ * analyse their BMI and overall step count
  */
 public class ProfileAnalysis {
 
@@ -25,7 +24,7 @@ public class ProfileAnalysis {
         return weight / (height * height);
     }
 
-    /** A function that determines a users weight catagory,
+    /** A function that determines a users weight category,
      * from there BMI.
      * @param BMI the BMI of the user
      * @return a string of the category for the users weight
