@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HomeScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HomeScreenController">
    <top>
        <fx:include source="header.fxml" />
    </top>
@@ -37,46 +36,12 @@
                   <Insets bottom="4.0" left="8.0" right="4.0" top="8.0" />
                </GridPane.margin>
                <children>
-                  <GridPane layoutX="181.0" layoutY="32.0" prefHeight="289.0" prefWidth="216.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="89.80000152587891" minHeight="10.0" prefHeight="58.4666748046875" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="67.4000259399414" minHeight="5.599998474121094" prefHeight="49.933325195312506" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="65.73334655761718" minHeight="0.0" prefHeight="60.40001831054687" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="162.40001983642577" minHeight="0.0" prefHeight="21.333343505859375" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="128.0000061035156" minHeight="10.0" prefHeight="85.46668701171876" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-      
-                        <Text fill="#494949" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR BMI IS" wrappingWidth="128.1295166015625" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                           <font>
-                              <Font name="NexaBold" size="21.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="BMIText" fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="26.5" textAlignment="CENTER" wrappingWidth="115.93344116210938" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                           <font>
-                              <Font name="NexaBold" size="43.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="weightType" fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="(OBESE)" textAlignment="CENTER" wrappingWidth="182.529541015625" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                           <font>
-                              <Font name="NexaBold" size="15.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU ARE AT RISK OF" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="NexaBold" size="21.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="healthConcernsText" fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="- NOTHING :)" wrappingWidth="195.462890625" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="NexaBold" size="16.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </GridPane>
+
+                  <Text layoutX="247.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR BMI IS" wrappingWidth="89.7294921875" />
+                  <Text layoutX="223.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU ARE AT RISK OF" />
+                  <Text fx:id="healthConcernsText" layoutX="240.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="soon to be health concerns.." wrappingWidth="135.7294921875" />
+                  <Text fx:id="BMIText" layoutX="269.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <Text fx:id="weightType" layoutX="223.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="185.7294921875" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(217,217,217); -fx-border-color: rgb(138,138,138);" GridPane.rowIndex="1">
@@ -89,47 +54,8 @@
                   <Insets bottom="4.0" left="4.0" right="8.0" top="8.0" />
                </GridPane.margin>
                <children>
-                  <GridPane layoutX="152.0" layoutY="10.0" prefHeight="310.0" prefWidth="276.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="193.0666534423828" minHeight="10.0" prefHeight="193.0666534423828" vgrow="SOMETIMES" />
-                        <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="62.86665039062501" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                      <RowConstraints vgrow="SOMETIMES" />
-                      <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Text fx:id="stepCount" fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="948" textAlignment="CENTER" wrappingWidth="113.39623641967773" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="NexaBold" size="27.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="STEPS TAKEN" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                           <font>
-                              <Font name="NexaBold" size="20.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="52" textAlignment="CENTER" wrappingWidth="78.40139770507812" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="NexaBold" size="27.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="STEPS UNTIL GOAL" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="NexaBold" size="20.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="92.0" fitWidth="84.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../resources/pics/runningdude.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
+                  <Text fx:id="stepCount" layoutX="256.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="54.7294921875" />
+                  <Text layoutX="230.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Steps Taken" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(217,217,217); -fx-border-color: rgb(138,138,138);" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -145,9 +71,9 @@
 	                    <NumberAxis fx:id="yAxis" side="LEFT" />
 	                  </yAxis>
                   </LineChart>
-                  <Text fx:id="graphPanelTitle" fill="#494949" layoutX="103.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latest &lt;Activity Type&gt; " wrappingWidth="222.7294921875">
+                  <Text fx:id="graphPanelTitle" layoutX="103.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latest &lt;Activity Type&gt; " wrappingWidth="222.7294921875">
                      <font>
-                        <Font name="NexaBold" size="13.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
                   <ComboBox fx:id="activityTypeSelection" layoutX="326.0" layoutY="16.0" onAction="#newGraph" prefWidth="150.0" />
