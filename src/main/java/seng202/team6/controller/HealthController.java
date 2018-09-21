@@ -10,10 +10,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.analysis.HealthConcernChecker;
+import seng202.team6.analysis.ProfileAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.models.Activity;
 import seng202.team6.models.User;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class HealthController extends GUIUtilities{
     public int currentUserId = ApplicationManager.getCurrentUserID();
@@ -35,6 +38,18 @@ public class HealthController extends GUIUtilities{
 
     private static int type = 0;
 
+    int age;
+    ArrayList<Activity> activities;
+
+    private void setUpUser() throws SQLException{
+
+        String userName = ApplicationManager.getCurrentUsername(); //TODO put this stuff outside functiom?? -- used again later
+        User user = databaseManager.getUser(userName);
+        age = user.getAge();
+        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+
+    }
+
     @FXML
     public void toTachycardiaWebSearchScreen(ActionEvent event) {
         type = 1;
@@ -52,15 +67,16 @@ public class HealthController extends GUIUtilities{
     }
 
     public void initialize() throws SQLException{
-        if (HealthConcernChecker.checkTachycardia()) {
+        setUpUser();
+        if (HealthConcernChecker.checkTachycardia(activities, age)) {
             tachycardiaText.setText("Tachycardia");
             tachycardiaButton.setVisible(true);
         }
-        if(HealthConcernChecker.checkBradycardia()) {
+        if(HealthConcernChecker.checkBradycardia(activities, age)) {
             bradycardiaText.setText("Bradycardia");
             bradycardiaButton.setVisible(true);
         }
-        if (HealthConcernChecker.checkCardiovascularMortality()) {
+        if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
             cardioVascularText.setText("Cardiovascular Disease");
             cardiovascularButton.setVisible(true);
         }

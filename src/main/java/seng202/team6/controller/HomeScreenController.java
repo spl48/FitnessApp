@@ -87,23 +87,24 @@ public class HomeScreenController {
         BMIText.setText(BMIString);
 
 
+        int age = user.getAge();
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         weightType.setText("(" + profileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
 
 
-        if (HealthConcernChecker.checkTachycardia()) {
+        if (HealthConcernChecker.checkTachycardia(activities, age)) {
             healthConcerns += "-" + "Tachycardia\n".toUpperCase();
             healthConcernsText.setText(healthConcerns);
         }
 
-        if (HealthConcernChecker.checkBradycardia()) {
+        if (HealthConcernChecker.checkBradycardia(activities, age)) {
             healthConcerns += "-" + "Bradycardia\n".toUpperCase();
             healthConcernsText.setText(healthConcerns);
         }
 
-        if (HealthConcernChecker.checkCardiovascularMortality()) {
+        if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
             healthConcerns += "-" + "Cardiac Diseases\n".toUpperCase();
             healthConcernsText.setText(healthConcerns);
         }
