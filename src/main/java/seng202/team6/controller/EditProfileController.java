@@ -118,7 +118,7 @@ public class EditProfileController {
      */
     public void updateProfile(ActionEvent event) throws IOException, SQLException {
         
-        setEnteredData(); // Sets the class variables to the entered data.
+        setEnteredData(); // Sets the class variables to the entered data
         if (validEnteredData()) {
             System.out.println("Updated User Data!!"); //Testing - can be replaced with a confirmation message later...
             
