@@ -12,12 +12,8 @@ import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.Position;
 import seng202.team6.models.Route;
 
-import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class MapsController extends WorkoutsNavigator {
 
@@ -46,7 +42,7 @@ public class MapsController extends WorkoutsNavigator {
         }
 
         webEngine = mapWebView.getEngine();
-        webEngine.load(MapsController.class.getResource("map.html").toExternalForm());
+        webEngine.load(MapsController.class.getResource("seng202/team6/resources/map.html").toExternalForm());
     }
 
     private Route makeRoute(Activity activity) {
