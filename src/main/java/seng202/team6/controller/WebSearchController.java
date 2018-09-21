@@ -10,7 +10,16 @@ public class WebSearchController {
 
     public void initialize() {
         WebEngine engine = webView.getEngine();
-        engine.load("https://www.google.co.nz/search?q=tachycardia&oq=tachycardia&aqs=chrome");
+        int type = HealthController.getType();
+        if (type == 1) {
+            engine.load("https://www.google.co.nz/search?q=tachycardia");
+        } else if (type == 2) {
+            engine.load("https://www.google.co.nz/search?q=cardiovascular+disease");
+        } else if (type == 3){
+            engine.load("https://www.google.co.nz/search?q=cardiovascular+disease");
+        } else {
+            engine.load("https://www.google.co.nz");
+        }
 
     }
 }

@@ -35,9 +35,18 @@
          <BorderPane.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </BorderPane.margin>
-         <bottom>
-            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#toWebSearchScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: rgb(63,179,164); -fx-border-radius: 15px;" text="Search" textFill="WHITE" BorderPane.alignment="CENTER" />
-         </bottom>
+         <right>
+            <Pane prefHeight="512.0" prefWidth="410.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="tachycardiaText" layoutX="41.0" layoutY="73.0" text="hi" />
+                  <Text fx:id="bradycardiaText" layoutX="41.0" layoutY="224.0" text="hi" />
+                  <Text fx:id="cardioVascularText" layoutX="41.0" layoutY="390.0" text="hi" />
+                  <Button fx:id="tachycardiaButton" layoutX="301.0" layoutY="49.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toTachycardiaWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
+                  <Button fx:id="bradycardiaButton" layoutX="301.0" layoutY="215.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toBradycardiaWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
+                  <Button fx:id="cardiovascularButton" layoutX="310.0" layoutY="373.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toCardiovascularWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
+               </children>
+            </Pane>
+         </right>
       </BorderPane>
    </center>
 </BorderPane>

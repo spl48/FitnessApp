@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 /**
  * This class implements ProfileAnalysis and analyses a users activities.
- * @author
  * @version 1.1, Aug 2018.
  */
 public class ProfileAnalysis {
