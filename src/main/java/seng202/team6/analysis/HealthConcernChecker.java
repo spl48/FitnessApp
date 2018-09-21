@@ -39,7 +39,8 @@ public class HealthConcernChecker {
 
     private static boolean checkTachycardiaThreshold(int heartRateThreshold, ArrayList<Activity> activities) {
         for(Activity activity : activities) {
-            if (activity.getType() == "Walking" && activity.getMinHeartRate() >= heartRateThreshold) { // User is at risk for Tachycardia
+            double maxHeartRate = ActivityAnalysis.findMaximumHeartRate(activity);
+            if (activity.getType() == "Walking" && maxHeartRate >= heartRateThreshold) { // User is at risk for Tachycardia
                 return true;
             }
         }
@@ -64,9 +65,10 @@ public class HealthConcernChecker {
 
     }
 
-    private static boolean determineBradycardiaOutcome (int heartRateThreshold, ArrayList<Activity> activities) {
+    private static boolean determineBradycardiaOutcome (double heartRateThreshold, ArrayList<Activity> activities) {
         for (Activity activity : activities) {
-            if (activity.getType() == "Walking" && activity.getMinHeartRate() < heartRateThreshold) { // User is at risk for Bradycardia
+            double minimumHeartRate = ActivityAnalysis.findMinimumHeartRate(activity);
+            if (activity.getType() == "Walking" && minimumHeartRate < heartRateThreshold) { // User is at risk for Bradycardia
                 return true;
             }
         }
@@ -80,9 +82,10 @@ public class HealthConcernChecker {
      * @return A boolean expression for if a user is at risk for Bradycardia.
      */
     public static boolean checkCardiovascularMortality(ArrayList<Activity> activities, int age) {
-        if (age >= 18) { // User is a child
+        if (age >= 18) { // User is an adult
             for (Activity activity : activities) {
-                if (activity.getMinHeartRate() > 83) { // User is at risk for Cardiovascular mortality
+                double maximumHeartRate = ActivityAnalysis.findMaximumHeartRate(activity);
+                if (activity.getType() == "Walking" && maximumHeartRate > 83) { // User is at risk for Cardiovascular mortality
                     return true;
                 }
             }
