@@ -70,6 +70,7 @@ public class GUIUtilities {
     public void changeScreen(Event event, String screen) {
         try {
             Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
+            ApplicationManager.displayPopUp("Bummer", "Error below", "error");
             Scene loginScene = new Scene(loginParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(loginScene);

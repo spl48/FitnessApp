@@ -1,12 +1,10 @@
 package seng202.team6.controller;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
 
 
 /**
@@ -19,35 +17,33 @@ public class MainMenuNavigation extends GUIUtilities {
      * The home button on the side bar.
      */
     @FXML
-    private JFXButton homeButton;
+    private Button homeButton;
 
     /**
      * The selected menu item on the side bar.
      */
-
-    @FXML
-    private JFXButton profileButton;
-
-    @FXML
-    private JFXButton workoutsButton;
-
-    @FXML
-    private JFXButton calendarButton;
-
-    @FXML
-    private JFXButton goalsButton;
-
-    @FXML
-    private JFXButton healthButton;
+    private static Button selected;
 
     /**
      * Initialising the selected menu item to home by default when first loaded and applying formatting.
      */
     @FXML
     void initialize() {
-
+        if (selected == null) {
+            selected = homeButton;
+        }
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
+    /**
+     * Changes the application screen and changes the currently selected menu item.
+     * @param event When a menu item on the side bar is pressed.
+     * @param screen The screen to change to.
+     */
+    private void changeMenuScreen(ActionEvent event, String screen) {
+        changeSelected(event);
+        changeScreen(event, screen);
+    }
 
     /**
      * Directs the user to the Home Screen.
@@ -55,7 +51,8 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toHomeScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/HomeScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/HomeScreen.fxml");
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
     /**
@@ -64,7 +61,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toProfileScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/profileScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/profileScreen.fxml");
     }
 
     /**
@@ -72,8 +69,8 @@ public class MainMenuNavigation extends GUIUtilities {
      * @param event When the WORKOUTS menu item on the side bar is pressed.
      */
     @FXML
-        public void toWorkoutsScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml");
+    public void toWorkoutsScreen(ActionEvent event) {
+        changeMenuScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml");
     }
 
     /**
@@ -82,8 +79,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toGoalsScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/GoalsScreen.fxml");
-
+        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen.fxml");
     }
 
     /**
@@ -92,8 +88,7 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toCalendarScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/CalendarScreen.fxml");
-
+        changeMenuScreen(event, "/seng202/team6/view/CalendarScreen.fxml");
     }
 
     /**
@@ -102,7 +97,44 @@ public class MainMenuNavigation extends GUIUtilities {
      */
     @FXML
     public void toHealthScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/HealthScreen.fxml");
- ;
+        changeMenuScreen(event, "/seng202/team6/view/HealthScreen.fxml");
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+    }
+
+
+    /**
+     * Changes the selected menu item and formats it accordingly.
+     * @param event When a new menu item is clicked.
+     */
+    @FXML
+    public void changeSelected(ActionEvent event) {
+        selected.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
+        selected = (Button) event.getSource();
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+    }
+
+    /**
+     * Darkens the menu item in the side bar to indicate that the is on that item..
+     * @param event User enters menu item area with mouse.
+     */
+    @FXML
+    public void darkenButton(Event event) {
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+    }
+
+    /**
+     * Returns the menu item back to normal formatting ensures it does not change the selected item.
+     * @param event User exits menu item area with mouse.
+     */
+    @FXML
+    public void lightenButton(MouseEvent event){
+        if (selected == null) {
+            selected = homeButton;
+        }
+        Button btn = (Button) event.getSource();
+        if (!btn.getId().equals(selected.getId())) {
+            btn.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
+        }
     }
 }
