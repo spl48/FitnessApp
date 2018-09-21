@@ -1,13 +1,9 @@
 package seng202.team6.analysis;
 
-import seng202.team6.controller.ApplicationManager;
-import seng202.team6.datahandling.DatabaseManager;
+
 import seng202.team6.models.Activity;
-import seng202.team6.models.ActivityList;
-import seng202.team6.models.Profile;
 import seng202.team6.models.User;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -52,7 +48,7 @@ public class ProfileAnalysis {
      * @param strideLength the stride length of a user in feet
      * @return a double for the number of steps taken
      */
-    public double findTotalStepCount(ArrayList<Activity> activities, double strideLength){
+    public double findTotalStepCount(ArrayList<Activity> activities, double strideLength) {
         double totalStepCount = 0;
         double currentStepCount = 0;
 
@@ -62,117 +58,121 @@ public class ProfileAnalysis {
             currentStepCount = activityAnalysis.findStepCount(activity, strideLength);          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
         }
-
         return totalStepCount;
-
     }
 
-
-    /**
-     * A function which calculates and returns a users maximum heart rate through all logged runs, walks and cycles.
-     * @param profile The profile of a user for which the maximum heart rate is being calculated.
-     * @return A integer that is the maximum heart rate of a user.
-     */
-    public int findMaximumHeartRate(Profile profile) {
-        int maxHeartRate = 0;
-        int currentHeartRate;
-
-         ArrayList<Activity> runningData = profile.getRunningData().getActivities();
-         ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
-         ArrayList<Activity> cyclingData = profile.getBikingData().getActivities();
-
-         for (Activity run : runningData) {
-            currentHeartRate = run.getMaxHeartRate();
-            if (currentHeartRate > maxHeartRate) {
-                maxHeartRate = currentHeartRate;
-            }
-         }
-
-         for (Activity walk : walkingData) {
-            currentHeartRate = walk.getMaxHeartRate();
-            if (currentHeartRate > maxHeartRate) {
-                maxHeartRate = currentHeartRate;
-            }
-         }
-
-         for (Activity cycle : cyclingData) {
-            currentHeartRate = cycle.getMaxHeartRate();
-            if (currentHeartRate > maxHeartRate) {
-                maxHeartRate = currentHeartRate;
-            }
-         }
-
-        return maxHeartRate;
-    }
-
-    /**
-     * A function which calculates and returns a users maximum heart rate through all logged runs, walks and cycles.
-     * @param profile The profile of a user for which the maximum heart rate is being calculated.
-     * @return A integer that is the maximum heart rate of a user.
-     */
-    public int findMinimumHeartRate(Profile profile) {
-        int minHeartRate = 0;
-        int currentHeartRate;
-
-         ArrayList<Activity> runningData = profile.getRunningData().getActivities();
-         ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
-         ArrayList<Activity> cyclingData = profile.getBikingData().getActivities();
-
-         minHeartRate = runningData.get(0).getMinHeartRate();
-
-         for (Activity run : runningData) {
-            currentHeartRate = run.getMinHeartRate();
-            if (currentHeartRate < minHeartRate) {
-                minHeartRate = currentHeartRate;
-            }
-         }
-
-         for (Activity walk : walkingData) {
-            currentHeartRate = walk.getMinHeartRate();
-            if (currentHeartRate > minHeartRate) {
-                minHeartRate = currentHeartRate;
-            }
-         }
-
-         for (Activity cycle : cyclingData) {
-            currentHeartRate = cycle.getMinHeartRate();
-            if (currentHeartRate > minHeartRate) {
-                minHeartRate = currentHeartRate;
-            }
-         }
-
-        return minHeartRate;
-    }
+}
 
 
-    /**
-     * A function that calculates and returns the total distance a user has travelled through running, walking,
-     * and cycling.
-     * @param profile The profile for the user that the total distance is being calculated.
-     * @return A double which is the total distance a user has traveled.
-     */
-    public double findTotalDistance (Profile profile) {
-        int totalDistance = 0;
-
-        ArrayList<Activity> runningData = profile.getRunningData().getActivities();
-        ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
-        ArrayList<Activity> cyclingData = profile.getBikingData().getActivities();
-
-        for (Activity run : runningData) {
-            totalDistance += run.getDistance();
-         }
-
-         for (Activity walk : walkingData) {
-            totalDistance += walk.getDistance();
-         }
-
-         for (Activity cycle : cyclingData) {
-            totalDistance += cycle.getDistance();
-         }
-
-        return totalDistance;
-
-    }
+//
+//    }
+//
+//
+//    /**
+//     * A function which calculates and returns a users maximum heart rate through all logged runs, walks and cycles.
+//     * @param profile The profile of a user for which the maximum heart rate is being calculated.
+//     * @return A integer that is the maximum heart rate of a user.
+//     */
+//    public int findMaximumHeartRate(Profile profile) {
+//        int maxHeartRate = 0;
+//        int currentHeartRate;
+//
+//         ArrayList<Activity> runningData = profile.getRunningData().getActivities();
+//         ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
+//         ArrayList<Activity> cyclingData = profile.getBikingData().getActivities();
+//
+//         for (Activity run : runningData) {
+//            currentHeartRate = run.getMaxHeartRate();
+//            if (currentHeartRate > maxHeartRate) {
+//                maxHeartRate = currentHeartRate;
+//            }
+//         }
+//
+//         for (Activity walk : walkingData) {
+//            currentHeartRate = walk.getMaxHeartRate();
+//            if (currentHeartRate > maxHeartRate) {
+//                maxHeartRate = currentHeartRate;
+//            }
+//         }
+//
+//         for (Activity cycle : cyclingData) {
+//            currentHeartRate = cycle.getMaxHeartRate();
+//            if (currentHeartRate > maxHeartRate) {
+//                maxHeartRate = currentHeartRate;
+//            }
+//         }
+//
+//        return maxHeartRate;
+//    }
+//
+//    /**
+//     * A function which calculates and returns a users maximum heart rate through all logged runs, walks and cycles.
+//     * @param profile The profile of a user for which the maximum heart rate is being calculated.
+//     * @return A integer that is the maximum heart rate of a user.
+//     */
+//    public int findMinimumHeartRate(Profile profile) {
+//        int minHeartRate = 0;
+//        int currentHeartRate;
+//
+//         ArrayList<Activity> runningData = profile.getRunningData().getActivities();
+//         ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
+//         ArrayList<Activity> cyclingData = profile.getBikingData().getActivities();
+//
+//         minHeartRate = runningData.get(0).getMinHeartRate();
+//
+//         for (Activity run : runningData) {
+//            currentHeartRate = run.getMinHeartRate();
+//            if (currentHeartRate < minHeartRate) {
+//                minHeartRate = currentHeartRate;
+//            }
+//         }
+//
+//         for (Activity walk : walkingData) {
+//            currentHeartRate = walk.getMinHeartRate();
+//            if (currentHeartRate > minHeartRate) {
+//                minHeartRate = currentHeartRate;
+//            }
+//         }
+//
+//         for (Activity cycle : cyclingData) {
+//            currentHeartRate = cycle.getMinHeartRate();
+//            if (currentHeartRate > minHeartRate) {
+//                minHeartRate = currentHeartRate;
+//            }
+//         }
+//
+//        return minHeartRate;
+//    }
+//
+//
+//    /**
+//     * A function that calculates and returns the total distance a user has travelled through running, walking,
+//     * and cycling.
+//     * @param profile The profile for the user that the total distance is being calculated.
+//     * @return A double which is the total distance a user has traveled.
+//     */
+//    public double findTotalDistance (Profile profile) {
+//        int totalDistance = 0;
+//
+//        ArrayList<Activity> runningData = profile.getRunningData().getActivities();
+//        ArrayList<Activity> walkingData = profile.getWalkingData().getActivities();
+//        ArrayList<Activity> cyclingData = profile.getBikingData().getActivities();
+//
+//        for (Activity run : runningData) {
+//            totalDistance += run.getDistance();
+//         }
+//
+//         for (Activity walk : walkingData) {
+//            totalDistance += walk.getDistance();
+//         }
+//
+//         for (Activity cycle : cyclingData) {
+//            totalDistance += cycle.getDistance();
+//         }
+//
+//        return totalDistance;
+//
+//    }
 
 
 
@@ -184,5 +184,3 @@ public class ProfileAnalysis {
 //    public double findMaximumStepCount (Profile profile){
 //        return 1;
 //    }
-
-}
