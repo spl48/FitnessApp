@@ -12,6 +12,7 @@ import java.util.ArrayList;
 /**
  * This class implements HealthConcernChecker and checks if a user has tachycardia, Bradycardia and
  * cardiovascular mortality.
+ * @author
  * @version 1.1, Aug 2018.
  */
 public class HealthConcernChecker {
