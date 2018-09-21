@@ -64,14 +64,15 @@ public class HomeScreenController {
 
 	@FXML
     public void initialize() throws SQLException {
-		ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
-	    activityTypeSelection.setItems(activityDataTypes);
-	    activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
+        ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
+        activityTypeSelection.setItems(activityDataTypes);
+        activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
 
 
         setHealthInfo();
         setStepsInfo();
-	    newGraph();
+        newGraph();
+
     }
 
     @FXML
