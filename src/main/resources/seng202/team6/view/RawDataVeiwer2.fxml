@@ -128,7 +128,7 @@
                               <Font name="NexaBold" size="19.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#toActivityEditScreen" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
                            <image>
                               <Image url="@../resources/pics/edit.png" />
                            </image>
