@@ -78,6 +78,5 @@ public class Uploader extends WorkoutsNavigator {
         } else {
             System.out.println("Nothing is selected!");
         }
-        changeScreen(event, "/seng202/team6/view/WorkoutUpload.fxml");
     }
 }
