@@ -101,13 +101,13 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities){
-            availableActivities.add(activity.getStartDate().toString());
+            availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
         }
         activitySelection.setItems(availableActivities);
         if (activities.size() >= 1) {
         	//activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
         	populateComboBoxes();
-        	activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
+        	activitySelection.getSelectionModel().select(0);
         }
         analysisGraph.setCreateSymbols(false);
 		monthSelection.setDisable(true);
@@ -142,21 +142,21 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     		LocalDate activityDate = activity.getStartDate();
 			activitySelection.setDisable(false);
     		if (selectedYear == 0) { //Display all activities
-				availableActivities.add(activity.getStartDate().toString());
+				availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
 				monthSelection.getSelectionModel().select(0);
 				monthSelection.setDisable(true);
 				daySelection.getSelectionModel().select(0);
 				daySelection.setDisable(true);
 			} else if (selectedYear == activityDate.getYear() && selectedMonth.equalsIgnoreCase("all")) { //display all activities in given year
-				availableActivities.add(activity.getStartDate().toString());
+				availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
 				daySelection.getSelectionModel().select(0);
 				daySelection.setDisable(true);
 				monthSelection.setDisable(false);
 			} else if (selectedYear == activityDate.getYear() && selectedMonth.equalsIgnoreCase(activityDate.getMonth().toString()) && selectedDay == 0) { //display all activities in given year and month
-				availableActivities.add(activity.getStartDate().toString());
+				availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
 				daySelection.setDisable(false);
 			} else if (selectedYear == activityDate.getYear() && selectedMonth.equalsIgnoreCase(activityDate.getMonth().toString()) && selectedDay == activityDate.getDayOfMonth()) { //display activitie on given day
-				availableActivities.add(activity.getStartDate().toString());
+				availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
 			}
     	}
 		if (thirtyOneDayMonths.contains(selectedMonth)) {
@@ -170,7 +170,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     		activitySelection.getSelectionModel().select(0);
     	} else {
 			ObservableList<String> noData = FXCollections.observableArrayList("No Activities");
-			activitySelection.getItems().setAll("No Activities");
+			activitySelection.setItems(noData);
+			activitySelection.getSelectionModel().select(0);
     		activitySelection.setDisable(true);
 		}
 		daySelection.setItems(dayChoices);
@@ -184,7 +185,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	        int activity = activitySelection.getSelectionModel().getSelectedIndex();
 	        Activity selectedActivity = activities.get(activity);
 	    	String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-	    	if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == selectedActivity && curSeriesType == seriesType) {
+	    	if (activitySelection.getValue().toString().equals("No Activities")) {
+	    		ApplicationManager.displayPopUp("YA DINGUSS", "No activities to display ya friggen frig", "error");
+			} else if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == selectedActivity && curSeriesType == seriesType) {
 	            ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
 	        } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
 		    	currentSeriesTypes.clear();
@@ -200,7 +203,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 	            ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage, "error");
 	        }
     	} else {
-    		ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
+    		ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data. Go to workouts to upload your activities.", "error");
     	}
     }
 
@@ -235,35 +238,35 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     public void addData(Activity selectedActivity) throws SQLException {
     	//defining a series
         XYChart.Series series = new XYChart.Series();
-    	String ActivityType = activityTypeSelection.getSelectionModel().getSelectedItem();
-        series.setName(selectedActivity.getStartDate().toString() + " " + ActivityType);
+    	String activityType = activityTypeSelection.getSelectionModel().getSelectedItem();
+        series.setName(selectedActivity.getStartDate().toString() + " " + activityType);
+		ActivityAnalysis activityAnalysis = new ActivityAnalysis();
     	for (ActivityDataPoint point : selectedActivity.getActivityData()) {
         	Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
         	double time = duration.toMillis() / 6000;
         	time = time / 10;
-            if (ActivityType == "Heart Rate") {
-    	        yAxis.setLabel("Heart Rate (BPM)");
-                series.getData().add(new XYChart.Data(time, point.getHeartRate()));
-            } else if (ActivityType == "Distance") {
-            	yAxis.setLabel("Total Distance (KM)");
-            	ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-            	int index = selectedActivity.getActivityData().indexOf(point);
-            	double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
-                series.getData().add(new XYChart.Data(time, distance));
-            } else if (ActivityType == "Elevation") {
-            	yAxis.setLabel("Elevation (M)");
-            	series.getData().add(new XYChart.Data(time, point.getElevation()));
-            } else if  (ActivityType == "Calories") {
-                String userName = null;
-                yAxis.setLabel("Calories Burned");
-                ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-                try {
-                    userName = databaseManager.getUsernames().get(0);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
-                series.getData().add(new XYChart.Data(time, calories));
+        	switch (activityType) {
+				case ("Heart Rate"):
+					yAxis.setLabel("Heart Rate (BPM)");
+					series.getData().add(new XYChart.Data(time, point.getHeartRate()));
+					break;
+				case ("Distance"):
+					yAxis.setLabel("Total Distance (KM)");
+
+					int index = selectedActivity.getActivityData().indexOf(point);
+					double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
+					series.getData().add(new XYChart.Data(time, distance));
+					break;
+				case ("Elevation"):
+					yAxis.setLabel("Elevation (M)");
+					series.getData().add(new XYChart.Data(time, point.getElevation()));
+					break;
+				case ("Calories"):
+					String userName = ApplicationManager.getCurrentUserName();
+					yAxis.setLabel("Calories Burned");
+					double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
+					series.getData().add(new XYChart.Data(time, calories));
+					break;
             }
         }
     	currentSeriesTypes.add(selectedActivity);
