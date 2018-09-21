@@ -74,33 +74,6 @@ public class ActivityUploaderController extends WorkoutsNavigator {
         showActivity();
     }
 
-    public static class Typ {
-
-        private final SimpleStringProperty typ;
-
-        public Typ(String typ) {
-            this.typ = new SimpleStringProperty(typ);
-        }
-
-        public String getTyp() {
-            return this.typ.get();
-        }
-
-        public StringProperty typProperty() {
-            return this.typ;
-        }
-
-        public void setTyp(String typ) {
-            this.typ.set(typ);
-        }
-
-        @Override
-        public String toString() {
-            return typ.get();
-        }
-
-    }
-
     private void setupTable() {
 //
 //        activityTable.setEditable(true);
