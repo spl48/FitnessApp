@@ -305,7 +305,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 				case ("Calories"):
 					String userName = ApplicationManager.getCurrentUserName();
 					yAxis.setLabel("Calories Burned");
-					double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), point.getHeartRate(), databaseManager.getUser(userName));
+					double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), selectedActivity.getType(), databaseManager.getUser(userName).getWeight());
 					series.getData().add(new XYChart.Data(time, calories));
 					break;
             }

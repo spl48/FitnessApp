@@ -1,13 +1,9 @@
 package seng202.team6.analysis;
 
 import junit.framework.TestCase;
-import seng202.team6.datahandling.DatabaseManager;
+
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
-import seng202.team6.models.User;
-
-import java.sql.SQLException;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
