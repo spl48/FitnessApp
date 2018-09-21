@@ -98,7 +98,7 @@ public class RawDataController2 extends WorkoutsNavigator{
 
     @FXML
     public void filterActivities(Event event) {
-        ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "notification");
+        ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
     }
 
     @FXML

@@ -13,9 +13,15 @@ import seng202.team6.models.User;
 public class DatabaseManager implements DataLoader {
     private Connection con;
     private boolean hasData = false;
+    private ActivityManager activityManager;
 
     public DatabaseManager() {
        getConnection();
+       activityManager = new ActivityManager(con);
+    }
+
+    public ActivityManager getActivityManager() {
+        return activityManager;
     }
 
     public ResultSet displayUsers() throws SQLException {

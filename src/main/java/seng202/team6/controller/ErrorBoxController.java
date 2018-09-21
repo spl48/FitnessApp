@@ -1,18 +1,27 @@
 package seng202.team6.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import seng202.team6.datahandling.ActivityManager;
+import seng202.team6.datahandling.DatabaseManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -41,9 +50,11 @@ public class ErrorBoxController extends GUIUtilities {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        errorText.setText(errorMessage);
-        errorTitle.setText(errorTitleText);
-        errorText.setWrapText(true);
+        if (errorText != null) {
+            errorText.setText(errorMessage);
+            errorTitle.setText(errorTitleText);
+            errorText.setWrapText(true);
+        }
     }
 
     @FXML
@@ -93,10 +104,16 @@ public class ErrorBoxController extends GUIUtilities {
                 Scene scene = new Scene(root, 400, 350);
                 errorWindow.setScene(scene);
                 errorWindow.showAndWait();
+            } else if (type == "filter") {
+                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/FilterActivityPopUp.fxml"));
+                Scene scene = new Scene(root, 400, 350);
+                errorWindow.setScene(scene);
+                errorWindow.showAndWait();
             }
 
         } catch (IOException e) {
-            System.out.println("Loading error\nSorry, could not load page.");
+            System.out.println("Loading error\nSorry, could not load pop up.");
+            e.printStackTrace();
         }
     }
 
@@ -106,7 +123,7 @@ public class ErrorBoxController extends GUIUtilities {
      */
     @FXML
     public void closeWindow() {
-        Stage stage = (Stage) errorText.getScene().getWindow();
+        Stage stage = (Stage) errorTitle.getScene().getWindow();
         stage.close();
     }
     
