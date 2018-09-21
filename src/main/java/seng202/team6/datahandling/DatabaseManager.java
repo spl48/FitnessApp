@@ -158,7 +158,7 @@ public class DatabaseManager implements DataLoader {
                         + "description text,"
                         + "start text,"
                         + "end text,"
-                        + "distance REAL"
+                        + "distance REAL,"
                         + "workout text,"
                         + "FOREIGN KEY(userid) REFERENCES user(userid));";
                 activityTableStatement.execute(activityTablesql);
@@ -449,6 +449,28 @@ public class DatabaseManager implements DataLoader {
         PreparedStatement updateStrideLength = con.prepareStatement(sql);
         updateStrideLength.setDouble(1, strideLength);
         updateStrideLength.execute();
+    }
+    public ArrayList<Activity> getActivitiesWithoutRecords(int userid) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        ArrayList<Activity> activities = new ArrayList<>();
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = "
+                + userid
+                + " AND NOT EXISTS (SELECT * FROM record WHERE activity.activityid = record.activityid);");
+        while(res.next()){
+            Activity activity = extractActivity(res);
+            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+            for (ActivityDataPoint dataPoint : dataPoints) {
+                activity.addActivityData(dataPoint);
+            }
+            activity.updateType();
+            activity.updateMaxHeartRate();
+            activity.updateMinHeartRate();
+            activities.add(activity);
+        }
+        return activities;
     }
 
 }

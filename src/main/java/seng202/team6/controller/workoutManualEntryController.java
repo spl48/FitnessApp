@@ -49,7 +49,7 @@ public class workoutManualEntryController extends GUIUtilities {
     /**
      * Textual activity details.
      */
-    private String sessionName, sessionType, notes, startTime, endTime;
+    private String sessionName, sessionType, notes, startTime, endTime, startDateTime, endDateTime;
 
     /**
      * Maximum and minimum Heart rate of the user for the activity entered.
@@ -89,7 +89,7 @@ public class workoutManualEntryController extends GUIUtilities {
         if (validEnteredData()) {
             System.out.println("Created a new activity!!");
             printData();
-            dbManager.addActivity(ApplicationManager.getCurrentUserID(), "test description", startTime, endTime, sessionName, 10.0);
+            dbManager.addActivity(ApplicationManager.getCurrentUserID(), "test description", startDateTime, endDateTime, sessionName, 10.0);
             toWorkOutScreen(event);
             //Enter into database
         }
@@ -104,6 +104,9 @@ public class workoutManualEntryController extends GUIUtilities {
         endTime = endTime_E.getText();
         sessionType = sessionType_E.getValue();
         sessionDate = sessionDate_E.getValue();
+        String sessionDateString = sessionDate.toString().replace("/", "-");
+        startDateTime = sessionDateString + "T" + startTime;
+        endDateTime = sessionDateString + "T" + endTime;
         notes = notes_E.getText();
         try {
             minHR = Double.parseDouble(minHR_E.getText());
