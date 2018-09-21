@@ -42,7 +42,7 @@ public class MapsController extends WorkoutsNavigator {
         }
 
         webEngine = mapWebView.getEngine();
-        webEngine.load(MapsController.class.getResource("seng202/team6/resources/map.html").toExternalForm());
+        webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
     }
 
     private Route makeRoute(Activity activity) {
