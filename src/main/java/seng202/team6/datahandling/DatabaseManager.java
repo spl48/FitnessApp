@@ -472,5 +472,26 @@ public class DatabaseManager implements DataLoader {
         }
         return activities;
     }
-
+    public ArrayList<Activity> getActivitiesWithRecords(int userid) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        ArrayList<Activity> activities = new ArrayList<>();
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = "
+                + userid
+                + " AND EXISTS (SELECT * FROM record WHERE activity.activityid = record.activityid);");
+        while(res.next()){
+            Activity activity = extractActivity(res);
+            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+            for (ActivityDataPoint dataPoint : dataPoints) {
+                activity.addActivityData(dataPoint);
+            }
+            activity.updateType();
+            activity.updateMaxHeartRate();
+            activity.updateMinHeartRate();
+            activities.add(activity);
+        }
+        return activities;
+    }
 }

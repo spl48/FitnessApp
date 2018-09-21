@@ -89,7 +89,7 @@ public class HomeScreenController {
 
 
         int age = user.getAge();
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
         weightType.setText("(" + profileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
@@ -114,10 +114,9 @@ public class HomeScreenController {
     @FXML
     private void setStepsInfo() throws SQLException{
         DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
-        int userId = ApplicationManager.getCurrentUserID();
         String userName = ApplicationManager.getCurrentUserName();
         User user = databaseManager.getUser(userName);
-        ArrayList<Activity> activities = databaseManager.getActivities(userId);
+        ArrayList<Activity> activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
 
         ProfileAnalysis profileAnalysis = new ProfileAnalysis();
 
