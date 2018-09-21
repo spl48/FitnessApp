@@ -1,12 +1,7 @@
 package seng202.team6.analysis;
 
-import seng202.team6.controller.ApplicationManager;
-import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.models.Activity;
-import seng202.team6.models.Profile;
-import seng202.team6.models.User;
 
-import java.sql.SQLException;
+import seng202.team6.models.Activity;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +33,7 @@ public class HealthConcernChecker {
     }
 
 
+
     /**
      * A function that determines if the any maximum heart rate of a walking activity, from an
      * array list of activities is above the minimum threshold for Tachycardia. Returns true
@@ -55,6 +51,7 @@ public class HealthConcernChecker {
         }
         return false;
     }
+
 
 
     /**
@@ -77,6 +74,7 @@ public class HealthConcernChecker {
     }
 
 
+
     /**
      * Checks if any of a users heart rates for walking activities are below a
      * given threshold, returning true if so, false otherwise.
@@ -93,6 +91,7 @@ public class HealthConcernChecker {
         }
         return false;
     }
+
 
 
     /**
