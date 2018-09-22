@@ -207,4 +207,27 @@ public class ActivityAnalysis {
 
         return "Other";
     }
+
+
+    /**
+     * Determines an activities type by checking if it contains a
+     * 'key word'. If no key word is found the activity type
+     * is "other".
+     * @param activityDescription the description of the activity.
+     * @return a string representing the activity type
+     */
+    public static String getActivityTypeFromDescription (String activityDescription){
+
+        String [] words = activityDescription.split(" ");
+        for (String word : words) {
+            if (runningWords.contains(word.toLowerCase())) {
+                return "Running";
+            } else if (walkingWords.contains(word.toLowerCase())) {
+                return "Walking";
+            } else if (cyclingWords.contains(word.toLowerCase())) {
+                return "Cycling";
+            }
+        }
+        return "Other";
+    }
 }

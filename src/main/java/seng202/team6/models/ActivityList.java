@@ -24,7 +24,7 @@ public class ActivityList {
     /**
      * The allowed Activity types
      */
-    private static final ArrayList<String> allowedActivities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking"));
+    private static final ArrayList<String> allowedActivities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking", "Other"));
 
     /**
      * The constructor for ActivityList that takes the parameter category and sets the activity

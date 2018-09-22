@@ -2,6 +2,7 @@ package seng202.team6;
 
 import seng202.team6.datahandling.*;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,7 +12,7 @@ import java.sql.SQLException;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws IOException
     {
         System.out.println( "Hello World!" );
         System.out.println("Testing Testing");
