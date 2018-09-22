@@ -13,6 +13,7 @@ import seng202.team6.utilities.UserDataValidation;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * <h1>Register Controller</h1>
@@ -85,8 +86,12 @@ public class registerController extends GUIUtilities {
      */
     @FXML
     public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
+        ArrayList<String> usernames = databaseManager.getUsernames();
         setEnteredData();
-        if (validEnteredData()) {
+        if (usernames.contains(username)) {
+            ApplicationManager.displayPopUp("Duplicate Username", "Please choose another username", "error");
+        }
+        else if (validEnteredData()) {
             ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + "!!", "confirmation");
             databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
             toStartScreen(event);
