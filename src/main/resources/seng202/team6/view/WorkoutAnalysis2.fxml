@@ -127,7 +127,7 @@
                               <Insets top="30.0" />
                            </GridPane.margin>
                         </Button>
-                        <ChoiceBox fx:id="activityTypeSelection" prefWidth="127.0" GridPane.valignment="BOTTOM" />
+                        <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefWidth="127.0" GridPane.valignment="BOTTOM" />
                      </children>
                   </GridPane>
                </children>
