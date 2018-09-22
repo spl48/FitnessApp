@@ -18,7 +18,7 @@
    <top>
       <Pane prefHeight="72.0" prefWidth="1382.0" style="-fx-background-color: rgb(62,71,88); -fx-border-color: transparent transparent black transparent;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="554.0" layoutY="20.0" text="PROFILIE SELECTION" textFill="WHITE">
+            <Label layoutX="554.0" layoutY="20.0" text="PROFILE SELECTION" textFill="WHITE">
                <font>
                   <Font name="NexaBold" size="27.0" />
                </font>
