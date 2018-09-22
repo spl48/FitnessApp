@@ -22,6 +22,11 @@ import java.util.ArrayList;
 public class registerController extends GUIUtilities {
 
     /**
+     * The maximum number of Users
+     */
+    int MAX_USER_NUMBER = 5;
+
+    /**
      * User details textual fields.
      */
     @FXML
@@ -90,6 +95,8 @@ public class registerController extends GUIUtilities {
         setEnteredData();
         if (usernames.contains(username)) {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
+        } else if (usernames.size() == 5) {
+            ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
         }
         else if (validEnteredData()) {
             ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
