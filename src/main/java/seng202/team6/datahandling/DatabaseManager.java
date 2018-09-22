@@ -50,7 +50,6 @@ public class DatabaseManager implements DataLoader {
 
         // Trys to query the database for a user.
         Statement statement = con.createStatement();
-        String sqlString = "SELECT * FROM user WHERE username LIKE '" + aUsername + "'";
         ResultSet userData = statement.executeQuery("SELECT * FROM user WHERE username LIKE '" + aUsername + "'");
 
         // Gets data from the database.

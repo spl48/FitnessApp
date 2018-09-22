@@ -2,52 +2,118 @@ package seng202.team6.controller;
 
 import seng202.team6.datahandling.DatabaseManager;
 
+/**
+ * <h1>Application Manager</h1>
+ * <p>Contains static methods and properties which relate to the instance or session of the Application to be used
+ * frequently by other classes throughout all packages. Provides initialisation methods as well as useful pop up methods.</p>
+ */
 public class ApplicationManager {
 
+    /**
+     * The current user ID for the user which is currently logged in.
+     */
     private static int currentUserID;
 
+    /**
+     * The current username for the user which is logged in.
+     */
     private static String currentUsername;
 
+    /**
+     * The Applications database manager which can accesses methods relating to the database.
+     */
     private static DatabaseManager databaseManager;
 
+    /**
+     * The pop up box controller, used to make pop ups.
+     */
     private static ErrorBoxController errorBoxController = new ErrorBoxController();
 
+    /**
+     * The current activity number which is the id of the last record to be added into the database.
+     */
     private static int currentActivityNumber = 0;
 
+
+    /**
+     * Initialises a session in the application by setting up the database and setting the
+     * activity number.
+     */
     public static void initializeApplication() {
         initializeDatabaseManager();
         currentActivityNumber = databaseManager.getActivityManager().getNumberActivities();
     }
 
+
+    /**
+     * Sets the current user details.
+     * @param userid The user id.
+     * @param username The username.
+     */
     public static void setCurrentUser(int userid, String username) {
         currentUsername = username;
         currentUserID = userid;
     }
 
+
+    /**
+     * Gets the username of the user which is currently signed in.
+     * @return The current user.
+     */
     public static String getCurrentUsername() {
         return currentUsername;
     }
 
+
+    /**
+     * Gets the current users ID.
+     * @return the current users ID.
+     */
     public static int getCurrentUserID() {
         return currentUserID;
     }
 
+    /**
+     * Gets the database manager for this session in the application.
+     * @return The database manager.
+     */
     public static DatabaseManager getDatabaseManager() {
         return databaseManager;
     }
 
+
+    /**
+     * Initialises an instance of the database manager.
+     */
     private static void initializeDatabaseManager()  {
         databaseManager = new DatabaseManager();
     }
 
+
+    /**
+     * Displays a pop up of a certain type with a window title and message to be displayed.
+     * @param title The title of the pop up.
+     * @param message The message displayed by the pop up.
+     * @param type The type of the pop up.
+     */
     public static void displayPopUp(String title, String message, String type) {
         errorBoxController.displayErrorPopUP(title, message, type);
     }
 
+
+    /**
+     * Gets the current activity number.
+     * @return The current activity number.
+     */
     public static int getCurrentActivityNumber(){
         return currentActivityNumber;
     }
 
+
+    /**
+     * Sets the current activity number.
+     * @param activityNumber The current activity number.
+     */
     public static void setCurrentActivityNumber(int activityNumber) {
         currentActivityNumber = activityNumber;
     }

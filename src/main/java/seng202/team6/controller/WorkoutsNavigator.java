@@ -42,7 +42,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toWorkoutAnalysis(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutAnalysis.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutAnalysis2.fxml");
     }
 
     /**
