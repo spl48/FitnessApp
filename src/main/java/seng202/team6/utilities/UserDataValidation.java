@@ -68,7 +68,6 @@ public class UserDataValidation {
     public static boolean validateName(String name, String nameType) {
         boolean valid = false;
         String errorTitle = nameType + " Entry Invalid";
-        List<Character> invalid = Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}', '|', '"', '?', '/', ':', ';', '<', '>', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
         if (name.length() < MIN_NAME_LENGTH) {
             errorBoxController.displayErrorPopUP(errorTitle, nameType + " is too short.\nPlease ensure " + nameType + " is more than 2 characters.", "error");
         } else if (name.length() > MAX_NAME_LENGTH) {
@@ -77,7 +76,6 @@ public class UserDataValidation {
             System.out.println(nameType + " OK");
             valid = true;
         } else if (name.contains(" ")) {
-
             int index = name.indexOf(' ');
             String first = name.substring(0, index - 1);
             String second = name.substring(index + 1);
