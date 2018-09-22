@@ -1,5 +1,6 @@
 package seng202.team6.controller;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -83,7 +84,7 @@ public class EditProfileController {
     public void initialize() throws SQLException {
         
         // Gets current user.
-        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
+        User currUser = ApplicationManager.getDatabaseManager().getUserFromID(ApplicationManager.getCurrentUserID());
 
         // Initialises the gender drop down options.
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");
@@ -125,7 +126,7 @@ public class EditProfileController {
      */
     public void updateProfile(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
 
-        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
+        User currUser = ApplicationManager.getDatabaseManager().getUserFromID(ApplicationManager.getCurrentUserID());
         ArrayList<String> usernames = databaseManager.getUsernames();
         System.out.println("Current: " + currUser.getUsername());
         setEnteredData(); // Sets the class variables to the entered data
@@ -144,6 +145,7 @@ public class EditProfileController {
             ApplicationManager.getDatabaseManager().updateHeight(height);
             ApplicationManager.getDatabaseManager().updateWeight(weight);
             ApplicationManager.getDatabaseManager().updateStrideLength(stride);
+            ApplicationManager.setCurrentUser(ApplicationManager.getCurrentUserID(), username);
             printData(); // Testing
             toProfile(event); // Directs back to the profile screen.
         }
