@@ -2,6 +2,7 @@ package seng202.team6.datahandling;
 
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringEscapeUtils;
+import seng202.team6.controller.ApplicationManager;
 
 import java.io.FileReader;
 import java.sql.PreparedStatement;
@@ -34,7 +35,6 @@ public class FileDataLoader implements DataLoader {
 
     public void importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager){
 
-        System.out.println("Here");
         try {
             //Change this to local at some point
             CSVReader reader = new CSVReader(new FileReader(CSVLocation));

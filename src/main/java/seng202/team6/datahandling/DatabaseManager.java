@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -167,6 +168,7 @@ public class DatabaseManager implements DataLoader {
                         + "end text,"
                         + "distance REAL,"
                         + "workout text,"
+                        + "notes text,"
                         + "FOREIGN KEY(userid) REFERENCES user(userid));";
                 activityTableStatement.execute(activityTablesql);
                 //Create workouts table
@@ -219,6 +221,19 @@ public class DatabaseManager implements DataLoader {
         prep.execute();
     }
 
+    /**
+     * A function that deletes the User from the database given the username.
+     * @param username A username of the User to be deleted.
+     * @throws SQLException
+     */
+    public void removeUser(String username) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery("DELETE FROM user WHERE username = " + username);
+    }
+
     public void addActivity(int userid, String description, String start, String end, String workout, double distance) throws SQLException {
         if(con == null) {
             getConnection();
@@ -266,7 +281,10 @@ public class DatabaseManager implements DataLoader {
             for (ActivityDataPoint dataPoint : dataPoints) {
                 activity.addActivityData(dataPoint);
             }
-            activity.updateType();
+            if (activity.getType() == "invalid") {
+                activity.updateType();
+                this.updateType(ActivityAnalysis.getActivityType(activity), activity.getActivityid());
+            }
             activity.updateMaxHeartRate();
             activity.updateMinHeartRate();
             activities.add(activity);
@@ -349,11 +367,11 @@ public class DatabaseManager implements DataLoader {
         String activityStartDate = startParts[0];
         String activityStartTime = startParts[1];
         String activityEnd = res.getString("end");
-        System.out.println(activityEnd);
         String[] endParts = activityEnd.split("T");
         String activityEndDate = endParts[0];
         String activityEndTime = endParts[1];
-        String activityWorkout = "testworkout";
+        String activityWorkout = res.getString("workout");
+        String activityNotes = res.getString("notes");
         int activityid = res.getInt("activityid");
 
         LocalDate localStartDate = DataHandlerUtilities.parseDate(activityStartDate);
@@ -362,7 +380,7 @@ public class DatabaseManager implements DataLoader {
         LocalTime localStartTime = DataHandlerUtilities.parseTime(activityStartTime);
         LocalTime localEndTime = DataHandlerUtilities.parseTime(activityEndTime);
 
-        Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime);
+        Activity activity = new Activity(activityid, activityWorkout, activityDescription, localStartDate, localEndDate, localStartTime, localEndTime, activityNotes);
 
         return activity;
     }
@@ -409,7 +427,7 @@ public class DatabaseManager implements DataLoader {
         PreparedStatement updateUsername = con.prepareStatement(sql);
         updateUsername.setString(1, userName);
         updateUsername.execute();
-        ApplicationManager.setCurrentUsername(userName);
+       // ApplicationManager.setCurrentUsername(userName);
     }
     public void updateDateOfBirth(LocalDate dateOfBirth) throws SQLException {
         if(con == null) {
@@ -502,4 +520,37 @@ public class DatabaseManager implements DataLoader {
         }
         return activities;
     }
+
+    public void updateType(String type, int activityID) {
+
+        try {
+            if (con == null) {
+                getConnection();
+            }
+            String sql = "UPDATE activity SET workout = ? WHERE activityid = '" + activityID + "'";
+            PreparedStatement updateType = con.prepareStatement(sql);
+            updateType.setString(1, type);
+            updateType.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ApplicationManager.displayPopUp("Database Update Error", "Could not update activity type!", "error");
+        }
+    }
+
+    public void updateNotes(String notes, int activityID) {
+        try {
+            if (con == null) {
+                getConnection();
+            }
+            String sql = "UPDATE activity SET notes = ? WHERE activityid = '" + activityID + "'";
+            PreparedStatement updateNotes = con.prepareStatement(sql);
+            updateNotes.setString(1, notes);
+            updateNotes.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ApplicationManager.displayPopUp("Database Update Error", "Could not update activity notes!", "error");
+        }
+    }
+
+
 }

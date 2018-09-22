@@ -83,4 +83,20 @@ public class ActivityManager {
         return filteredActivities;
     }
 
+    public int getNumberActivities() {
+        try {
+            Statement state = connection.createStatement();
+            String sqlString = "SELECT COUNT(*) as activityCount FROM ACTIVITY";
+            ResultSet result = state.executeQuery(sqlString);
+            int count = result.getInt("activityCount");
+            System.out.println("Count " + count);
+            return count;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ApplicationManager.displayPopUp("Database Error", "Cannot get the activity count!", "error");
+        }
+        return 0;
+
+    }
+
 }

@@ -95,6 +95,36 @@ public class Activity
      * @param startTime A LocalTime parameter used to set the start time of Activity.
      * @param endTime A LocalTime parameter used to set the end time of the Activity.
      */
+    public Activity(int activityid, String type, String description, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, String notes)
+    {
+        if (activities.contains(type)) {
+            this.type = type;
+        } else {
+            this.type = "invalid";
+        }
+        this.description = description;
+        this.activityid = activityid;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        if (startTime.isBefore(endTime)) {
+            this.startTime = startTime;
+            this.endTime = endTime;
+            totalTime = Duration.between(startTime, endTime).toMinutes();
+        }
+        this.notes = notes;
+    }
+
+    /**
+     * The constructor for the Activity that takes the parameters type, date, start time, end time, distance, minimum
+     * heart rate, maximum heart rate and the total time of the  Activity.
+     * @param activityid A String parameter used to set Activity type.
+     * @param type A String parameter used to set Activity type.
+     * @param description A String parameter used to set the Activity description.
+     * @param startDate A LocalDate parameter used to set the Activity date.
+     * @param endDate A LocalDate parameter used to set the Activity end date.
+     * @param startTime A LocalTime parameter used to set the start time of Activity.
+     * @param endTime A LocalTime parameter used to set the end time of the Activity.
+     */
     public Activity(int activityid, String type, String description, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime)
     {
         if (activities.contains(type)) {

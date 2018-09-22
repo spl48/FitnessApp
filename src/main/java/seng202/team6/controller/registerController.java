@@ -13,12 +13,18 @@ import seng202.team6.utilities.UserDataValidation;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * <h1>Register Controller</h1>
  * <p>Initialises and applies functionality to the Register screen allowing users to make profiles in the database</p>
  */
 public class registerController extends GUIUtilities {
+
+    /**
+     * The maximum number of Users
+     */
+    int MAX_USER_NUMBER = 5;
 
     /**
      * User details textual fields.
@@ -85,9 +91,15 @@ public class registerController extends GUIUtilities {
      */
     @FXML
     public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
+        ArrayList<String> usernames = databaseManager.getUsernames();
         setEnteredData();
-        if (validEnteredData()) {
-            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + "!!", "confirmation");
+        if (usernames.contains(username)) {
+            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
+        } else if (usernames.size() == 5) {
+            ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
+        }
+        else if (validEnteredData()) {
+            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
             databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
             toStartScreen(event);
         }

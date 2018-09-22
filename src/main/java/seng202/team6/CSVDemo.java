@@ -19,7 +19,7 @@ public class CSVDemo {
             primaryStage.setTitle("MATES");
             primaryStage.setScene(new Scene(root, 1366, 768));
             primaryStage.show();
-            ApplicationManager.initializeDatabaseManager();
+            ApplicationManager.initializeApplication();
         }
         public static void main(String[] args) {
             launch(args);
