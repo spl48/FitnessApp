@@ -1,5 +1,6 @@
 package seng202.team6.controller;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -54,6 +55,8 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
 
     private Activity selectedActivity;
 
+    private ArrayList<Activity> activities;
+
 
     @FXML
     private ChoiceBox typeSelect;
@@ -73,6 +76,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         typeSelect.setItems(activityTypes);
         setupTable();
         refreshActivities();
+        activityTable.getSelectionModel().select(0);
     }
 
     private void setupTable() {
@@ -85,7 +89,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("activityid"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
     }
@@ -95,16 +99,17 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     }
 
     public void refreshActivities() throws SQLException {
-        ArrayList<Activity> activities = dbManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = dbManager.getActivities(ApplicationManager.getCurrentUserID());
         for ( int i = 0; i<activityTable.getItems().size(); i++) {
             activityTable.getItems().clear();
         }
 
         for (Activity activity : activities) {
-            addRecordToTable(activity);
+            if (activity.getActivityid() > ApplicationManager.getCurrentActivityNumber()) {
+                addRecordToTable(activity);
+            }
+
         }
-
-
     }
 
     public void updateEditing() {
@@ -119,6 +124,13 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         databaseManager.updateType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
         databaseManager.updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
         refreshActivities();
+    }
+
+    @FXML
+    public void finishEditing(Event event) {
+        ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
+        System.out.println(ApplicationManager.getCurrentActivityNumber());
+        toWorkoutsScreen(event);
     }
 
 
