@@ -3,13 +3,12 @@ package seng202.team6.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
@@ -85,6 +84,8 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
     ObservableList<String> dataChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
 
 
+    private int graphCount = 0;
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
         activityTypeSelection.setItems(dataChoices);
@@ -103,6 +104,37 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
 //        }
         activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         analysisGraph.setCreateSymbols(false);
+
+        activityList.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            Node node = event.getPickResult().getIntersectedNode();
+            while (node != null && node != activityList && !(node instanceof ListCell)) {
+                node = node.getParent();
+            }
+                // if is part of a cell or the cell,
+                // handle event instead of using standard handling
+        if (node instanceof ListCell) {
+            // prevent further handling
+            event.consume();
+            removeSeries();
+
+            ListCell cell = (ListCell) node;
+            ListView lv = cell.getListView();
+
+            // focus the listview
+            lv.requestFocus();
+
+            if (!cell.isEmpty()) {
+                // handle selection for non-empty cells
+                int index = cell.getIndex();
+                if (cell.isSelected()) {
+                    lv.getSelectionModel().clearSelection(index);
+                } else {
+                    lv.getSelectionModel().select(index);
+                }
+            }
+        }
+        });
+
     }
 
 //    private void populateComboBoxes() {
@@ -121,6 +153,16 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
 //        monthSelection.setItems(monthChoices);
 //        daySelection.setItems(dayChoices);
 //    }
+
+    @FXML
+    private void graphHandler() throws SQLException {
+        if (graphCount == 0) {
+            newGraph();
+        } else if (graphCount >= 1) {
+            addSeries();
+        }
+        graphCount += 1;
+    }
 
     /**
      * Creates a new graph to be displayed in the chart.
@@ -168,9 +210,6 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
                 xAxis.setLabel("Time (Minutes)");
                 //populating the series with data
                 addData(selectedActivity);
-
-            } else {
-                ApplicationManager.displayPopUp("YA DINGUSS!", "Must compare different activities and same data type ya dinguss", "error");
             }
         } else {
             ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
@@ -219,4 +258,17 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
         currentSeriesTypes.add(selectedActivity);
         analysisGraph.getData().add(series);
     }
+
+    public void toFilter() {
+        if (activities.size() >= 1) {
+            ApplicationManager.displayPopUp("test", "test", "filter");
+        } else {
+            ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
+        }
+    }
+
+    private void removeSeries() {
+
+    }
+
 }
