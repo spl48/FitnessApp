@@ -43,54 +43,69 @@ public class HomeScreenController {
      */
     @FXML
     private LineChart<Number,Number> analysisGraph;
-    @FXML
-    private Text graphPanelTitle;
-    @FXML
-    private Text noDataText;
-    @FXML
-    private Text BMIText;
-    @FXML
-    private Text weightType;
-    @FXML
-    private Text stepCount;
-    @FXML
-    private Text healthConcernsText;
 
-    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+    @FXML
+    private Text graphPanelTitle, noDataText;
+
+    /**
+     * Text that displays various user statistics
+     */
+    @FXML
+    private Text BMIText, weightType, stepCount, healthConcernsText;
+
+    /**
+     * The current database manager
+     */
+    private DatabaseManager databaseManager;
+
+    /**
+     * The current user
+     */
+    private User user;
+
     /**
 	 * Array that has all the activities the user can select to display on the graph
 	 */
     private ArrayList<Activity> activities = new ArrayList();
 
-	@FXML
+
     public void initialize() throws SQLException {
         ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(activityDataTypes);
         activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
 
-
+        setUpInfo();
         setHealthInfo();
         setStepsInfo();
         newGraph();
 
     }
 
-    @FXML
-    private void setHealthInfo() throws SQLException{
+    /**
+     * Gets the current user and their activities
+     * @throws SQLException When there is an error in the database when getting usernames and/or activities.
+     */
+    private void setUpInfo() throws SQLException {
+        databaseManager = ApplicationManager.getDatabaseManager();
+        String userName = ApplicationManager.getCurrentUserName();
+        user = databaseManager.getUser(userName);
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
+    }
 
-        String userName = ApplicationManager.getCurrentUsername(); //TODO put this stuff outside functiom?? -- used again later
-        User user = databaseManager.getUser(userName);
+    /**
+     * Displays a users BMI analysis and any
+     * health concerns they have
+     */
+    private void setHealthInfo(){
         String healthConcerns = "";
 
-        ProfileAnalysis profileAnalysis = new ProfileAnalysis();
-        double BMI = profileAnalysis.calculateBMI(user);
+        double BMI = ProfileAnalysis.calculateBMI(user);
+        int age = user.getAge();
+
         String BMIString = String.format("%.1f", BMI);
         BMIText.setText(BMIString);
 
-
-        int age = user.getAge();
-        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
-        weightType.setText("(" + profileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
+        weightType.setText("(" + ProfileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
 
@@ -111,21 +126,19 @@ public class HomeScreenController {
         }
     }
 
-    @FXML
-    private void setStepsInfo() throws SQLException{
-        DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
-        String userName = ApplicationManager.getCurrentUserName();
-        User user = databaseManager.getUser(userName);
-        ArrayList<Activity> activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
 
-        ProfileAnalysis profileAnalysis = new ProfileAnalysis();
 
+    /**
+     * Displays the steps a user has taken
+     */
+    private void setStepsInfo(){
         double strideLength = user.getStrideLength();
+        double totalSteps = ProfileAnalysis.findTotalStepCount(activities, strideLength);
 
-        double totalSteps = profileAnalysis.findTotalStepCount(activities, strideLength);
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
     }
+
 
     /**
      * Creates a new graph to be displayed in the chart.
