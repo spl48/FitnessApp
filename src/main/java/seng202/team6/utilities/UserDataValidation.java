@@ -1,7 +1,10 @@
 package seng202.team6.utilities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.controller.ErrorBoxController;
@@ -12,6 +15,12 @@ public class UserDataValidation {
      * The minimum length of the User's first name
      */
     private static final int MIN_NAME_LENGTH = 2;
+
+    /**
+     * The maximum length of User's last name.
+     * According to the record of maximum last name, Wolfeschlegelsteinhausenbergerdorff.
+     */
+    private static final int MAX_NAME_LENGTH = 45;
 
     /**
      * The maximum length of the User's username
@@ -59,15 +68,27 @@ public class UserDataValidation {
     public static boolean validateName(String name, String nameType) {
         boolean valid = false;
         String errorTitle = nameType + " Entry Invalid";
-        if (name.length() < 2) {
+        List<Character> invalid = Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}', '|', '"', '?', '/', ':', ';', '<', '>', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        if (name.length() < MIN_NAME_LENGTH) {
             errorBoxController.displayErrorPopUP(errorTitle, nameType + " is too short.\nPlease ensure " + nameType + " is more than 2 characters.", "error");
-        } else if (name.length() > 10) {
+        } else if (name.length() > MAX_NAME_LENGTH) {
             errorBoxController.displayErrorPopUP(errorTitle, nameType + " is too long.\nPlease ensure " + nameType + " is less than 10 characters.", "error");
-        } else if (!isAlpha(name)) {
-            errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
-        } else {
+        } else if (isAlpha(name)) {
             System.out.println(nameType + " OK");
             valid = true;
+        } else if (name.contains(" ")) {
+
+            int index = name.indexOf(' ');
+            String first = name.substring(0, index - 1);
+            String second = name.substring(index + 1);
+            if (isAlpha(first) && isAlpha(second)) {
+                System.out.println(nameType + " OK");
+                valid = true;
+            } else {
+                errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
+            }
+        } else if (!isAlpha(name)) {
+            errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
         }
         return valid;
     }
