@@ -64,7 +64,7 @@ public class HomeScreenController {
     /**
 	 * Array that has all the activities the user can select to display on the graph
 	 */
-    private ArrayList<Activity> activities = new ArrayList();
+    private ArrayList<Activity> activities;
 
 
     public void initialize() throws SQLException {
@@ -106,7 +106,6 @@ public class HomeScreenController {
         weightType.setText("(" + ProfileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
-
 
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
             healthConcerns += "-" + "Tachycardia\n".toUpperCase();
