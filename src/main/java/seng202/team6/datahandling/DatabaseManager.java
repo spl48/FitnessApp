@@ -219,6 +219,19 @@ public class DatabaseManager implements DataLoader {
         prep.execute();
     }
 
+    /**
+     * A function that deletes the User from the database given the username.
+     * @param username A username of the User to be deleted.
+     * @throws SQLException
+     */
+    public void removeUser(String username) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery("DELETE FROM user WHERE username = " + username);
+    }
+
     public void addActivity(int userid, String description, String start, String end, String workout, double distance) throws SQLException {
         if(con == null) {
             getConnection();
