@@ -67,6 +67,7 @@ public class UserDataValidation {
 
     public static boolean validateName(String name, String nameType) {
         boolean valid = false;
+        int count = 0;
         String errorTitle = nameType + " Entry Invalid";
         if (name.length() < MIN_NAME_LENGTH) {
             errorBoxController.displayErrorPopUP(errorTitle, nameType + " is too short.\nPlease ensure " + nameType + " is more than 2 characters.", "error");
@@ -76,15 +77,21 @@ public class UserDataValidation {
             System.out.println(nameType + " OK");
             valid = true;
         } else if (name.contains(" ")) {
-            int index = name.indexOf(' ');
-            String first = name.substring(0, index - 1);
-            String second = name.substring(index + 1);
-            if (isAlpha(first) && isAlpha(second)) {
+
+            for (int i = 0; i < name.length(); i++) {
+                char c = name.charAt(i);
+                if ((!(Character.isAlphabetic(c))) && (c != ' ')) {
+                    count += 1;
+                }
+            }
+
+            if (count > 0) {
+                errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
+            } else {
                 System.out.println(nameType + " OK");
                 valid = true;
-            } else {
-                errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
             }
+
         } else if (!isAlpha(name)) {
             errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
         }
