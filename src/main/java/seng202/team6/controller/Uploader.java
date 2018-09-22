@@ -13,6 +13,7 @@ import seng202.team6.datahandling.FileDataLoader;
 import seng202.team6.models.User;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -71,7 +72,7 @@ public class Uploader extends WorkoutsNavigator {
      * Uploads a csv activities file to the database.
      */
     @FXML
-    public void uploadActivity(Event event) {
+    public void uploadActivity(Event event) throws IOException {
 
         String filePath = fileSelector();
         if (filePath != null) {

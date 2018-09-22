@@ -109,6 +109,11 @@ public class ErrorBoxController extends GUIUtilities {
                 Scene scene = new Scene(root, 400, 350);
                 errorWindow.setScene(scene);
                 errorWindow.showAndWait();
+            } else if (type == "loader") {
+                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/LoadingPopUp.fxml"));
+                Scene scene = new Scene(root, 400, 150);
+                errorWindow.setScene(scene);
+                errorWindow.showAndWait();
             }
 
         } catch (IOException e) {

@@ -1,6 +1,5 @@
 package seng202.team6.controller;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -121,7 +120,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     public void updateActivity() throws  SQLException {
         System.out.println((String) typeSelect.getSelectionModel().getSelectedItem());
         System.out.println(selectedActivity.getActivityid());
-        databaseManager.updateType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
+        databaseManager.updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
         databaseManager.updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
         refreshActivities();
     }

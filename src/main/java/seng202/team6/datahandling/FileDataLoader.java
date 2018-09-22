@@ -2,9 +2,11 @@ package seng202.team6.datahandling;
 
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringEscapeUtils;
+import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
+import seng202.team6.controller.LoadingBoxController;
 
-import java.io.FileReader;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,13 +35,20 @@ public class FileDataLoader implements DataLoader {
     }
     */
 
-    public void importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager){
+    public void importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager) throws IOException {
+
+        int numLines = countLines(CSVLocation);
+        System.out.println("Num Lines "+ numLines);
+        int lineCount = 0;
+        LoadingBoxController loadBox = new LoadingBoxController();
+        loadBox.setMaximum(numLines);
+        //loadBox.display();
 
         try {
             //Change this to local at some point
             CSVReader reader = new CSVReader(new FileReader(CSVLocation));
-            String[]nextLine;
-            String[]previousLine = {};
+            String[] nextLine;
+            String[] previousLine = {};
             String activityDescription;
             String activityStartDate;
             String activityStartTime;
@@ -48,9 +57,9 @@ public class FileDataLoader implements DataLoader {
             String start;
             String end;
             int activityid = 0;
-            if((nextLine = reader.readNext()) != null){
+            if ((nextLine = reader.readNext()) != null) {
                 activityDescription = nextLine[1];
-                if((nextLine = reader.readNext()) != null){
+                if ((nextLine = reader.readNext()) != null) {
                     activityStartDate = nextLine[0];
                     activityStartTime = nextLine[1];
                     start = convertToDateTimeFormat(activityStartDate, activityStartTime);
@@ -59,21 +68,20 @@ public class FileDataLoader implements DataLoader {
                     prep.setInt(1, userid);
                     prep.setString(2, activityDescription);
                     prep.setString(3, start);
-                    prep.setString(4, "Other");
+                    prep.setString(4, ActivityAnalysis.getActivityTypeFromDescription(activityDescription));
                     prep.execute();
                     ResultSet generatedKeys = prep.getGeneratedKeys();
-                    if(generatedKeys.next()){
+                    if (generatedKeys.next()) {
                         activityid = generatedKeys.getInt(1);
-                        System.out.println(activityid);
+                        //System.out.println(activityid);
                     }
                     previousLine = nextLine;
                 }
             }
-            while((nextLine = reader.readNext()) != null){
-                if(nextLine != null)
-                {
+            while ((nextLine = reader.readNext()) != null) {
+                if (nextLine != null) {
                     //System.out.println(Arrays.toString(nextLine));
-                    if(nextLine[0].equalsIgnoreCase("#start")){
+                    if (nextLine[0].equalsIgnoreCase("#start")) {
                         activityEndDate = previousLine[0];
                         activityEndTime = previousLine[1];
                         end = convertToDateTimeFormat(activityEndDate, activityEndTime);
@@ -82,7 +90,9 @@ public class FileDataLoader implements DataLoader {
                         updateEnd.setString(1, end);
                         updateEnd.execute();
                         activityDescription = nextLine[1];
-                        if((nextLine = reader.readNext()) != null){
+                        lineCount  += 1;
+                        //loadBox.updateLoadingProgress(lineCount);
+                        if ((nextLine = reader.readNext()) != null) {
                             activityStartDate = nextLine[0];
                             activityStartTime = nextLine[1];
                             start = convertToDateTimeFormat(activityStartDate, activityStartTime);
@@ -91,17 +101,16 @@ public class FileDataLoader implements DataLoader {
                             prep.setInt(1, userid);
                             prep.setString(2, activityDescription);
                             prep.setString(3, start);
-                            prep.setString(4, "Other");
+                            prep.setString(4, ActivityAnalysis.getActivityTypeFromDescription(activityDescription));
                             prep.execute();
                             ResultSet generatedKeys = prep.getGeneratedKeys();
-                            if(generatedKeys.next()){
+                            if (generatedKeys.next()) {
                                 activityid = generatedKeys.getInt(1);
                                 System.out.println(activityid);
                             }
                             previousLine = nextLine;
                         }
-                    }
-                    else{
+                    } else {
                         String dateTime = convertToDateTimeFormat(nextLine[0], nextLine[1]);
                         String sql = "INSERT INTO record(activityid,datetime,heartrate,latitude,longitude,elevation) VALUES(?,?,?,?,?,?)";
                         PreparedStatement insertRecord = databaseManager.getCon().prepareStatement(sql);
@@ -116,6 +125,7 @@ public class FileDataLoader implements DataLoader {
                     }
                     //if(nextLine[0])
                 }
+
             }
             activityEndDate = previousLine[0];
             activityEndTime = previousLine[1];
@@ -124,17 +134,38 @@ public class FileDataLoader implements DataLoader {
             PreparedStatement updateEnd = databaseManager.getCon().prepareStatement(sql);
             updateEnd.setString(1, end);
             updateEnd.execute();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        ApplicationManager.displayPopUp("Data Confirmation", "Activity Data has been uploaded!", "confirmation");
         System.out.println("CSV read complete");
     }
 
-    public String convertToDateTimeFormat(String date, String time){
+    public String convertToDateTimeFormat(String date, String time) {
         String[] parts = date.split("/");
         String combined = parts[2] + "-" + parts[1] + "-" + parts[0] + "T" + time;
         return combined;
+    }
+
+    public int countLines(String filename) throws IOException {
+        InputStream is = new BufferedInputStream(new FileInputStream(filename));
+        try {
+            byte[] c = new byte[1024];
+            int count = 0;
+            int readChars = 0;
+            boolean empty = true;
+            while ((readChars = is.read(c)) != -1) {
+                empty = false;
+                for (int i = 0; i < readChars; ++i) {
+                    if (c[i] == '\n') {
+                        ++count;
+                    }
+                }
+            }
+            return (count == 0 && !empty) ? 1 : count;
+        } finally {
+            is.close();
+
+        }
     }
 }

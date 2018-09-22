@@ -4,7 +4,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
@@ -281,10 +280,7 @@ public class DatabaseManager implements DataLoader {
             for (ActivityDataPoint dataPoint : dataPoints) {
                 activity.addActivityData(dataPoint);
             }
-            if (activity.getType() == "invalid") {
-                activity.updateType();
-                this.updateType(ActivityAnalysis.getActivityType(activity), activity.getActivityid());
-            }
+
             activity.updateMaxHeartRate();
             activity.updateMinHeartRate();
             activities.add(activity);
@@ -521,7 +517,7 @@ public class DatabaseManager implements DataLoader {
         return activities;
     }
 
-    public void updateType(String type, int activityID) {
+    public void updateActivityType(String type, int activityID) {
 
         try {
             if (con == null) {

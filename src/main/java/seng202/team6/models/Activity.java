@@ -82,7 +82,7 @@ public class Activity
     /**
      * The only types of Activities allowed
      */
-    private static final ArrayList<String> activities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking"));
+    private static final ArrayList<String> activities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking", "Other"));
 
     /**
      * The constructor for the Activity that takes the parameters type, date, start time, end time, distance, minimum

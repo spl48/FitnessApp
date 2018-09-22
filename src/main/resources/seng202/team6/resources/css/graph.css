@@ -1,0 +1,43 @@
+.axis-label {
+  -fx-text-fill: #ffffff;
+  -fx-font-family: "Nexa Bold";
+  -fx-font-size: 15;
+}
+
+@font-face {
+    font-family: 'Nexa Bold';
+    src: url("NexaBold.otf");
+}
+
+.chart-legend {
+   -fx-background-color: transparent;
+   -fx-font-family: "Nexa Bold";
+   -fx-font-size: 12;
+   -fx-text-fill: #ffffff;
+}
+
+.chart-legend-item{
+    -fx-text-fill: #ffffff;
+}
+
+.chart-plot-background {
+    -fx-background-color: #ffffff;
+    -fx-background-image: url("eyesgraph.png");
+}
+/*
+.default-color0.chart-line-symbol {
+    -fx-background-radius: 0.0px;
+    -fx-padding: 0.0px;
+}
+*/
+.chart-vertical-grid-lines {
+
+}
+
+.chart-horizontal-grid-lines {
+
+}
+
+.axis-minor-tick-mark {
+    -fx-stroke: transparent;
+}
