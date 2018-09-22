@@ -2,21 +2,10 @@ package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seng202.team6.datahandling.ActivityManager;
 
-import java.io.IOException;
 import java.util.*;
 
 
@@ -91,14 +80,15 @@ public class FilterBoxController extends ErrorBoxController {
         String dayFilter = (String) daySelect.getSelectionModel().getSelectedItem();
         String monthFilter = padMonth(Integer.toString(monthSelect.getSelectionModel().getSelectedIndex()));
         String yearFilter = (String) yearSelect.getSelectionModel().getSelectedItem();
-        System.out.println(yearFilter);
         String typeFilter = (String) typeSelect.getSelectionModel().getSelectedItem();
-        RawDataController2.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
+        RawDataController.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
         closeWindow();
     }
 
     private String padMonth(String monthNum) {
-        if (monthNum.length() == 1) {
+        if (monthNum.equals("0")) {
+            return "All";
+        } else if (monthNum.length() == 1) {
             return "0" + monthNum;
         }
         return monthNum;

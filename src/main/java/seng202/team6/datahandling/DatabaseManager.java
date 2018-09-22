@@ -50,7 +50,6 @@ public class DatabaseManager implements DataLoader {
 
         // Trys to query the database for a user.
         Statement statement = con.createStatement();
-        String sqlString = "SELECT * FROM user WHERE username LIKE '" + aUsername + "'";
         ResultSet userData = statement.executeQuery("SELECT * FROM user WHERE username LIKE '" + aUsername + "'");
 
         // Gets data from the database.
@@ -67,6 +66,32 @@ public class DatabaseManager implements DataLoader {
         // Creates a User model using database data.
         User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, aUsername, id);
         return user; 
+    }
+    public User getUserFromID(int userid) throws SQLException {
+        // Checks the connection to the database.
+        if(con == null) {
+            getConnection();
+        }
+
+        // Trys to query the database for a user.
+        Statement statement = con.createStatement();
+        String sqlString = "SELECT * FROM user WHERE userid = " + userid;
+        ResultSet userData = statement.executeQuery(sqlString);
+
+        // Gets data from the database.
+        String username = userData.getString("username");
+        String firstName = userData.getString("firstname");
+        String lastName = userData.getString("lastname");
+        String dobString = userData.getString("dateofbirth");
+        String gender = userData.getString("gender");
+        Double height = userData.getDouble("height");
+        Double weight = userData.getDouble("weight");
+        Double stridelength = userData.getDouble("stridelength");
+        LocalDate dob = LocalDate.parse(dobString);
+
+        // Creates a User model using database data.
+        User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, username, userid);
+        return user;
     }
 
     public ArrayList<ActivityDataPoint> getDataPoints(Activity activity) throws SQLException {
