@@ -129,10 +129,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 if (cell.isSelected()) {
                     lv.getSelectionModel().clearSelection(index);
                     selectionIndex = index;
-                    System.out.println("unclick");
                 } else {
                     lv.getSelectionModel().select(index);
-                    System.out.println("click");
                     selectionIndex = index;
                 }
             }
@@ -193,6 +191,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         if (activities.size() >= 1) {
             int activity = selectionIndex;
             if (activity == -1) {
+                System.out.println("-1");
                 removeData(activities.get(selectionIndex));
                 graphCount -= 1;
             } else if (currentSeriesTypes.contains(activities.get(activity))) {
