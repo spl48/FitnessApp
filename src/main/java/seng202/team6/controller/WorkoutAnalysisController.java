@@ -303,7 +303,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 					series.getData().add(new XYChart.Data(time, point.getElevation()));
 					break;
 				case ("Calories"):
-					String userName = ApplicationManager.getCurrentUserName();
+					String userName = ApplicationManager.getCurrentUsername();
 					yAxis.setLabel("Calories Burned");
 					double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), selectedActivity.getType(), databaseManager.getUser(userName).getWeight());
 					series.getData().add(new XYChart.Data(time, calories));

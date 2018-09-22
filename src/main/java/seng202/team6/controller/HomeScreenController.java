@@ -87,7 +87,7 @@ public class HomeScreenController {
      */
     private void setUpInfo() throws SQLException {
         databaseManager = ApplicationManager.getDatabaseManager();
-        String userName = ApplicationManager.getCurrentUserName();
+        String userName = ApplicationManager.getCurrentUsername();
         user = databaseManager.getUser(userName);
         activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
     }
@@ -203,7 +203,7 @@ public class HomeScreenController {
                     series.getData().add(new XYChart.Data(time, point.getElevation()));
                     break;
                 case ("Calories"):
-                    String userName = ApplicationManager.getCurrentUserName();
+                    String userName = ApplicationManager.getCurrentUsername();
                     yAxis.setLabel("Calories Burned");
                     double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), selectedActivity.getType(), databaseManager.getUser(userName).getWeight());
                     series.getData().add(new XYChart.Data(time, calories));

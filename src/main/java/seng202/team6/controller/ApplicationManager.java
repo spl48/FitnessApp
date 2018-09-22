@@ -1,7 +1,5 @@
 package seng202.team6.controller;
 
-import java.sql.SQLException;
-
 import seng202.team6.datahandling.DatabaseManager;
 
 public class ApplicationManager {
@@ -16,26 +14,19 @@ public class ApplicationManager {
 
     private static int currentActivityNumber = 0;
 
+    public static void initializeApplication() {
+        initializeDatabaseManager();
+        currentActivityNumber = databaseManager.getActivityManager().getNumberActivities();
+    }
+
     public static void setCurrentUser(int userid, String username) {
         currentUsername = username;
         currentUserID = userid;
     }
 
-    public static String getCurrentUserName() {
-        return currentUsername;
-    }
-    public static void setCurrentUsername(String username) {
-        currentUsername = username;
-    }
-
     public static String getCurrentUsername() {
         return currentUsername;
     }
-
-    public static void setCurrentUserID(int id) {
-        currentUserID = id;
-    }
-
 
     public static int getCurrentUserID() {
         return currentUserID;
@@ -45,7 +36,7 @@ public class ApplicationManager {
         return databaseManager;
     }
 
-    public static void initializeDatabaseManager()  throws ClassNotFoundException, SQLException  {
+    private static void initializeDatabaseManager()  {
         databaseManager = new DatabaseManager();
     }
 

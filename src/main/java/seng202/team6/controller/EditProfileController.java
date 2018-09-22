@@ -83,7 +83,7 @@ public class EditProfileController {
     public void initialize() throws SQLException {
         
         // Gets current user.
-        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUserName());
+        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
 
         // Initialises the gender drop down options.
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");

@@ -39,7 +39,7 @@ public class RawDataController extends WorkoutsNavigator{
     private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
     public void initialize() throws SQLException {
-        User currUser = dbManager.getUser(ApplicationManager.getCurrentUserName());
+        User currUser = dbManager.getUser(ApplicationManager.getCurrentUsername());
         ObservableList<Integer> activityList = FXCollections.observableArrayList(dbManager.getActivityIDs(currUser.getUserID()));
         activitySelect.setItems(activityList);
         setupTable();
