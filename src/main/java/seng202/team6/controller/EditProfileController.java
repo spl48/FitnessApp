@@ -125,13 +125,16 @@ public class EditProfileController {
      */
     public void updateProfile(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
 
+        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
         ArrayList<String> usernames = databaseManager.getUsernames();
+        System.out.println("Current: " + currUser.getUsername());
         setEnteredData(); // Sets the class variables to the entered data
-        if (usernames.contains(username)) {
-            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
-        } else if (validEnteredData()) {
-            System.out.println("Updated User Data!!"); //Testing - can be replaced with a confirmation message later...
-            
+        System.out.println("Username: " + username);
+
+        if ((!(currUser.getUsername().equalsIgnoreCase(username))) && usernames.contains(username)) {
+            ApplicationManager.displayPopUp("Username Already Exists", "Username Already Exists.\nPlease choose another username.", "error");
+        } else if (validEnteredData()) { System.out.println("Updated User Data!!"); //Testing - can be replaced with a confirmation message later...
+
             // ENTER DATA INTO DATABASE
             ApplicationManager.getDatabaseManager().updateFirstName(first);
             ApplicationManager.getDatabaseManager().updateLastName(last);
