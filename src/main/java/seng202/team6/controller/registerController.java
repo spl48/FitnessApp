@@ -89,10 +89,10 @@ public class registerController extends GUIUtilities {
         ArrayList<String> usernames = databaseManager.getUsernames();
         setEnteredData();
         if (usernames.contains(username)) {
-            ApplicationManager.displayPopUp("Duplicate Username", "Please choose another username", "error");
+            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         }
         else if (validEnteredData()) {
-            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + "!!", "confirmation");
+            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
             databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
             toStartScreen(event);
         }
