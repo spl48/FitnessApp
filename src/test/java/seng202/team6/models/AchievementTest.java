@@ -7,6 +7,11 @@ public class AchievementTest extends TestCase {
     private Achievement achievement = new Achievement("1000 Steps");
 
     public void testSetName() {
+        // Invalid Input
+        achievement.setName("Step");
+        assertEquals("invalid", achievement.getName());
+
+        // Valid Input
         achievement.setName("10000 Steps");
         assertEquals("10000 Steps", achievement.getName());
     }
