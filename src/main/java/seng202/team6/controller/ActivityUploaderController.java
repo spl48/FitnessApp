@@ -160,7 +160,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
      * Updates the desired activity in the database based on the entered data into edit fields.
      */
     public void updateActivity() {
-
+        
         // Updates the activity details.
         databaseManager.updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
         databaseManager.updateNotes(notesEditor.getText(), selectedActivity.getActivityid());

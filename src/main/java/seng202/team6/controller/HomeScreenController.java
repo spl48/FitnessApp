@@ -26,8 +26,6 @@ import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
 public class HomeScreenController {
-
-	int userid = ApplicationManager.getCurrentUserID();
     
 	/**
      * A choice box to select the data type to be displayed on graph. E.g "Heart rate", "Distance", etc.

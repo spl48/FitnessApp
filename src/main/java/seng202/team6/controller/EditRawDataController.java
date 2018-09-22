@@ -1,13 +1,8 @@
 package seng202.team6.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import seng202.team6.datahandling.DatabaseManager;
@@ -23,16 +18,16 @@ public class EditRawDataController extends WorkoutsNavigator {
     private TableView rawDataTable;
 
     @FXML
-    private Label descriptionLabel;
+    private TextField nameEntry;
 
     @FXML
-    private Label typeLabel;
+    private ChoiceBox typeEntry;
 
     @FXML
-    private Label notesLabel;
+    private TextField notesEntry;
 
     @FXML
-    private Label dateLabel;
+    private DatePicker dateEntry;
 
     @FXML
     private ListView activitySelect;
@@ -44,18 +39,16 @@ public class EditRawDataController extends WorkoutsNavigator {
 
     public void initialize() throws SQLException {
         User currUser = dbManager.getUser(ApplicationManager.getCurrentUsername());
-        activitySelect = RawDataController2.getActivitySelector();
+        activitySelect = RawDataController.getActivitySelector();
         //setupTable();
         //refreshActivities();
-
-
-
     }
 
     @FXML
     public void updateActivity() {
 
     }
+
 
     private TableColumn make_column(String name, String attributeName, int size) {
         TableColumn col = new TableColumn(name);
