@@ -78,6 +78,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * @throws SQLException
      */
 
+    private ArrayList<XYChart.Series> seriesArrayList = new ArrayList();
+    private int selectionIndex;
+
     /**
      * List of possible data types to be displayed on the graph
      */
@@ -98,10 +101,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         ObservableList<String> items = FXCollections.observableArrayList(availableActivities);
         activityList.setItems(items);
 
-//        if (activities.size() >= 1) {
-//            populateComboBoxes();
-//            //activitySelection.getSelectionModel().select(0);
-//        }
+
         activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         analysisGraph.setCreateSymbols(false);
 
@@ -115,7 +115,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         if (node instanceof ListCell) {
             // prevent further handling
             event.consume();
-            removeSeries();
+
 
             ListCell cell = (ListCell) node;
             ListView lv = cell.getListView();
@@ -128,8 +128,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 int index = cell.getIndex();
                 if (cell.isSelected()) {
                     lv.getSelectionModel().clearSelection(index);
+                    selectionIndex = index;
+                    System.out.println("unclick");
                 } else {
                     lv.getSelectionModel().select(index);
+                    System.out.println("click");
+                    selectionIndex = index;
                 }
             }
         }
@@ -137,31 +141,16 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
     }
 
-//    private void populateComboBoxes() {
-//        yearSet.add("All");
-//        for (Activity activity : activities) {
-//            LocalDate date = activity.getStartDate();
-//            yearSet.add(Integer.toString(date.getYear()));
-//        }
-//        monthSelection.getSelectionModel().select(monthChoices.get(0));
-//        daySelection.getSelectionModel().select(dayChoices.get(0));
-//        ObservableList<Integer> yearOptions = FXCollections.observableArrayList();
-//        List yearList = new ArrayList(yearSet);
-//        yearOptions.addAll(yearList);
-//        yearSelection.getSelectionModel().select(yearOptions.get(0));
-//        yearSelection.getItems().setAll(yearOptions);
-//        monthSelection.setItems(monthChoices);
-//        daySelection.setItems(dayChoices);
-//    }
 
     @FXML
     private void graphHandler() throws SQLException {
         if (graphCount == 0) {
             newGraph();
+            graphCount += 1;
         } else if (graphCount >= 1) {
             addSeries();
         }
-        graphCount += 1;
+
     }
 
     /**
@@ -170,8 +159,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private void newGraph() {
         if (activities.size() >= 1) {
-            int activity = activityList.getSelectionModel().getSelectedIndex();
-            Activity selectedActivity = activities.get(activity);
+            int activity = selectionIndex;
+            Activity selectedActivity = activities.get(selectionIndex);
             String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
             if (activityList.getFocusModel().toString().equals("No Activities")) {
                 ApplicationManager.displayPopUp("YA DINGUSS", "No activities to display ya friggen frig with selected dates", "error");
@@ -202,14 +191,24 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private void addSeries() throws SQLException {
         if (activities.size() >= 1) {
-            int activity = activityList.getSelectionModel().getSelectedIndex();
-            Activity selectedActivity = activities.get(activity);
-            String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
-            if (!currentSeriesTypes.contains(selectedActivity) && seriesType == curSeriesType) {
-                //defining the axes
-                xAxis.setLabel("Time (Minutes)");
-                //populating the series with data
-                addData(selectedActivity);
+            int activity = selectionIndex;
+            if (activity == -1) {
+                removeData(activities.get(selectionIndex));
+                graphCount -= 1;
+            } else if (currentSeriesTypes.contains(activities.get(activity))) {
+                removeData(activities.get(selectionIndex));
+                graphCount -= 1;
+            } else {
+                Activity selectedActivity = activities.get(activity);
+                String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
+
+                if (!currentSeriesTypes.contains(selectedActivity) && seriesType == curSeriesType) {
+                    //defining the axes
+                    xAxis.setLabel("Time (Minutes)");
+                    //populating the series with data
+                    addData(selectedActivity);
+                    graphCount += 1;
+                }
             }
         } else {
             ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
@@ -225,7 +224,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         //defining a series
         XYChart.Series series = new XYChart.Series();
         String activityType = activityTypeSelection.getSelectionModel().getSelectedItem();
-        series.setName(selectedActivity.getStartDate().toString() + " " + activityType);
+        series.setName(selectedActivity.getDescription() + selectedActivity.getStartTime());
         ActivityAnalysis activityAnalysis = new ActivityAnalysis();
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
             Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
@@ -257,6 +256,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
         currentSeriesTypes.add(selectedActivity);
         analysisGraph.getData().add(series);
+        seriesArrayList.add(series);
     }
 
     public void toFilter() {
@@ -267,8 +267,24 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
     }
 
-    private void removeSeries() {
+    private void removeData(Activity selectedActivity) {
+        for (int i = 0; i < currentSeriesTypes.size(); i++) {
 
+            if ((seriesArrayList.get(i).getName()).equals((selectedActivity.getDescription() + selectedActivity.getStartTime()))) {
+                analysisGraph.getData().remove(seriesArrayList.get(i));
+                currentSeriesTypes.remove(selectedActivity);
+                seriesArrayList.remove(seriesArrayList.get(i));
+            }
+        }
+    }
+
+    @FXML
+    private void clearGraph() {
+        analysisGraph.getData().clear();
+        graphCount = 0;
+        activityList.getSelectionModel().clearSelection();
+        analysisGraph.getYAxis().setLabel("");
+        analysisGraph.getXAxis().setLabel("");
     }
 
 }

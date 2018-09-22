@@ -1,100 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
-   <top>
-      <fx:include source="header.fxml" />
-   </top>
-   <left>
-      <fx:include source="sidebar.fxml" />
-   </left>
-   <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
-         <top>
-            <AnchorPane onMouseClicked="#toWorkoutsScreen" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="375.0" layoutY="51.0" prefHeight="88.0" prefWidth="528.0" text="WORKOUT ANALYSIS" textFill="WHITE">
-                     <font>
-                        <Font name="NexaBold" size="48.0" />
-                     </font>
-                  </Label>
-                  <ImageView layoutX="79.0" layoutY="71.0">
-                     <image>
-                        <Image url="@../resources/pics/back2.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <Button fx:id="compareButton" layoutX="985.0" layoutY="177.0" mnemonicParsing="false" onAction="#addSeries" text="Compare" />
-               </children>
-            </AnchorPane>
-         </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../resources/css/graph.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
+    <top>
+        <fx:include source="header.fxml" />
+    </top>
+    <left>
+        <fx:include source="sidebar.fxml" />
+    </left>
+    <center>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </BorderPane.margin>
+         <right>
+            <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="492.0" prefWidth="300.0">
+               <BorderPane.margin>
+                  <Insets bottom="20.0" right="17.0" top="10.0" />
+               </BorderPane.margin>
+            </ListView>
+         </right>
          <center>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane prefHeight="586.0" prefWidth="775.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="900.0" minWidth="10.0" prefWidth="50.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="206.33334350585938" minHeight="10.0" prefHeight="206.33334350585938" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="51.666656494140625" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="482.0" minHeight="10.0" prefHeight="411.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane prefHeight="167.0" prefWidth="252.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="11.0" GridPane.rowIndex="1">
                      <children>
-                        <ChoiceBox fx:id="activitySelection" layoutX="314.0" layoutY="277.0" prefHeight="25.0" prefWidth="105.0" />
-                        <LineChart fx:id="analysisGraph" layoutX="-54.0" layoutY="324.0" prefHeight="490.0" prefWidth="826.0" style="-fx-background-color: gainsboro;">
-                          <xAxis>
-                            <NumberAxis side="BOTTOM" fx:id="xAxis" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis fx:id="yAxis" side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <ChoiceBox fx:id="activityTypeSelection" layoutX="433.0" layoutY="276.0" prefHeight="26.0" prefWidth="174.0" />
-                        <Button fx:id="graphButton" layoutX="621.0" layoutY="277.0" mnemonicParsing="false" onAction="#newGraph" text="Show me da graph!!" />
-                        <ComboBox fx:id="daySelection" layoutX="148.0" layoutY="277.0" onAction="#updateActivityComboBox" prefWidth="150.0" />
-                        <ComboBox fx:id="monthSelection" layoutX="14.0" layoutY="277.0" onAction="#updateActivityComboBox" prefHeight="25.0" prefWidth="118.0" />
-                     </children></AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pics/panelanalysis.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pics/panelanalysis.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pics/panelanalysis.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="38.0" left="17.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <LineChart fx:id="analysisGraph" maxWidth="800.0">
+                    <xAxis>
+                      <NumberAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="WHITE" />
+                    </yAxis>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </LineChart>
                </children>
             </GridPane>
          </center>
-         <bottom>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </bottom>
-         <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <GridPane alignment="CENTER" prefHeight="100.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <ComboBox fx:id="yearSelection" layoutX="42.0" layoutY="12.0" onAction="#updateActivityComboBox" prefHeight="25.0" prefWidth="106.0" />
-               </children></Pane>
-         </left>
-         <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </right>
-         <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </BorderPane.margin>
-      </BorderPane>
-   </center>
+                  <Label prefHeight="116.0" prefWidth="407.0" text="WORKOUT ANALYSIS" textFill="WHITE" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="NexaBold" size="30.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="30.0" onMouseClicked="#toWorkoutsScreen" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pics/back2.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></ImageView>
+                  <GridPane GridPane.columnIndex="2">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="filterButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#toFilter" text="Filter" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets top="30.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefWidth="127.0" GridPane.valignment="BOTTOM" />
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </top>
+        </BorderPane>
+    </center>
 </BorderPane>
