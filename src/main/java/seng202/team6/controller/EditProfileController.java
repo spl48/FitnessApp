@@ -14,12 +14,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
 import seng202.team6.utilities.UserDataValidation;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * <h1>Edit Profile Controller</h1>
@@ -66,6 +68,11 @@ public class EditProfileController {
      * The date of birth of the user.
      */
     private LocalDate birthDate;
+
+    /**
+     * The Application Database Manager.
+     */
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
     /**
@@ -116,10 +123,13 @@ public class EditProfileController {
      * @param event When the user clicks the UPDATE button.
      * @throws IOException When the profile screen fxml in toProfile cannot be loaded.
      */
-    public void updateProfile(ActionEvent event) throws IOException, SQLException {
-        
+    public void updateProfile(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+
+        ArrayList<String> usernames = databaseManager.getUsernames();
         setEnteredData(); // Sets the class variables to the entered data
-        if (validEnteredData()) {
+        if (usernames.contains(username)) {
+            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
+        } else if (validEnteredData()) {
             System.out.println("Updated User Data!!"); //Testing - can be replaced with a confirmation message later...
             
             // ENTER DATA INTO DATABASE
