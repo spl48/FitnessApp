@@ -46,7 +46,7 @@ public class EditRawDataController extends WorkoutsNavigator {
         User currUser = dbManager.getUser(ApplicationManager.getCurrentUserName());
         activitySelect = RawDataController2.getActivitySelector();
         //setupTable();
-        //showActivity();
+        //refreshActivities();
 
 
 

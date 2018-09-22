@@ -1,25 +1,15 @@
 package seng202.team6.controller;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
-import javafx.util.Callback;
 import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.datahandling.FileDataLoader;
 import seng202.team6.models.Activity;
-import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,7 +17,7 @@ import java.util.ArrayList;
  * <h1>File Uploader GUI Controller</h1>
  * <p>Initialises and applies functionality to the File Upload screen allowing the user to upload Activities</p>
  */
-public class    ActivityUploaderController extends WorkoutsNavigator {
+public class  ActivityUploaderController extends WorkoutsNavigator {
 
     /**
      * Session/Activity type ?? Might actually be redundant since multiple activities in file.
@@ -62,6 +52,16 @@ public class    ActivityUploaderController extends WorkoutsNavigator {
      */
     private User currUser;
 
+    private Activity selectedActivity;
+
+
+    @FXML
+    private ChoiceBox typeSelect;
+
+    @FXML
+    private TextArea notesEditor;
+
+
     /**
      * Initialising the current user and the activity type drop down.
      * @throws SQLException Error when getting user from the database.
@@ -69,9 +69,10 @@ public class    ActivityUploaderController extends WorkoutsNavigator {
     @FXML
     void initialize() throws SQLException {
         currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername());
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
+        ObservableList<String> activityTypes = FXCollections.observableArrayList("Walking", "Running", "Biking", "Other");
+        typeSelect.setItems(activityTypes);
         setupTable();
-        showActivity();
+        refreshActivities();
     }
 
     private void setupTable() {
@@ -93,29 +94,31 @@ public class    ActivityUploaderController extends WorkoutsNavigator {
         activityTable.getItems().add(activity);
     }
 
-    public void showActivity() throws SQLException {
+    public void refreshActivities() throws SQLException {
         ArrayList<Activity> activities = dbManager.getActivities(ApplicationManager.getCurrentUserID());
         for ( int i = 0; i<activityTable.getItems().size(); i++) {
             activityTable.getItems().clear();
         }
 
         for (Activity activity : activities) {
-            System.out.println("Activity Name: " + activity.getDescription());
             addRecordToTable(activity);
         }
 
 
     }
 
-    public void editNotes(TableColumn.CellEditEvent editedCell) {
-        Activity activitySelected = (Activity) activityTable.getSelectionModel().getSelectedItem();
-
-        activitySelected.setNotes(editedCell.getNewValue().toString());
+    public void updateEditing() {
+        selectedActivity = (Activity) (activityTable.getSelectionModel().getSelectedItem());
+        typeSelect.getSelectionModel().select(selectedActivity.getType());
+        notesEditor.setText(selectedActivity.getNotes());
     }
 
-
-    public void uploadActivity() {
-
+    public void updateActivity() throws  SQLException {
+        System.out.println((String) typeSelect.getSelectionModel().getSelectedItem());
+        System.out.println(selectedActivity.getActivityid());
+        databaseManager.updateType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
+        databaseManager.updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
+        refreshActivities();
     }
 
 

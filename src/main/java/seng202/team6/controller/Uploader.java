@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.datahandling.FileDataLoader;
@@ -28,6 +30,7 @@ public class Uploader extends WorkoutsNavigator {
      * The current user which is signed in.
      */
     private User currUser;
+
 
     /**
      * Initialising the current user and the activity type drop down.
@@ -74,9 +77,10 @@ public class Uploader extends WorkoutsNavigator {
         if (filePath != null) {
             FileDataLoader loader = new FileDataLoader();
             loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
-            changeScreen(event, "/seng202/team6/view/WorkoutUpload.fxml");
+            changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml");
         } else {
             System.out.println("Nothing is selected!");
         }
+        //changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml");
     }
 }

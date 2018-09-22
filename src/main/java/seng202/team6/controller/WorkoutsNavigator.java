@@ -69,7 +69,7 @@ public class WorkoutsNavigator extends GUIUtilities {
      */
     @FXML
     public void toUploadWorkoutFile(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutUpload.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml");
     }
 
     @FXML
