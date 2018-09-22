@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
@@ -365,6 +366,7 @@ public class DatabaseManager implements DataLoader {
 
         return activity;
     }
+
 
     public Activity getActivity(int activityID) throws SQLException {
         // Checks the connection to the database.

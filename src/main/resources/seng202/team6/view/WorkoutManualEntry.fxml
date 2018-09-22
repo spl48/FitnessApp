@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.workoutManualEntryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.workoutManualEntryController">
    <top>
       <fx:include source="header.fxml" />
    </top>
@@ -96,7 +96,7 @@
                   </Label>
                   <ChoiceBox fx:id="sessionType_E" prefHeight="25.0" prefWidth="387.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="sessionName_E" GridPane.columnIndex="1" />
-                  <TextField fx:id="endTime_E" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="endTime_E" promptText="ie 13:58:55" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="maxHR_E" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="minHR_E" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <TextArea fx:id="notes_E" prefHeight="111.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.rowSpan="2">
@@ -109,7 +109,7 @@
                         <Font name="NexaBold" size="19.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="startTime_E" layoutX="230.0" layoutY="18.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="startTime_E" layoutX="230.0" layoutY="18.0" promptText="ie 13:58:55" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label layoutX="10.0" layoutY="52.0" text="Date" textFill="WHITE" GridPane.rowIndex="2">
                      <font>
                         <Font name="NexaBold" size="19.0" />

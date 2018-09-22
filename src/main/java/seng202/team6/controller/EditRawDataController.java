@@ -80,7 +80,7 @@ public class EditRawDataController extends WorkoutsNavigator {
     }
 
     public void showActivity() throws SQLException {
-        ArrayList<ActivityDataPoint> records = dbManager.getActivityRecords((int) activitySelect.getSelectionModel().getSelectedItem());
+        ArrayList<ActivityDataPoint> records = dbManager.getActivityRecords((int)activitySelect.getSelectionModel().getSelectedItem());
         for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
             rawDataTable.getItems().clear();
         }

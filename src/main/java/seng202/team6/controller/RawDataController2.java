@@ -6,6 +6,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -16,8 +17,14 @@ import javafx.scene.image.ImageView;
 import javax.activity.ActivityCompletedException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RawDataController2 extends WorkoutsNavigator{
+
+    private static String yearFilter = "2015";
+    private static String monthFilter = "All";
+    private static String dayFilter = "All";
+    private static String typeFilter = "All";
 
     @FXML
     private TableView rawDataTable;
@@ -46,9 +53,18 @@ public class RawDataController2 extends WorkoutsNavigator{
 
     public void initialize() throws SQLException {
         User currUser = dbManager.getUser(ApplicationManager.getCurrentUserName());
-        ObservableList<Integer> activityList = FXCollections.observableArrayList(dbManager.getActivityIDs(currUser.getUserID()));
+        ActivityManager activityManager = dbManager.getActivityManager();
+        HashMap<Integer, String> activities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+        ObservableList<Integer> activityList = FXCollections.observableArrayList(activities.keySet());
         activitySelect.setItems(activityList);
         setupTable();
+    }
+
+    public static void setFilters(String newDayFilter, String newMonthFilter, String  newYearFilter, String newTypeFilter) {
+        dayFilter = newDayFilter;
+        monthFilter = newMonthFilter;
+        yearFilter = newYearFilter;
+        typeFilter = newTypeFilter;
     }
 
     private TableColumn make_column(String name, String attributeName, int size) {
@@ -74,7 +90,9 @@ public class RawDataController2 extends WorkoutsNavigator{
     }
 
     public void showActivity() throws SQLException {
+        //ArrayList<ActivityDataPoint> records = dbManager.getActivityManager().getFilteredActivties((int) activitySelect.getSelectionModel().getSelectedItem());
         ArrayList<ActivityDataPoint> records = dbManager.getActivityRecords((int) activitySelect.getSelectionModel().getSelectedItem());
+
         for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
             rawDataTable.getItems().clear();
         }
@@ -99,6 +117,11 @@ public class RawDataController2 extends WorkoutsNavigator{
     @FXML
     public void filterActivities(Event event) {
         ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
+        ActivityManager activityManager = dbManager.getActivityManager();
+        HashMap<Integer, String> activities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+        System.out.println(yearFilter);
+        ObservableList<Integer> activityList = FXCollections.observableArrayList(activities.keySet());
+        activitySelect.setItems(activityList);
     }
 
     @FXML

@@ -54,11 +54,12 @@ public class FileDataLoader implements DataLoader {
                     activityStartDate = nextLine[0];
                     activityStartTime = nextLine[1];
                     start = convertToDateTimeFormat(activityStartDate, activityStartTime);
-                    String sqlprep1 = "INSERT INTO activity(userid,description,start) VALUES(?,?,?)";
+                    String sqlprep1 = "INSERT INTO activity(userid,description,start,workout) VALUES(?,?,?,?)";
                     PreparedStatement prep = databaseManager.getCon().prepareStatement(sqlprep1, Statement.RETURN_GENERATED_KEYS);
                     prep.setInt(1, userid);
                     prep.setString(2, activityDescription);
                     prep.setString(3, start);
+                    prep.setString(4, "Other");
                     prep.execute();
                     ResultSet generatedKeys = prep.getGeneratedKeys();
                     if(generatedKeys.next()){
@@ -85,11 +86,12 @@ public class FileDataLoader implements DataLoader {
                             activityStartDate = nextLine[0];
                             activityStartTime = nextLine[1];
                             start = convertToDateTimeFormat(activityStartDate, activityStartTime);
-                            String sqlprep1 = "INSERT INTO activity(userid,description,start) VALUES(?,?,?)";
+                            String sqlprep1 = "INSERT INTO activity(userid,description,start,workout) VALUES(?,?,?,?)";
                             PreparedStatement prep = databaseManager.getCon().prepareStatement(sqlprep1, Statement.RETURN_GENERATED_KEYS);
                             prep.setInt(1, userid);
                             prep.setString(2, activityDescription);
                             prep.setString(3, start);
+                            prep.setString(4, "Other");
                             prep.execute();
                             ResultSet generatedKeys = prep.getGeneratedKeys();
                             if(generatedKeys.next()){

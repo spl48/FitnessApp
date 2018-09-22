@@ -55,7 +55,7 @@ public class FilterBoxController extends ErrorBoxController {
     /**
      * List of activity types
      */
-    private ObservableList<String> activityTypes = FXCollections.observableArrayList("Walking", "Running", "Biking");
+    private ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking");
 
     /**
      * Activity Manager
@@ -72,14 +72,36 @@ public class FilterBoxController extends ErrorBoxController {
         activityManager = ApplicationManager.getDatabaseManager().getActivityManager();
 
         // Initialises the filtering drop down options.
-        ArrayList<Integer> years = activityManager.getPossibleYears();
-        ObservableList<Integer> yearOptions = FXCollections.observableArrayList(years);
+        ArrayList<String> years = activityManager.getPossibleYears();
+        ObservableList<String> yearOptions = FXCollections.observableArrayList(years);
         yearSelect.setItems(yearOptions);
+        yearSelect.getSelectionModel().select(yearOptions.get(0));
 
         monthSelect.setItems(monthChoices);
+        monthSelect.getSelectionModel().select(monthChoices.get(0));
         daySelect.setItems(dayChoices);
+        daySelect.getSelectionModel().select(dayChoices.get(0));
         typeSelect.setItems(activityTypes);
+        typeSelect.getSelectionModel().select(activityTypes.get(0));
 
+    }
+
+    @FXML
+    public void setRawDataFilters() {
+        String dayFilter = (String) daySelect.getSelectionModel().getSelectedItem();
+        String monthFilter = padMonth(Integer.toString(monthSelect.getSelectionModel().getSelectedIndex()));
+        String yearFilter = (String) yearSelect.getSelectionModel().getSelectedItem();
+        System.out.println(yearFilter);
+        String typeFilter = (String) typeSelect.getSelectionModel().getSelectedItem();
+        RawDataController2.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
+        closeWindow();
+    }
+
+    private String padMonth(String monthNum) {
+        if (monthNum.length() == 1) {
+            return "0" + monthNum;
+        }
+        return monthNum;
     }
     
 }

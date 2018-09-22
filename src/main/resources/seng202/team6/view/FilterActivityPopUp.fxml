@@ -16,7 +16,7 @@
    <bottom>
       <Pane prefHeight="103.0" prefWidth="398.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="158.0" layoutY="32.0" mnemonicParsing="false" onAction="#closeWindow" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="FILTER!" textFill="WHITE">
+            <Button layoutX="158.0" layoutY="32.0" mnemonicParsing="false" onAction="#setRawDataFilters" onMouseClicked="#setRawDataFilters" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="FILTER!" textFill="WHITE">
                <font>
                   <Font name="NexaBold" size="14.0" />
                </font>
