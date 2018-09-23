@@ -76,6 +76,18 @@ public class RawDataController extends WorkoutsNavigator{
     private Label dateLabel;
 
     /**
+     * The average velocity label.
+     */
+    @FXML
+    private Label velocityLabel;
+
+    /**
+     * The distance label.
+     */
+    @FXML
+    private Label distanceLabel;
+
+    /**
      * The list view which contains the activities to select from.
      */
     @FXML
@@ -117,6 +129,12 @@ public class RawDataController extends WorkoutsNavigator{
             setupTable();
         } else {
             activitySelect.setItems(FXCollections.observableArrayList("No Activities Available"));
+            descriptionLabel.setText("No Activity Selected");
+            velocityLabel.setText("No Activity Selected");
+            distanceLabel.setText("No Activity Selected");
+            dateLabel.setText("No Activity Selected");
+            typeLabel.setText("No Activity Selected");
+            notesLabel.setText("No Activity Selected");
             activitySelect.setMouseTransparent( true );
             activitySelect.setFocusTraversable( false );
         }
@@ -188,7 +206,10 @@ public class RawDataController extends WorkoutsNavigator{
         }
 
         Activity selectedActivity = dbManager.getActivity(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
+        selectedActivity.addAllActivityData(records);
         descriptionLabel.setText(selectedActivity.getDescription());
+        velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
+        distanceLabel.setText(Double.toString(Math.round(selectedActivity.findDistanceFromStart(records.size()-1))) + " km");
         dateLabel.setText(selectedActivity.getStartDate().toString());
         typeLabel.setText(selectedActivity.getType());
         notesLabel.setText(selectedActivity.getNotes());

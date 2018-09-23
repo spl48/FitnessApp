@@ -7,6 +7,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.lang.Math.acos;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 /**
  * This class implements Activity and sets the required information about an Activity
  * the User has done.
@@ -389,6 +393,18 @@ public class Activity
         this.activityData.add(activityData);
     }
 
+
+    /**
+     * A function that takes a parameter activity data point and adds activity data point
+     * to an ArrayList of ActivityDataPoint.
+     * @param activityData An ActivityDataPoint that is added into the ArrayList for the
+     * Activity Data Point
+     */
+    public void addAllActivityData(ArrayList<ActivityDataPoint> activityData)
+    {
+        this.activityData = activityData;
+    }
+
     /**
      * A function that returns an ArrayList of type ActivityDataPoint of the Activity.
      * @return Returns an ArrayList that represents the Activity data points.
@@ -396,6 +412,65 @@ public class Activity
     public ArrayList<ActivityDataPoint> getActivityData()
     {
         return activityData;
+    }
+
+
+    /**
+     * Converts a given angle in degrees, to radians
+     * @param degrees the angle in degrees
+     * @return a double representing the angle in radians
+     */
+    private static double deg2rad(double degrees) {
+        return (degrees * Math.PI / 180.0);
+    }
+
+    /** Finds the total distance covered from the start of an activity
+     * to a particular activity point at an index in that same activity
+     * and returns this as a double.
+     * @param index the index for the activity point the distance is being calculated up to.
+     * @return a double representing the distance covered
+     */
+    public double findDistanceFromStart(int index) {
+
+        double totalDistance = 0;
+        int currentIndex = 0;
+
+        ArrayList<ActivityDataPoint> dataPoints = getActivityData();
+        double currentLongitude;
+        double nextLongitude;
+        double currentLatitude;
+        double nextLatitude;
+
+        for (currentIndex = 0; currentIndex < index; currentIndex++) {
+            currentLongitude = dataPoints.get(currentIndex).getLongitude();
+            nextLongitude = dataPoints.get(currentIndex + 1).getLongitude();
+            currentLatitude = dataPoints.get(currentIndex).getLatitude();
+            nextLatitude = dataPoints.get(currentIndex + 1).getLatitude();
+
+            double theta = currentLongitude - nextLongitude;
+            double distance = sin(deg2rad(currentLatitude)) * sin(deg2rad(nextLatitude)) + cos(deg2rad(currentLatitude)) * cos(deg2rad(nextLatitude)) * cos(deg2rad(theta));
+            distance = acos(distance);
+            distance = (distance * 180 / Math.PI);
+            distance = distance * 60 * 1.1515;
+            distance = distance * 1.609344;
+            totalDistance += distance;
+
+        }
+
+        return totalDistance;
+    }
+
+    /**
+     * Calculates and returns the average speed
+     * of a users activity in km per hour.
+     * @return a double representing the activities average speed
+     */
+    public double findAverageSpeed() {
+        double activityTime = getTotalTime();
+        int activityLength = getActivityData().size();
+        double activityDistance = ActivityAnalysis.findDistanceFromStart(this , activityLength - 1);
+
+        return (activityDistance / (activityTime / 60));
     }
 }
 
