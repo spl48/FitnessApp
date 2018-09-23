@@ -284,6 +284,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         activityList.getSelectionModel().clearSelection();
         analysisGraph.getYAxis().setLabel("");
         analysisGraph.getXAxis().setLabel("");
+        currentSeriesTypes.clear();
+        seriesArrayList.clear();
     }
 
 }
