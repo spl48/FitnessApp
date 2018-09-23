@@ -92,6 +92,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         setupTable();
         refreshActivities();
         activityTable.getSelectionModel().select(0);
+        updateEditing();
     }
 
     
