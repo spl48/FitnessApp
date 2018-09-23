@@ -86,7 +86,8 @@ public class workoutManualEntryController extends GUIUtilities {
     public void createActivity(ActionEvent event) throws SQLException {
         setEnteredData();
         if (validEnteredData()) {
-            dbManager.addActivity(ApplicationManager.getCurrentUserID(), sessionName, startDateTime, endDateTime, sessionType, distance);
+            dbManager.addActivity(ApplicationManager.getCurrentUserID(), sessionName, startDateTime, endDateTime, sessionType, distance, notes);
+            ApplicationManager.displayPopUp("Entry Successful", "The activity was successfully loaded into the database!", "confirmation");
             toWorkOutScreen(event);
             //Enter into database
         }
