@@ -305,17 +305,31 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * Opens filter pop up screen
      */
     public void toFilter() {
-        ApplicationManager.displayPopUp("Filter activities", "Soon to be implemented in the next update!" +
-                "\nWatch the patch notes for more information.", "notification");
-//        if (activities.size() >= 1) {
-//            ApplicationManager.displayPopUp("test", "test", "filter");
-//            ActivityManager activityManager = databaseManager.getActivityManager();
-//            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
-//            ObservableList<String> activites = FXCollections.observableArrayList(filteredActivities.keySet());
-//            activityList.setItems(activites);
-//        } else {
-//            ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
-//        }
+//        ApplicationManager.displayPopUp("Filter activities", "Soon to be implemented in the next update!" +
+//                "\nWatch the patch notes for more information.", "notification");
+        if (activities.size() >= 1) {
+            ApplicationManager.displayPopUp("test", "test", "filter");
+            ActivityManager activityManager = databaseManager.getActivityManager();
+            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+            ObservableList<String> activites = FXCollections.observableArrayList(filteredActivities.keySet());
+            activityList.setItems(activites);
+        } else {
+            ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
+        }
+    }
+
+    /**
+     * Sets the filter values.
+     * @param newDayFilter The day filter value.
+     * @param newMonthFilter The month filter value.
+     * @param newYearFilter The year filter value.
+     * @param newTypeFilter The type filter value.
+     */
+    public static void setFilters(String newDayFilter, String newMonthFilter, String  newYearFilter, String newTypeFilter) {
+        dayFilter = newDayFilter;
+        monthFilter = newMonthFilter;
+        yearFilter = newYearFilter;
+        typeFilter = newTypeFilter;
     }
 
     /**
