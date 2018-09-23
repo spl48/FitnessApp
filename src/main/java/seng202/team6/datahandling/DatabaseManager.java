@@ -258,11 +258,11 @@ public class DatabaseManager implements DataLoader {
         ResultSet res = state.executeQuery("DELETE FROM user WHERE username = " + username);
     }
 
-    public void addActivity(int userid, String description, String start, String end, String workout, double distance) throws SQLException {
+    public void addActivity(int userid, String description, String start, String end, String workout, double distance, String notes) throws SQLException {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO activity(userid,description,start,end,distance,workout) VALUES(?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO activity(userid,description,start,end,distance,workout,notes) VALUES(?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setInt(1, userid);
         prep.setString(2, description);
@@ -270,6 +270,7 @@ public class DatabaseManager implements DataLoader {
         prep.setString(4, end);
         prep.setDouble(5, distance);
         prep.setString(6, workout);
+        prep.setString(7, notes);
         prep.execute();
     }
     public ArrayList<Integer> getActivityIDs(int userid) throws SQLException {
