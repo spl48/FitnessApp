@@ -8,8 +8,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import seng202.team6.analysis.ActivityAnalysis;
+import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -18,17 +21,47 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class WorkoutAnalysisController extends WorkoutsNavigator {
 
+    /**
+     * The Application database manager.
+     */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+
+    /**
+     * The year filter value.
+     */
+    private static String yearFilter = "All";
+
+    /**
+     * The month filter value.
+     */
+    private static String monthFilter = "All";
+
+    /**
+     * The day filter value.
+     */
+    private static String dayFilter = "All";
+
+    /**
+     * The type filter value.
+     */
+    private static String typeFilter = "All";
 
     /**
      * ListView of activities
      */
     @FXML
     private ListView<String> activityList;
+
+    /**
+     * Opens filter pop up box
+     */
+    @FXML
+    private Button filterButton;
 
     /**
      * x axis of graph
@@ -51,12 +84,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * Array that stores the Activity's that are currently being displayed in the graph
      */
     private ArrayList<Activity> currentSeriesTypes = new ArrayList();
-
-    /**
-     * Button that opens popup to filter the Activities that show in activityList
-     */
-    @FXML
-    private Button filterButton;
 
     /**
      * A string of the current data type being displayed on the graph. E.g "Heart rate", "Distance", etc.
@@ -95,11 +122,19 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private int graphCount = 0;
 
     /**
+     * The filtered list of activities.
+     */
+    HashMap<String, Integer> filteredActivities;
+
+
+
+    /**
      * Initializes chart to display latest activity.
      * @throws SQLException
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
+
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
@@ -230,11 +265,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         //defining a series
         XYChart.Series series = new XYChart.Series();
         String activityType = activityTypeSelection.getSelectionModel().getSelectedItem();
-        series.setName(selectedActivity.getDescription() + selectedActivity.getStartTime());
+        series.setName(selectedActivity.getStartDate() + " " + selectedActivity.getDescription());
         ActivityAnalysis activityAnalysis = new ActivityAnalysis();
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
             Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
             double time = duration.toMillis() / 60000.0;
+            //System.out.printf();
             //time = time / 10;
             switch (activityType) {
                 case ("Heart Rate"):
@@ -269,11 +305,17 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * Opens filter pop up screen
      */
     public void toFilter() {
-        if (activities.size() >= 1) {
-            ApplicationManager.displayPopUp("test", "test", "filter");
-        } else {
-            ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
-        }
+        ApplicationManager.displayPopUp("Filter activities", "Soon to be implemented in the next update!" +
+                "\nWatch the patch notes for more information.", "notification");
+//        if (activities.size() >= 1) {
+//            ApplicationManager.displayPopUp("test", "test", "filter");
+//            ActivityManager activityManager = databaseManager.getActivityManager();
+//            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+//            ObservableList<String> activites = FXCollections.observableArrayList(filteredActivities.keySet());
+//            activityList.setItems(activites);
+//        } else {
+//            ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
+//        }
     }
 
     /**
@@ -282,7 +324,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     private void removeData(Activity selectedActivity) {
         for (int i = 0; i < currentSeriesTypes.size(); i++) {
-            if ((seriesArrayList.get(i).getName()).equals((selectedActivity.getDescription() + selectedActivity.getStartTime()))) {
+            if ((seriesArrayList.get(i).getName()).equals(selectedActivity.getStartDate() + " " + selectedActivity.getDescription())) {
                 analysisGraph.getData().remove(seriesArrayList.get(i));
                 currentSeriesTypes.remove(selectedActivity);
                 seriesArrayList.remove(seriesArrayList.get(i));
