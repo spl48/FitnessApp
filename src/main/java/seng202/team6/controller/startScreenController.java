@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import seng202.team6.datahandling.DatabaseManager;
+
+import java.sql.SQLException;
 
 /**
  * <h1>Start Screen Controller</h1>
@@ -22,8 +25,13 @@ public class startScreenController extends GUIUtilities {
      * @param event When the login button is clicked.
      */
     @FXML
-    public void toLoginScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/loginScreen.fxml");
+    public void toLoginScreen(ActionEvent event) throws SQLException, ClassNotFoundException {
+        DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+        if (databaseManager.getUsernames().size() > 0) {
+            changeScreen(event, "/seng202/team6/view/loginScreen.fxml");
+        } else {
+            ApplicationManager.displayPopUp("No Users", "It seems like there are no users in the database\nPlease register first.", "error");
+        }
     }
 
     /**
