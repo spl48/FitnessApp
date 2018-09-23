@@ -30,8 +30,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private ListView<String> activityList;
 
+    /**
+     * x axis of graph
+     */
     @FXML
     private NumberAxis xAxis;
+
     /**
      * y axis of graph
      */
@@ -66,19 +70,18 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private ChoiceBox<String> activityTypeSelection;
 
     /**
-     * Populates the year listView with the yearSet data, month combobox with all months in year, and day combobox with all days in the month
-     */
-
-    /**
      * Array that has all the activities the user can select to display on the graph
      */
     private ArrayList<Activity> activities = new ArrayList();
-    /**
-     * Initializes chart to display latest activity.
-     * @throws SQLException
-     */
 
+    /**
+     * Array list of current series being displayed on the plot area.
+     */
     private ArrayList<XYChart.Series> seriesArrayList = new ArrayList();
+
+    /**
+     * Tracks the index of the last selected activity in the listView.
+     */
     private int selectionIndex;
 
     /**
@@ -86,9 +89,15 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     ObservableList<String> dataChoices = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
 
-
+    /**
+     * A count of the number of graphs being displayed on the plot area.
+     */
     private int graphCount = 0;
 
+    /**
+     * Initializes chart to display latest activity.
+     * @throws SQLException
+     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
         activityTypeSelection.setItems(dataChoices);
@@ -110,19 +119,13 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             while (node != null && node != activityList && !(node instanceof ListCell)) {
                 node = node.getParent();
             }
-                // if is part of a cell or the cell,
-                // handle event instead of using standard handling
         if (node instanceof ListCell) {
             // prevent further handling
             event.consume();
-
-
             ListCell cell = (ListCell) node;
             ListView lv = cell.getListView();
-
             // focus the listview
             lv.requestFocus();
-
             if (!cell.isEmpty()) {
                 // handle selection for non-empty cells
                 int index = cell.getIndex();
@@ -139,7 +142,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
     }
 
-
+    /**
+     * Upon selection, decides whether plot area is empty or has at least one graph.
+     * Calls function accordingly.
+     * @throws SQLException
+     */
     @FXML
     private void graphHandler() throws SQLException {
         if (graphCount == 0) {
@@ -258,6 +265,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         seriesArrayList.add(series);
     }
 
+    /**
+     * Opens filter pop up screen
+     */
     public void toFilter() {
         if (activities.size() >= 1) {
             ApplicationManager.displayPopUp("test", "test", "filter");
@@ -266,9 +276,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
     }
 
+    /**
+     * Removes the selected activity from the plot area
+     * @param selectedActivity
+     */
     private void removeData(Activity selectedActivity) {
         for (int i = 0; i < currentSeriesTypes.size(); i++) {
-
             if ((seriesArrayList.get(i).getName()).equals((selectedActivity.getDescription() + selectedActivity.getStartTime()))) {
                 analysisGraph.getData().remove(seriesArrayList.get(i));
                 currentSeriesTypes.remove(selectedActivity);
@@ -277,6 +290,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
     }
 
+    /**
+     * Clears the plot area and deselects all the currently selected activities from the listView.
+     */
     @FXML
     private void clearGraph() {
         analysisGraph.getData().clear();
