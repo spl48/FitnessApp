@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MapsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MapsController">
     <top>
         <fx:include source="header.fxml" />
     </top>
@@ -57,13 +57,13 @@
                             </font>
                         </Label>
                         <ChoiceBox fx:id="activitySelection" layoutX="24.0" layoutY="73.0" prefHeight="46.0" prefWidth="332.0" style="-fx-background-color: white;" />
-                  <Button fx:id="showMapButton" layoutX="135.0" layoutY="139.0" mnemonicParsing="false" onAction="#initMap" text="Show Map" />
+                        <Button fx:id="showMapButton" layoutX="135.0" layoutY="139.0" mnemonicParsing="false" onAction="#initMap" text="Show me map pls" />
                     </children>
                 </AnchorPane>
             </left>
-         <center>
-            <WebView fx:id="mapWebView" prefHeight="396.0" prefWidth="640.0" BorderPane.alignment="CENTER" />
-         </center>
+            <center>
+                <WebView fx:id="mapWebView" prefHeight="396.0" prefWidth="748.0" BorderPane.alignment="CENTER" />
+            </center>
         </BorderPane>
     </center>
 </BorderPane>
