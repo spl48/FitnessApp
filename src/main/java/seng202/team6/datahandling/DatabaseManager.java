@@ -354,20 +354,27 @@ public class DatabaseManager implements DataLoader {
 
         // Gets data from the database.
         while(recordData.next()) {
-            int id = recordData.getInt("activityid");
-            String dateTime = recordData.getString("datetime");
-            Integer heartRate = recordData.getInt("heartrate");
-            Double latitude = recordData.getDouble("latitude");
-            Double longitude = recordData.getDouble("longitude");
-            Double elevation = recordData.getDouble("elevation");
-            LocalTime time = LocalTime.NOON;
-
-            ActivityDataPoint record = new ActivityDataPoint(time, heartRate, latitude, longitude, elevation);
+            ActivityDataPoint record = extractRecord(recordData);
             records.add(record);
         }
 
         // Creates a User model using database data.
         return records;
+    }
+
+    public ActivityDataPoint extractRecord(ResultSet res) throws SQLException {
+
+        String datetime = res.getString("datetime");
+        String[] parts = datetime.split("T");
+        String recordTime = parts[1];
+        LocalTime localStartTime = DataHandlerUtilities.parseTime(recordTime);
+        int heartRate = res.getInt("heartrate");
+        Double latitude = res.getDouble("latitude");
+        Double longitude = res.getDouble("longitude");
+        Double elevation = res.getDouble("elevation");
+
+        ActivityDataPoint dataPoint = new ActivityDataPoint(localStartTime, heartRate, latitude, longitude, elevation);
+        return dataPoint;
     }
 
     public String getActivityDescription(int activityID) throws SQLException {
