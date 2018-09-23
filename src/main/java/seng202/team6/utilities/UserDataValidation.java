@@ -83,7 +83,7 @@ public class UserDataValidation {
             }
 
             if (count > 0) {
-                errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
+                popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
             } else {
                 System.out.println(nameType + " OK");
                 valid = true;
