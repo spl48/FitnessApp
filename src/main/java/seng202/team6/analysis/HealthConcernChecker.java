@@ -20,7 +20,6 @@ public class HealthConcernChecker {
      * @return A boolean expression for if a user is at risk for Tachycardia.
      */
     public static boolean checkTachycardia(ArrayList<Activity> activities, int age) {
-
         if (age < 8) {
             return checkTachycardiaThreshold(133, activities);
         } else if (age < 12) {
@@ -45,7 +44,7 @@ public class HealthConcernChecker {
     private static boolean checkTachycardiaThreshold(int heartRateThreshold, ArrayList<Activity> activities) {
         for(Activity activity : activities) {
             double maxHeartRate = ActivityAnalysis.findMaximumHeartRate(activity);
-            if (activity.getType() == "Walking" && maxHeartRate >= heartRateThreshold) { // User is at risk for Tachycardia
+            if (activity.getType().equals("Walking") && maxHeartRate >= heartRateThreshold) { // User is at risk for Tachycardia
                 return true;
             }
         }
@@ -85,7 +84,7 @@ public class HealthConcernChecker {
     private static boolean determineBradycardiaOutcome (double heartRateThreshold, ArrayList<Activity> activities) {
         for (Activity activity : activities) {
             double minimumHeartRate = ActivityAnalysis.findMinimumHeartRate(activity);
-            if (activity.getType() == "Walking" && minimumHeartRate < heartRateThreshold) { // User is at risk for Bradycardia
+            if (activity.getType().equals("Walking") && minimumHeartRate < heartRateThreshold) { // User is at risk for Bradycardia
                 return true;
             }
         }
@@ -106,7 +105,7 @@ public class HealthConcernChecker {
         if (age >= 18) { // User is an adult
             for (Activity activity : activities) {
                 double maximumHeartRate = ActivityAnalysis.findMaximumHeartRate(activity);
-                if (activity.getType() == "Walking" && maximumHeartRate > 83) { // User is at risk for Cardiovascular mortality
+                if (activity.getType().equals("Walking") && maximumHeartRate > 83) { // User is at risk for Cardiovascular mortality
                     return true;
                 }
             }
