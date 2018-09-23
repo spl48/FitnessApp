@@ -137,7 +137,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities) { // Add all activities to available activities initially
             availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());

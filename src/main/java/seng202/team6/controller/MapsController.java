@@ -51,7 +51,7 @@ public class MapsController extends WorkoutsNavigator {
      */
     @FXML
     public void initialize() throws SQLException {
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
         if (activities.size() >= 1) {
             ObservableList<String> availableActivities = FXCollections.observableArrayList();
             for (Activity activity : activities){

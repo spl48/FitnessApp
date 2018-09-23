@@ -83,7 +83,7 @@ public class HealthController extends GUIUtilities{
         String userName = ApplicationManager.getCurrentUsername();
         User user = databaseManager.getUser(userName);
         age = user.getAge();
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
 
     }
 
