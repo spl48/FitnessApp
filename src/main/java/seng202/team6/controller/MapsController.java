@@ -63,6 +63,7 @@ public class MapsController extends WorkoutsNavigator {
 
         webEngine = mapWebView.getEngine();
         webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
+
     }
 
     /**
@@ -103,6 +104,11 @@ public class MapsController extends WorkoutsNavigator {
      */
     private void displayRoute(Route newRoute) {
         String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
-        webEngine.executeScript(scriptToExecute);
+        try {
+            webEngine.executeScript(scriptToExecute);
+        } catch(netscape.javascript.JSException e) {
+        e.printStackTrace();
+        ApplicationManager.displayPopUp("RUH ROH", "You need an internet connection to use the maps feature","error");
+        }
     }
 }
