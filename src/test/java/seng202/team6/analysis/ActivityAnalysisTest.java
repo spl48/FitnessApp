@@ -221,4 +221,65 @@ public class ActivityAnalysisTest extends TestCase {
 
 
     }
+
+    public void testGetActivityTypeFromDescription() {
+        LocalDate testDate = LocalDate.of(2018, 10, 9);
+        LocalTime testTime = LocalTime.of(5, 30);
+
+
+
+        testActivity = new Activity(12345, "Running", "Run around the block", testDate, testDate, testTime, testTime);
+        assertEquals("Running", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Running", "RUNNING IN THE CITY", testDate, testDate, testTime, testTime);
+        assertEquals("Running", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Running", "jog", testDate, testDate, testTime, testTime);
+        assertEquals("Running", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getType()));
+
+        testActivity = new Activity(12345, "Running", "joGGinG in the park", testDate, testDate, testTime, testTime);
+        assertEquals("Running", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getType()));
+
+
+
+        testActivity = new Activity(12345, "Cycling", "small BIKE ride", testDate, testDate, testTime, testTime);
+        assertEquals("Cycling", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Cycling", "biking with friends", testDate, testDate, testTime, testTime);
+        assertEquals("Cycling", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Cycling", "out cyclInG", testDate, testDate, testTime, testTime);
+        assertEquals("Cycling", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Cycling", "   cycle   ", testDate, testDate, testTime, testTime);
+        assertEquals("Cycling", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+
+
+        testActivity = new Activity(12345, "Walking", "  dog walking", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Walking", "WALK WITH FRIENDS", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Walking", "hIkE in the woods", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Walking", "  hiking", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+
+
+        testActivity = new Activity(12345, "Other", "  ", testDate, testDate, testTime, testTime);
+        assertEquals("Other", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Other", "w alk", testDate, testDate, testTime, testTime);
+        assertEquals("Other", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Other", "walkingwithfriends", testDate, testDate, testTime, testTime);
+        assertEquals("Other", ActivityAnalysis.getActivityTypeFromDescription(testActivity.getDescription()));
+
+
+    }
+
 }
