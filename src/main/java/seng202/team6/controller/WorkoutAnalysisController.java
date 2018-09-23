@@ -8,6 +8,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.datahandling.ActivityManager;
@@ -78,12 +80,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private ArrayList<Activity> currentSeriesTypes = new ArrayList();
 
     /**
-     * Button that opens popup to filter the Activities that show in activityList
-     */
-    @FXML
-    private Button filterButton;
-
-    /**
      * A string of the current data type being displayed on the graph. E.g "Heart rate", "Distance", etc.
      */
     private String curSeriesType;
@@ -132,6 +128,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
+
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
@@ -267,6 +264,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
             Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
             double time = duration.toMillis() / 60000.0;
+            //System.out.printf();
             //time = time / 10;
             switch (activityType) {
                 case ("Heart Rate"):
