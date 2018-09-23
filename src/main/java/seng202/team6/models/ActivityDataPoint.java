@@ -205,15 +205,4 @@ public class ActivityDataPoint {
         return elevation;
     }
 
-
-    public void printRecord() {
-        System.out.println("-----------------------------------------");
-        System.out.println("ACTIVITY RECORD");
-        System.out.println("-----------------------------------------");
-        System.out.println("Time: " + time.toString());
-        System.out.println("Heart Rate: " + heartRate);
-        System.out.println("Latitude: " + latitude);
-        System.out.println("Longitude" + longitude);
-        System.out.println("Elevation: " + elevation);
-    }
 }
