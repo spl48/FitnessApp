@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ActivityManager extends DatabaseManager {
+public class ActivityManager {
 
     private Connection connection;
 
