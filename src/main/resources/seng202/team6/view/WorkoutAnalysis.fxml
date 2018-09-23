@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -28,120 +27,114 @@
             <BorderPane.margin>
                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
             </BorderPane.margin>
-         <right>
-            <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="492.0" prefWidth="300.0">
-               <BorderPane.margin>
-                  <Insets bottom="20.0" right="17.0" top="10.0" />
-               </BorderPane.margin>
-            </ListView>
-         </right>
-         <center>
-            <GridPane prefHeight="586.0" prefWidth="775.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="900.0" minWidth="10.0" prefWidth="50.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="482.0" minHeight="10.0" prefHeight="411.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="11.0" GridPane.rowIndex="1">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/pics/panelanalysis.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/pics/panelanalysis.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/pics/panelanalysis.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets bottom="38.0" left="17.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <LineChart fx:id="analysisGraph" maxWidth="800.0">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxis" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="WHITE" />
-                    </yAxis>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets bottom="20.0" />
-                     </padding>
-                  </LineChart>
-               </children>
-            </GridPane>
-         </center>
-         <top>
-            <GridPane alignment="CENTER" prefHeight="100.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label prefHeight="116.0" prefWidth="407.0" text="WORKOUT ANALYSIS" textFill="WHITE" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <font>
-                        <Font name="NexaBold" size="30.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="150.0" fitWidth="30.0" onMouseClicked="#toWorkoutsScreen" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/pics/back2.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets left="30.0" />
-                     </GridPane.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></ImageView>
-                  <GridPane GridPane.columnIndex="2">
+            <right>
+                <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="492.0" prefWidth="300.0">
+                    <BorderPane.margin>
+                        <Insets bottom="20.0" right="17.0" top="10.0" />
+                    </BorderPane.margin>
+                </ListView>
+            </right>
+            <center>
+                <GridPane prefHeight="586.0" prefWidth="775.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="900.0" minWidth="10.0" prefWidth="50.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="482.0" minHeight="10.0" prefHeight="411.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                     <children>
-                        <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefWidth="127.0" GridPane.valignment="BOTTOM" />
-                        <ImageView fitHeight="150.0" fitWidth="32.0" onMouseClicked="#toFilter" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                           <image>
-                              <Image url="@../resources/pics/filter2.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets right="20.0" />
-                           </GridPane.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-               </children>
-            </GridPane>
-         </top>
+                    <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="11.0" GridPane.rowIndex="1">
+                            <children>
+                                <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../resources/pics/panelanalysis.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../resources/pics/panelanalysis.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../resources/pics/panelanalysis.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                            <padding>
+                                <Insets bottom="38.0" left="17.0" right="10.0" top="10.0" />
+                            </padding>
+                        </HBox>
+                        <LineChart fx:id="analysisGraph" maxWidth="800.0">
+                            <xAxis>
+                                <NumberAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxis" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="WHITE" />
+                            </yAxis>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                            <padding>
+                                <Insets bottom="20.0" />
+                            </padding>
+                        </LineChart>
+                    </children>
+                </GridPane>
+            </center>
+            <top>
+                <GridPane alignment="CENTER" prefHeight="100.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label prefHeight="116.0" prefWidth="407.0" text="WORKOUT ANALYSIS" textFill="WHITE" GridPane.columnIndex="1">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                            <font>
+                                <Font name="NexaBold" size="30.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="150.0" fitWidth="30.0" onMouseClicked="#toWorkoutsScreen" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../resources/pics/back2.png" />
+                            </image>
+                            <GridPane.margin>
+                                <Insets left="30.0" />
+                            </GridPane.margin></ImageView>
+                        <GridPane GridPane.columnIndex="2">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefWidth="127.0" GridPane.valignment="BOTTOM" />
+                                <ImageView fitHeight="150.0" fitWidth="32.0" onMouseClicked="#toFilter" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                                    <image>
+                                        <Image url="@../resources/pics/filter2.png" />
+                                    </image>
+                                    <GridPane.margin>
+                                        <Insets right="20.0" />
+                                    </GridPane.margin>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                    </children>
+                </GridPane>
+            </top>
         </BorderPane>
     </center>
 </BorderPane>

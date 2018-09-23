@@ -3,6 +3,12 @@ package seng202.team6.utilities;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 public class GeneralUtilities {
 
@@ -24,5 +30,44 @@ public class GeneralUtilities {
     public static void writeToErrorFile(Exception e) {
         String errorToWrite = e.toString();
 
+    }
+
+    public static boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate);
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidTime(String inTime) {
+        //SimpleDateFormat dateFormat = new DateTimeFormatter("dd/MM/yyyy");
+        DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
+                .withResolverStyle(ResolverStyle.STRICT);
+        try {
+            LocalTime.parse(inTime, strictTimeFormatter);
+        } catch (DateTimeParseException pe) {
+            return false;
+        }
+        return true;
+    }
+    public static boolean isValidInt(String inInt) {
+        try {
+            Integer.parseInt(inInt);
+        } catch (NumberFormatException pe) {
+            return false;
+        }
+        return true;
+    }
+    public static boolean isValidDouble(String inDouble) {
+        try {
+            Double.parseDouble(inDouble);
+        } catch (NumberFormatException pe) {
+            return false;
+        }
+        return true;
     }
 }
