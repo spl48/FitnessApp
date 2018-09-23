@@ -38,9 +38,9 @@
          <right>
             <Pane prefHeight="512.0" prefWidth="410.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="tachycardiaText" layoutX="41.0" layoutY="73.0" text="hi" />
-                  <Text fx:id="bradycardiaText" layoutX="41.0" layoutY="224.0" text="hi" />
-                  <Text fx:id="cardioVascularText" layoutX="41.0" layoutY="390.0" text="hi" />
+                  <Text fx:id="tachycardiaText" layoutX="41.0" layoutY="73.0"/>
+                  <Text fx:id="bradycardiaText" layoutX="41.0" layoutY="224.0"/>
+                  <Text fx:id="cardioVascularText" layoutX="41.0" layoutY="390.0" />
                   <Button fx:id="tachycardiaButton" layoutX="301.0" layoutY="49.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toTachycardiaWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
                   <Button fx:id="bradycardiaButton" layoutX="301.0" layoutY="215.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toBradycardiaWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
                   <Button fx:id="cardiovascularButton" layoutX="310.0" layoutY="373.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toCardiovascularWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
