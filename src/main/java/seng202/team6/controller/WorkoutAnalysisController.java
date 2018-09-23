@@ -58,6 +58,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private ListView<String> activityList;
 
     /**
+     * Opens filter pop up box
+     */
+    @FXML
+    private Button filterButton;
+
+    /**
      * x axis of graph
      */
     @FXML
