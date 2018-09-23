@@ -78,11 +78,11 @@ public class DatabaseValidation {
         else{
             double longitude = Double.parseDouble(inLongitude);
             if(!(longitude >= -180 && longitude <= 180)){
-                return true;
-            }
-            else{
                 System.out.println("Invalid longitude detected! Longitude out of range.");
                 return false;
+            }
+            else{
+                return true;
             }
         }
 
@@ -96,11 +96,11 @@ public class DatabaseValidation {
         else{
             double latitude = Double.parseDouble(inLatitude);
             if(!(latitude >= -90 && latitude <= 90)){
-                return true;
-            }
-            else{
                 System.out.println("Invalid latitude detected! Latitude out of range.");
                 return false;
+            }
+            else{
+                return true;
             }
         }
     }
@@ -110,13 +110,13 @@ public class DatabaseValidation {
             return false;
         }
         else{
-            double heartRate = Double.parseDouble(inHeartRate);
+            int heartRate = Integer.parseInt(inHeartRate);
             if(!(heartRate >= 0 && heartRate <= 400)){
-                return true;
-            }
-            else{
                 System.out.println("Invalid heart rate detected! Heart rate out of range.");
                 return false;
+            }
+            else{
+                return true;
             }
         }
     }
@@ -129,11 +129,11 @@ public class DatabaseValidation {
         else{
             double elevation = Double.parseDouble(inElevation);
             if(!(elevation >= -420 && elevation <= 9000)){
-                return true;
-            }
-            else{
                 System.out.println("Invalid elevation detected! Elevation out of range.");
                 return false;
+            }
+            else{
+                return true;
             }
         }
     }
