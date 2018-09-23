@@ -1,13 +1,10 @@
 package seng202.team6.utilities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
 import seng202.team6.controller.ApplicationManager;
-import seng202.team6.controller.ErrorBoxController;
+import seng202.team6.controller.PopUpBoxController;
 
 public class UserDataValidation {
 
@@ -37,7 +34,7 @@ public class UserDataValidation {
      */
     private static final int MIN_AGE = 5;
 
-    private static ErrorBoxController errorBoxController = new ErrorBoxController();
+    private static PopUpBoxController popUpBoxController = new PopUpBoxController();
 
     public static boolean isAlpha(String string) {
 
@@ -55,9 +52,9 @@ public class UserDataValidation {
     public static boolean validateUserName(String username) {
         boolean valid = false;
         if (username.length() == 0) {
-            errorBoxController.displayErrorPopUP("Username Entry Invalid", "Please provide a username.", "error");
+            popUpBoxController.displayErrorPopUP("Username Entry Invalid", "Please provide a username.", "error");
         } else if (username.length() > MAX_USERNAME_LENGTH) {
-            errorBoxController.displayErrorPopUP("Username Entry Invalid", "Username too long\nPlease ensure username is less than " + MAX_USERNAME_LENGTH + " characters.", "error");
+            popUpBoxController.displayErrorPopUP("Username Entry Invalid", "Username too long\nPlease ensure username is less than " + MAX_USERNAME_LENGTH + " characters.", "error");
         } else {
             valid = true;
             System.out.println("Username OK");
@@ -69,9 +66,9 @@ public class UserDataValidation {
         boolean valid = false;
         String errorTitle = nameType + " Entry Invalid";
         if (name.length() < MIN_NAME_LENGTH) {
-            errorBoxController.displayErrorPopUP(errorTitle, nameType + " is too short.\nPlease ensure " + nameType + " is more than 2 characters.", "error");
+            popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is too short.\nPlease ensure " + nameType + " is more than 2 characters.", "error");
         } else if (name.length() > MAX_NAME_LENGTH) {
-            errorBoxController.displayErrorPopUP(errorTitle, nameType + " is too long.\nPlease ensure " + nameType + " is less than 10 characters.", "error");
+            popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is too long.\nPlease ensure " + nameType + " is less than 10 characters.", "error");
         } else if (isAlpha(name)) {
             System.out.println(nameType + " OK");
             valid = true;
@@ -83,10 +80,10 @@ public class UserDataValidation {
                 System.out.println(nameType + " OK");
                 valid = true;
             } else {
-                errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
+                popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
             }
         } else if (!isAlpha(name)) {
-            errorBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
+            popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is of invalid type.", "error");
         }
         return valid;
     }
@@ -96,7 +93,7 @@ public class UserDataValidation {
         String errorTitle = valueName + " Entry Invalid";
         if (value > upper || value < lower) {
             String errorMessage = valueName + " is not in range.\nPlease ensure " + valueName + " is in the range " + lower + " to " + upper;
-            errorBoxController.displayErrorPopUP(errorTitle, errorMessage, "error");
+            popUpBoxController.displayErrorPopUP(errorTitle, errorMessage, "error");
         } else {
             System.out.println(valueName + " OK");
             valid = true;
@@ -107,13 +104,13 @@ public class UserDataValidation {
     public static boolean validateBirthDate(LocalDate dob) {
        boolean valid = false;
        if (dob == null) {
-           errorBoxController.displayErrorPopUP("Invalid Date of Birth", "Please provide a date of birth.", "error");
+           popUpBoxController.displayErrorPopUP("Invalid Date of Birth", "Please provide a date of birth.", "error");
            return false;
        }
        int birthYear = dob.getYear();
        int currYear = Calendar.getInstance().get(Calendar.YEAR);
        if (birthYear > currYear - 5 || birthYear < currYear - 100) {
-           errorBoxController.displayErrorPopUP("Invalid Date of Birth", "Year out of range.", "error");
+           popUpBoxController.displayErrorPopUP("Invalid Date of Birth", "Year out of range.", "error");
        } else {
            System.out.println("Birthdate OK");
            valid = true;
@@ -124,7 +121,7 @@ public class UserDataValidation {
     public static boolean validateGender(String gender) {
         boolean valid = false;
         if (gender == "") {
-            errorBoxController.displayErrorPopUP("Empty Gender Field", "Please provide a gender.", "error");
+            popUpBoxController.displayErrorPopUP("Empty Gender Field", "Please provide a gender.", "error");
         } else if (!(gender == "Female" || gender == "Male")) {
             ApplicationManager.displayPopUp("Incorrect Gender", "Please make sure the gender is valid!", "error");
         } else {
@@ -137,7 +134,7 @@ public class UserDataValidation {
     public static boolean validUserProfile(String userProfile) {
         boolean valid = false;
         if (userProfile == null) {
-            errorBoxController.displayErrorPopUP("Error", "Please select a profile", "error");
+            popUpBoxController.displayErrorPopUP("Error", "Please select a profile", "error");
         } else {
             System.out.println("Profile OK");
             valid = true;

@@ -47,13 +47,13 @@ public class ActivityManager {
         return value;
     }
 
-    public HashMap<Integer, String> getFilteredActivties(String year, String month, String day, String type) {
+    public HashMap<String, Integer> getFilteredActivties(String year, String month, String day, String type) {
         year = setPossibleWildCard(year);
         month = setPossibleWildCard(month);
         day = setPossibleWildCard(day);
         type = setPossibleWildCard(type);
 
-        HashMap<Integer, String> filteredActivities = new HashMap<Integer, String>();
+        HashMap<String, Integer> filteredActivities = new HashMap<String, Integer>();
 
         try {
             Statement state = connection.createStatement();
@@ -72,7 +72,7 @@ public class ActivityManager {
                 int activityid = filteredActivityResult.getInt("activityid");
 
 
-                filteredActivities.put(activityid, activityDescription);
+                filteredActivities.put(activityDescription, activityid);
 
             }
 

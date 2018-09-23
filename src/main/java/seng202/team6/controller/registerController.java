@@ -99,9 +99,15 @@ public class registerController extends GUIUtilities {
             ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
         }
         else if (validEnteredData()) {
-            ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
-            databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
-            toStartScreen(event);
+            try {
+                databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
+                ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
+                toStartScreen(event);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                ApplicationManager.displayPopUp(e.getClass().getSimpleName(), e.getMessage(), "error");
+            }
+
         }
     }
 

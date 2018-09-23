@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class GeneralUtilities {
 
 
-    // Code for internet for testing the database output. Note: temporary
+    // Code for internet for testing the database output. Note: TEMPORARY
     final public static void printResultSet(ResultSet rs) throws SQLException
     {
         ResultSetMetaData rsmd = rs.getMetaData();
@@ -19,5 +19,10 @@ public class GeneralUtilities {
             }
             System.out.println("");
         }
+    }
+
+    public static void writeToErrorFile(Exception e) {
+        String errorToWrite = e.toString();
+
     }
 }

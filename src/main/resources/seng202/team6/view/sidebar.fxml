@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="194.0" style="-fx-background-color: rgb(178,228,201);" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
+<AnchorPane prefHeight="650.0" prefWidth="194.0" style="-fx-background-color: rgb(178,228,201);" styleClass="mainNavigation" stylesheets="@../resources/css/sidebar.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation">
     <BorderPane.margin>
         <Insets top="8.0" />
     </BorderPane.margin>
     <children>
-        <GridPane layoutY="-6.0" prefHeight="652.0" prefWidth="210.0">
+        <GridPane id="thisGrid" layoutY="-6.0" prefHeight="652.0" prefWidth="210.0" styleClass="mainNavGrid" stylesheets="@../resources/css/sidebar.css">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>

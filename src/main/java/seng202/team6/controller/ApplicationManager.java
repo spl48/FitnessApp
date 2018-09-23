@@ -27,7 +27,7 @@ public class ApplicationManager {
     /**
      * The pop up box controller, used to make pop ups.
      */
-    private static ErrorBoxController errorBoxController = new ErrorBoxController();
+    private static PopUpBoxController popUpBoxController = new PopUpBoxController();
 
     /**
      * The current activity number which is the id of the last record to be added into the database.
@@ -53,6 +53,14 @@ public class ApplicationManager {
     public static void setCurrentUser(int userid, String username) {
         currentUsername = username;
         currentUserID = userid;
+    }
+
+    /**
+     * Sets the current user username.
+     * @param username The username.
+     */
+    public static void setCurrentUsername(String username) {
+        currentUsername = username;
     }
 
 
@@ -97,7 +105,17 @@ public class ApplicationManager {
      * @param type The type of the pop up.
      */
     public static void displayPopUp(String title, String message, String type) {
-        errorBoxController.displayErrorPopUP(title, message, type);
+        popUpBoxController.displayErrorPopUP(title, message, type);
+    }
+
+    public static void displayErrorPopUp(Exception e) {
+        e.printStackTrace();
+        popUpBoxController.displayErrorPopUP(e.getClass().getSimpleName(), e.getMessage(), "error");
+    }
+
+    public static void displayErrorPopUpCustom(String title, String message, Exception e) {
+        e.printStackTrace();
+        popUpBoxController.displayErrorPopUP(title, message, "error");
     }
 
 

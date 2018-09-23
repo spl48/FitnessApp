@@ -50,7 +50,6 @@ public class HeaderController {
         }
     }
 
-
     /**
      * Redirects the user to the start screen when logging out.
      */

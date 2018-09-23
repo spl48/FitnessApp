@@ -448,7 +448,7 @@ public class DatabaseManager implements DataLoader {
         PreparedStatement updateUsername = con.prepareStatement(sql);
         updateUsername.setString(1, userName);
         updateUsername.execute();
-       // ApplicationManager.setCurrentUsername(userName);
+        ApplicationManager.setCurrentUsername(userName);
     }
     public void updateDateOfBirth(LocalDate dateOfBirth) throws SQLException {
         if(con == null) {

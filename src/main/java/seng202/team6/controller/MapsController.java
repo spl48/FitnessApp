@@ -17,23 +17,38 @@ import java.util.ArrayList;
 
 public class MapsController extends WorkoutsNavigator {
 
+    /**
+     * The webview which contains the map incformation.
+     */
     @FXML
     private WebView mapWebView;
+
     /**
      * A choice box to select the desired activity to be displayed on graph
      */
     @FXML
     private ChoiceBox<String> activitySelection;
 
+    /**
+     * --
+     */
     private WebEngine webEngine;
+
     /**
      * Array that has all the activities the user can select to display on the graph
      */
     private ArrayList<Activity> activities = new ArrayList();
+
+    /**
+     * The Application Database Manager.
+     */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
-
+    /**
+     * Initialises the map view screen by setting up the activities to be selected from.
+     * @throws SQLException
+     */
     @FXML
     public void initialize() throws SQLException {
         activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());

@@ -39,7 +39,6 @@ public class EditRawDataController extends WorkoutsNavigator {
 
     public void initialize() throws SQLException {
         User currUser = dbManager.getUser(ApplicationManager.getCurrentUsername());
-        activitySelect = RawDataController.getActivitySelector();
         //setupTable();
         //refreshActivities();
     }
