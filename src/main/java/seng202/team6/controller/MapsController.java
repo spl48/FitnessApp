@@ -62,7 +62,11 @@ public class MapsController extends WorkoutsNavigator {
         }
 
         webEngine = mapWebView.getEngine();
-        webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
+        //try {
+            webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
+//        } catch () {
+//
+//        }
     }
 
     /**
