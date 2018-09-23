@@ -1,6 +1,5 @@
 package seng202.team6.controller;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -84,7 +83,7 @@ public class EditProfileController {
     public void initialize() throws SQLException {
         
         // Gets current user.
-        User currUser = ApplicationManager.getDatabaseManager().getUserFromID(ApplicationManager.getCurrentUserID());
+        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
 
         // Initialises the gender drop down options.
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");
@@ -126,17 +125,18 @@ public class EditProfileController {
      */
     public void updateProfile(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
 
-        User currUser = ApplicationManager.getDatabaseManager().getUserFromID(ApplicationManager.getCurrentUserID());
+        // Gets the user and the usernames from the database and initialises their data in the edit screen.
+        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
         ArrayList<String> usernames = databaseManager.getUsernames();
-        System.out.println("Current: " + currUser.getUsername());
         setEnteredData(); // Sets the class variables to the entered data
-        System.out.println("Username: " + username);
 
+        // Checks if the user has entered a duplicate username and displays error if so.
         if ((!(currUser.getUsername().equalsIgnoreCase(username))) && usernames.contains(username)) {
             ApplicationManager.displayPopUp("Username Already Exists", "Username Already Exists.\nPlease choose another username.", "error");
-        } else if (validEnteredData()) { System.out.println("Updated User Data!!"); //Testing - can be replaced with a confirmation message later...
+        
+        } else if (validEnteredData()) { 
 
-            // ENTER DATA INTO DATABASE
+            // Enters data into the database.
             ApplicationManager.getDatabaseManager().updateFirstName(first);
             ApplicationManager.getDatabaseManager().updateLastName(last);
             ApplicationManager.getDatabaseManager().updateUsername(username);
@@ -145,9 +145,10 @@ public class EditProfileController {
             ApplicationManager.getDatabaseManager().updateHeight(height);
             ApplicationManager.getDatabaseManager().updateWeight(weight);
             ApplicationManager.getDatabaseManager().updateStrideLength(stride);
-            ApplicationManager.setCurrentUser(ApplicationManager.getCurrentUserID(), username);
-            printData(); // Testing
-            toProfile(event); // Directs back to the profile screen.
+            
+            // Directs back to the profile screen and displays confirmation method.
+            ApplicationManager.displayPopUp("Update Success", "You have successfully updated your profile!", "confirmation");
+            toProfile(event); 
         }
     }
 

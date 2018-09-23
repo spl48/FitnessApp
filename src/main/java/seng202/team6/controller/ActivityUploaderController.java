@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
-import seng202.team6.models.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,23 +19,38 @@ import java.util.ArrayList;
 public class  ActivityUploaderController extends WorkoutsNavigator {
 
     /**
-     * Session/Activity type ?? Might actually be redundant since multiple activities in file.
+     * A Table view which holds all the top level activity data that the user uploads.
      */
     @FXML
     private TableView activityTable;
 
+    /**
+     * The ID column in the table.
+     */
     @FXML
     private TableColumn idCol;
 
+    /**
+     * The description column in the table.
+     */
     @FXML
     private TableColumn descriptionCol;
 
+    /**
+     * The date column in the table.
+     */
     @FXML
     private TableColumn dateCol;
 
+    /**
+     * The type column in the table.
+     */
     @FXML
     private TableColumn typeCol;
 
+    /**
+     * The notes column in the table.
+     */
     @FXML
     private TableColumn notesCol;
 
@@ -45,47 +59,47 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
      */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
-    private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
-
     /**
-     * The current user which is signed in.
+     * The current selected activity.
      */
-    private User currUser;
-
     private Activity selectedActivity;
 
-    private ArrayList<Activity> activities;
-
-
+    /**
+     * The type selection box. Used when the user would like to edit the type.
+     */
     @FXML
     private ChoiceBox typeSelect;
 
+    /**
+     * The notes editing area if the user would like to add or edit notes.
+     */
     @FXML
     private TextArea notesEditor;
 
 
     /**
-     * Initialising the current user and the activity type drop down.
-     * @throws SQLException Error when getting user from the database.
+     * Sets the values of the activity types selection drop down, sets up the table display
+     * and selects the first item.
      */
     @FXML
-    void initialize() throws SQLException {
-        currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername());
+    void initialize() {
+        
+        //Setting up the list of options for the user to choose their activity type.
         ObservableList<String> activityTypes = FXCollections.observableArrayList("Walking", "Running", "Biking", "Other");
         typeSelect.setItems(activityTypes);
+        
+        // Setting up the table and populating it with activities, selecting the first item by default.
         setupTable();
         refreshActivities();
         activityTable.getSelectionModel().select(0);
+        updateEditing();
     }
 
+    
+    /**
+     * Binds selected attributes of Activity to selected columns in the table.
+     */
     private void setupTable() {
-//
-//        activityTable.setEditable(true);
-//        Callback<TableColumn<Activity, String>, TableCell<Activity, String>> cellFactory
-//                = (TableColumn<Activity, String> param) -> new EditingCell();
-//        Callback<TableColumn<Activity, Typ>, TableCell<Activity, Typ>> comboBoxCellFactory
-//                = (TableColumn<Activity, Typ> param) -> new ComboBoxEditingCell();
-
         idCol.setCellValueFactory(new PropertyValueFactory<>("activityid"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
@@ -93,54 +107,81 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         notesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
     }
 
-    public void addRecordToTable(Activity activity) {
+    /**
+     * Adds a an activity into the table.
+     * @param activity The activity instance to be added to the table.
+     */
+    private void addActivityToTable(Activity activity) {
         activityTable.getItems().add(activity);
-    }
-
-    public void refreshActivities() throws SQLException {
-        activities = dbManager.getActivities(ApplicationManager.getCurrentUserID());
-        for ( int i = 0; i<activityTable.getItems().size(); i++) {
-            activityTable.getItems().clear();
-        }
-
-        for (Activity activity : activities) {
-            if (activity.getActivityid() > ApplicationManager.getCurrentActivityNumber()) {
-                addRecordToTable(activity);
-            }
-
-        }
-    }
-
-    public void updateEditing() {
-        selectedActivity = (Activity) (activityTable.getSelectionModel().getSelectedItem());
-        typeSelect.getSelectionModel().select(selectedActivity.getType());
-        notesEditor.setText(selectedActivity.getNotes());
-    }
-
-    public void updateActivity() throws  SQLException {
-        System.out.println((String) typeSelect.getSelectionModel().getSelectedItem());
-        System.out.println(selectedActivity.getActivityid());
-        databaseManager.updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
-        databaseManager.updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
-        refreshActivities();
-    }
-
-    @FXML
-    public void finishEditing(Event event) {
-        ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
-        System.out.println(ApplicationManager.getCurrentActivityNumber());
-        toWorkoutsScreen(event);
     }
 
 
     /**
-     * Directs the user back to the add workout screen.
-     * @param event When the user clicks the back button.
+     * Updates the table with current data in the database.
+     */
+    private void refreshActivities() {
+        try {
+            // Gets all the current activities from the database. (Can be made more efficient with query possibly)
+            ArrayList<Activity> activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+
+            // Clears the old data from the table.
+            for (int i = 0; i < activityTable.getItems().size(); i++) {
+                activityTable.getItems().clear();
+            }
+
+            // Adds the new data to the table only if it is apart of the recently uploaded data.
+            for (Activity activity : activities) {
+                if (activity.getActivityid() > ApplicationManager.getCurrentActivityNumber()) {
+                    addActivityToTable(activity);
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ApplicationManager.displayPopUp("Database Error", "Cannot get activities from the database.", "error");
+        }
+    }
+
+
+    /**
+     * Updates the editing fields to values relating to a selected activity.
+     * Occurs when a new activity is selected from the table.
      */
     @FXML
-    public void toAddWorkout(Event event) {
-        changeScreen(event, "/seng202/team6/view/AddWorkout.fxml");
+    public void updateEditing() {
+        // Selects the activity
+        selectedActivity = (Activity) (activityTable.getSelectionModel().getSelectedItem());
+
+        // Updates the type and notes editing fields.
+        typeSelect.getSelectionModel().select(selectedActivity.getType());
+        notesEditor.setText(selectedActivity.getNotes());
     }
+
+    /**
+     * Updates the desired activity in the database based on the entered data into edit fields.
+     */
+    public void updateActivity() {
+        
+        // Updates the activity details.
+        databaseManager.updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
+        databaseManager.updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
+
+        // Updates the table with the new data. (Can be made more efficient by changing row only.)
+        refreshActivities();
+    }
+
+
+    /**
+     * Updates the current activity number to keep track of what was the last record to be uploaded.
+     * Directs the user back to the Add Activities Splash Screen.
+     * @param event When the user clicks the back arrow and wishes to exit from the upload activity checking area.
+     */
+    @FXML
+    public void finishEditing(Event event) {
+        ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
+        toAddWorkout(event);
+    }
+
 
 
 }

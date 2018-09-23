@@ -1,21 +1,15 @@
 package seng202.team6.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import seng202.team6.datahandling.ActivityManager;
-
-import java.util.ArrayList;
 
 
 /**
  * <h1>Error Box Controller</h1>
  * <p>Contains methods which initialise and display error pop ups.</p>
  */
-public class LoadingBoxController extends ErrorBoxController {
+public class LoadingBoxController extends PopUpBoxController {
 
 
     @FXML

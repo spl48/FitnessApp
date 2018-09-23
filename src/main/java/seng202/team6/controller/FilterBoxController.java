@@ -2,29 +2,18 @@ package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seng202.team6.datahandling.ActivityManager;
 
-import java.io.IOException;
 import java.util.*;
 
 
 /**
- * <h1>Error Box Controller</h1>
- * <p>Contains methods which initialise and display error pop ups.</p>
+ * <h1>Filter Box Controller</h1>
+ * <p>Contains methods which initialise and filter selection pop ups.</p>
  */
-public class FilterBoxController extends ErrorBoxController {
+public class FilterBoxController extends PopUpBoxController {
 
     /** Year selection choice box. */
     @FXML
@@ -55,50 +44,58 @@ public class FilterBoxController extends ErrorBoxController {
     /**
      * List of activity types
      */
-    private ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking");
-
-    /**
-     * Activity Manager
-     */
-    private ActivityManager activityManager;
+    private ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking", "Other");
 
 
     /**
-     * Initialises the error pop by setting the title and message to the desired text.
+     * Initialises the filter pop by setting the filter fields to the corresponding choices.
      */
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
     void initialize() {
 
-        activityManager = ApplicationManager.getDatabaseManager().getActivityManager();
+        // Gets the activity data manager
+        ActivityManager activityManager = ApplicationManager.getDatabaseManager().getActivityManager();
 
-        // Initialises the filtering drop down options.
+        // Gets the possible years to be selected based on data in database.
         ArrayList<String> years = activityManager.getPossibleYears();
         ObservableList<String> yearOptions = FXCollections.observableArrayList(years);
+        yearOptions.add(0, "All");
+
+        // Setting and initialising the filtering drop down options.
         yearSelect.setItems(yearOptions);
         yearSelect.getSelectionModel().select(yearOptions.get(0));
-
         monthSelect.setItems(monthChoices);
         monthSelect.getSelectionModel().select(monthChoices.get(0));
         daySelect.setItems(dayChoices);
         daySelect.getSelectionModel().select(dayChoices.get(0));
         typeSelect.setItems(activityTypes);
         typeSelect.getSelectionModel().select(activityTypes.get(0));
-
     }
 
+    /**
+     * Sets the filters of the class concerned and closes the pop up.
+     */
     @FXML
     public void setRawDataFilters() {
         String dayFilter = (String) daySelect.getSelectionModel().getSelectedItem();
         String monthFilter = padMonth(Integer.toString(monthSelect.getSelectionModel().getSelectedIndex()));
         String yearFilter = (String) yearSelect.getSelectionModel().getSelectedItem();
-        System.out.println(yearFilter);
         String typeFilter = (String) typeSelect.getSelectionModel().getSelectedItem();
-        RawDataController2.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
+        RawDataController.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
+        WorkoutAnalysisController.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
         closeWindow();
     }
 
+    /**
+     * Takes in the index of the month selected and either identifies it as all, pads it with an extra zero for
+     * a single character string to match the database or returns the index as is.
+     * @param monthNum The index of the month in the month select array.
+     * @return The newly formatted month value ready to query the database.
+     */
     private String padMonth(String monthNum) {
-        if (monthNum.length() == 1) {
+        if (monthNum.equals("0")) {
+            return "All";
+        } else if (monthNum.length() == 1) {
             return "0" + monthNum;
         }
         return monthNum;

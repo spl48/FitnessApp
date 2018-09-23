@@ -46,19 +46,6 @@ public class HealthController extends GUIUtilities{
      */
     ArrayList<Activity> activities;
 
-    /**
-     * Gets a the current users age and activities
-     * @throws SQLException When there is an error in the database when getting usernames and/or activities.
-     */
-    private void getUserDetails() throws SQLException{
-        DatabaseManager databaseManager = new DatabaseManager();
-        String userName = ApplicationManager.getCurrentUsername();
-        User user = databaseManager.getUser(userName);
-        age = user.getAge();
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
-
-    }
-
 
     /**
      * Initializes the health concern screen by displaying the text and button
@@ -67,18 +54,37 @@ public class HealthController extends GUIUtilities{
      */
     public void initialize() throws SQLException{
         getUserDetails();
+
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
+            System.out.println(" ");
             tachycardiaText.setText("Tachycardia");
             tachycardiaButton.setVisible(true);
         }
+
         if(HealthConcernChecker.checkBradycardia(activities, age)) {
             bradycardiaText.setText("Bradycardia");
             bradycardiaButton.setVisible(true);
         }
+
         if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
             cardioVascularText.setText("Cardiovascular Disease");
             cardiovascularButton.setVisible(true);
         }
+
+    }
+
+
+    /**
+     * Gets a the current users age and activities
+     * @throws SQLException When there is an error in the database when getting usernames and/or activities.
+     */
+    private void getUserDetails() throws SQLException{
+        DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+        String userName = ApplicationManager.getCurrentUsername();
+        User user = databaseManager.getUser(userName);
+        age = user.getAge();
+        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+
     }
 
     /**

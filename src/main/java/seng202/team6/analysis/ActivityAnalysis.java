@@ -113,7 +113,6 @@ public class ActivityAnalysis {
         int currentIndex = 0;
 
         ArrayList<ActivityDataPoint> dataPoints = activity.getActivityData();
-
         double currentLongitude;
         double nextLongitude;
         double currentLatitude;
@@ -177,6 +176,21 @@ public class ActivityAnalysis {
             return 0;
         }
         return calories;
+    }
+
+
+    /**
+     * Calculates and returns the average speed
+     * of a users activity in km per hour.
+     * @param activity the activity for which the speed is being calculated
+     * @return a double representing the activities average speed
+     */
+    public static double findAverageSpeed(Activity activity) {
+        double activityTime = activity.getTotalTime();
+        int activityLength = activity.getActivityData().size();
+        double activityDistance = ActivityAnalysis.findDistanceFromStart(activity , activityLength - 1);
+
+        return (activityDistance / (activityTime / 60));
     }
 
 

@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.apache.commons.lang3.ObjectUtils;
 import seng202.team6.datahandling.DatabaseManager;
 
 import java.sql.SQLException;
@@ -25,7 +24,7 @@ public class workoutManualEntryController extends GUIUtilities {
      * Text fields for activity entry form.
      */
     @FXML
-    private TextField startTime_E, endTime_E, maxHR_E, minHR_E, sessionName_E;
+    private TextField startTime_E, endTime_E, distance_E, sessionName_E;
 
 
     /**
@@ -38,7 +37,7 @@ public class workoutManualEntryController extends GUIUtilities {
      * Date Picker for the user to select the date of the activity.
      */
     @FXML
-    private DatePicker sessionDate_E;
+    private DatePicker startDate_E, endDate_E;
 
     /**
      * Choice box for the user to select the activity type.
@@ -54,12 +53,12 @@ public class workoutManualEntryController extends GUIUtilities {
     /**
      * Maximum and minimum Heart rate of the user for the activity entered.
      */
-    private double maxHR, minHR;
+    private double distance;
 
     /**
      * The date of the activity.
      */
-    private LocalDate sessionDate;
+    private LocalDate startDate, endDate;
 
     private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
@@ -84,12 +83,11 @@ public class workoutManualEntryController extends GUIUtilities {
      * @param event When the user clicks create Activity.
      */
     @FXML
-    public void createActivity(ActionEvent event) throws SQLException, ClassNotFoundException {
+    public void createActivity(ActionEvent event) throws SQLException {
         setEnteredData();
         if (validEnteredData()) {
-            System.out.println("Created a new activity!!");
-            printData();
-            dbManager.addActivity(ApplicationManager.getCurrentUserID(), "test description", startDateTime, endDateTime, sessionName, 10.0);
+            dbManager.addActivity(ApplicationManager.getCurrentUserID(), sessionName, startDateTime, endDateTime, sessionType, distance, notes);
+            ApplicationManager.displayPopUp("Entry Successful", "The activity was successfully loaded into the database!", "confirmation");
             toWorkOutScreen(event);
             //Enter into database
         }
@@ -103,14 +101,15 @@ public class workoutManualEntryController extends GUIUtilities {
         startTime = startTime_E.getText();
         endTime = endTime_E.getText();
         sessionType = sessionType_E.getValue();
-        sessionDate = sessionDate_E.getValue();
-        String sessionDateString = sessionDate.toString().replace("/", "-");
-        startDateTime = sessionDateString + "T" + startTime;
-        endDateTime = sessionDateString + "T" + endTime;
+        startDate = startDate_E.getValue();
+        endDate = endDate_E.getValue();
+        String startDateString = startDate.toString().replace("/", "-");
+        String endDateString = endDate.toString().replace("/", "-");
+        startDateTime = startDateString + "T" + startTime;
+        endDateTime = endDateString + "T" + endTime;
         notes = notes_E.getText();
         try {
-            minHR = Double.parseDouble(minHR_E.getText());
-            maxHR = Double.parseDouble(maxHR_E.getText());
+            distance = Double.parseDouble(distance_E.getText());
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
@@ -131,20 +130,5 @@ public class workoutManualEntryController extends GUIUtilities {
 //                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
     return true;
 }
-
-    /**
-     * Prints all the workout data for testing purposes - can get rid of later.
-     */
-    private void printData() {
-        System.out.println("Session Name: " + sessionName);
-        System.out.println("Session Type: " + sessionType);
-        System.out.println("Session Date: " + sessionDate);
-        System.out.println("Start Time: " + startTime);
-        System.out.println("Finish Time: " + endTime);
-        System.out.println("Minimum Heart Rate: " + minHR);
-        System.out.println("Maximum Heart Rate: " + maxHR);
-        System.out.println("Notes: \n" + notes);
-    }
-
 
 }

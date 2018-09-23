@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.RawDataController2">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.RawDataController">
    <top>
       <fx:include source="header.fxml" />
    </top>
@@ -32,7 +32,7 @@
                         <Font name="NexaBold" size="30.0" />
                      </font>
                   </Label>
-                  <Circle fx:id="backButton" fill="#76a2eb" layoutX="64.0" layoutY="40.0" onMouseClicked="#toWorkoutsScreen" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                  <Circle fx:id="backButton" fill="#3fb3a4" layoutX="64.0" layoutY="40.0" onMouseClicked="#toWorkoutsScreen" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -71,56 +71,59 @@
                     <rowConstraints>
                       <RowConstraints />
                         <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="88.20004882812498" minHeight="10.0" prefHeight="74.39997558593751" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="49.80002441406248" minHeight="10.0" prefHeight="45.60002441406249" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="49.80002441406248" minHeight="10.0" prefHeight="45.60002441406249" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="96.9999816894532" minHeight="0.0" prefHeight="89.80000000000001" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="49.80002441406248" minHeight="10.0" prefHeight="22.400000000000034" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="32.0" prefWidth="338.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Date:" textFill="#575757" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                        <Label prefHeight="0.0" prefWidth="188.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Distance Travelled" textFill="#575757" GridPane.rowIndex="8" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaBold" size="17.0" />
+                              <Font name="NexaBold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="noteLabel" prefHeight="32.0" prefWidth="328.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Notes:" textFill="#575757" GridPane.rowIndex="8" GridPane.valignment="TOP">
+                        <Label fx:id="noteLabel" prefHeight="0.0" prefWidth="188.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Notes:" textFill="#575757" GridPane.rowIndex="12" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaBold" size="17.0" />
+                              <Font name="NexaBold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="94.0" prefHeight="30.0" prefWidth="193.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Description:" textFill="#575757" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                        <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="94.0" prefHeight="17.0" prefWidth="188.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Description:" textFill="#575757" GridPane.rowIndex="2" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaBold" size="17.0" />
+                              <Font name="NexaBold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="typeLabel" layoutX="10.0" layoutY="190.0" prefHeight="32.0" prefWidth="338.0" textFill="#7c7c7c" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                        <Label fx:id="typeLabel" layoutX="10.0" layoutY="190.0" prefHeight="0.0" prefWidth="188.0" text="No Activity Selected" textFill="#7c7c7c" GridPane.rowIndex="11" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaLight" size="15.0" />
+                              <Font name="NexaLight" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="descriptionLabel" layoutX="10.0" layoutY="265.0" prefHeight="32.0" prefWidth="338.0" textFill="#7c7c7c" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                        <Label fx:id="descriptionLabel" layoutX="10.0" layoutY="265.0" prefHeight="4.0" prefWidth="188.0" text="No Activity Selected" textFill="#7c7c7c" GridPane.rowIndex="3" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaLight" size="15.0" />
+                              <Font name="NexaLight" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="notesLabel" layoutX="10.0" layoutY="265.0" prefHeight="75.0" prefWidth="182.0" textFill="#7c7c7c" GridPane.rowIndex="9" GridPane.valignment="TOP">
+                        <Label fx:id="notesLabel" alignment="TOP_LEFT" layoutX="10.0" layoutY="265.0" prefHeight="87.0" prefWidth="182.0" text="No Activity Selected" textFill="#7c7c7c" GridPane.rowIndex="13" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaLight" size="15.0" />
+                              <Font name="NexaLight" size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="91.0" prefHeight="32.0" prefWidth="230.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Type:" textFill="#575757" GridPane.rowIndex="6">
+                        <Label layoutX="10.0" layoutY="91.0" prefHeight="0.0" prefWidth="188.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Type:" textFill="#575757" GridPane.rowIndex="10" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaBold" size="17.0" />
+                              <Font name="NexaBold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dateLabel" layoutX="10.0" layoutY="202.0" prefHeight="32.0" prefWidth="338.0" textFill="#7c7c7c" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                        <Label fx:id="distanceLabel" layoutX="10.0" layoutY="202.0" prefHeight="0.0" prefWidth="188.0" text="No Activity Selected" textFill="#7c7c7c" GridPane.rowIndex="9" GridPane.valignment="TOP">
                            <font>
-                              <Font name="NexaLight" size="15.0" />
+                              <Font name="NexaLight" size="13.0" />
                            </font>
                         </Label>
                         <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="71.0" prefHeight="42.0" prefWidth="200.0" text="ACTIVITY DETAILS" textFill="#3c3c3c">
@@ -128,7 +131,7 @@
                               <Font name="NexaBold" size="19.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#toActivityEditScreen" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" onMouseClicked="#toActivityEditScreen" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                            <image>
                               <Image url="@../resources/pics/edit.png" />
                            </image>
@@ -136,6 +139,26 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
+                        <Label prefHeight="0.0" prefWidth="188.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Date:" textFill="#575757" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="NexaBold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dateLabel" alignment="TOP_LEFT" layoutX="10.0" layoutY="87.0" prefHeight="4.0" prefWidth="188.0" text="No Activity Selected" textFill="#7c7c7c" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="NexaLight" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="113.0" prefHeight="0.0" prefWidth="188.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Average Velocity:" textFill="#575757" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="NexaBold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="velocityLabel" alignment="TOP_LEFT" layoutX="10.0" layoutY="146.0" prefHeight="0.0" prefWidth="188.0" text="No Activity Selected" textFill="#7c7c7c" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="NexaLight" size="13.0" />
+                           </font>
+                        </Label>
                      </children>
                      <BorderPane.margin>
                         <Insets left="10.0" top="20.0" />
@@ -160,12 +183,12 @@
                               <Insets bottom="20.0" right="20.0" />
                            </GridPane.margin>
                         </ListView>
-                        <Label prefHeight="14.0" prefWidth="167.0" text="ACTIVITIES" textFill="#515151" GridPane.valignment="TOP">
+                        <Label prefHeight="14.0" prefWidth="167.0" text="ACTIVITIES" textAlignment="CENTER" textFill="#515151" GridPane.valignment="CENTER">
                            <font>
-                              <Font name="NexaBold" size="22.0" />
+                              <Font name="NexaBold" size="20.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="filterButton" fitHeight="28.0" fitWidth="28.0" onMouseClicked="#filterActivities" onMouseEntered="#darkenFilter" onMouseExited="#lightenFilter" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                        <ImageView fx:id="filterButton" fitHeight="28.0" fitWidth="28.0" onMouseClicked="#filterActivities" onMouseEntered="#darkenFilter" onMouseExited="#lightenFilter" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../resources/pics/filter2.png" />
                            </image>

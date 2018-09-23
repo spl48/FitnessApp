@@ -1,34 +1,25 @@
 package seng202.team6.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import seng202.team6.datahandling.ActivityManager;
-import seng202.team6.datahandling.DatabaseManager;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
- * <h1>Error Box Controller</h1>
+ * <h1>Pop Up Box Controller</h1>
  * <p>Contains methods which initialise and display error pop ups.</p>
  */
-public class ErrorBoxController extends GUIUtilities {
+public class PopUpBoxController extends GUIUtilities {
 
     /** The label which holds the error description and comment. */
     @FXML
@@ -48,7 +39,7 @@ public class ErrorBoxController extends GUIUtilities {
     /**
      * Initialises the error pop by setting the title and message to the desired text.
      */
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
     void initialize() {
         if (errorText != null) {
             errorText.setText(errorMessage);
@@ -57,12 +48,20 @@ public class ErrorBoxController extends GUIUtilities {
         }
     }
 
+    /**
+     * Lightens the error box controller on mouse entry.
+     * @param event User exits button area with mouse.
+     */
     @FXML
     public void lightenButton(MouseEvent event){
         Button btn = (Button) event.getSource();
         btn.setStyle("-fx-background-color:rgb(79,79,79);");
     }
 
+    /**
+     * Darkens the error box controller on mouse exit.
+     * @param event User enters button area with mouse.
+     */
     @FXML
     public void darkenButton(Event event) {
         Button btn = (Button) event.getSource();
@@ -79,49 +78,48 @@ public class ErrorBoxController extends GUIUtilities {
         // Sets the class properties to the error message and title.
         errorMessage = message.toUpperCase();
         errorTitleText = title.toUpperCase();
-        
+
+        // Tries to create a pop up box based on a type and displays it.
+            if (type == "error") {
+                createPopUpBox("/seng202/team6/view/errorPopUp.fxml", 400, 350);
+            } else if (type == "confirmation") {
+                createPopUpBox("/seng202/team6/view/confirmationPopUp.fxml", 400, 350);
+            } else if (type == "notification") {
+                createPopUpBox("/seng202/team6/view/notificationPopUp.fxml", 400, 350);
+            } else if (type == "filter") {
+                createPopUpBox("/seng202/team6/view/FilterActivityPopUp.fxml", 400, 350);
+            } else if (type == "loader") {
+                createPopUpBox("/seng202/team6/view/LoadingPopUp.fxml", 400, 150);
+            }
+    }
+
+
+    /**
+     * Creates a pop up box with a given scene using an fxml file and specified width and height.
+     * @param fxmlPath The fxml path that is loaded.
+     * @param width The width of the pop up.
+     * @param height The height of the pop up.
+     */
+    private void createPopUpBox(String fxmlPath, int width, int height) {
+
         // Sets up the error window.
         Stage errorWindow = new Stage();
         errorWindow.initModality(Modality.APPLICATION_MODAL);
         errorWindow.setMinWidth(400);
         errorWindow.initStyle(StageStyle.UNDECORATED); // Gets rid of the default bar at top of a window.
 
-        // Tries to load the error box fxml and displays it.
-        // Otherwise, shows error on the terminal.
+        // Gets the relevant fxml path and sets the scene of the error window showing it to the user.
+        // Otherwise if fxml cannot be loaded then shows an error on the terminal.
         try {
-            if (type == "error") {
-                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/errorPopUp.fxml"));
-                Scene scene = new Scene(root, 400, 350);
-                errorWindow.setScene(scene);
-                errorWindow.showAndWait();
-            } else if (type == "confirmation") {
-                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/confirmationPopUp.fxml"));
-                Scene scene = new Scene(root, 400, 350);
-                errorWindow.setScene(scene);
-                errorWindow.showAndWait();
-            } else if (type == "notification") {
-                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/notificationPopUp.fxml"));
-                Scene scene = new Scene(root, 400, 350);
-                errorWindow.setScene(scene);
-                errorWindow.showAndWait();
-            } else if (type == "filter") {
-                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/FilterActivityPopUp.fxml"));
-                Scene scene = new Scene(root, 400, 350);
-                errorWindow.setScene(scene);
-                errorWindow.showAndWait();
-            } else if (type == "loader") {
-                Parent root = FXMLLoader.load(getClass().getResource("/seng202/team6/view/LoadingPopUp.fxml"));
-                Scene scene = new Scene(root, 400, 150);
-                errorWindow.setScene(scene);
-                errorWindow.showAndWait();
-            }
-
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Scene scene = new Scene(root, width, height);
+            errorWindow.setScene(scene);
+            errorWindow.showAndWait();
         } catch (IOException e) {
             System.out.println("Loading error\nSorry, could not load pop up.");
             e.printStackTrace();
         }
     }
-
 
     /**
      * Closes the error window.

@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.registerController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.registerController">
    <top>
       <Pane prefHeight="72.0" prefWidth="1366.0" style="-fx-background-color: rgb(62,71,88); -fx-border-color: transparent transparent black transparent;" BorderPane.alignment="CENTER">
          <children>
@@ -81,17 +81,17 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </ComboBox>
-            <TextField fx:id="heightEntry" prefHeight="35.0" prefWidth="300.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <TextField fx:id="heightEntry" prefHeight="35.0" prefWidth="300.0" promptText="in cm" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="weightEntry" prefHeight="35.0" prefWidth="300.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+            <TextField fx:id="weightEntry" prefHeight="35.0" prefWidth="300.0" promptText="in kg" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="strideEntry" prefHeight="35.0" prefWidth="300.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="8">
+            <TextField fx:id="strideEntry" prefHeight="35.0" prefWidth="300.0" promptText="in feet" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -116,17 +116,17 @@
                   <Font name="NexaBold" size="15.0" />
                </font>
             </Label>
-            <Label style="-fx-color: white;" text="Height (cm):" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <Label style="-fx-color: white;" text="Height:" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <font>
                   <Font name="NexaBold" size="15.0" />
                </font>
             </Label>
-            <Label style="-fx-color: white;" text="Weight (kg):" GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <Label style="-fx-color: white;" text="Weight:" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <font>
                   <Font name="NexaBold" size="15.0" />
                </font>
             </Label>
-            <Label style="-fx-color: white;" text="Stride Length (feet):" GridPane.columnIndex="4" GridPane.rowIndex="8">
+            <Label style="-fx-color: white;" text="Stride Length:" GridPane.columnIndex="4" GridPane.rowIndex="8">
                <font>
                   <Font name="NexaBold" size="15.0" />
                </font>

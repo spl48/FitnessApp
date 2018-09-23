@@ -10,7 +10,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HealthController">
    <top>
@@ -24,7 +26,7 @@
          <top>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="300.0" layoutY="63.0" prefHeight="88.0" prefWidth="558.0" text="MY HEALTH CONCERNS" textFill="WHITE">
+                  <Label layoutX="240.0" layoutY="63.0" prefHeight="88.0" prefWidth="618.0" text="MY HEALTH CONCERNS" textFill="WHITE">
                      <font>
                         <Font name="NexaBold" size="48.0" />
                      </font>
@@ -36,14 +38,26 @@
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </BorderPane.margin>
          <right>
-            <Pane prefHeight="512.0" prefWidth="410.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="502.0" prefWidth="1129.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="tachycardiaText" layoutX="41.0" layoutY="73.0" text="hi" />
-                  <Text fx:id="bradycardiaText" layoutX="41.0" layoutY="224.0" text="hi" />
-                  <Text fx:id="cardioVascularText" layoutX="41.0" layoutY="390.0" text="hi" />
-                  <Button fx:id="tachycardiaButton" layoutX="301.0" layoutY="49.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toTachycardiaWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
-                  <Button fx:id="bradycardiaButton" layoutX="301.0" layoutY="215.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toBradycardiaWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
-                  <Button fx:id="cardiovascularButton" layoutX="310.0" layoutY="373.0" mnemonicParsing="false" text="Search" visible="false" onAction="#toCardiovascularWebSearchScreen"  onMouseEntered="#darkenButton" onMouseExited="#lightenButton"/>
+                  <Text fx:id="tachycardiaText" fill="WHITE" layoutX="27.0" layoutY="213.0" textAlignment="CENTER" wrappingWidth="289.96728515625">
+                     <font>
+                        <Font name="NexaBold" size="23.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="bradycardiaText" fill="WHITE" layoutX="420.0" layoutY="213.0" textAlignment="CENTER" wrappingWidth="304.96728515625">
+                     <font>
+                        <Font name="NexaBold" size="23.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="cardioVascularText" fill="WHITE" layoutX="799.0" layoutY="212.0" textAlignment="CENTER" wrappingWidth="296.96728515625">
+                     <font>
+                        <Font name="NexaBold" size="23.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="cardiovascularButton" layoutX="796.0" layoutY="353.0" mnemonicParsing="false" onAction="#toCardiovascularWebSearchScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="41.0" prefWidth="303.0" style="-fx-background-color: rgb(63,179,164);" text="SEARCH" textFill="WHITE" visible="false" />
+                  <Button fx:id="bradycardiaButton" layoutX="413.0" layoutY="353.0" mnemonicParsing="false" onAction="#toBradycardiaWebSearchScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="41.0" prefWidth="303.0" style="-fx-background-color: rgb(63,179,164);" text="SEARCH" textFill="WHITE" visible="false"/>
+                  <Button fx:id="tachycardiaButton" layoutX="27.0" layoutY="353.0" mnemonicParsing="false" onAction="#toTachycardiaWebSearchScreen" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="41.0" prefWidth="303.0" style="-fx-background-color: rgb(63,179,164);" text="SEARCH" textFill="WHITE" visible="false"/>
                </children>
             </Pane>
          </right>

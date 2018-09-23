@@ -1,10 +1,7 @@
 package seng202.team6.controller;
 
-import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -14,8 +11,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.analysis.HealthConcernChecker;
@@ -26,8 +21,6 @@ import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
 public class HomeScreenController {
-
-	int userid = ApplicationManager.getCurrentUserID();
     
 	/**
      * A choice box to select the data type to be displayed on graph. E.g "Heart rate", "Distance", etc.
@@ -66,7 +59,7 @@ public class HomeScreenController {
     /**
 	 * Array that has all the activities the user can select to display on the graph
 	 */
-    private ArrayList<Activity> activities = new ArrayList();
+    private ArrayList<Activity> activities;
 
 
     public void initialize() throws SQLException {
@@ -109,7 +102,6 @@ public class HomeScreenController {
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
 
-
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
             healthConcerns += "-" + "Tachycardia\n".toUpperCase();
             healthConcernsText.setText(healthConcerns);
@@ -126,8 +118,7 @@ public class HomeScreenController {
         }
     }
 
-
-
+    
     /**
      * Displays the steps a user has taken
      */
@@ -168,17 +159,19 @@ public class HomeScreenController {
      * @throws SQLException
      */
     public void addSeries() throws SQLException {
-        //Activity selectedActivity = makeselectedActivity1();
+
     	int lastIndex = activities.size() - 1;
     	Activity selectedActivity = activities.get(lastIndex);
         graphPanelTitle.setText("LATEST " + selectedActivity.getType().toUpperCase() + " ACTIVITY");
     	String seriesType = activityTypeSelection.getValue().toString();
-        //defining the axes
-		xAxis.setLabel("Time (Minutes)");
-        //defining a series
-        XYChart.Series series = new XYChart.Series();
-        //populating the series with data
 
+    	//defining the axes
+		xAxis.setLabel("Time (Minutes)");
+
+		//defining a series
+        XYChart.Series series = new XYChart.Series();
+
+        //populating the series with data
         String activityDataType = activityTypeSelection.getValue().toString();
         series.setName(selectedActivity.getStartDate().toString() + " " + activityDataType);
         ActivityAnalysis activityAnalysis = new ActivityAnalysis();
