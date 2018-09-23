@@ -64,7 +64,7 @@
                   <RowConstraints maxHeight="122.33331298828125" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Start Time" textFill="WHITE" GridPane.rowIndex="3">
+                  <Label text="Start Time" textFill="WHITE" GridPane.rowIndex="5">
                      <font>
                         <Font name="NexaBold" size="19.0" />
                      </font>
@@ -79,26 +79,14 @@
                         <Font name="NexaBold" size="19.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="26.0" text="Max Heart Rate" textFill="WHITE" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="NexaBold" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="26.0" text="Finish Time" textFill="WHITE" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="NexaBold" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="193.0" text="Min Heart Rate" textFill="WHITE" GridPane.rowIndex="6">
+                  <Label layoutX="10.0" layoutY="26.0" text="Finish Time" textFill="WHITE" GridPane.rowIndex="6">
                      <font>
                         <Font name="NexaBold" size="19.0" />
                      </font>
                   </Label>
                   <ChoiceBox fx:id="sessionType_E" prefHeight="25.0" prefWidth="387.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="sessionName_E" GridPane.columnIndex="1" />
-                  <TextField fx:id="endTime_E" promptText="ie 13:58:55" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="maxHR_E" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="minHR_E" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="endTime_E" promptText="ie 13:58:55" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <TextArea fx:id="notes_E" prefHeight="111.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.rowSpan="2">
                      <GridPane.margin>
                         <Insets top="10.0" />
@@ -109,13 +97,25 @@
                         <Font name="NexaBold" size="19.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="startTime_E" layoutX="230.0" layoutY="18.0" promptText="ie 13:58:55" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label layoutX="10.0" layoutY="52.0" text="Date" textFill="WHITE" GridPane.rowIndex="2">
+                  <TextField fx:id="startTime_E" layoutX="230.0" layoutY="18.0" promptText="ie 13:58:55" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label layoutX="10.0" layoutY="52.0" text="Start Date" textFill="WHITE" GridPane.rowIndex="3">
                      <font>
                         <Font name="NexaBold" size="19.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="sessionDate_E" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="startDate_E" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="End Date" textFill="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="endDate_E" layoutX="230.0" layoutY="94.0" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label layoutX="10.0" layoutY="133.0" text="Distance Traveled" textFill="WHITE" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="NexaBold" size="19.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="distance_E" layoutX="230.0" layoutY="16.0" promptText="(in km)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </center>
