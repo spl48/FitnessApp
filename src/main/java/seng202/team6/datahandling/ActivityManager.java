@@ -5,7 +5,6 @@ import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.utilities.GeneralUtilities;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,7 +70,10 @@ public class ActivityManager {
             while (filteredActivityResult.next()) {
                 String activityDescription = filteredActivityResult.getString("description");
                 int activityid = filteredActivityResult.getInt("activityid");
+
+
                 filteredActivities.put(activityDescription, activityid);
+
             }
 
         } catch (SQLException e) {
@@ -95,40 +97,6 @@ public class ActivityManager {
         }
         return 0;
 
-    }
-
-
-    public ArrayList<Activity> getFilteredFullActivties(String year, String month, String day, String type) {
-        year = setPossibleWildCard(year);
-        month = setPossibleWildCard(month);
-        day = setPossibleWildCard(day);
-        type = setPossibleWildCard(type);
-
-        ArrayList<Activity> filteredActivities = new ArrayList<Activity>();
-
-        try {
-            Statement state = connection.createStatement();
-            DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
-
-//            String sqlString = String.format("SELECT * FROM ACTIVITY " +
-//                    "WHERE STRFTIME('%Y', start) = '%s' AND STRFTIME('%m', start) = '%s' AND STRFTIME('%d', start)= '%s' AND workout LIKE %s", year, month, day, type);
-            String sqlString = "select * from activity where " +
-                    "strftime(\"%Y\", start) LIKE '" + year + "' AND " +
-                    "strftime(\"%m\", start) LIKE '" + month + "' AND " +
-                    "strftime(\"%d\", start) LIKE '" + day + "' AND " +
-                    "workout LIKE '" + type + "'";
-            System.out.println(sqlString);
-            ResultSet filteredActivityResult = state.executeQuery(sqlString);
-
-            while (filteredActivityResult.next()) {
-                filteredActivities.add(dbManager.getActivity(filteredActivityResult.getInt("activityid")));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            ApplicationManager.displayPopUp("Activity Access Error", "Cannot filter the database for activities!", "error");
-        }
-        return filteredActivities;
     }
 
 }

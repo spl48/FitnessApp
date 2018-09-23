@@ -82,7 +82,6 @@ public class FilterBoxController extends PopUpBoxController {
         String yearFilter = (String) yearSelect.getSelectionModel().getSelectedItem();
         String typeFilter = (String) typeSelect.getSelectionModel().getSelectedItem();
         RawDataController.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
-        WorkoutAnalysisController.setFilters(dayFilter, monthFilter, yearFilter, typeFilter);
         closeWindow();
     }
 
