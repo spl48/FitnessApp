@@ -258,11 +258,11 @@ public class DatabaseManager implements DataLoader {
         ResultSet res = state.executeQuery("DELETE FROM user WHERE username = " + username);
     }
 
-    public void addActivity(int userid, String description, String start, String end, String workout, double distance) throws SQLException {
+    public void addActivity(int userid, String description, String start, String end, String workout, double distance, String notes) throws SQLException {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO activity(userid,description,start,end,distance,workout) VALUES(?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO activity(userid,description,start,end,distance,workout,notes) VALUES(?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setInt(1, userid);
         prep.setString(2, description);
@@ -270,6 +270,7 @@ public class DatabaseManager implements DataLoader {
         prep.setString(4, end);
         prep.setDouble(5, distance);
         prep.setString(6, workout);
+        prep.setString(7, notes);
         prep.execute();
     }
     public ArrayList<Integer> getActivityIDs(int userid) throws SQLException {
@@ -354,20 +355,27 @@ public class DatabaseManager implements DataLoader {
 
         // Gets data from the database.
         while(recordData.next()) {
-            int id = recordData.getInt("activityid");
-            String dateTime = recordData.getString("datetime");
-            Integer heartRate = recordData.getInt("heartrate");
-            Double latitude = recordData.getDouble("latitude");
-            Double longitude = recordData.getDouble("longitude");
-            Double elevation = recordData.getDouble("elevation");
-            LocalTime time = LocalTime.NOON;
-
-            ActivityDataPoint record = new ActivityDataPoint(time, heartRate, latitude, longitude, elevation);
+            ActivityDataPoint record = extractRecord(recordData);
             records.add(record);
         }
 
         // Creates a User model using database data.
         return records;
+    }
+
+    public ActivityDataPoint extractRecord(ResultSet res) throws SQLException {
+
+        String datetime = res.getString("datetime");
+        String[] parts = datetime.split("T");
+        String recordTime = parts[1];
+        LocalTime localStartTime = DataHandlerUtilities.parseTime(recordTime);
+        int heartRate = res.getInt("heartrate");
+        Double latitude = res.getDouble("latitude");
+        Double longitude = res.getDouble("longitude");
+        Double elevation = res.getDouble("elevation");
+
+        ActivityDataPoint dataPoint = new ActivityDataPoint(localStartTime, heartRate, latitude, longitude, elevation);
+        return dataPoint;
     }
 
     public String getActivityDescription(int activityID) throws SQLException {

@@ -37,7 +37,7 @@
                         <Font name="NexaBold" size="30.0" />
                      </font>
                   </Label>
-                  <Circle fx:id="backButton" fill="#76a2eb" layoutX="64.0" layoutY="40.0" onMouseClicked="#toWorkoutsScreen" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                  <Circle fx:id="backButton" fill="#3fb3a4" layoutX="64.0" layoutY="40.0" onMouseClicked="#toWorkoutsScreen" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

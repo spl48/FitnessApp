@@ -18,7 +18,7 @@ public class EditRawDataController extends WorkoutsNavigator {
     private TableView rawDataTable;
 
     @FXML
-    private TextField nameEntry;
+    private TextField descriptionEntry;
 
     @FXML
     private ChoiceBox typeEntry;

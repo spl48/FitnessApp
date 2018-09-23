@@ -60,13 +60,8 @@ public class MapsController extends WorkoutsNavigator {
 	        activitySelection.setItems(availableActivities);
 	        activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
         }
+        webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
 
-        webEngine = mapWebView.getEngine();
-        //try {
-            webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
-//        } catch () {
-//
-//        }
     }
 
     /**
@@ -107,6 +102,11 @@ public class MapsController extends WorkoutsNavigator {
      */
     private void displayRoute(Route newRoute) {
         String scriptToExecute = "displayRoute(" + newRoute.toJSONArray() + ");";
-        webEngine.executeScript(scriptToExecute);
+        try {
+            webEngine.executeScript(scriptToExecute);
+        } catch(netscape.javascript.JSException e) {
+        e.printStackTrace();
+        ApplicationManager.displayPopUp("RUH ROH", "You need an internet connection to use the maps feature","error");
+        }
     }
 }
