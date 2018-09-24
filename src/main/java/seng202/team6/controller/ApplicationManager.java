@@ -34,6 +34,8 @@ public class ApplicationManager {
      */
     private static int currentActivityNumber = 0;
 
+    private static int curQuoteIndex;
+
 
     /**
      * Initialises a session in the application by setting up the database and setting the
@@ -144,4 +146,9 @@ public class ApplicationManager {
         currentActivityNumber = activityNumber;
     }
 
+    public static void setCurQuoteIndex(int index) { curQuoteIndex = index; }
+
+    public static int getCurQuoteIndex() { return curQuoteIndex; }
+
 }
+
