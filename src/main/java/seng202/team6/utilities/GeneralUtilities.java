@@ -35,6 +35,11 @@ public class GeneralUtilities {
 
     }
 
+    /**
+     * Checks if given string can be parsed into a LocalDate.
+     * @param inDate string to be parsed into a LocalDate.
+     * @return false if given string cannot be parsed into a LocalDate, true if it can.
+     */
     public static boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
@@ -46,6 +51,11 @@ public class GeneralUtilities {
         return true;
     }
 
+    /**
+     * Checks if given string can be parsed into a LocalTime.
+     * @param inTime string to be parsed into a LocalTime.
+     * @return false if given string cannot be parsed into a LocalTime, true if it can.
+     */
     public static boolean isValidTime(String inTime) {
         //SimpleDateFormat dateFormat = new DateTimeFormatter("dd/MM/yyyy");
         DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
@@ -57,6 +67,12 @@ public class GeneralUtilities {
         }
         return true;
     }
+
+    /**
+     * Checks if given string can be parsed into an int.
+     * @param inInt string to be parsed into an int.
+     * @return false if given string cannot be parsed into an int, true if it can.
+     */
     public static boolean isValidInt(String inInt) {
         try {
             Integer.parseInt(inInt);
@@ -65,6 +81,12 @@ public class GeneralUtilities {
         }
         return true;
     }
+
+    /**
+     * Checks if given string can be parsed into a double.
+     * @param inDouble string to be parsed into a double.
+     * @return false if given string cannot be parsed into a double, true if it can.
+     */
     public static boolean isValidDouble(String inDouble) {
         try {
             Double.parseDouble(inDouble);
@@ -73,10 +95,16 @@ public class GeneralUtilities {
         }
         return true;
     }
+
+    /**
+     * Checks if there are duplicates within a list. Momentarily not used because sample data fails with this.
+     * @param listContainingDuplicates An array list of strings
+     * @return false if two records with the same date and time are found, true otherwise.
+     */
     public static boolean hasNoDuplicates(ArrayList<String> listContainingDuplicates) {
         final Set<String> set1 = new HashSet<>();
-        for (String yourInt : listContainingDuplicates) {
-            if (!set1.add(yourInt)) {
+        for (String dateTime : listContainingDuplicates) {
+            if (!set1.add(dateTime)) {
                 return false;
             }
         }

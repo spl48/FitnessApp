@@ -41,7 +41,7 @@ public class DatabaseValidation {
 
     public static boolean validateLineLength(ArrayList<String[]> data){
         for (String[] line : data){
-            if(line.length != 6){
+            if(line.length < 6){
                 System.out.println("Invalid line length detected!");
                 ApplicationManager.displayPopUp("Invalid Data", "Invalid number of data fields detected!", "error");
                 return false;
@@ -202,12 +202,18 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * Validates if the given record is within the start and end date times of another activity.
+     * @param data A record in a csv file
+     * @return True if the record is not a duplicate, false otherwise.
+     * @throws SQLException
+     */
     public static boolean validateNonDuplicateData(ArrayList<String[]> data) throws SQLException {
         ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID());
-        ArrayList<String> duplicateList = new ArrayList<>();
+        //ArrayList<String> duplicateList = new ArrayList<>();
         for (String[] line : data){
             if(!line[0].equalsIgnoreCase("#start")){
-                duplicateList.add(line[0] + " " + line[1]);
+                //duplicateList.add(line[0] + " " + line[1]);
                 for (Activity activity : activities){
                     LocalTime recordTime = LocalTime.parse(line[1]);
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -221,14 +227,16 @@ public class DatabaseValidation {
                 }
             }
         }
+        /*
         if(!GeneralUtilities.hasNoDuplicates(duplicateList)){
             ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity records detected!", "error");
             System.out.println("Duplicate records detected!");
             return false;
         }
         else {
+        */
             return true;
-        }
+        //}
     }
     public static boolean validateNonDuplicateActivity(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate) throws SQLException {
         ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID());
