@@ -104,7 +104,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="quoteLabel" alignment="CENTER" prefHeight="131.0" prefWidth="429.0" text="Label" textAlignment="CENTER" textFill="#fd9294">
+                        <Label fx:id="quoteLabel" alignment="CENTER" prefHeight="129.0" prefWidth="405.0" text="Label" textAlignment="CENTER" textFill="#fd9294">
                            <font>
                               <Font name="NexaBold" size="20.0" />
                            </font>

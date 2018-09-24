@@ -85,13 +85,14 @@ public class HomeScreenController {
 
     private void updateQuote() {
         int curQuoteIndex = ApplicationManager.getCurQuoteIndex();
-        if (curQuoteIndex == quoteList.size()-1) {
-            ApplicationManager.setCurQuoteIndex(0);
-        } else {
-            ApplicationManager.setCurQuoteIndex(++curQuoteIndex);
-        }
         quoteLabel.setText(quoteList.get(curQuoteIndex));
         quoteLabel.setWrapText(true);
+        if (curQuoteIndex == quoteList.size()-1) {
+            curQuoteIndex = 0;
+        } else {
+            curQuoteIndex++;
+        }
+        ApplicationManager.setCurQuoteIndex(curQuoteIndex);
 
     }
 
