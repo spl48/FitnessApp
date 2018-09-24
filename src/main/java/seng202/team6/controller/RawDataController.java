@@ -224,22 +224,4 @@ public class RawDataController extends WorkoutsNavigator{
         addActivitiesToListView(activityList);
     }
 
-    @FXML
-    public void lightenFilter(Event event) {
-
-    }
-
-    @FXML
-    public void darkenFilter(Event event) {
-
-    }
-
-    /**
-     * Navigates the user to the Workouts Splash Screen.
-     * @param event When the user clicks on a button directing to this screen.
-     */
-    @FXML
-    public void toActivityEditScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/RawDataVeiwerEditing.fxml");
-    }
 }

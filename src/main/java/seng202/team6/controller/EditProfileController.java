@@ -145,7 +145,7 @@ public class EditProfileController {
             ApplicationManager.getDatabaseManager().updateHeight(height);
             ApplicationManager.getDatabaseManager().updateWeight(weight);
             ApplicationManager.getDatabaseManager().updateStrideLength(stride);
-            
+
             // Directs back to the profile screen and displays confirmation method.
             ApplicationManager.displayPopUp("Update Success", "You have successfully updated your profile!", "confirmation");
             toProfile(event); 
@@ -190,20 +190,6 @@ public class EditProfileController {
                 UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
                 UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
                 UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
-    }
-
-    /**
-     * Prints the data extracted from the form for testing purposes.
-     */
-    private void printData() {
-        System.out.println("Username: " + username);
-        System.out.println("First Name: " + first);
-        System.out.println("Last Name: " + last);
-        System.out.println("Gender: " + gender);
-        System.out.println("Birth Date: " + birthDate);
-        System.out.println("Height: " + height);
-        System.out.println("Weight: " + weight);
-        System.out.println("Stride Length: " + stride);
     }
 
 }

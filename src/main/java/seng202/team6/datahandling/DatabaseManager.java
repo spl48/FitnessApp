@@ -5,13 +5,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
-public class DatabaseManager implements DataLoader {
+public class DatabaseManager {
     private Connection con;
     private boolean hasData = false;
     private ActivityManager activityManager;
@@ -135,6 +134,12 @@ public class DatabaseManager implements DataLoader {
         return res;
     }
 
+    /**
+     * Gets all the usernames from the database.
+     * @return An arraylist of usernames.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public ArrayList<String> getUsernames() throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
@@ -149,6 +154,9 @@ public class DatabaseManager implements DataLoader {
         return users;
     }
 
+    /**
+     * Gets the database connection and displays corresponding errors.
+     */
     private void getConnection() {
         
         try {
@@ -258,6 +266,7 @@ public class DatabaseManager implements DataLoader {
         ResultSet res = state.executeQuery("DELETE FROM user WHERE username = " + username);
     }
 
+
     public void addActivity(int userid, String description, String start, String end, String workout, double distance, String notes) throws SQLException {
         if(con == null) {
             getConnection();
@@ -342,6 +351,12 @@ public class DatabaseManager implements DataLoader {
         return activities;
     }
 
+    /**
+     * Gets the records from an activity.
+     * @param activityID The activity id to get records for.
+     * @return An ArrayList of ActivityDataPoints (records)
+     * @throws SQLException
+     */
     public ArrayList<ActivityDataPoint>  getActivityRecords(int activityID) throws SQLException {
         // Checks the connection to the database.
         if(con == null) {
@@ -363,6 +378,12 @@ public class DatabaseManager implements DataLoader {
         return records;
     }
 
+    /**
+     * Extracts a single record given a result set.
+      * @param res The result set for the record.
+     * @return The AcvitityDataPoint which the result set gives.
+     * @throws SQLException
+     */
     public ActivityDataPoint extractRecord(ResultSet res) throws SQLException {
 
         String datetime = res.getString("datetime");
@@ -378,6 +399,12 @@ public class DatabaseManager implements DataLoader {
         return dataPoint;
     }
 
+    /**
+     * Gets a activity description given an id.
+     * @param activityID The activity id
+     * @return The activity description.
+     * @throws SQLException
+     */
     public String getActivityDescription(int activityID) throws SQLException {
         // Checks the connection to the database.
         if(con == null) {
@@ -389,6 +416,12 @@ public class DatabaseManager implements DataLoader {
         return description.getString(1);
     }
 
+    /**
+     * Given a result set extracts an Activity.
+     * @param res The result set
+     * @return The Activity object from the result set.
+     * @throws SQLException
+     */
     public Activity extractActivity(ResultSet res) throws SQLException {
         String activityDescription = res.getString("description");
         String activityStart = res.getString("start");
@@ -415,6 +448,12 @@ public class DatabaseManager implements DataLoader {
     }
 
 
+    /**
+     * Gets an activity object based on an id.
+     * @param activityID The activity id.
+     * @return The Activity Object relating to the id.
+     * @throws SQLException
+     */
     public Activity getActivity(int activityID) throws SQLException {
         // Checks the connection to the database.
         if(con == null) {

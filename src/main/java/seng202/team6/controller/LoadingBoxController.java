@@ -35,10 +35,19 @@ public class LoadingBoxController extends PopUpBoxController {
 
     }
 
+    /**
+     * Sets the maximum value for loading.
+     * @param maximum The maximum loading value.
+     */
     public void setMaximum(int maximum) {
         this.maximum = maximum;
     }
 
+
+    /**
+     * Updates the loading progress of the progress bar.
+     * @param newProgress The new data value of progress made.
+     */
     public void updateLoadingProgress(int newProgress) {
         System.out.println("New Progress " + newProgress);
         percentComplete = newProgress / maximum;
@@ -50,6 +59,10 @@ public class LoadingBoxController extends PopUpBoxController {
         percentageCompleteLabel.setText(String.format("%.0f", percentComplete*100) + "%");
     }
 
+
+    /**
+     * Displays the loading pop up.
+     */
     public void display() {
         this.displayErrorPopUP("", "", "loader");
     }

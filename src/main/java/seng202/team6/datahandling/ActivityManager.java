@@ -1,11 +1,8 @@
 package seng202.team6.datahandling;
 
-import javafx.collections.ObservableList;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
-import seng202.team6.utilities.GeneralUtilities;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,12 +12,23 @@ import java.util.HashMap;
 
 public class ActivityManager {
 
+    /**
+     * The database connection
+     */
     private Connection connection;
 
+    /**
+     * Initialises a new activity manager.
+     * @param con The database connection.
+     */
     public ActivityManager(Connection con) {
         connection= con;
     }
 
+    /**
+     * Gets all the years in the activities table.
+     * @return An array list of all the years in string format.
+     */
     public ArrayList<String> getPossibleYears() {
         ArrayList<String> years = new ArrayList<String>();
 
@@ -41,6 +49,11 @@ public class ActivityManager {
         return years;
     }
 
+    /**
+     * If the value is 'All', sets to the wild card character for query in SQLite.
+     * @param value The value to be possibly changed to a wild card.
+     * @return Either the wild card or the original character.
+     */
     private String setPossibleWildCard(String value) {
         if (value.equals("All")) {
             return "%";
@@ -48,6 +61,14 @@ public class ActivityManager {
         return value;
     }
 
+    /**
+     * Gets id and description fields of activities from the database based on a filter.
+     * @param year The year filter
+     * @param month The month filter
+     * @param day The day filter
+     * @param type The type filter.
+     * @return A hash map of the descriptions and ids of the activities filtered
+     */
     public HashMap<String, Integer> getFilteredActivties(String year, String month, String day, String type) {
         year = setPossibleWildCard(year);
         month = setPossibleWildCard(month);
@@ -58,8 +79,6 @@ public class ActivityManager {
 
         try {
             Statement state = connection.createStatement();
-//            String sqlString = String.format("SELECT * FROM ACTIVITY " +
-//                    "WHERE STRFTIME('%Y', start) = '%s' AND STRFTIME('%m', start) = '%s' AND STRFTIME('%d', start)= '%s' AND workout LIKE %s", year, month, day, type);
             String sqlString = "select * from activity where " +
                     "strftime(\"%Y\", start) LIKE '" + year + "' AND " +
                     "strftime(\"%m\", start) LIKE '" + month + "' AND " +
@@ -81,6 +100,10 @@ public class ActivityManager {
         return filteredActivities;
     }
 
+    /**
+     * Gets the total number of entered activities into the database by executing an query.
+     * @return The number of activities in the activities table.
+     */
     public int getNumberActivities() {
         try {
             Statement state = connection.createStatement();
@@ -97,7 +120,14 @@ public class ActivityManager {
 
     }
 
-
+    /**
+     * Gets activities from the database based on a filter.
+     * @param year The year filter
+     * @param month The month filter
+     * @param day The day filter
+     * @param type The type filter.
+     * @return An arraylist of the filtered activities.
+     */
     public ArrayList<Activity> getFilteredFullActivties(String year, String month, String day, String type) {
         year = setPossibleWildCard(year);
         month = setPossibleWildCard(month);
@@ -110,8 +140,6 @@ public class ActivityManager {
             Statement state = connection.createStatement();
             DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
-//            String sqlString = String.format("SELECT * FROM ACTIVITY " +
-//                    "WHERE STRFTIME('%Y', start) = '%s' AND STRFTIME('%m', start) = '%s' AND STRFTIME('%d', start)= '%s' AND workout LIKE %s", year, month, day, type);
             String sqlString = "select * from activity where " +
                     "strftime(\"%Y\", start) LIKE '" + year + "' AND " +
                     "strftime(\"%m\", start) LIKE '" + month + "' AND " +
