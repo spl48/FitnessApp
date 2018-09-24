@@ -136,15 +136,21 @@ public class workoutManualEntryController extends GeneralScreenController {
                 && DatabaseValidation.validateTime(endTime)
             && DatabaseValidation.validateDate(startDateString)
             && DatabaseValidation.validateDate(endDateString)
+                && DatabaseValidation.validateStartEndDate(startDate, endDate)
                 && DatabaseValidation.validateDistance(distance)){
             LocalTime localStartTime = LocalTime.parse(startTime);
             LocalTime localEndTime = LocalTime.parse(endTime);
             if(DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDate, endDate)){
+                notes = notes_E.getText();
                 return true;
             }
+            else{
+                return false;
+            }
         }
-        notes = notes_E.getText();
-    return true;
-}
+        else{
+            return false;
+        }
+    }
 
 }

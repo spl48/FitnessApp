@@ -191,6 +191,16 @@ public class DatabaseValidation {
             return true;
         }
     }
+    public static boolean validateStartEndDate(LocalDate startDate, LocalDate endDate){
+        if(!startDate.isBefore(endDate)){
+            ApplicationManager.displayPopUp("Invalid Data", "Make sure start date is before end date!", "error");
+            System.out.println("Invalid date detected!");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
     public static boolean validateNonDuplicateData(ArrayList<String[]> data) throws SQLException {
         ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID());
