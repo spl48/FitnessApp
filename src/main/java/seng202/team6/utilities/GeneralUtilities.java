@@ -50,6 +50,16 @@ public class GeneralUtilities {
         }
         return true;
     }
+    public static boolean isValidDateWithFormat(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate);
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Checks if given string can be parsed into a LocalTime.

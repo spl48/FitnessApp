@@ -181,6 +181,26 @@ public class DatabaseValidation {
         }
     }
 
+    public static boolean validateDateWithFormat(String date){
+        if(!GeneralUtilities.isValidDateWithFormat(date)){
+            System.out.println("Invalid date detected!");
+            ApplicationManager.displayPopUp("Invalid Data", "Make sure date is of the form DD/MM/YY!", "error");
+            return false;
+        }
+        else{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+            LocalDate newDate = LocalDate.parse(date, formatter);
+            if(newDate.isAfter(LocalDate.now())){
+                ApplicationManager.displayPopUp("Invalid Data", "Future date detected!", "error");
+                System.out.println("Future date detected!");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+
     public static boolean validateTime(String time){
         if(!GeneralUtilities.isValidTime(time)){
             ApplicationManager.displayPopUp("Invalid Data", "Make sure time is of the form HH:mm:ss!", "error");
