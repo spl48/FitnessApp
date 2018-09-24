@@ -1,7 +1,6 @@
 package seng202.team6.datahandling;
 
 import com.opencsv.CSVReader;
-import org.apache.commons.lang3.StringEscapeUtils;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.controller.LoadingBoxController;
@@ -13,9 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class FileDataLoader implements DataLoader {
+public class FileDataLoader {
     int FIRST_ENTRY = 0;
     /*
     public static void main(String[] args){

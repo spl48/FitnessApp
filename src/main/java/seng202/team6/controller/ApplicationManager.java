@@ -108,11 +108,19 @@ public class ApplicationManager {
         popUpBoxController.displayErrorPopUP(title, message, type);
     }
 
+    /**
+     * Displays an error pop up with the exception data
+     * @param e The exception that occurred.
+     */
     public static void displayErrorPopUp(Exception e) {
         e.printStackTrace();
         popUpBoxController.displayErrorPopUP(e.getClass().getSimpleName(), e.getMessage(), "error");
     }
 
+    /**
+     * Displays an error pop up with the exception data
+     * @param e The exception that occurred.
+     */
     public static void displayErrorPopUpCustom(String title, String message, Exception e) {
         e.printStackTrace();
         popUpBoxController.displayErrorPopUP(title, message, "error");
