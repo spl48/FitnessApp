@@ -5,7 +5,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import seng202.team6.datahandling.DatabaseManager;
 
 import java.sql.SQLException;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
  * <h1>Start Screen Controller</h1>
  * <p>Initialises and applies functionality to the Start screen allowing the user to navigate to login or register.</p>
  */
-public class startScreenController extends GUIUtilities {
+public class startScreenController extends GeneralScreenController {
 
     @FXML
     private Button signInButton;

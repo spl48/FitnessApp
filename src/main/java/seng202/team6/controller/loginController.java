@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * <p>Sets up the login screen and dynamically sets the user profile display depending on the users
  * currently within the database. Logs the user in when desired user selected.</p>
  */
-public class loginController extends GUIUtilities{
+public class loginController extends GeneralScreenController {
 
     /**
      * The grid which the profiles from the database will be displayed.

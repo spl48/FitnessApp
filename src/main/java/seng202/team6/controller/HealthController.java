@@ -13,7 +13,7 @@ import seng202.team6.models.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class HealthController extends GUIUtilities{
+public class HealthController extends GeneralScreenController {
     /**
      * Text that represent each different potential health concern
      */

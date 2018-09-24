@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
  * <h1>Main Menu Navigation Controller</h1>
  * <p>Main application navigation using side bar.</p>
  */
-public class MainMenuNavigation extends GUIUtilities {
+public class MainMenuNavigation extends GeneralScreenController {
 
     /**
      * The home button on the side bar.

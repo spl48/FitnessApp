@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * <h1>Profile Controller</h1>
  * <p>Initialises and applies functionality to the Profile screen.</p>
  */
-public class profileController extends GUIUtilities {
+public class profileController extends GeneralScreenController {
 
     /**
      * The labels containing the user details from the database.

@@ -19,7 +19,7 @@ import java.io.IOException;
  * <h1>Pop Up Box Controller</h1>
  * <p>Contains methods which initialise and display error pop ups.</p>
  */
-public class PopUpBoxController extends GUIUtilities {
+public class PopUpBoxController extends GeneralScreenController {
 
     /** The label which holds the error description and comment. */
     @FXML

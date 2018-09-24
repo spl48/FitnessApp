@@ -50,27 +50,27 @@
                     </rowConstraints>
                      <children>
       
-                        <Text fill="#494949" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR BMI IS" wrappingWidth="128.1295166015625" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                        <Text fill="#494949" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR BMI IS" textAlignment="CENTER" wrappingWidth="232.92950439453125" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                            <font>
                               <Font name="NexaBold" size="21.0" />
                            </font>
                         </Text>
-                        <Text fx:id="BMIText" fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="26.5" textAlignment="CENTER" wrappingWidth="115.93344116210938" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                        <Text fx:id="BMIText" fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="26.5" textAlignment="CENTER" wrappingWidth="218.3334732055664" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                            <font>
                               <Font name="NexaBold" size="43.0" />
                            </font>
                         </Text>
-                        <Text fx:id="weightType" fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="(OBESE)" textAlignment="CENTER" wrappingWidth="182.529541015625" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                        <Text fx:id="weightType" fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="(OBESE)" textAlignment="CENTER" wrappingWidth="206.529541015625" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                            <font>
                               <Font name="NexaBold" size="15.0" />
                            </font>
                         </Text>
-                        <Text fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU ARE AT RISK OF" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <Text fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU ARE AT RISK OF" textAlignment="CENTER" wrappingWidth="278.71202087402344" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                            <font>
                               <Font name="NexaBold" size="21.0" />
                            </font>
                         </Text>
-                        <Text fx:id="healthConcernsText" fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="- NOTHING :)" wrappingWidth="195.462890625" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                        <Text fx:id="healthConcernsText" fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="NOTHING " textAlignment="CENTER" wrappingWidth="221.0628662109375" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                            <font>
                               <Font name="NexaBold" size="16.0" />
                            </font>
@@ -113,7 +113,7 @@
                               <Font name="NexaBold" size="20.0" />
                            </font>
                         </Text>
-                        <Text fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="52" textAlignment="CENTER" wrappingWidth="78.40139770507812" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                        <Text fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="78.40139770507812" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                            <font>
                               <Font name="NexaBold" size="27.0" />
                            </font>

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * <h1>Register Controller</h1>
  * <p>Initialises and applies functionality to the Register screen allowing users to make profiles in the database</p>
  */
-public class registerController extends GUIUtilities {
+public class registerController extends GeneralScreenController {
 
     /**
      * The maximum number of Users

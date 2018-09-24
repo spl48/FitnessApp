@@ -16,7 +16,7 @@ import java.time.LocalDate;
  * <p>Initialises and applies functionality to the Activity Entry screen. Allows the user to manually enter their
  * Activity data./p>
  */
-public class workoutManualEntryController extends GUIUtilities {
+public class workoutManualEntryController extends GeneralScreenController {
 
     // Note start and end time will be time objects of sort when research best way to represent and get input from using
     // gui.
@@ -63,7 +63,7 @@ public class workoutManualEntryController extends GUIUtilities {
     private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
     void initialize() {
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
         sessionType_E.setItems(availableChoices);
@@ -89,7 +89,6 @@ public class workoutManualEntryController extends GUIUtilities {
             dbManager.addActivity(ApplicationManager.getCurrentUserID(), sessionName, startDateTime, endDateTime, sessionType, distance, notes);
             ApplicationManager.displayPopUp("Entry Successful", "The activity was successfully loaded into the database!", "confirmation");
             toWorkOutScreen(event);
-            //Enter into database
         }
     }
 

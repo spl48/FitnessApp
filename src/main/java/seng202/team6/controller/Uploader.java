@@ -72,13 +72,18 @@ public class Uploader extends WorkoutsNavigator {
      * Uploads a csv activities file to the database.
      */
     @FXML
-    public void uploadActivity(Event event) throws IOException {
+    public void uploadActivity(Event event) {
 
         String filePath = fileSelector();
         if (filePath != null) {
-            FileDataLoader loader = new FileDataLoader();
-            loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
-            changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml");
+            try {
+                FileDataLoader loader = new FileDataLoader();
+                loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
+                changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml");
+            } catch (Exception e) {
+                e.printStackTrace();
+                ApplicationManager.displayPopUp("Database Error" , "Could not load csv into database", "error");
+            }
         } else {
             System.out.println("Nothing is selected!");
         }

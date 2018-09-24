@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutsNavigator">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutsNavigator">
    <top>
-      <fx:include source="header.fxml"/>
+      <fx:include source="header.fxml" />
    </top>
    <left>
       <fx:include source="sidebar.fxml" />
@@ -18,7 +18,7 @@
          <top>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="300.0" layoutY="63.0" prefHeight="88.0" prefWidth="558.0" text="MY FITNESS CALENDAR" textFill="WHITE">
+                  <Label alignment="CENTER" layoutY="63.0" prefHeight="88.0" prefWidth="1138.0" text="MY FITNESS CALENDAR" textFill="WHITE">
                      <font>
                         <Font name="NexaBold" size="48.0" />
                      </font>

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
  * <h1>Workouts navigator.</h1> //Could potentially be called workouts screen controller where all other workout screens inherit from.
  * <p>Provides navigation methods for the Workouts area./p>
  */
-public class WorkoutsNavigator extends GUIUtilities {
+public class WorkoutsNavigator extends GeneralScreenController {
 
     /**
      * Navigates the user to the Workouts Splash Screen.
