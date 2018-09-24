@@ -86,12 +86,12 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(217,217,217); -fx-border-color: rgb(138,138,138);" GridPane.rowIndex="1">
+            <AnchorPane prefHeight="347.0" prefWidth="200.0" style="-fx-background-color: rgb(217,217,217); -fx-border-color: rgb(138,138,138);" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="8.0" left="8.0" right="4.0" top="4.0" />
                </GridPane.margin>
                <children>
-                  <ImageView fitHeight="347.0" fitWidth="556.0" layoutX="5.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="337.0" fitWidth="566.0" layoutX="2.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../resources/pics/matespanel.png" />
                      </image>
