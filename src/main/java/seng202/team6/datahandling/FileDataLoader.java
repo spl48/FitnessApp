@@ -10,6 +10,7 @@ import seng202.team6.utilities.DatabaseValidation;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,14 +39,14 @@ public class FileDataLoader implements DataLoader {
     */
 
 
-    public void importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager) throws IOException {
+    public boolean importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager) throws IOException, SQLException {
         int numLines = countLines(CSVLocation);
         System.out.println("Num Lines "+ numLines);
         LoadingBoxController loadBox = new LoadingBoxController();
         loadBox.setMaximum(numLines);
         //loadBox.display();
-        try {
             //Change this to local at some point
+        try {
             CSVReader reader = new CSVReader(new FileReader(CSVLocation));
             String[] nextLine;
             String[] previousLine = {};
@@ -60,11 +61,10 @@ public class FileDataLoader implements DataLoader {
             while ((nextLine = reader.readNext()) != null) {
                 rawData.add(nextLine);
             }
-            if(!DatabaseValidation.validate(rawData)){
+            if (!DatabaseValidation.validate(rawData)) {
                 System.out.println("validation failed");
-                ApplicationManager.displayPopUp("Data validation", "Invalid CSV file detected!", "error");
-            }
-            else {
+                return false;
+            } else {
                 System.out.println("validation passed");
                 int activityid = 0;
                 nextLine = rawData.get(0);
@@ -144,12 +144,13 @@ public class FileDataLoader implements DataLoader {
                 PreparedStatement updateEnd = databaseManager.getCon().prepareStatement(sql);
                 updateEnd.setString(1, end);
                 updateEnd.execute();
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+            //ApplicationManager.displayPopUp("Database Error" , "Could not load csv into database", "error");
         }
-        ApplicationManager.displayPopUp("Data Confirmation", "Activity Data has been uploaded!", "confirmation");
-        System.out.println("CSV read complete");
     }
 
     public String convertToDateTimeFormat(String date, String time) {

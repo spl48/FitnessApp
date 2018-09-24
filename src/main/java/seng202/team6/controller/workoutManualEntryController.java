@@ -6,10 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import seng202.team6.datahandling.DataHandlerUtilities;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  * <h1>Activity Manual Entry Controller</h1>
@@ -48,7 +52,17 @@ public class workoutManualEntryController extends GeneralScreenController {
     /**
      * Textual activity details.
      */
-    private String sessionName, sessionType, notes, startTime, endTime, startDateTime, endDateTime;
+    private String sessionName, sessionType, notes, startTime, endTime, startDateTime, endDateTime, startDateString, endDateString;
+
+    /**
+     * Array used to store entered data as a list for validation.
+     */
+    private String[] array;
+
+    /**
+     * Array used for data validation.
+     */
+    private ArrayList<String[]> data = new ArrayList<>();
 
     /**
      * Maximum and minimum Heart rate of the user for the activity entered.
@@ -102,11 +116,10 @@ public class workoutManualEntryController extends GeneralScreenController {
         sessionType = sessionType_E.getValue();
         startDate = startDate_E.getValue();
         endDate = endDate_E.getValue();
-        String startDateString = startDate.toString().replace("/", "-");
-        String endDateString = endDate.toString().replace("/", "-");
+        startDateString = startDate.toString().replace("/", "-");
+        endDateString = endDate.toString().replace("/", "-");
         startDateTime = startDateString + "T" + startTime;
         endDateTime = endDateString + "T" + endTime;
-        notes = notes_E.getText();
         try {
             distance = Double.parseDouble(distance_E.getText());
         } catch (NumberFormatException e) {
@@ -118,15 +131,19 @@ public class workoutManualEntryController extends GeneralScreenController {
      * Validates the entered activity data, displaying error pop ups when relevant.
      * @return Whether all fields are valid.
      */
-    private boolean validEnteredData() {
-//        return UserDataValidation.validateUserName(username) &&
-//                UserDataValidation.validateName(first, "First Name") &&
-//                UserDataValidation.validateName(last, "Last Name") &&
-//                UserDataValidation.validateBirthDate(birthDate) &&
-//                UserDataValidation.validateGender(gender) &&
-//                UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
-//                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
-//                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
+    private boolean validEnteredData() throws SQLException {
+        if(DatabaseValidation.validateTime(startTime)
+                && DatabaseValidation.validateTime(endTime)
+            && DatabaseValidation.validateDate(startDateString)
+            && DatabaseValidation.validateDate(endDateString)
+                && DatabaseValidation.validateDistance(distance)){
+            LocalTime localStartTime = LocalTime.parse(startTime);
+            LocalTime localEndTime = LocalTime.parse(endTime);
+            if(DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDate, endDate)){
+                return true;
+            }
+        }
+        notes = notes_E.getText();
     return true;
 }
 
