@@ -9,6 +9,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GeneralUtilities {
 
@@ -67,6 +70,15 @@ public class GeneralUtilities {
             Double.parseDouble(inDouble);
         } catch (NumberFormatException pe) {
             return false;
+        }
+        return true;
+    }
+    public static boolean hasNoDuplicates(ArrayList<String> listContainingDuplicates) {
+        final Set<String> set1 = new HashSet<>();
+        for (String yourInt : listContainingDuplicates) {
+            if (!set1.add(yourInt)) {
+                return false;
+            }
         }
         return true;
     }

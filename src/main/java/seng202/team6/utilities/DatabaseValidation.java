@@ -204,8 +204,10 @@ public class DatabaseValidation {
 
     public static boolean validateNonDuplicateData(ArrayList<String[]> data) throws SQLException {
         ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID());
+        ArrayList<String> duplicateList = new ArrayList<>();
         for (String[] line : data){
             if(!line[0].equalsIgnoreCase("#start")){
+                duplicateList.add(line[0] + " " + line[1]);
                 for (Activity activity : activities){
                     LocalTime recordTime = LocalTime.parse(line[1]);
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -219,7 +221,14 @@ public class DatabaseValidation {
                 }
             }
         }
-        return true;
+        if(!GeneralUtilities.hasNoDuplicates(duplicateList)){
+            ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity records detected!", "error");
+            System.out.println("Duplicate records detected!");
+            return false;
+        }
+        else {
+            return true;
+        }
     }
     public static boolean validateNonDuplicateActivity(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate) throws SQLException {
         ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID());
