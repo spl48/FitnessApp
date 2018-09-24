@@ -100,6 +100,10 @@ public class workoutManualEntryController extends GeneralScreenController {
     public void createActivity(ActionEvent event) throws SQLException {
         setEnteredData();
         if (validEnteredData()) {
+            startDateString = startDate.toString().replace("/", "-");
+            endDateString = endDate.toString().replace("/", "-");
+            startDateTime = startDateString + "T" + startTime;
+            endDateTime = endDateString + "T" + endTime;
             dbManager.addActivity(ApplicationManager.getCurrentUserID(), sessionName, startDateTime, endDateTime, sessionType, distance, notes);
             ApplicationManager.displayPopUp("Entry Successful", "The activity was successfully loaded into the database!", "confirmation");
             toWorkOutScreen(event);
@@ -116,10 +120,8 @@ public class workoutManualEntryController extends GeneralScreenController {
         sessionType = sessionType_E.getValue();
         startDate = startDate_E.getValue();
         endDate = endDate_E.getValue();
-        startDateString = startDate.toString().replace("/", "-");
-        endDateString = endDate.toString().replace("/", "-");
-        startDateTime = startDateString + "T" + startTime;
-        endDateTime = endDateString + "T" + endTime;
+        startDateString = startDate.toString();
+        endDateString = endDate.toString();
         try {
             distance = Double.parseDouble(distance_E.getText());
         } catch (NumberFormatException e) {
