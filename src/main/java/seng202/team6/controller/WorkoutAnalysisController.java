@@ -137,7 +137,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities) { // Add all activities to available activities initially
             availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
@@ -203,7 +203,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             Activity selectedActivity = activities.get(selectionIndex);
             String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
             if (activityList.getFocusModel().toString().equals("No Activities")) {
-                ApplicationManager.displayPopUp("YA DINGUSS", "No activities to display ya friggen frig with selected dates", "error");
+                ApplicationManager.displayPopUp("Oh Mate!", "You have no activities with the selected dates mate", "error");
 //            } else if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == selectedActivity && curSeriesType == seriesType) {
 //                ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
             } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
@@ -216,11 +216,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                     e.printStackTrace();
                 }
             } else {
-                String errorMessage = String.format("Already displaying data for %s ya dinguss", selectedActivity.getStartDate().toString());
-                ApplicationManager.displayPopUp("YA DINGUSS!", errorMessage, "error");
+                String errorMessage = String.format("Already displaying data for %s mate", selectedActivity.getStartDate().toString());
+                ApplicationManager.displayPopUp("Oh Mate!", errorMessage, "error");
             }
         } else {
-            ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data. Go to workouts to upload your activities.", "error");
+            ApplicationManager.displayPopUp("Oh Mate!", "You have no uploaded activity data. Go to workouts to upload your activities.", "error");
         }
     }
 
@@ -252,7 +252,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 }
             }
         } else {
-            ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
+            ApplicationManager.displayPopUp("Oh Mate!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
         }
     }
 

@@ -472,5 +472,11 @@ public class Activity
 
         return (activityDistance / (activityTime / 60));
     }
+
+    public double findAverageSpeedManual() {
+        double time = getTotalTime();
+        return distance / time;
+
+    }
 }
 

@@ -51,7 +51,7 @@ public class MapsController extends WorkoutsNavigator {
      */
     @FXML
     public void initialize() throws SQLException {
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
         if (activities.size() >= 1) {
             ObservableList<String> availableActivities = FXCollections.observableArrayList();
             for (Activity activity : activities){
@@ -94,7 +94,7 @@ public class MapsController extends WorkoutsNavigator {
             Route route = makeRoute(desiredActivity);
             displayRoute(route);
         } else {
-            ApplicationManager.displayPopUp("YA DINGUSS!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
+            ApplicationManager.displayPopUp("Oh Mate!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
         }
     }
 
@@ -108,7 +108,7 @@ public class MapsController extends WorkoutsNavigator {
             webEngine.executeScript(scriptToExecute);
         } catch(netscape.javascript.JSException e) {
             e.printStackTrace();
-            ApplicationManager.displayPopUp("RUH ROH", "You need an internet connection to use the maps feature","error");
+            ApplicationManager.displayPopUp("Oh Mate!", "You need an internet connection to use the maps feature","error");
         }
     }
 }
