@@ -46,6 +46,10 @@ public class HomeScreenController {
      */
     @FXML
     private Text BMIText, weightType, stepCount, healthConcernsText;
+
+    /**
+     * Displays the MATES AI quote
+     */
     @FXML
     private Label quoteLabel;
 
@@ -66,6 +70,9 @@ public class HomeScreenController {
 	 */
     private ArrayList<Activity> activities;
 
+    /**
+     * List of quotes to be displayed on home page by MATES AI
+     */
     private ArrayList<String> quoteList = new ArrayList<>(Arrays.asList("DREAMS DON'T WORK UNLESS YOU DO", "LIFE HAS NO REMOTE, GET UP AND CHANGE IT YOURSELF", "LIFE IS ABOUT GETTING UP AN HOUR EARLIER, SO YOU CAN LIVE AN HOUR LONGER",
             "GOOD THINGS COME TO THOSE THAT SWEAT", "IT'S NOT ALWAYS EASY, BUT IT'S ALWAYS WORTH IT", "THE ONLY BAD WORKOUT IS THE ONE THAT DIDN'T HAPPEN", "LIFE IS TOUGH, BUT SO ARE YOU!"));
 
@@ -83,6 +90,9 @@ public class HomeScreenController {
 
     }
 
+    /**
+     * Updates the quote by MATES AI to be the quote at the given index in the quote list
+     */
     private void updateQuote() {
         int curQuoteIndex = ApplicationManager.getCurQuoteIndex();
         quoteLabel.setText(quoteList.get(curQuoteIndex));

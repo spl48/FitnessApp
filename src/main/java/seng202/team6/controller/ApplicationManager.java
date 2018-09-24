@@ -34,6 +34,9 @@ public class ApplicationManager {
      */
     private static int currentActivityNumber = 0;
 
+    /**
+     * the current index of the quote list quote being displayed on the home page
+     */
     private static int curQuoteIndex;
 
 
@@ -146,8 +149,16 @@ public class ApplicationManager {
         currentActivityNumber = activityNumber;
     }
 
+    /**
+     * Sets the current index for the quote list
+     * @param index to be set to
+     */
     public static void setCurQuoteIndex(int index) { curQuoteIndex = index; }
 
+    /**
+     * Gets the current index for the quote list
+     * @return current index for the quote list
+     */
     public static int getCurQuoteIndex() { return curQuoteIndex; }
 
 }
