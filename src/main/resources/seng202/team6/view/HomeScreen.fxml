@@ -96,6 +96,21 @@
                         <Image url="@../resources/pics/matespanel.png" />
                      </image>
                   </ImageView>
+                  <GridPane layoutX="83.0" layoutY="24.0" prefHeight="129.0" prefWidth="430.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="quoteLabel" alignment="CENTER" prefHeight="129.0" prefWidth="405.0" text="Label" textAlignment="CENTER" textFill="#fd9294">
+                           <font>
+                              <Font name="NexaBold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(217,217,217); -fx-border-color: rgb(138,138,138);" GridPane.columnIndex="1">

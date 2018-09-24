@@ -3,6 +3,7 @@ package seng202.team6.controller;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +46,10 @@ public class HomeScreenController {
      */
     @FXML
     private Text BMIText, weightType, stepCount, healthConcernsText;
+    @FXML
+    private Label quoteLabel;
+
+
 
     /**
      * The current database manager
@@ -61,6 +66,9 @@ public class HomeScreenController {
 	 */
     private ArrayList<Activity> activities;
 
+    private ArrayList<String> quoteList = new ArrayList<>(Arrays.asList("DREAMS DON'T WORK UNLESS YOU DO", "LIFE HAS NO REMOTE, GET UP AND CHANGE IT YOURSELF", "LIFE IS ABOUT GETTING UP AN HOUR EARLIER, SO YOU CAN LIVE AN HOUR LONGER",
+            "GOOD THINGS COME TO THOSE THAT SWEAT", "IT'S NOT ALWAYS EASY, BUT IT'S ALWAYS WORTH IT", "THE ONLY BAD WORKOUT IS THE ONE THAT DIDN'T HAPPEN", "LIFE IS TOUGH, BUT SO ARE YOU!"));
+
 
     public void initialize() throws SQLException {
         ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
@@ -71,6 +79,20 @@ public class HomeScreenController {
         setHealthInfo();
         setStepsInfo();
         newGraph();
+        updateQuote();
+
+    }
+
+    private void updateQuote() {
+        int curQuoteIndex = ApplicationManager.getCurQuoteIndex();
+        quoteLabel.setText(quoteList.get(curQuoteIndex));
+        quoteLabel.setWrapText(true);
+        if (curQuoteIndex == quoteList.size()-1) {
+            curQuoteIndex = 0;
+        } else {
+            curQuoteIndex++;
+        }
+        ApplicationManager.setCurQuoteIndex(curQuoteIndex);
 
     }
 
