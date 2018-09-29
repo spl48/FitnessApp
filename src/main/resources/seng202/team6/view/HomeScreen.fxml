@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HomeScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HomeScreenController">
    <top>
        <fx:include source="header.fxml" />
    </top>
@@ -137,12 +131,12 @@
                               <Font name="NexaBold" size="27.0" />
                            </font>
                         </Text>
-                        <Text fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="STEPS TAKEN" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                        <Text fill="#494949" strokeType="OUTSIDE" strokeWidth="0.0" text="STEPS TAKEN THIS WEEK" textAlignment="CENTER" wrappingWidth="264.8999938964844" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                            <font>
                               <Font name="NexaBold" size="20.0" />
                            </font>
                         </Text>
-                        <Text fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="78.40139770507812" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                        <Text fx:id="stepsLeftLabel" fill="#fd9294" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="123.40139770507812" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                            <font>
                               <Font name="NexaBold" size="27.0" />
                            </font>

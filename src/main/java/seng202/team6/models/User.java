@@ -65,7 +65,6 @@ public class User
      * The Goals of the User that the Profile is associated with
      */
     private ArrayList<Goal> goals = new ArrayList<Goal>();
-
     /**
      * A function that takes a Goal parameter and adds the goal to an ArrayList
      * of Goal.
@@ -84,6 +83,14 @@ public class User
     {
         return goals;
     }
+
+
+    /**
+     * Goal object thast holds the goal number of steps per week
+     */
+    public StepGoal stepGoal;
+
+
 
     /**
      * A function that takes a Boolean parameter and sets the status of the Goal's progress
@@ -133,6 +140,8 @@ public class User
         this.username = username;
 
         this.userID = userID;
+
+        stepGoal = new StepGoal(70000);
     }
 
     /**
@@ -328,6 +337,18 @@ public class User
     public int getUserID() {
         return userID;
     }
+
+    /**
+     * Returns the current steps per week goal of the user
+     * @return current steps per week goal of the user
+     */
+    public int getStepGoal() { return stepGoal.getGoalStepNum(); }
+
+    /**
+     * sets the step goal for the user
+     * @param newStepCount integer of new step count per week goal
+     */
+    public void setStepGoal(int newStepCount) { stepGoal.setStepGoal(newStepCount);}
 
     public void printUser() {
         System.out.println("-----------------------------------------");
