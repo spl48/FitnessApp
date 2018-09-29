@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
@@ -298,7 +297,6 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
         XYChart.Series series = new XYChart.Series();
         String activityType = activityTypeSelection.getSelectionModel().getSelectedItem();
         series.setName(selectedActivity.getStartDate() + " " + selectedActivity.getDescription());
-        ActivityAnalysis activityAnalysis = new ActivityAnalysis();
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
             Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
             double time = duration.toMillis() / 60000.0;
@@ -313,7 +311,7 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
                     yAxis.setLabel("Total Distance (KM)");
 
                     int index = selectedActivity.getActivityData().indexOf(point);
-                    double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
+                    double distance = selectedActivity.findDistanceFromStart(index);
                     series.getData().add(new XYChart.Data(time, distance));
                     break;
                 case ("Elevation"):
@@ -323,7 +321,7 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
                 case ("Calories"):
                     String userName = ApplicationManager.getCurrentUsername();
                     yAxis.setLabel("Calories Burned");
-                    double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), selectedActivity.getType(), databaseManager.getUser(userName).getWeight());
+                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(), databaseManager.getUser(userName).getWeight());
                     series.getData().add(new XYChart.Data(time, calories));
                     break;
             }

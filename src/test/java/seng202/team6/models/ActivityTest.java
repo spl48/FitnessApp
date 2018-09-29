@@ -25,6 +25,8 @@ public class ActivityTest extends TestCase {
     ActivityDataPoint point3 = new ActivityDataPoint(startTime1, 63, 50.9, 144.0, 23.0);
 
 
+   Activity testActivity;
+
 
     public void testSetActivityid() {
         activity1.setActivityid(123456);
@@ -171,5 +173,178 @@ public class ActivityTest extends TestCase {
         ArrayList<ActivityDataPoint> expected = new ArrayList<ActivityDataPoint>(Arrays.asList(point1));
         activity1.addActivityData(point1);
         assertEquals(expected.size(), activity1.getActivityData().size());
+    }
+
+
+    public void testFindStepCount() {
+    LocalDate testDate = LocalDate.of(2018, 10, 9);
+    LocalTime testTime = LocalTime.of(5, 30);
+
+
+    testActivity = new Activity(12345, "Cycling", "Cycle around the block", testDate, testDate, testTime, testTime);
+    ActivityDataPoint p1 = new ActivityDataPoint(testTime, 85, -43.530029, 172.582520, 88);
+    ActivityDataPoint p2 = new ActivityDataPoint(testTime, 120, -43.54650, 172.583520, 88);
+    testActivity.addActivityData(p1);
+    testActivity.addActivityData(p2);
+    assertEquals(0.0, testActivity.findStepCount(1.5));           // Cycling activity data type
+
+    testActivity = new Activity(12345, "Other", "Cycle around the block", testDate, testDate, testTime, testTime);
+    testActivity.addActivityData(p1);
+    testActivity.addActivityData(p2);
+    assertEquals(0.0, testActivity.findStepCount(1.5));           // Other activity data type
+
+
+    testActivity = new Activity(12345, "Walking", "Cycle around the block", testDate, testDate, testTime, testTime);
+    p1 = new ActivityDataPoint(testTime, 85, -43.530029, 172.582520, 88);
+    p2 = new ActivityDataPoint(testTime, 120, -43.54650, 172.583520, 88);
+    testActivity.addActivityData(p1);
+    testActivity.addActivityData(p2);
+
+    assertEquals(20048, testActivity.findStepCount(0.3), 0.5);          // Minimum stride length (distance of 1.8km)
+    assertEquals(2406, testActivity.findStepCount(2.5), 0.5);            // Maximum Stride length
+    assertEquals(4296, testActivity.findStepCount(1.4), 0.5);            // Maximum Stride length
+
+
+    testActivity = new Activity(12345, "Running", "Run around the block", testDate, testDate, testTime, testTime);
+    p1 = new ActivityDataPoint(testTime, 85, -43.530029, 172.582520, 88);
+    p2 = new ActivityDataPoint(testTime, 120, -43.530030, 172.583521, 88);
+    testActivity.addActivityData(p1);
+    testActivity.addActivityData(p2);
+    assertEquals(132, testActivity.findStepCount(2), 0.5);           // Small distance of 0.08km covered
+
+
+    testActivity = new Activity(12345, "Running", "Run around the block", testDate, testDate, testTime, testTime);
+    p1 = new ActivityDataPoint(testTime, 85, -43.530029, 172.582520, 88);
+    p2 = new ActivityDataPoint(testTime, 120, -44.0, 173.0, 88);
+    testActivity.addActivityData(p1);
+    testActivity.addActivityData(p2);
+    assertEquals(101844, testActivity.findStepCount(2), 0.5);           // Large distance of 62.1km covered
+
+    }
+
+    public void testFindDistanceFromStart() {
+    LocalDate testDate = LocalDate.of(2018, 10, 9);
+    LocalTime testTime = LocalTime.of(5, 30);
+
+
+    testActivity = new Activity(12345, "Running", "Run around the block", testDate, testDate, testTime, testTime);
+
+    ActivityDataPoint p1 = new ActivityDataPoint(testTime, 85, -43.530029, 172.582520, 88);
+    ActivityDataPoint p2 = new ActivityDataPoint(testTime, 120, -43.530029, 172.582520, 88);
+    ActivityDataPoint p3 = new ActivityDataPoint(testTime, 111, -43.519975, 172.579222, 94);
+    ActivityDataPoint p4 = new ActivityDataPoint(testTime, 104, -43.530029, 172.582520, 88);
+    ActivityDataPoint p5 = new ActivityDataPoint(testTime, 101, -43.530834, 172.582520, 88);
+    ActivityDataPoint p6 = new ActivityDataPoint(testTime, 98, -43.530834, 172.59563, 92);
+    ActivityDataPoint p7 = new ActivityDataPoint(testTime, 98, -43.7, 173.5, 92);
+
+
+    testActivity.addActivityData(p1);
+    testActivity.addActivityData(p2);
+    testActivity.addActivityData(p3);
+    testActivity.addActivityData(p4);
+    testActivity.addActivityData(p5);
+    testActivity.addActivityData(p6);
+    testActivity.addActivityData(p7);
+
+    assertEquals(0.0, testActivity.findDistanceFromStart(1));  //No distance moved
+    assertEquals(2.3, testActivity.findDistanceFromStart(3), 0.05);  //Moved in a circle
+    assertEquals(2.4, testActivity.findDistanceFromStart(4), 0.05);  //Moved only in latitude
+    assertEquals(3.4, testActivity.findDistanceFromStart(5), 0.05);  //Moved only in longitude
+    assertEquals(78.6, testActivity.findDistanceFromStart(6), 0.05);  //Moved large distance
+    }
+
+
+
+    public void testFindCaloriesBurnedFromStart() {
+        activity1.setType("Walking");
+
+        assertEquals(0.0, activity1.findCaloriesBurnedFromStart(0,65));      // No activity time
+        assertEquals(0.0, activity1.findCaloriesBurnedFromStart(-50, 65));       //Negative activity time
+
+        assertEquals(17, activity1.findCaloriesBurnedFromStart(5, 65), 0.5); // Small activity time
+        assertEquals(1365, activity1.findCaloriesBurnedFromStart(400, 65), 0.05); // Large activity time
+
+        assertEquals(472, activity1.findCaloriesBurnedFromStart(60, 150), 0.5); // Large weight User
+        assertEquals(31, activity1.findCaloriesBurnedFromStart(60, 10), 0.5); // Small weight User
+
+
+        activity1.setType("");
+        assertEquals(307, activity1.findCaloriesBurnedFromStart(60, 65), 0.5); // Unknown activity type.
+        activity1.setType("Other");
+        assertEquals(307, activity1.findCaloriesBurnedFromStart(60, 65), 0.5); // Other activity type
+        activity1.setType("Running");
+        assertEquals(512, activity1.findCaloriesBurnedFromStart(60,  65), 0.5); // Running activity type
+        activity1.setType("Biking");
+        assertEquals(409, activity1.findCaloriesBurnedFromStart(60, 65), 0.5); // Cycling activity type
+    }
+
+
+
+
+    public void testGetActivityTypeFromDescription() {
+        LocalDate testDate = LocalDate.of(2018, 10, 9);
+        LocalTime testTime = LocalTime.of(5, 30);
+
+
+
+        testActivity = new Activity(12345, "Running", "Run around the block", testDate, testDate, testTime, testTime);
+        assertEquals("Running", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Running", "RUNNING IN THE CITY", testDate, testDate, testTime, testTime);
+        assertEquals("Running", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Running", "jog", testDate, testDate, testTime, testTime);
+        assertEquals("Running", Activity.getActivityType(testActivity.getType()));
+
+        testActivity = new Activity(12345, "Running", "joGGinG in the park", testDate, testDate, testTime, testTime);
+        assertEquals("Running", Activity.getActivityType(testActivity.getType()));
+
+
+
+        testActivity = new Activity(12345, "Cycling", "small BIKE ride", testDate, testDate, testTime, testTime);
+        assertEquals("Biking", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Cycling", "biking with friends", testDate, testDate, testTime, testTime);
+        assertEquals("Biking", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Cycling", "out cyclInG", testDate, testDate, testTime, testTime);
+        assertEquals("Biking", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Cycling", "   cycle   ", testDate, testDate, testTime, testTime);
+        assertEquals("Biking", Activity.getActivityType(testActivity.getDescription()));
+
+
+
+        testActivity = new Activity(12345, "Walking", "  dog walking", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Walking", "WALK WITH FRIENDS", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Walking", "hIkE in the woods", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Walking", "  hiking", testDate, testDate, testTime, testTime);
+        assertEquals("Walking", Activity.getActivityType(testActivity.getDescription()));
+
+
+
+        testActivity = new Activity(12345, "Other", "  ", testDate, testDate, testTime, testTime);
+        assertEquals("Other", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Other", "w alk", testDate, testDate, testTime, testTime);
+        assertEquals("Other", Activity.getActivityType(testActivity.getDescription()));
+
+        testActivity = new Activity(12345, "Other", "walkingwithfriends", testDate, testDate, testTime, testTime);
+        assertEquals("Other", Activity.getActivityType(testActivity.getDescription()));
+
+    }
+
+    public void testFindAverageSpeed() {
+        
+    }
+
+    public void testFindAverageSpeedManual() {
+
     }
 }
