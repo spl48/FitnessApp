@@ -12,25 +12,40 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * <h1>Calendar screen controller</h1>
+ * <p>Initializes and displays a calendar of a users activates, and displays activities on
+ * a chosen date if that date is selected/p>
+ */
 public class CalanderScreenController {
+    //Title of the calendar, showing the month and year
+    @FXML
+    Text title;
     @FXML
     GridPane calendar;
+    // Text representing activities information
     @FXML
-    Text title, description, speed, time, distance, type;
+    Text description, speed, distance, type;
 
+    // List of the current users activities
     ArrayList<Activity> activities;
 
+    //The date being used, initialized to the current dates
     LocalDate date = LocalDate.now();
     ArrayList<AnchorPane> days   = new ArrayList<>();
 
 
-
+    /**
+     * Initializes the fitness calendar screen, setting panes for each
+     * box / date in the calendar view.
+     * @throws SQLException When there is an error retrieving a users activities
+     */
     public void initialize() throws SQLException{
         int row;
         int column;
 
         DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
-        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
 
         // Adds a column pane to each calender box
         for (row = 0; row <= 6; row++) {
@@ -45,6 +60,9 @@ public class CalanderScreenController {
     }
 
 
+    /**
+     * Sets the calender up for the current month
+     */
     public void setUpCalendar() {
         AnchorPane pane;
         Text text;
@@ -96,10 +114,16 @@ public class CalanderScreenController {
 
     }
 
+
+    /**
+     * Checks if any activities were done at the
+     * current date and displays in the calendar if so
+     * @param pane the pane for which the activity (if found) is displayed
+     */
     public void checkDateActivities(AnchorPane pane) {
         Text text;
         for(Activity activity : activities) {
-            if (activity.getStartDate().equals(date)) {
+            if (activity.getStartDate().equals(date)) {     // Activity was undertake on current date
                 text = new Text("*");
                 pane.setBottomAnchor(text, 5.0);
                 pane.getChildren().add(text);
@@ -109,8 +133,13 @@ public class CalanderScreenController {
     }
 
 
+    /**
+     * Displays the activity imformation when the activity has been selected,
+     * sets field to empty if a date with no activity (null) was selected
+     * @param activity
+     */
     public void displayActivity(Activity activity) {
-        if (activity == null) {
+        if (activity == null) {     // No activity on selected date
             description.setText("");
             speed.setText("");
             distance.setText("");
@@ -124,11 +153,17 @@ public class CalanderScreenController {
     }
 
 
+    /**
+     * Sets the calendar view to the next month
+     */
     public void nextMonth(){
         date = date.plusMonths(1);
         setUpCalendar();
     }
 
+    /**
+     * Sets the calendar view to the previous month
+     */
     public void previousMonth(){
         date = date.minusMonths(1);
         setUpCalendar();
