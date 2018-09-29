@@ -57,8 +57,8 @@ public class ProfileAnalysis {
     public static double findStepsThisWeek(ArrayList<Activity> activities, double strideLength) {
         double totalStepCount = 0;
         double currentStepCount;
-        LocalDate currentDate = LocalDate.now();
-
+        //LocalDate currentDate = LocalDate.now();
+        LocalDate currentDate = LocalDate.of(2015,4,10);
         ActivityAnalysis activityAnalysis = new ActivityAnalysis();
         TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
         LocalDate startOfWeek = currentDate.with(fieldISO, 1);

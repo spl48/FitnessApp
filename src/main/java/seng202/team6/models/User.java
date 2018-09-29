@@ -420,7 +420,7 @@ public class User
      */
     public void setStepGoal(int newStepCount) throws SQLException {
         this.stepGoal = newStepCount;
-        ApplicationManager.getDatabaseManager().setStepGoal(userID, distanceGoal);
+        ApplicationManager.getDatabaseManager().setStepGoal(userID, stepGoal);
     }
 
     public int getDistanceGoal() {

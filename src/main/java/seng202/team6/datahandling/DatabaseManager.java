@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 
+import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -347,7 +348,8 @@ public class DatabaseManager {
         }
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND startdate BETWEEN ");
+        String nowDate = convertToDBDateFormat(LocalDate.now());
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN "+ date + " AND " + nowDate);
         while(res.next()){
 
             Activity activity = extractActivity(res);
@@ -675,26 +677,30 @@ public class DatabaseManager {
     }
     public void setStepGoal(int userid, int newGoal) throws SQLException {
         String sql = "UPDATE user SET stepgoal = ? WHERE userid = '" + userid + "'";
-        PreparedStatement updateNotes = con.prepareStatement(sql);
-        updateNotes.setInt(1, newGoal);
-        updateNotes.execute();
+        PreparedStatement updateStepGoal = con.prepareStatement(sql);
+        updateStepGoal.setInt(1, newGoal);
+        updateStepGoal.execute();
     }
+
     public void getUpdatedDistanceGoal(int userid, int newGoal) throws SQLException {
         LocalDate ld = LocalDate.now();
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         String lastMondayDate = convertToDBDateFormat(ld);
         //getActivitiesByD
-        PreparedStatement updateDistanceGoal = con.prepareStatement(lastMondayDate);
-        updateDistanceGoal.setInt(1, newGoal);
-        updateDistanceGoal.execute();
     }
-    public void getUpdatedStepGoal(int userid, int newGoal) throws SQLException {
-        String sql = "UPDATE user SET stepgoal = ? WHERE userid = '" + userid + "'";
+    public double getUpdatedStepGoal(int userid) throws SQLException {
         LocalDate ld = LocalDate.now();
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        PreparedStatement updateNotes = con.prepareStatement(sql);
-        updateNotes.setInt(1, newGoal);
-        updateNotes.execute();
+        String lastMondayDate = convertToDBDateFormat(ld);
+        ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
+        double totalStepCount = 0;
+        for (Activity activity : activities) {
+            double currentStepCount = ActivityAnalysis.findStepCount(activity, getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength());          // Finds the step count for 1 activity
+            totalStepCount += currentStepCount;
+        }
+        int stepgoal = getUserFromID(ApplicationManager.getCurrentUserID()).getStepGoal();
+        double updatedStepGoal = stepgoal - totalStepCount;
+        return updatedStepGoal;
     }
 
     public String convertToDBDateFormat(LocalDate date){

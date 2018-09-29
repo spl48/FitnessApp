@@ -155,9 +155,9 @@ public class HomeScreenController {
     /**
      * Displays the steps a user has taken
      */
-    private void setStepsInfo(){
-        double strideLength = user.getWalkingStrideLength();
-        double totalSteps = ProfileAnalysis.findStepsThisWeek(activities, strideLength);
+    private void setStepsInfo() throws SQLException {
+        //double strideLength = user.getWalkingStrideLength();
+        double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
 
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
