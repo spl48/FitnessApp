@@ -86,9 +86,9 @@ public class User
 
 
     /**
-     * Goal number of steps per week
+     * Goal object thast holds the goal number of steps per week
      */
-    public Goal stepGoal;
+    public StepGoal stepGoal;
 
 
 
@@ -141,7 +141,7 @@ public class User
 
         this.userID = userID;
 
-        stepGoal = new Goal(70000);
+        stepGoal = new StepGoal(70000);
     }
 
     /**

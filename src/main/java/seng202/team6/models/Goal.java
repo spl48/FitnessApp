@@ -36,8 +36,6 @@ public class Goal
      */
     private boolean goalReached = false;
 
-    private int goalStepsNum;
-
     /**
      * The constructor for the Goal that takes the parameter date set and goal name and sets
      * the date created and goal name for the specific Goal.
@@ -53,14 +51,6 @@ public class Goal
         } else {
             this.goalName = "invalid";
         }
-    }
-
-    /**
-     * Construct the goal number of steps per week
-     */
-    public Goal(int goalSteps)
-    {
-        goalStepsNum = goalSteps;
     }
 
     /**
@@ -145,7 +135,4 @@ public class Goal
         return goalReached;
     }
 
-    public int getGoalStepNum() { return goalStepsNum; }
-
-    public void setStepGoal(int newGoalSteps) { goalStepsNum = newGoalSteps; }
 }
