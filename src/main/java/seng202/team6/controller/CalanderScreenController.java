@@ -41,11 +41,11 @@ public class CalanderScreenController {
             }
         }
 
-        setUpCalender();
+        setUpCalendar();
     }
 
 
-    public void setUpCalender() {
+    public void setUpCalendar() {
         AnchorPane pane;
         Text text;
         int row = 1;
@@ -126,11 +126,11 @@ public class CalanderScreenController {
 
     public void nextMonth(){
         date = date.plusMonths(1);
-        setUpCalender();
+        setUpCalendar();
     }
 
     public void previousMonth(){
         date = date.minusMonths(1);
-        setUpCalender();
+        setUpCalendar();
     }
 }
