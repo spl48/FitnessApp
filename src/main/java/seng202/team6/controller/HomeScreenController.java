@@ -156,7 +156,7 @@ public class HomeScreenController {
      * Displays the steps a user has taken
      */
     private void setStepsInfo(){
-        double strideLength = user.getStrideLength();
+        double strideLength = user.getWalkingStrideLength();
         double totalSteps = ProfileAnalysis.findStepsThisWeek(activities, strideLength);
 
         String totalStepsString = String.format("%.0f", totalSteps);

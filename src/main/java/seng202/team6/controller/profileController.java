@@ -51,7 +51,7 @@ public class profileController extends GeneralScreenController {
         genderLabel.setText(currUser.getGender());
         heightLabel.setText(Double.toString(currUser.getHeight()));
         weightLabel.setText(Double.toString(currUser.getWeight()));
-        strideLabel.setText(Double.toString(currUser.getStrideLength()));
+        strideLabel.setText(Double.toString(currUser.getWalkingStrideLength()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         birthDateLabel.setText(currUser.getDOB().format(formatter));
     }
