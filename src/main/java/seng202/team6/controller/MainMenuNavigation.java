@@ -79,7 +79,7 @@ public class MainMenuNavigation extends GeneralScreenController {
      */
     @FXML
     public void toGoalsScreen(ActionEvent event) {
-        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen.fxml");
+        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen2.fxml");
     }
 
     /**

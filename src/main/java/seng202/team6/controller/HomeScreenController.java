@@ -82,6 +82,7 @@ public class HomeScreenController {
         ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(activityDataTypes);
         activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
+        System.out.println("Init Home");
 
         setUpInfo();
         setHealthInfo();
@@ -156,13 +157,16 @@ public class HomeScreenController {
      * Displays the steps a user has taken
      */
     private void setStepsInfo(){
+        System.out.println("Init Steps");
         double strideLength = user.getStrideLength();
         double totalSteps = ProfileAnalysis.findStepsThisWeek(activities, strideLength);
 
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
 
+
         double stepsLeft = user.getStepGoal() - totalSteps;
+        System.out.println("Steps in home"+ Double.toString(user.getStepGoal() ));
         if (stepsLeft <= 0) {
             stepsLeft = 0;
         }

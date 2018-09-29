@@ -348,7 +348,10 @@ public class User
      * sets the step goal for the user
      * @param newStepCount integer of new step count per week goal
      */
-    public void setStepGoal(int newStepCount) { stepGoal.setStepGoal(newStepCount);}
+    public void setStepGoal(int newStepCount) {
+        stepGoal.setStepGoal(newStepCount);
+        System.out.println("new step goal" + newStepCount);
+    }
 
     public void printUser() {
         System.out.println("-----------------------------------------");
