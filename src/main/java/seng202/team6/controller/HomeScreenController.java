@@ -8,11 +8,14 @@ import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.analysis.HealthConcernChecker;
@@ -46,7 +49,10 @@ public class HomeScreenController {
      * Text that displays various user statistics
      */
     @FXML
-    private Text BMIText, weightType, stepCount, stepsLeftLabel, healthConcernsText;
+    private Text BMIText, weightType, stepCount, stepsLeftLabel;
+
+    @FXML
+    private VBox healthConcernsText;
 
     /**
      * Displays the MATES AI quote
@@ -123,7 +129,7 @@ public class HomeScreenController {
      * Displays a users BMI analysis and any
      * health concerns they have
      */
-    private void setHealthInfo(){
+    private void setHealthInfo() {
         String healthConcerns = "";
 
         double BMI = ProfileAnalysis.calculateBMI(user);
@@ -138,17 +144,30 @@ public class HomeScreenController {
 
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
             healthConcerns += "-" + "Tachycardia\n".toUpperCase();
-            healthConcernsText.setText(healthConcerns);
-        }
+            Text healthText = new Text();
+            healthText.setText(healthConcerns);
+            healthText.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
+            healthConcernsText.getChildren().add(healthText);
+//            selectProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+//                public void handle(ActionEvent event) {
+//                    loginController.this.changeSelected(event);
+//                }
+//            });
 
-        if (HealthConcernChecker.checkBradycardia(activities, age)) {
+        } else if (HealthConcernChecker.checkBradycardia(activities, age)) {
+            Text healthText = new Text();
+            healthText.setText(healthConcerns);
             healthConcerns += "-" + "Bradycardia\n".toUpperCase();
-            healthConcernsText.setText(healthConcerns);
-        }
-
-        if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
+            healthConcernsText.getChildren().add(new Text(healthConcerns));
+        } else if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
+            Text healthText = new Text();
+            healthText.setText(healthConcerns);
             healthConcerns += "-" + "Cardiac Diseases\n".toUpperCase();
-            healthConcernsText.setText(healthConcerns);
+            healthConcernsText.getChildren().add(new Text(healthConcerns));
+        } else {
+            Text healthText = new Text();
+            healthText.setText(healthConcerns);
+            healthConcernsText.getChildren().add(new Text("Nothing"));
         }
     }
 
@@ -156,10 +175,16 @@ public class HomeScreenController {
     /**
      * Displays the steps a user has taken
      */
+<<<<<<< HEAD
     private void setStepsInfo(){
         System.out.println("Init Steps");
         double strideLength = user.getStrideLength();
         double totalSteps = ProfileAnalysis.findStepsThisWeek(activities, strideLength);
+=======
+    private void setStepsInfo() throws SQLException {
+        //double strideLength = user.getWalkingStrideLength();
+        double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
+>>>>>>> 0ecbec675a0633df36e223ba63eb081663ec5eb0
 
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);

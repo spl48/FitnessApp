@@ -3,8 +3,16 @@ package seng202.team6.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import seng202.team6.analysis.HealthConcernChecker;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
@@ -13,19 +21,24 @@ import seng202.team6.models.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static javafx.scene.text.TextAlignment.JUSTIFY;
+
 public class HealthController extends GeneralScreenController {
     /**
      * Text that represent each different potential health concern
      */
     @FXML
-    Text tachycardiaText, bradycardiaText, cardioVascularText;
+    private Text tachycardiaText, bradycardiaText, cardioVascularText;
 
     /**
      * Buttons that take a user to a search page specific to each
      * potential health concern
      */
     @FXML
-    Button tachycardiaButton, bradycardiaButton, cardiovascularButton;
+    private Button tachycardiaButton, bradycardiaButton, cardiovascularButton;
+
+    @FXML
+    private HBox healthBox;
 
     /**
      * The type for the button that is pushed.
@@ -54,23 +67,109 @@ public class HealthController extends GeneralScreenController {
      */
     public void initialize() throws SQLException{
         getUserDetails();
-
+        int i = 0;
+        healthBox.setAlignment(Pos.CENTER);
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
-            System.out.println(" ");
-            tachycardiaText.setText("Tachycardia");
-            tachycardiaButton.setVisible(true);
+
+            //healthGrid.setStyle();
+            GridPane healthGrid = addGrid();
+
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            image.setFitHeight(100);
+            healthGrid.add(image, i, 0);
+
+            Label title = new Label("TACHYCARDIA");
+            Label description = new Label("Tachycardia, also called tachyarrhythmia, is a heart rate that exceeds" +
+                    " the normal resting rate. In general, a resting heart rate over 100 beats per minute is accepted as " +
+                    "tachycardia in adults. Heart rates above the resting rate may be normal (such as with exercise) or " +
+                    "abnormal (such as with electrical problems within the heart). ");
+            description.setPrefWidth(280);
+            description.setWrapText(true);
+            description.setTextAlignment(JUSTIFY);
+            title.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949; ");
+            description.setStyle("-fx-font: 13 NexaBold; -fx-fill: #494949;");
+            healthGrid.setHalignment(title, HPos.CENTER);
+            healthGrid.setHalignment(description, HPos.CENTER);
+
+            healthGrid.add(title, i, 1);
+            healthGrid.add(description, i, 2);
+
+            i++;
+//            GridPane.setHalignment(selectProfileButton, HPos.CENTER);
+//            GridPane.setValignment(selectProfileButton, VPos.CENTER);
+            healthBox.getChildren().add(healthGrid);
+
+//            System.out.println(" ");
+//            tachycardiaText.setText("Tachycardia");
+//            tachycardiaButton.setVisible(true);
         }
 
         if(HealthConcernChecker.checkBradycardia(activities, age)) {
-            bradycardiaText.setText("Bradycardia");
-            bradycardiaButton.setVisible(true);
+//            bradycardiaText.setText("Bradycardia");
+//            bradycardiaButton.setVisible(true);
+            GridPane healthGrid = addGrid();
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            image.setFitHeight(100);
+            healthGrid.add(image, i, 0);
+
+            Label title = new Label("BRADYCARDIA");
+            Label description = new Label("Bradycardia is a condition wherein an individual has a very slow heart " +
+                    "rate, typically defined as a resting heart rate of under 60 beats per minute (BPM) in adults. " +
+                    "Bradycardia typically does not cause symptoms until the rate drops below 50 BPM. When symptomatic, " +
+                    "it may cause fatigue, weakness, dizziness, sweating, and at very low rates, fainting.");
+            description.setPrefWidth(280);
+            description.setWrapText(true);
+            description.setTextAlignment(JUSTIFY);
+            title.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
+            description.setStyle("-fx-font: 13 NexaBold; -fx-fill: #494949;");
+            healthGrid.setHalignment(title, HPos.CENTER);
+            healthGrid.setHalignment(description, HPos.CENTER);
+            healthGrid.add(title, i, 1);
+            healthGrid.add(description, i, 2);
+            i++;
+            healthBox.getChildren().add(healthGrid);
         }
 
         if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
-            cardioVascularText.setText("Cardiovascular Disease");
-            cardiovascularButton.setVisible(true);
-        }
+//            cardioVascularText.setText("Cardiovascular Disease");
+//            cardiovascularButton.setVisible(true);
+            GridPane healthGrid = addGrid();
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            image.setFitHeight(100);
+            healthGrid.add(image, i, 0);
 
+            Label title = new Label("CARDIOVASCULAR DISEASE");
+            Label description = new Label("Cardiovascular disease (CVD) is a class of diseases that involve the " +
+                    "heart or blood vessels. Cardiovascular disease includes coronary artery diseases (CAD) such as " +
+                    "angina and myocardial infarction (commonly known as a heart attack). Other CVDs include stroke, " +
+                    "heart failure, hypertensive heart disease, rheumatic heart disease, cardiomyopathy, heart arrhythmia, " +
+                    "congenital heart disease, valvular heart disease, carditis, aortic aneurysms, peripheral artery disease, " +
+                    "thromboembolic disease, and venous thrombosis.");
+            description.setPrefWidth(280);
+            description.setWrapText(true);
+            description.setTextAlignment(JUSTIFY);
+            title.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
+            description.setStyle("-fx-font: 13 NexaBold; -fx-fill: #494949;");
+            healthGrid.setHalignment(title, HPos.CENTER);
+            healthGrid.setHalignment(description, HPos.CENTER);
+            healthGrid.add(title, i, 1);
+            healthGrid.add(description, i, 2);
+            i++;
+            healthBox.getChildren().add(healthGrid);
+        }
+    }
+    private GridPane addGrid() {
+        GridPane grid = new GridPane();
+        healthBox.setMargin(grid, new Insets(50, 50, 50, 50));
+        grid.setPrefSize(280,484);
+        grid.setAlignment(Pos.TOP_CENTER);
+//        ColumnConstraints gridGrow = new ColumnConstraints();
+//        gridGrow.setHgrow(Priority.NEVER);
+        //grid.setGridLinesVisible(true);
+        grid.setStyle("-fx-background-color: white;");
+        grid.setVgap(10);
+        //grid.set
+        return grid;
     }
 
 

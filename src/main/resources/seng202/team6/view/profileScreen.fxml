@@ -38,7 +38,9 @@
                       <RowConstraints maxHeight="253.66665649414062" minHeight="10.0" prefHeight="7.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="253.66665649414062" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="253.66665649414062" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="253.66665649414062" minHeight="1.0" prefHeight="7.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="253.66665649414062" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="253.66665649414062" minHeight="1.0" prefHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="253.66665649414062" minHeight="1.0" prefHeight="7.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="281.3333435058594" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="281.3333435058594" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -83,11 +85,6 @@
                               <Font name="NexaBold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="405.0" layoutY="187.0" text="Stride Length:  " GridPane.columnIndex="3" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="NexaBold" size="18.0" />
-                           </font>
-                        </Label>
                         <Separator prefHeight="63.0" prefWidth="287.0" valignment="BOTTOM" GridPane.columnSpan="2" />
                         <Separator prefHeight="63.0" prefWidth="287.0" valignment="BOTTOM" GridPane.columnIndex="3" GridPane.columnSpan="2" />
                         <Label fx:id="usernameLabel" text="jbl54" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -120,11 +117,6 @@
                               <Font name="NexaLight" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="strideLabel" layoutX="652.0" layoutY="165.0" text="2.5" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="NexaLight" size="18.0" />
-                           </font>
-                        </Label>
                         <Label layoutX="10.0" layoutY="106.0" text="Last Name: " GridPane.rowIndex="2">
                            <font>
                               <Font name="NexaBold" size="18.0" />
@@ -135,7 +127,7 @@
                               <Font name="NexaLight" size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="47.0" fitWidth="47.0" onMouseClicked="#toEditProfile" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <ImageView fitHeight="47.0" fitWidth="47.0" onMouseClicked="#toEditProfile" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                            <image>
                               <Image url="@../resources/pics/edit.png" />
                            </image>
@@ -149,11 +141,6 @@
                            </font>
                         </Label>
                         <Label fx:id="heightLabel11" alignment="CENTER" prefHeight="23.0" prefWidth="133.0" text="kg" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="NexaLight" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="heightLabel12" alignment="CENTER" prefHeight="23.0" prefWidth="102.0" text="feet" GridPane.columnIndex="4" GridPane.rowIndex="3">
                            <font>
                               <Font name="NexaLight" size="18.0" />
                            </font>

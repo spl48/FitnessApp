@@ -216,7 +216,7 @@ public class loginController extends GeneralScreenController {
      * Adds a full profile selection box to the grid.
      * @param grid The profile selection grid.
      * @param columnInd The desired column index where the profile is placed.
-     * @param username The username assiciated with the profile.
+     * @param username The username associated with the profile.
      */
     private void addProfile(GridPane grid, int columnInd, String username) {
         //Adds the new column, setting the constraints and formatting.

@@ -94,8 +94,9 @@ public class ActivityAnalysis {
             double distance = findDistanceFromStart(activity, finalIndex - 1);
             return (distance / (strideLength * 0.0003048));
         }
-
-        return 0;
+        else{
+            return 0;
+        }
     }
 
 

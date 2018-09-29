@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class GoalsScreenController {
     @FXML
-    private TextField stepGoalField;
+    private TextField stepGoalField, distanceGoalField;
 
     @FXML
     private Node editButton;
@@ -55,11 +55,11 @@ public class GoalsScreenController {
     }
 
     @FXML
-    private void setStepGoal() {
+    private void setStepGoal() throws SQLException {
         int newStepGoal = user.getStepGoal();
         try {
             newStepGoal = Integer.parseInt(stepGoalField.getText());
-            ApplicationManager.displayPopUp("Invalid Data", "Succesfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
+            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
@@ -89,5 +89,17 @@ public class GoalsScreenController {
 
     public void updateGoals() {
 
+    }
+
+    @FXML
+    private void setDistanceGoal() throws SQLException {
+        int newDistanceGoal = user.getDistanceGoal();
+        try {
+            newDistanceGoal = Integer.parseInt(distanceGoalField.getText());
+            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newDistanceGoal + " steps per week", "confirmation");
+        } catch (NumberFormatException e) {
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
+        }
+        user.setDistanceGoal(newDistanceGoal);
     }
 }

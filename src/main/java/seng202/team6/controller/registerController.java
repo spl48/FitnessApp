@@ -112,7 +112,7 @@ public class registerController extends GeneralScreenController {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         } else if (validEnteredData()) {
             try {
-                databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
+                databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride, 70000, 0);
                 ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
                 toStartScreen(event);
             } catch (SQLException e) {

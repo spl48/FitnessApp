@@ -1,10 +1,14 @@
 package seng202.team6.datahandling;
 
 import java.sql.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 
+import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -60,11 +64,13 @@ public class DatabaseManager {
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
         Double stridelength = userData.getDouble("stridelength");
+        int stepgoal = userData.getInt("stepgoal");
+        int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);
 
         // Creates a User model using database data.
-        User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, aUsername, id);
-        return user; 
+        User user = new User(firstName, lastName, dob, gender, height, weight, aUsername, id, stepgoal, distancegoal);
+        return user;
     }
     public User getUserFromID(int userid) throws SQLException {
         // Checks the connection to the database.
@@ -86,10 +92,12 @@ public class DatabaseManager {
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
         Double stridelength = userData.getDouble("stridelength");
+        int stepgoal = userData.getInt("stepgoal");
+        int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);
 
         // Creates a User model using database data.
-        User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, username, userid);
+        User user = new User(firstName, lastName, dob, gender, height, weight, username, userid, stepgoal, distancegoal);
         return user;
     }
 
@@ -144,7 +152,7 @@ public class DatabaseManager {
         if(con == null) {
             getConnection();
         }
-        
+
         ArrayList<String> users = new ArrayList<String>();
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM user");
@@ -158,7 +166,7 @@ public class DatabaseManager {
      * Gets the database connection and displays corresponding errors.
      */
     private void getConnection() {
-        
+
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:Data.db");
@@ -190,7 +198,9 @@ public class DatabaseManager {
                         + "gender text,"
                         + "height REAL,"
                         + "weight REAL,"
-                        + "stridelength REAL);";
+                        + "stridelength REAL,"
+                        + "stepgoal INTEGER,"
+                        + "distancegoal INTEGER);";
                 userTableStatement.execute(userTablesql);
                 //Create activities table
                 Statement activityTableStatement = con.createStatement();
@@ -222,7 +232,7 @@ public class DatabaseManager {
 //                prep.setString(2, "1998-08-23");
 //                prep.setString(3, "Gavin");
 //                prep.setString(4, "Ong");
-//                prep.setString(5, "male");
+//                prep.setString(5, "Male");
 //                prep.setDouble(6, 170.0);
 //                prep.setDouble(7, 65.0);
 //                prep.setDouble(8, 2.0);
@@ -236,11 +246,11 @@ public class DatabaseManager {
         return con;
     }
 
-    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight, double stridelength) throws SQLException, ClassNotFoundException {
+    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight, double stridelength, int stepGoal, int distanceGoal) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength) VALUES(?,?,?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal) VALUES(?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setString(1, username);
         prep.setString(2, dob);
@@ -250,6 +260,8 @@ public class DatabaseManager {
         prep.setDouble(6, height);
         prep.setDouble(7, weight);
         prep.setDouble(8, stridelength);
+        prep.setInt(9, stepGoal);
+        prep.setInt(10, distanceGoal);
         prep.execute();
     }
 
@@ -308,6 +320,36 @@ public class DatabaseManager {
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid);
+        while(res.next()){
+
+            Activity activity = extractActivity(res);
+            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+            for (ActivityDataPoint dataPoint : dataPoints) {
+                activity.addActivityData(dataPoint);
+            }
+
+            activity.updateMaxHeartRate();
+            activity.updateMinHeartRate();
+            activities.add(activity);
+        }
+        return activities;
+    }
+
+    /**
+     *Takes a userid and date with format YYYY-MM-DD and returns a list of activities associated with the user from a certain date
+     * @param userid The user id used to look up the user in the database.
+     * @param date The date used to retrieve activities from.
+     * @return An array list of activities associated with the user id.
+     * @throws SQLException
+     */
+    public ArrayList<Activity> getActivitiesByDate(int userid, String date) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        ArrayList<Activity> activities = new ArrayList<>();
+        Statement state = con.createStatement();
+        String nowDate = convertToDBDateFormat(LocalDate.now());
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN "+ date + " AND " + nowDate);
         while(res.next()){
 
             Activity activity = extractActivity(res);
@@ -627,6 +669,43 @@ public class DatabaseManager {
             ApplicationManager.displayPopUp("Database Update Error", "Could not update activity notes!", "error");
         }
     }
+    public void setDistanceGoal(int userid, int newGoal) throws SQLException {
+        String sql = "UPDATE user SET distancegoal = ? WHERE userid = '" + userid + "'";
+        PreparedStatement updateDistanceGoal = con.prepareStatement(sql);
+        updateDistanceGoal.setInt(1, newGoal);
+        updateDistanceGoal.execute();
+    }
+    public void setStepGoal(int userid, int newGoal) throws SQLException {
+        String sql = "UPDATE user SET stepgoal = ? WHERE userid = '" + userid + "'";
+        PreparedStatement updateStepGoal = con.prepareStatement(sql);
+        updateStepGoal.setInt(1, newGoal);
+        updateStepGoal.execute();
+    }
 
+    public void getUpdatedDistanceGoal(int userid, int newGoal) throws SQLException {
+        LocalDate ld = LocalDate.now();
+        ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        String lastMondayDate = convertToDBDateFormat(ld);
+        //getActivitiesByD
+    }
+    public double getUpdatedStepGoal(int userid) throws SQLException {
+        LocalDate ld = LocalDate.now();
+        ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        String lastMondayDate = convertToDBDateFormat(ld);
+        ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
+        double totalStepCount = 0;
+        for (Activity activity : activities) {
+            double currentStepCount = ActivityAnalysis.findStepCount(activity, getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength());          // Finds the step count for 1 activity
+            totalStepCount += currentStepCount;
+        }
+        int stepgoal = getUserFromID(ApplicationManager.getCurrentUserID()).getStepGoal();
+        double updatedStepGoal = stepgoal - totalStepCount;
+        return updatedStepGoal;
+    }
 
+    public String convertToDBDateFormat(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedString = date.format(formatter);
+        return formattedString;
+    }
 }
