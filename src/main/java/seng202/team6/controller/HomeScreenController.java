@@ -162,7 +162,7 @@ public class HomeScreenController {
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
 
-        double stepsLeft = user.getStepGoal().getGoalSteps() - totalSteps;
+        double stepsLeft = user.getStepGoal() - totalSteps;
         if (stepsLeft <= 0) {
             stepsLeft = 0;
         }

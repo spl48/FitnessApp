@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.models.Goal;
 import seng202.team6.utilities.UserDataValidation;
 
 import java.sql.SQLException;

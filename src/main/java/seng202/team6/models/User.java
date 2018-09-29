@@ -88,9 +88,7 @@ public class User
     /**
      * Goal number of steps per week
      */
-    public Goal stepGoal = new Goal(70000);
-
-    public Goal getStepGoal() { return stepGoal; }
+    public Goal stepGoal;
 
 
 
@@ -142,6 +140,8 @@ public class User
         this.username = username;
 
         this.userID = userID;
+
+        stepGoal = new Goal(70000);
     }
 
     /**
@@ -337,6 +337,18 @@ public class User
     public int getUserID() {
         return userID;
     }
+
+    /**
+     * Returns the current steps per week goal of the user
+     * @return current steps per week goal of the user
+     */
+    public int getStepGoal() { return stepGoal.getGoalStepNum(); }
+
+    /**
+     * sets the step goal for the user
+     * @param newStepCount integer of new step count per week goal
+     */
+    public void setStepGoal(int newStepCount) { stepGoal.setStepGoal(newStepCount);}
 
     public void printUser() {
         System.out.println("-----------------------------------------");

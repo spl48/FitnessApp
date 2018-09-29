@@ -36,7 +36,7 @@ public class Goal
      */
     private boolean goalReached = false;
 
-    private int goalSteps;
+    private int goalStepsNum;
 
     /**
      * The constructor for the Goal that takes the parameter date set and goal name and sets
@@ -57,11 +57,10 @@ public class Goal
 
     /**
      * Construct the goal number of steps per week
-     * @param steps
      */
-    public Goal(int steps)
+    public Goal(int goalSteps)
     {
-        goalSteps = steps;
+        goalStepsNum = goalSteps;
     }
 
     /**
@@ -146,7 +145,7 @@ public class Goal
         return goalReached;
     }
 
-    public int getGoalSteps() { return goalSteps; }
+    public int getGoalStepNum() { return goalStepsNum; }
 
-    public void changeStepGoal(int newGoalSteps) { goalSteps = newGoalSteps; }
+    public void setStepGoal(int newGoalSteps) { goalStepsNum = newGoalSteps; }
 }
