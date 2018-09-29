@@ -8,8 +8,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -23,12 +21,10 @@ import seng202.team6.models.Route;
 
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class WorkoutAnalysisController extends WorkoutsNavigator {
+public class WorkoutAnalysisController2 extends WorkoutsNavigator {
 
     /**
      * The webview which contains the map incformation.
@@ -36,7 +32,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private WebView mapWebView;
 
-    private String selectedtab = "Graph";
+    /**
+     * A choice box to select the desired activity to be displayed on graph
+     */
+    @FXML
+    private ChoiceBox<String> activitySelection;
 
     /**
      * --
@@ -119,11 +119,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private ChoiceBox<String> activityTypeSelection;
 
-//    /**
-//     * Array that has all the activities the user can select to display on the graph
-//     */
-//    private ArrayList<Activity> activities = new ArrayList();
-
     /**
      * Array list of current series being displayed on the plot area.
      */
@@ -158,32 +153,60 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
 
-        // Sets the activity type selection
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
-
-        // Updates the list view.
-        updateListView();
-
-        // Initialises the graph component.
-        initGraphs();
-
-        webEngine = mapWebView.getEngine();
-        webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
-        System.out.println("First Init");
-    }
-
-
-    private void updateListView() {
-        // Sets the activity array and creates an array of strings for these
-        activities = databaseManager.getActivityManager().getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities) { // Add all activities to available activities initially
             availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
         }
+        ObservableList<String> items = FXCollections.observableArrayList(availableActivities);
+        activityList.setItems(items);
 
-        // Adds the activities to the list view.
-        activityList.setItems(FXCollections.observableArrayList(availableActivities));
+
+        activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        analysisGraph.setCreateSymbols(false);
+
+        activityList.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            Node node = event.getPickResult().getIntersectedNode();
+            while (node != null && node != activityList && !(node instanceof ListCell)) {
+                node = node.getParent();
+            }
+        if (node instanceof ListCell) {
+            // prevent further handling
+            event.consume();
+            ListCell cell = (ListCell) node;
+            ListView lv = cell.getListView();
+            // focus the listview
+            lv.requestFocus();
+            if (!cell.isEmpty()) {
+                // handle selection for non-empty cells
+                int index = cell.getIndex();
+                if (cell.isSelected()) {
+                    lv.getSelectionModel().clearSelection(index);
+                    selectionIndex = index;
+                } else {
+                    lv.getSelectionModel().select(index);
+                    selectionIndex = index;
+                }
+            }
+        }
+        });
+
+//        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
+//        if (activities.size() >= 1) {
+//            ObservableList<String> availableActivities = FXCollections.observableArrayList();
+//            for (Activity activity : activities){
+//                availableActivities.add(activity.getStartDate().toString());
+//            }
+//            activitySelection.setItems(availableActivities);
+//            activitySelection.getSelectionModel().select(activities.get(0).getStartDate().toString());
+//        }
+
+        webEngine = mapWebView.getEngine();
+        webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
+
+
     }
 
     /**
@@ -193,21 +216,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void graphHandler() throws SQLException {
-        if (selectedtab == "Graph") {
-            System.out.println("in graph handler");
-            if (graphCount == 0) {
-                newGraph();
-                graphCount += 1;
-            } else if (graphCount >= 1) {
-                addSeries();
-            }
-        } else {
-            activityList.getSelectionModel().select(selectionIndex);
-            Activity desiredActivity = activities.get(selectionIndex);
-            Route route = makeRoute(desiredActivity);
-            displayRoute(route);
+        if (graphCount == 0) {
+            newGraph();
+            graphCount += 1;
+        } else if (graphCount >= 1) {
+            addSeries();
         }
-
 
     }
 
@@ -222,6 +236,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
             if (activityList.getFocusModel().toString().equals("No Activities")) {
                 ApplicationManager.displayPopUp("Oh Mate!", "You have no activities with the selected dates mate", "error");
+//            } else if (currentSeriesTypes.size() == 1 && currentSeriesTypes.get(0) == selectedActivity && curSeriesType == seriesType) {
+//                ApplicationManager.displayPopUp("YA DINGUSS!", "Already displaying selected graph", "error");
             } else if (!currentSeriesTypes.contains(activity) || currentSeriesTypes.size() > 1) {
                 currentSeriesTypes.clear();
                 analysisGraph.getData().clear();
@@ -323,21 +339,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     public void toFilter() {
 //        ApplicationManager.displayPopUp("Filter activities", "Soon to be implemented in the next update!" +
 //                "\nWatch the patch notes for more information.", "notification");
-
         if (activities.size() >= 1) {
             ApplicationManager.displayPopUp("test", "test", "filter");
-            updateListView();
-            clearGraph();
-//            ActivityManager activityManager = databaseManager.getActivityManager();
-//            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
-//            activities = activityManager.getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
-//            ObservableList<String> availableActivities = FXCollections.observableArrayList();
-//            ObservableList<String> items = FXCollections.observableArrayList(availableActivities);
-//            activityList.setItems(items);
-//            for(int i = 0; i <= activities.size()-1; i++) {
-//                System.out.println(activities.get(i).getDescription());
-//            }
-//            activityList.setItems(FXCollections.observableArrayList(filteredActivities.keySet()));
+            ActivityManager activityManager = databaseManager.getActivityManager();
+            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+            ObservableList<String> activites = FXCollections.observableArrayList(filteredActivities.keySet());
+            activityList.setItems(activites);
         } else {
             ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
         }
@@ -378,7 +385,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private void clearGraph() {
         analysisGraph.getData().clear();
         graphCount = 0;
-        //activityList.getSelectionModel().clearSelection();
+        activityList.getSelectionModel().clearSelection();
         analysisGraph.getYAxis().setLabel("");
         analysisGraph.getXAxis().setLabel("");
         currentSeriesTypes.clear();
@@ -407,61 +414,15 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void initMap() {
-        selectedtab = "Map";
-        activityList.getSelectionModel().clearSelection();
-        activityList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        System.out.println("Setting single");
-        System.out.println("Initialising maps");
         if (activities.size() >= 1) {
-            activityList.getSelectionModel().select(selectionIndex);
-            Activity desiredActivity = activities.get(selectionIndex);
+            int activity = activitySelection.getSelectionModel().getSelectedIndex();
+            Activity desiredActivity = activities.get(activity);
             Route route = makeRoute(desiredActivity);
             displayRoute(route);
-
         } else {
             ApplicationManager.displayPopUp("Oh Mate!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
         }
     }
-
-    /**
-     * Checks if user has any activities and displays the selected activity if yes, otherwise displays popup informing user to upload data
-     */
-    @FXML
-    private void initGraphs() throws SQLException {
-        selectedtab = "Graph";
-        clearGraph();
-        activityList.getSelectionModel().select(selectionIndex);
-        graphHandler();
-        activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        System.out.println("Initialising graphs");
-        analysisGraph.setCreateSymbols(false);
-        activityList.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            Node node = event.getPickResult().getIntersectedNode();
-            while (node != null && node != activityList && !(node instanceof ListCell)) {
-                node = node.getParent();
-            }
-            if (node instanceof ListCell) {
-                // prevent further handling
-                event.consume();
-                ListCell cell = (ListCell) node;
-                ListView lv = cell.getListView();
-                // focus the listview
-                lv.requestFocus();
-                if (!cell.isEmpty()) {
-                    // handle selection for non-empty cells
-                    int index = cell.getIndex();
-                    if (cell.isSelected()) {
-                        lv.getSelectionModel().clearSelection(index);
-                        selectionIndex = index;
-                    } else {
-                        lv.getSelectionModel().select(index);
-                        selectionIndex = index;
-                    }
-                }
-            }
-        });
-    }
-
 
     /**
      * Displays the given out
