@@ -70,8 +70,8 @@
                   <Button layoutX="412.0" layoutY="13.0" mnemonicParsing="false" onAction="#nextMonth" text="&gt;&gt;&gt;" />
                   <Text fx:id="title" layoutX="271.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
                   <Text fx:id="description" layoutX="826.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="246.0390625" />
-                  <Text layoutX="676.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
-                  <Text layoutX="676.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avearge Speed:" wrappingWidth="118.7294921875" />
+                  <Text layoutX="671.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
+                  <Text layoutX="674.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avearge Speed:" wrappingWidth="118.7294921875" />
                   <Text fx:id="speed" layoutX="824.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                   <Text layoutX="674.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
                   <Text fx:id="distance" layoutX="826.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" />
