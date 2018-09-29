@@ -131,10 +131,16 @@ public class EditProfileController {
         setEnteredData(); // Sets the class variables to the entered data
 
         // Checks if the user has entered a duplicate username and displays error if so.
-        if ((!(currUser.getUsername().equalsIgnoreCase(username))) && usernames.contains(username)) {
+        boolean duplicate = false;
+        for (String user : usernames) {
+            if ((!(currUser.getUsername().equalsIgnoreCase(username))) && (user.equalsIgnoreCase(username))) {
+                duplicate = true;
+            }
+        }
+
+        if (duplicate == true) {
             ApplicationManager.displayPopUp("Username Already Exists", "Username Already Exists.\nPlease choose another username.", "error");
-        
-        } else if (validEnteredData()) { 
+        } else if (validEnteredData()) {
 
             // Enters data into the database.
             ApplicationManager.getDatabaseManager().updateFirstName(first);
@@ -187,9 +193,9 @@ public class EditProfileController {
                 UserDataValidation.validateName(last, "Last Name") &&
                 UserDataValidation.validateBirthDate(birthDate) &&
                 UserDataValidation.validateGender(gender) &&
-                UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
-                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
-                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
+                UserDataValidation.validateDoubleValue(height, "Height", 280, 55, "cm") &&
+                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2, "kg") &&
+                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3, "feet");
     }
 
 }
