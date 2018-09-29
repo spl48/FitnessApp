@@ -2,6 +2,7 @@ package seng202.team6.controller;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -45,7 +46,7 @@ public class HomeScreenController {
      * Text that displays various user statistics
      */
     @FXML
-    private Text BMIText, weightType, stepCount, healthConcernsText;
+    private Text BMIText, weightType, stepCount, stepsLeftLabel, healthConcernsText;
 
     /**
      * Displays the MATES AI quote
@@ -156,10 +157,17 @@ public class HomeScreenController {
      */
     private void setStepsInfo(){
         double strideLength = user.getStrideLength();
-        double totalSteps = ProfileAnalysis.findTotalStepCount(activities, strideLength);
+        double totalSteps = ProfileAnalysis.findStepsThisWeek(activities, strideLength);
 
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
+
+        double stepsLeft = user.getStepGoal().getGoalSteps() - totalSteps;
+        if (stepsLeft <= 0) {
+            stepsLeft = 0;
+        }
+        String stepsLeftString = String.format("%.0f", stepsLeft);
+        stepsLeftLabel.setText(stepsLeftString);
     }
 
 
