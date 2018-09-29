@@ -89,7 +89,7 @@ public class ActivityAnalysis {
      * @return a double representing the number of steps taken
      */
     public static double findStepCount(Activity activity, double strideLength) {
-        if (activity.getType() == "Walking" || activity.getType() == "Running") {
+        if (activity.getType().equalsIgnoreCase("walking") || activity.getType().equalsIgnoreCase("running")) {
             int finalIndex = activity.getActivityData().size();
             double distance = findDistanceFromStart(activity, finalIndex - 1);
             return (distance / (strideLength * 0.0003048));

@@ -178,13 +178,9 @@ public class HomeScreenController {
     private void setStepsInfo() throws SQLException {
         //double strideLength = user.getWalkingStrideLength();
         double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
-
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
-
-
         double stepsLeft = user.getStepGoal() - totalSteps;
-        System.out.println("Steps in home"+ Double.toString(user.getStepGoal() ));
         if (stepsLeft <= 0) {
             stepsLeft = 0;
         }

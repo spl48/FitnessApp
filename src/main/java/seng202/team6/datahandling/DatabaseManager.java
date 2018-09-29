@@ -349,9 +349,8 @@ public class DatabaseManager {
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
         String nowDate = convertToDBDateFormat(LocalDate.now());
-        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN "+ date + " AND " + nowDate);
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN '"+ date + "' AND '" + nowDate + "'");
         while(res.next()){
-
             Activity activity = extractActivity(res);
             ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
             for (ActivityDataPoint dataPoint : dataPoints) {
@@ -699,9 +698,7 @@ public class DatabaseManager {
             double currentStepCount = ActivityAnalysis.findStepCount(activity, getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength());          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
         }
-        int stepgoal = getUserFromID(ApplicationManager.getCurrentUserID()).getStepGoal();
-        double updatedStepGoal = stepgoal - totalStepCount;
-        return updatedStepGoal;
+        return totalStepCount;
     }
 
     public String convertToDBDateFormat(LocalDate date){
