@@ -103,7 +103,7 @@ public class ProfileAnalysisTest extends TestCase{
 
     public void testFindTotalStepCount() {
         ArrayList<Activity> activities = new ArrayList<Activity>();
-        assertEquals(0.0, testProfileAnalysis.findTotalStepCount(activities, 1.5));     //No activities
+        assertEquals(0.0, testProfileAnalysis.findStepsThisWeek(activities, 1.5));     //No activities
 
         LocalDate testDate = LocalDate.of(2018, 10, 9);
         LocalTime testTime = LocalTime.of(5, 30);
@@ -114,13 +114,13 @@ public class ProfileAnalysisTest extends TestCase{
         testActivity.addActivityData(p1);
         testActivity.addActivityData(p2);
         activities.add(testActivity);
-        assertEquals(0.0, testProfileAnalysis.findTotalStepCount(activities, 1.5));        // One activity - Cycling
+        assertEquals(0.0, testProfileAnalysis.findStepsThisWeek(activities, 1.5));        // One activity - Cycling
 
         testActivity = new Activity(12345, "Running", "Run around the block", testDate, testDate, testTime, testTime);
         testActivity.addActivityData(p1);
         testActivity.addActivityData(p2);
         activities.add(testActivity);
-        assertEquals(1462, testProfileAnalysis.findTotalStepCount(activities, 1.5), 0.5);         // 1 valid activity with step count of 11462
+        assertEquals(1462, testProfileAnalysis.findStepsThisWeek(activities, 1.5), 0.5);         // 1 valid activity with step count of 11462
 
 
         testActivity = new Activity(12345, "Running", "Run around the block", testDate, testDate, testTime, testTime);
@@ -129,11 +129,11 @@ public class ProfileAnalysisTest extends TestCase{
         testActivity.addActivityData(p1);
         testActivity.addActivityData(p2);
         activities.add(testActivity);
-        assertEquals(36779, testProfileAnalysis.findTotalStepCount(activities, 1.5), 0.5);          // 2 valid activities step counts of 11462 and 35318
+        assertEquals(36779, testProfileAnalysis.findStepsThisWeek(activities, 1.5), 0.5);          // 2 valid activities step counts of 11462 and 35318
 
 
         testActivity = new Activity(12345, "Other", "Cycle around the block", testDate, testDate, testTime, testTime);
-        assertEquals(36779, testProfileAnalysis.findTotalStepCount(activities, 1.5), 0.5);         // Activity of type other
+        assertEquals(36779, testProfileAnalysis.findStepsThisWeek(activities, 1.5), 0.5);         // Activity of type other
 
     }
 }

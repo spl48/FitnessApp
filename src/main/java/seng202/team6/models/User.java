@@ -65,7 +65,6 @@ public class User
      * The Goals of the User that the Profile is associated with
      */
     private ArrayList<Goal> goals = new ArrayList<Goal>();
-
     /**
      * A function that takes a Goal parameter and adds the goal to an ArrayList
      * of Goal.
@@ -84,6 +83,16 @@ public class User
     {
         return goals;
     }
+
+
+    /**
+     * Goal number of steps per week
+     */
+    public Goal stepGoal = new Goal(70000);
+
+    public Goal getStepGoal() { return stepGoal; }
+
+
 
     /**
      * A function that takes a Boolean parameter and sets the status of the Goal's progress

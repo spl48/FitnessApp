@@ -4,7 +4,14 @@ package seng202.team6.analysis;
 import seng202.team6.models.Activity;
 import seng202.team6.models.User;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * This class analyses a users profile. With methods that
@@ -42,20 +49,24 @@ public class ProfileAnalysis {
     }
 
     /** A function that determines the total steps across all
-     * walking and running activities of a user.
+     * walking and running activities of a user within the current week.
      * @param activities an ArrayList of activities to be analysed
      * @param strideLength the stride length of a user in feet
      * @return a double for the number of steps taken
      */
-    public static double findTotalStepCount(ArrayList<Activity> activities, double strideLength) {
+    public static double findStepsThisWeek(ArrayList<Activity> activities, double strideLength) {
         double totalStepCount = 0;
-        double currentStepCount = 0;
+        double currentStepCount;
+        LocalDate currentDate = LocalDate.now();
 
         ActivityAnalysis activityAnalysis = new ActivityAnalysis();
-
-        for (Activity activity : activities) {
+        TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
+        LocalDate startOfWeek = currentDate.with(fieldISO, 1);
+        for (int i = activities.size() - 1; i >= 0 && activities.get(i).getStartDate().isAfter(startOfWeek); i--) {
+            Activity activity = activities.get(i);
             currentStepCount = activityAnalysis.findStepCount(activity, strideLength);          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
+            System.out.println(activity.getType());
         }
         return totalStepCount;
     }
