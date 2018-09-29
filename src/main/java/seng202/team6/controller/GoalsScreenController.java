@@ -30,7 +30,7 @@ public class GoalsScreenController {
     }
 
     @FXML
-    private void setStepGoal() {
+    private void setStepGoal() throws SQLException {
         int newStepGoal = user.getStepGoal();
         try {
             newStepGoal = Integer.parseInt(stepGoalField.getText());
@@ -42,7 +42,7 @@ public class GoalsScreenController {
     }
 
     @FXML
-    private void setDistanceGoal() {
+    private void setDistanceGoal() throws SQLException {
         int newDistanceGoal = user.getDistanceGoal();
         try {
             newDistanceGoal = Integer.parseInt(distanceGoalField.getText());

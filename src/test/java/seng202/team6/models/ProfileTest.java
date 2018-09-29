@@ -16,11 +16,11 @@ public class ProfileTest extends TestCase {
     long totalTime = Duration.between(startTime, endTime).toMinutes();
 
     LocalDate dob = LocalDate.of(1997, 1, 9);
-    private User user = new User("Mike", "Wobs", dob, "Male",180.0, 80.0,"mike26", 67890);
+    private User user = new User("Mike", "Wobs", dob, "Male",180.0, 80.0,"mike26", 67890, 50, 100);
     private Profile profile = new Profile(user);
 
     LocalDate dob2 = LocalDate.of(2011, 5,8);
-    private User user2 = new User("Bob", "Wortsy", dob2, "Male",166.5, 55.0, "bob101", 56778);
+    private User user2 = new User("Bob", "Wortsy", dob2, "Male",166.5, 55.0, "bob101", 56778, 50, 100);
 
     public void testSetUser() {
         profile.setUser(user2);

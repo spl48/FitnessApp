@@ -198,8 +198,8 @@ public class DatabaseManager {
                         + "height REAL,"
                         + "weight REAL,"
                         + "stridelength REAL,"
-                        + "distancegoal INTEGER,"
-                        + "stepgoal INTEGER);";
+                        + "stepgoal INTEGER,"
+                        + "distancegoal INTEGER);";
                 userTableStatement.execute(userTablesql);
                 //Create activities table
                 Statement activityTableStatement = con.createStatement();
@@ -245,11 +245,11 @@ public class DatabaseManager {
         return con;
     }
 
-    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight, double stridelength) throws SQLException, ClassNotFoundException {
+    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight, double stridelength, int stepGoal, int distanceGoal) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength) VALUES(?,?,?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal) VALUES(?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setString(1, username);
         prep.setString(2, dob);
@@ -259,6 +259,8 @@ public class DatabaseManager {
         prep.setDouble(6, height);
         prep.setDouble(7, weight);
         prep.setDouble(8, stridelength);
+        prep.setInt(9, stepGoal);
+        prep.setInt(10, distanceGoal);
         prep.execute();
     }
 
