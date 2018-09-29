@@ -63,8 +63,8 @@ public class DatabaseManager {
         LocalDate dob = LocalDate.parse(dobString);
 
         // Creates a User model using database data.
-        User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, aUsername, id);
-        return user; 
+        User user = new User(firstName, lastName, dob, gender, height, weight, aUsername, id);
+        return user;
     }
     public User getUserFromID(int userid) throws SQLException {
         // Checks the connection to the database.
@@ -89,7 +89,7 @@ public class DatabaseManager {
         LocalDate dob = LocalDate.parse(dobString);
 
         // Creates a User model using database data.
-        User user = new User(firstName, lastName, dob, gender, height, weight, stridelength, username, userid);
+        User user = new User(firstName, lastName, dob, gender, height, weight, username, userid);
         return user;
     }
 
@@ -144,7 +144,7 @@ public class DatabaseManager {
         if(con == null) {
             getConnection();
         }
-        
+
         ArrayList<String> users = new ArrayList<String>();
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM user");
@@ -158,7 +158,7 @@ public class DatabaseManager {
      * Gets the database connection and displays corresponding errors.
      */
     private void getConnection() {
-        
+
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:Data.db");
@@ -463,6 +463,13 @@ public class DatabaseManager {
         Statement statement = con.createStatement();
         ResultSet res = statement.executeQuery("SELECT * FROM activity WHERE activityID = " + activityID );
         Activity activity = extractActivity(res);
+        ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+        for (ActivityDataPoint dataPoint : dataPoints) {
+            activity.addActivityData(dataPoint);
+        }
+        activity.updateType();
+        activity.updateMaxHeartRate();
+        activity.updateMinHeartRate();
 
         return activity;
     }

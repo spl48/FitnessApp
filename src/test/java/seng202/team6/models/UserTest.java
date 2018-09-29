@@ -10,7 +10,7 @@ public class UserTest extends TestCase {
     LocalDate dob2 = LocalDate.of(2001, 1, 9);
     LocalDate dob3 = LocalDate.of(2001, 12, 9);
     LocalDate now = LocalDate.now();
-    private User user = new User("Bob", "Wortsy", dob, "Male", 166.5, 55.0, 2.2, "bob101", 56778);
+    private User user = new User("Bob", "Wortsy", dob, "Male", 166.5, 55.0,  "bob101", 56778);
 
     public void testSetName() {
         user.setName("Mike", "Wobs");
@@ -75,12 +75,12 @@ public class UserTest extends TestCase {
     }
 
     public void testSetStrideLength() {
-        user.setStrideLength(3.0);
-        assertEquals(3.0, user.getStrideLength(), 0.1);
+        user.setWalkingStrideLength(3.0);
+        assertEquals(3.0, user.getWalkingStrideLength(), 0.1);
     }
 
     public void testGetStrideLength() {
-        assertEquals(2.2, user.getStrideLength(), 0.1);
+        assertEquals(2.2, user.getWalkingStrideLength(), 0.1);
     }
 
     public void testSetUsername() {

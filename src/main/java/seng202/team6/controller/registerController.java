@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.models.Goal;
 import seng202.team6.utilities.UserDataValidation;
 
 import java.sql.SQLException;
@@ -92,13 +93,24 @@ public class registerController extends GeneralScreenController {
     @FXML
     public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
         ArrayList<String> usernames = databaseManager.getUsernames();
-        setEnteredData();
-        if (usernames.contains(username)) {
-            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
-        } else if (usernames.size() == 5) {
+        // Checks for Register Limit
+        if (usernames.size() == 5) {
             ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
         }
-        else if (validEnteredData()) {
+
+        // Checks for Duplicates
+
+        setEnteredData();
+        boolean duplicate = false;
+        for (String user : usernames) {
+            if (user.equalsIgnoreCase(username)) {
+                duplicate = true;
+            }
+        }
+
+        if (duplicate == true) {
+            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
+        } else if (validEnteredData()) {
             try {
                 databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
                 ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
@@ -140,8 +152,8 @@ public class registerController extends GeneralScreenController {
                 UserDataValidation.validateName(last, "Last Name") &&
                 UserDataValidation.validateBirthDate(birthDate) &&
                 UserDataValidation.validateGender(gender) &&
-                UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
-                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
-                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
+                UserDataValidation.validateDoubleValue(height, "Height", 280, 55, "cm") &&
+                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2, "kg") &&
+                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3, "feet");
     }
 }

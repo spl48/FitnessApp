@@ -1,6 +1,7 @@
 package seng202.team6.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * This class implements User and sets the information regarding the User.
@@ -36,19 +37,24 @@ public class User
     private String gender;
 
     /**
-     * The height of the User
+     * The height of the User in cm
      */
     private double height;
 
     /**
-     * The weight of the User
+     * The weight of the User in kg
      */
     private double weight;
 
     /**
-     * The length of the stride of the User
+     * The length of the walking stride length of the User in feet
      */
-    private double strideLength;
+    private double walkingStrideLength;
+
+    /**
+     * The length of the running stride length of the user in feet
+     */
+    private double runningStrideLength;
 
     /**
      * The username chosen by the User
@@ -61,17 +67,58 @@ public class User
     private int userID;
 
     /**
+     * The Goals of the User that the Profile is associated with
+     */
+    private ArrayList<Goal> goals = new ArrayList<Goal>();
+    /**
+     * A function that takes a Goal parameter and adds the goal to an ArrayList
+     * of Goal.
+     * @param goal A Goal parameter that is added to an ArrayList of Goal.
+     */
+    public void addGoals(Goal goal)
+    {
+        goals.add(goal);
+    }
+
+    /**
+     * A function that returns an ArrayList of User's Goals.
+     * @return Returns an ArrayList representing User Goals.
+     */
+    public ArrayList<Goal> getGoals()
+    {
+        return goals;
+    }
+
+
+    /**
+     * Goal object thast holds the goal number of steps per week
+     */
+    public StepGoal stepGoal;
+
+
+
+    /**
+     * A function that takes a Boolean parameter and sets the status of the Goal's progress
+     * if the Goal has been achieved (true) or not (false) based on the given parameter.
+     * @param goal A Goal parameter
+     * @param status A Boolean parameter used to set the status of the Goal.
+     */
+    public void setGoalStatus(Goal goal, boolean status)
+    {
+        goal.setGoalReached(status);
+    }
+
+    /**
      * The constructor for the User that takes the parameter name, dob, age height, weight, stride length and username.
      * @param firstName A String parameter that is used to set the first name of the User.
      * @param lastName A String parameter that is used to set the last name of the User.
      * @param dob A LocalDate parameter that is used to set the User's dob.
      * @param height A type Double parameter that is used to set the height of the User.
      * @param weight A type Double parameter that is used to set the weight of the User.
-     * @param strideLength A type Double parameter that is used to set the length of the stride of the User.
      * @param username A String parameter that is used to set the username of the User.
      * @param userID The user ID.
      */
-    public User(String firstName, String lastName, LocalDate dob, String gender, double height, double weight, double strideLength, String username, int userID)
+    public User(String firstName, String lastName, LocalDate dob, String gender, double height, double weight, String username, int userID)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -93,10 +140,13 @@ public class User
         this.gender = gender;
         this.height = height;
         this.weight = weight;
-        this.strideLength = strideLength;
         this.username = username;
 
         this.userID = userID;
+
+        walkingStrideLength = estimateWalkingStrideLength(height, gender);
+        runningStrideLength = estimateRunningStrideLength(height, gender);
+        stepGoal = new StepGoal(70000);
     }
 
     /**
@@ -226,23 +276,82 @@ public class User
     }
 
     /**
-     * A function that takes the Double parameter stride length and sets the length
-     * of the stride of the User to the given Double parameter in feet.
-     * @param strideLength A Double parameter that is used as the stride length of the User
-     * in feet.
+     * A function that estimates the wqalking stride length of the user given the
+     * Double parameter height and sets the user stride length to the
+     * estimated stride length.
+     * @param height A Double parameter used to estimate User Stride Length
+     * @param gender A String parameter that represents gender of the User
      */
-    public void setStrideLength(double strideLength)
-    {
-       this.strideLength = strideLength;
+    public double estimateWalkingStrideLength(double height, String gender) {
+        double foot = 0.0328084;
+        if (gender == "Female") {
+            double strideLengthFemale = height * 0.413;
+            walkingStrideLength = strideLengthFemale * foot; // estimated stride length for female
+        } else if (gender == "Male") {
+            double strideLengthMale = height * 0.415;
+            walkingStrideLength = strideLengthMale * foot; // estimated stride length for male
+        }
+        return walkingStrideLength;
     }
 
     /**
-     * A function that returns the length of stride of the User in feet.
+     * A function that takes the Double parameter stride length and sets the length
+     * of the stride of the User to the given Double parameter in feet.
+     * @param walkingStrideLength A Double parameter that is used as the walking stride length of the User
+     * in feet.
+     */
+    public void setWalkingStrideLength(double walkingStrideLength)
+    {
+       this.walkingStrideLength = walkingStrideLength;
+    }
+
+    /**
+     * A function that returns the walking stride length of the User in feet.
      * @return Returns a Double that represents the User's stride length in feet.
      */
-    public double getStrideLength()
+    public double getWalkingStrideLength()
     {
-        return strideLength;
+        return walkingStrideLength;
+    }
+
+    /**
+     * A function that estimates the running stride length of the user given the
+     * Double parameter height and sets the user stride length to the
+     * estimated stride length.
+     * @param height A Double parameter used to estimate User Stride Length
+     */
+    public double estimateRunningStrideLength(double height, String gender) {
+        double inch = 0.393701;
+        double heightInches = height * inch;
+
+        if (gender == "Female") {
+            double runningStrideLengthInches = heightInches * 1.14;
+            runningStrideLength = runningStrideLengthInches / 12;
+        } else if (gender == "Male") {
+            double runningStrideLengthInches = heightInches * 1.35;
+            runningStrideLength = runningStrideLengthInches / 12;
+        }
+        return runningStrideLength;
+    }
+
+    /**
+     * A function that takes the Double parameter stride length and sets the length of the
+     * stride of the user to the given Double parameter in feet.
+     * @param runningStrideLength A Double parameter that is used as the running stride length of the User
+     * in feet.
+     */
+    public void setRunningStrideLength(double runningStrideLength)
+    {
+        this.runningStrideLength = runningStrideLength;
+    }
+
+    /**
+     * A function that returns the running stride length of the User in feet.
+     * @return Returns a Double that represents the User's stride length in feet.
+     */
+    public double getRunningStrideLength()
+    {
+        return runningStrideLength;
     }
 
     /**
@@ -292,6 +401,18 @@ public class User
     public int getUserID() {
         return userID;
     }
+
+    /**
+     * Returns the current steps per week goal of the user
+     * @return current steps per week goal of the user
+     */
+    public int getStepGoal() { return stepGoal.getGoalStepNum(); }
+
+    /**
+     * sets the step goal for the user
+     * @param newStepCount integer of new step count per week goal
+     */
+    public void setStepGoal(int newStepCount) { stepGoal.setStepGoal(newStepCount);}
 
     public void printUser() {
         System.out.println("-----------------------------------------");

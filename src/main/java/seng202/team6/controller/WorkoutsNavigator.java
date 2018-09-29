@@ -33,7 +33,7 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     @FXML
     public void toWorkoutAnalysis(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutAnalysis.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutAnalysis3.fxml");
     }
 
     /**
