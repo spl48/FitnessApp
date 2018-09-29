@@ -96,7 +96,7 @@ public class EditProfileController {
         genderField.setValue(currUser.getGender());
         heightField.setText(Double.toString(currUser.getHeight()));
         weightField.setText(Double.toString(currUser.getWeight()));
-        strideField.setText(Double.toString(currUser.getStrideLength()));
+        strideField.setText(Double.toString(currUser.getWalkingStrideLength()));
         dobField.setValue(currUser.getDOB());
 
         // Sets the name display at the top of the profile window.
