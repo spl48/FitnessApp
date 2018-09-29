@@ -1,8 +1,11 @@
 package seng202.team6.datahandling;
 
 import java.sql.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 
 import seng202.team6.controller.ApplicationManager;
@@ -190,7 +193,9 @@ public class DatabaseManager {
                         + "gender text,"
                         + "height REAL,"
                         + "weight REAL,"
-                        + "stridelength REAL);";
+                        + "stridelength REAL,"
+                        + "distancegoal INTEGER,"
+                        + "stepgoal INTEGER);";
                 userTableStatement.execute(userTablesql);
                 //Create activities table
                 Statement activityTableStatement = con.createStatement();
@@ -222,7 +227,7 @@ public class DatabaseManager {
 //                prep.setString(2, "1998-08-23");
 //                prep.setString(3, "Gavin");
 //                prep.setString(4, "Ong");
-//                prep.setString(5, "male");
+//                prep.setString(5, "Male");
 //                prep.setDouble(6, 170.0);
 //                prep.setDouble(7, 65.0);
 //                prep.setDouble(8, 2.0);
@@ -308,6 +313,35 @@ public class DatabaseManager {
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid);
+        while(res.next()){
+
+            Activity activity = extractActivity(res);
+            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+            for (ActivityDataPoint dataPoint : dataPoints) {
+                activity.addActivityData(dataPoint);
+            }
+
+            activity.updateMaxHeartRate();
+            activity.updateMinHeartRate();
+            activities.add(activity);
+        }
+        return activities;
+    }
+
+    /**
+     *Takes a userid and date with format YYYY-MM-DD and returns a list of activities associated with the user from a certain date
+     * @param userid The user id used to look up the user in the database.
+     * @param date The date used to retrieve activities from.
+     * @return An array list of activities associated with the user id.
+     * @throws SQLException
+     */
+    public ArrayList<Activity> getActivitiesByDate(int userid, String date) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        ArrayList<Activity> activities = new ArrayList<>();
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND ");
         while(res.next()){
 
             Activity activity = extractActivity(res);
@@ -627,6 +661,39 @@ public class DatabaseManager {
             ApplicationManager.displayPopUp("Database Update Error", "Could not update activity notes!", "error");
         }
     }
+    public void setDistanceGoal(int userid, int newGoal) throws SQLException {
+        String sql = "UPDATE user SET distancegoal = ? WHERE userid = '" + userid + "'";
+        PreparedStatement updateDistanceGoal = con.prepareStatement(sql);
+        updateDistanceGoal.setInt(1, newGoal);
+        updateDistanceGoal.execute();
+    }
+    public void setStepGoal(int userid, int newGoal) throws SQLException {
+        String sql = "UPDATE user SET stepgoal = ? WHERE userid = '" + userid + "'";
+        PreparedStatement updateNotes = con.prepareStatement(sql);
+        updateNotes.setInt(1, newGoal);
+        updateNotes.execute();
+    }
+    public void getUpdatedDistanceGoal(int userid, int newGoal) throws SQLException {
+        LocalDate ld = LocalDate.now();
+        ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        String lastMondayDate = convertToDBDateFormat(ld);
+        //getActivitiesByD
+        PreparedStatement updateDistanceGoal = con.prepareStatement(lastMondayDate);
+        updateDistanceGoal.setInt(1, newGoal);
+        updateDistanceGoal.execute();
+    }
+    public void getUpdatedStepGoal(int userid, int newGoal) throws SQLException {
+        String sql = "UPDATE user SET stepgoal = ? WHERE userid = '" + userid + "'";
+        LocalDate ld = LocalDate.now();
+        ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        PreparedStatement updateNotes = con.prepareStatement(sql);
+        updateNotes.setInt(1, newGoal);
+        updateNotes.execute();
+    }
 
-
+    public String convertToDBDateFormat(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedString = date.format(formatter);
+        return formattedString;
+    }
 }
