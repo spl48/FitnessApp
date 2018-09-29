@@ -92,13 +92,24 @@ public class registerController extends GeneralScreenController {
     @FXML
     public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
         ArrayList<String> usernames = databaseManager.getUsernames();
-        setEnteredData();
-        if (usernames.contains(username.toLowerCase())) {
-            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
-        } else if (usernames.size() == 5) {
+        // Checks for Register Limit
+        if (usernames.size() == 5) {
             ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
         }
-        else if (validEnteredData()) {
+
+        // Checks for Duplicates
+
+        setEnteredData();
+        boolean duplicate = false;
+        for (String user : usernames) {
+            if (user.equalsIgnoreCase(username)) {
+                duplicate = true;
+            }
+        }
+
+        if (duplicate == true) {
+            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
+        } else if (validEnteredData()) {
             try {
                 databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight, stride);
                 ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
