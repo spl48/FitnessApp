@@ -63,10 +63,12 @@ public class DatabaseManager {
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
         Double stridelength = userData.getDouble("stridelength");
+        int stepgoal = userData.getInt("stepgoal");
+        int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);
 
         // Creates a User model using database data.
-        User user = new User(firstName, lastName, dob, gender, height, weight, aUsername, id);
+        User user = new User(firstName, lastName, dob, gender, height, weight, aUsername, id, stepgoal, distancegoal);
         return user;
     }
     public User getUserFromID(int userid) throws SQLException {
@@ -89,10 +91,12 @@ public class DatabaseManager {
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
         Double stridelength = userData.getDouble("stridelength");
+        int stepgoal = userData.getInt("stepgoal");
+        int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);
 
         // Creates a User model using database data.
-        User user = new User(firstName, lastName, dob, gender, height, weight, username, userid);
+        User user = new User(firstName, lastName, dob, gender, height, weight, username, userid, stepgoal, distancegoal);
         return user;
     }
 
@@ -341,7 +345,7 @@ public class DatabaseManager {
         }
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND ");
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND startdate BETWEEN ");
         while(res.next()){
 
             Activity activity = extractActivity(res);
