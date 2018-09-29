@@ -102,7 +102,7 @@
                         <TextField fx:id="fnameField" prefHeight="35.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="lnameField" prefHeight="35.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="usernameField" prefHeight="35.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="heightField" prefHeight="35.0" prefWidth="211.0" promptText="in cm" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <TextField fx:id="heightField" prefHeight="35.0" prefWidth="96.0" promptText="in cm" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                         <TextField fx:id="weightField" layoutX="676.0" layoutY="100.0" prefHeight="35.0" prefWidth="211.0" promptText="in kg" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                         <TextField fx:id="strideField" layoutX="676.0" layoutY="143.0" prefHeight="35.0" prefWidth="211.0" promptText="in feet" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                         <DatePicker fx:id="dobField" prefHeight="34.0" prefWidth="214.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />

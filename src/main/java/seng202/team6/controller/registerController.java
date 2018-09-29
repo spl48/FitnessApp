@@ -93,7 +93,7 @@ public class registerController extends GeneralScreenController {
     public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
         ArrayList<String> usernames = databaseManager.getUsernames();
         setEnteredData();
-        if (usernames.contains(username)) {
+        if (usernames.contains(username.toLowerCase())) {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         } else if (usernames.size() == 5) {
             ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
@@ -140,8 +140,8 @@ public class registerController extends GeneralScreenController {
                 UserDataValidation.validateName(last, "Last Name") &&
                 UserDataValidation.validateBirthDate(birthDate) &&
                 UserDataValidation.validateGender(gender) &&
-                UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
-                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
-                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
+                UserDataValidation.validateDoubleValue(height, "Height", 280, 55, "cm") &&
+                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2, "kg") &&
+                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3, "feet");
     }
 }

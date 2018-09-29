@@ -187,9 +187,9 @@ public class EditProfileController {
                 UserDataValidation.validateName(last, "Last Name") &&
                 UserDataValidation.validateBirthDate(birthDate) &&
                 UserDataValidation.validateGender(gender) &&
-                UserDataValidation.validateDoubleValue(height, "Height", 280, 55) &&
-                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2) &&
-                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3);
+                UserDataValidation.validateDoubleValue(height, "Height", 280, 55, "cm") &&
+                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2, "kg") &&
+                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3, "feet");
     }
 
 }

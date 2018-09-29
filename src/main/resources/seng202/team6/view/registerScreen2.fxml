@@ -116,17 +116,17 @@
                   <Font name="NexaBold" size="15.0" />
                </font>
             </Label>
-            <Label style="-fx-color: white;" text="Height:" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <Label style="-fx-color: white;" text="Height (cm):" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <font>
                   <Font name="NexaBold" size="15.0" />
                </font>
             </Label>
-            <Label style="-fx-color: white;" text="Weight:" GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <Label style="-fx-color: white;" text="Weight (kg):" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <font>
                   <Font name="NexaBold" size="15.0" />
                </font>
             </Label>
-            <Label style="-fx-color: white;" text="Stride Length:" GridPane.columnIndex="4" GridPane.rowIndex="8">
+            <Label style="-fx-color: white;" text="Stride Length (ft):" GridPane.columnIndex="4" GridPane.rowIndex="8">
                <font>
                   <Font name="NexaBold" size="15.0" />
                </font>

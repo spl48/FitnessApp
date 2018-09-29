@@ -67,9 +67,9 @@ public class UserDataValidation {
         int count = 0;
         String errorTitle = nameType + " Entry Invalid";
         if (name.length() < MIN_NAME_LENGTH) {
-            popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is too short.\nPlease ensure " + nameType + " is more than 2 characters.", "error");
+            popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is too short.\nPlease ensure " + nameType + " is more than " + MIN_NAME_LENGTH + " characters.", "error");
         } else if (name.length() > MAX_NAME_LENGTH) {
-            popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is too long.\nPlease ensure " + nameType + " is less than 10 characters.", "error");
+            popUpBoxController.displayErrorPopUP(errorTitle, nameType + " is too long.\nPlease ensure " + nameType + " is less than " + MAX_NAME_LENGTH + " characters.", "error");
         } else if (isAlpha(name)) {
             System.out.println(nameType + " OK");
             valid = true;
@@ -95,11 +95,11 @@ public class UserDataValidation {
         return valid;
     }
 
-    public static boolean validateDoubleValue(Double value, String valueName, double upper, double lower) {
+    public static boolean validateDoubleValue(Double value, String valueName, double upper, double lower, String type) {
         boolean valid = false;
         String errorTitle = valueName + " Entry Invalid";
         if (value > upper || value < lower) {
-            String errorMessage = valueName + " is not in range.\nPlease ensure " + valueName + " is in the range " + lower + " to " + upper;
+            String errorMessage = valueName + " is not in range.\nPlease ensure " + valueName + " is in the range of " + lower + " to " + upper + " " + type + ".";
             popUpBoxController.displayErrorPopUP(errorTitle, errorMessage, "error");
         } else {
             System.out.println(valueName + " OK");
