@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
@@ -38,15 +37,15 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="700.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="482.0" minHeight="10.0" prefHeight="411.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="482.0" minHeight="10.0" prefHeight="441.3333740234375" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="193.59989624023433" minHeight="150.0" prefHeight="191.46662597656245" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                  <TabPane maxWidth="-Infinity" prefHeight="451.0" prefWidth="850.0" stylesheets="@../resources/css/tabs.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="30.0">
+                  <TabPane fx:id="graphMapTab" maxWidth="-Infinity" prefHeight="468.0" prefWidth="822.0" stylesheets="@../resources/css/tabs.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="30.0">
                     <tabs>
-                      <Tab onSelectionChanged="#initGraphs" text="Graphical Analysis">
+                      <Tab onCloseRequest="#closeGraphs" onSelectionChanged="#initGraphs" text="Graphical Analysis">
                            <content>
-                                    <LineChart fx:id="analysisGraph" maxWidth="912.0" prefHeight="421.0" prefWidth="778.0">
+                                    <LineChart fx:id="analysisGraph" maxHeight="-Infinity" maxWidth="912.0" prefHeight="420.0" prefWidth="803.0">
                                         <xAxis>
                                             <NumberAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxis" />
                                         </xAxis>
@@ -54,7 +53,7 @@
                                             <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="WHITE" />
                                         </yAxis>
                                  <padding>
-                                    <Insets bottom="20.0" right="20.0" />
+                                    <Insets bottom="10.0" right="20.0" />
                                  </padding>
                                     </LineChart>
                            </content>
@@ -70,28 +69,217 @@
                         </Tab>
                     </tabs>
                   </TabPane>
-                        <HBox prefHeight="200.0" prefWidth="842.0" spacing="11.0" GridPane.rowIndex="1">
-                            <children>
-                                <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../resources/pics/panelanalysis.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView fitHeight="150.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../resources/pics/panelanalysis.png" />
-                                    </image>
-                                </ImageView>
-                                <ImageView fitHeight="150.0" fitWidth="287.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../resources/pics/panelanalysis.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
-                            <padding>
-                                <Insets bottom="38.0" left="17.0" top="10.0" />
-                            </padding>
-                        </HBox>
+                  <GridPane prefHeight="210.0" prefWidth="803.0" GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane prefWidth="174.0" style="-fx-background-color: white;" GridPane.columnIndex="3">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="28.00003662109375" minHeight="10.0" prefHeight="19.466650390625" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="74.13330078125" minHeight="10.0" prefHeight="70.933349609375" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="37.799987792968736" minHeight="10.0" prefHeight="33.53338623046875" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="24.99997558593749" minHeight="10.0" prefHeight="22.86661376953124" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="heartRateLabel" text="125" textFill="#676767" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font name="NexaBold" size="28.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label prefHeight="19.0" prefWidth="36.0" text="BPM" textFill="#848383" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="NexaBold" size="15.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="8.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <ImageView fitHeight="50.0" fitWidth="58.0" style="-fx-background-color: white;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <image>
+                                    <Image url="@../resources/pics/heartrate.png" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Label text="HEARTRATE" textFill="#676767" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="NexaBold" size="17.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </GridPane.margin>
+                        </GridPane>
+                        <GridPane style="-fx-background-color: white;">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="28.00003662109375" minHeight="10.0" prefHeight="19.466650390625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="74.13330078125" minHeight="10.0" prefHeight="70.933349609375" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="37.799987792968736" minHeight="10.0" prefHeight="33.53338623046875" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="24.99997558593749" minHeight="10.0" prefHeight="22.86661376953124" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label fx:id="distanceLabel" text="1.3" textFill="#676767" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font name="NexaBold" size="28.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label prefHeight="19.0" prefWidth="23.0" text="KM" textFill="#848383" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="NexaBold" size="15.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="8.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="DISTANCE" textFill="#676767" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="NexaBold" size="17.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <ImageView fitHeight="54.0" fitWidth="54.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <image>
+                                    <Image url="@../resources/pics/distance.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </GridPane.margin>
+                        </GridPane>
+                        <GridPane style="-fx-background-color: white;" GridPane.columnIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="28.00003662109375" minHeight="10.0" prefHeight="19.466650390625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="74.13330078125" minHeight="10.0" prefHeight="70.933349609375" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="37.799987792968736" minHeight="10.0" prefHeight="33.53338623046875" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="24.99997558593749" minHeight="10.0" prefHeight="22.86661376953124" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label fx:id="velocityLabel" text="1.2" textFill="#676767" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font name="NexaBold" size="28.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label prefHeight="19.0" prefWidth="41.0" text="KM/H" textFill="#848383" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="NexaBold" size="15.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="8.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <ImageView fitHeight="55.0" fitWidth="79.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <image>
+                                    <Image url="@../resources/pics/speed.png" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Label text="VELOCITY" textFill="#676767" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="NexaBold" size="17.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </GridPane.margin>
+                        </GridPane>
+                        <GridPane style="-fx-background-color: white;" GridPane.columnIndex="2">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="28.00003662109375" minHeight="10.0" prefHeight="19.466650390625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="74.13330078125" minHeight="10.0" prefHeight="70.933349609375" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="37.799987792968736" minHeight="10.0" prefHeight="33.53338623046875" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="24.99997558593749" minHeight="10.0" prefHeight="22.86661376953124" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label fx:id="stepsLabel" text="3200" textFill="#676767" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font name="NexaBold" size="28.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label prefHeight="19.0" prefWidth="49.0" text="STEPS" textFill="#848383" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="NexaBold" size="15.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="8.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="STEPS" textFill="#676767" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="NexaBold" size="17.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <ImageView fitHeight="55.0" fitWidth="40.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                 <image>
+                                    <Image url="@../resources/pics/steps.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </GridPane.margin>
+                        </GridPane>
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="20.0" />
+                     </GridPane.margin>
+                  </GridPane>
                     </children>
                <BorderPane.margin>
                   <Insets left="20.0" />
@@ -99,7 +287,7 @@
                 </GridPane>
             </center>
             <top>
-                <GridPane alignment="CENTER" prefHeight="100.0" BorderPane.alignment="CENTER">
+                <GridPane alignment="CENTER" prefHeight="69.0" prefWidth="1140.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="563.6000366210938" minWidth="10.0" prefWidth="419.6000671386719" />
                         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="741.7332458496094" minWidth="10.0" prefWidth="720.3999328613281" />
@@ -132,17 +320,18 @@
          <right>
             <GridPane prefHeight="602.0" prefWidth="292.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.400146484375" minWidth="10.0" prefWidth="149.0667724609375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.93322753906247" minWidth="10.0" prefWidth="121.93322753906247" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints />
-                <RowConstraints maxHeight="292.9333862304687" minHeight="10.0" prefHeight="30.46664733886719" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="569.1999649047851" minHeight="10.0" prefHeight="540.3333526611328" vgrow="SOMETIMES" />
+                <RowConstraints />
+                  <RowConstraints maxHeight="292.9333862304687" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="575.0000045776367" minHeight="10.0" prefHeight="570.7333572387695" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                      <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="559.0" prefWidth="271.0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                          <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefWidth="127.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                      <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="594.0" prefWidth="271.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                          <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefWidth="127.0" style="-fx-background-color: white;" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -152,7 +341,7 @@
                                   <Image url="@../resources/pics/filter2.png" />
                               </image>
                               <GridPane.margin>
-                                  <Insets />
+                                  <Insets right="10.0" />
                               </GridPane.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />

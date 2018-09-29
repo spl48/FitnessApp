@@ -509,6 +509,7 @@ public class DatabaseManager {
         for (ActivityDataPoint dataPoint : dataPoints) {
             activity.addActivityData(dataPoint);
         }
+        activity.setDistance(res.getDouble("distance"));
         activity.updateType();
         activity.updateMaxHeartRate();
         activity.updateMinHeartRate();

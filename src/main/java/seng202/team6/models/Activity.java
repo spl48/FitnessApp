@@ -436,25 +436,30 @@ public class Activity
         int currentIndex = 0;
 
         ArrayList<ActivityDataPoint> dataPoints = getActivityData();
-        double currentLongitude;
-        double nextLongitude;
-        double currentLatitude;
-        double nextLatitude;
 
-        for (currentIndex = 0; currentIndex < index; currentIndex++) {
-            currentLongitude = dataPoints.get(currentIndex).getLongitude();
-            nextLongitude = dataPoints.get(currentIndex + 1).getLongitude();
-            currentLatitude = dataPoints.get(currentIndex).getLatitude();
-            nextLatitude = dataPoints.get(currentIndex + 1).getLatitude();
+        if (dataPoints.size() > 0) {
+            double currentLongitude;
+            double nextLongitude;
+            double currentLatitude;
+            double nextLatitude;
 
-            double theta = currentLongitude - nextLongitude;
-            double distance = sin(deg2rad(currentLatitude)) * sin(deg2rad(nextLatitude)) + cos(deg2rad(currentLatitude)) * cos(deg2rad(nextLatitude)) * cos(deg2rad(theta));
-            distance = acos(distance);
-            distance = (distance * 180 / Math.PI);
-            distance = distance * 60 * 1.1515;
-            distance = distance * 1.609344;
-            totalDistance += distance;
+            for (currentIndex = 0; currentIndex < index; currentIndex++) {
+                currentLongitude = dataPoints.get(currentIndex).getLongitude();
+                nextLongitude = dataPoints.get(currentIndex + 1).getLongitude();
+                currentLatitude = dataPoints.get(currentIndex).getLatitude();
+                nextLatitude = dataPoints.get(currentIndex + 1).getLatitude();
 
+                double theta = currentLongitude - nextLongitude;
+                double distance = sin(deg2rad(currentLatitude)) * sin(deg2rad(nextLatitude)) + cos(deg2rad(currentLatitude)) * cos(deg2rad(nextLatitude)) * cos(deg2rad(theta));
+                distance = acos(distance);
+                distance = (distance * 180 / Math.PI);
+                distance = distance * 60 * 1.1515;
+                distance = distance * 1.609344;
+                totalDistance += distance;
+
+            }
+        } else {
+            totalDistance = distance;
         }
 
         return totalDistance;
@@ -466,16 +471,22 @@ public class Activity
      * @return a double representing the activities average speed
      */
     public double findAverageSpeed() {
-        double activityTime = getTotalTime();
         int activityLength = getActivityData().size();
-        double activityDistance = ActivityAnalysis.findDistanceFromStart(this , activityLength - 1);
-
-        return (activityDistance / (activityTime / 60));
+        if (activityLength >= 1) {
+            double activityTime = getTotalTime();
+            double activityDistance = ActivityAnalysis.findDistanceFromStart(this, activityLength - 1);
+            return (activityDistance / (activityTime / 60));
+        } else {
+            System.out.println("manual speed calulation");
+            return findAverageSpeedManual();
+        }
     }
 
     public double findAverageSpeedManual() {
         double time = getTotalTime();
-        return distance / time;
+        System.out.println("distance " + distance);
+        System.out.println("time " + time);
+        return distance / (time / 60);
 
     }
 }

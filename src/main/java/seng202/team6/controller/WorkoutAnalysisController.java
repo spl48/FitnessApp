@@ -16,10 +16,7 @@ import javafx.scene.web.WebView;
 import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.models.Activity;
-import seng202.team6.models.ActivityDataPoint;
-import seng202.team6.models.Position;
-import seng202.team6.models.Route;
+import seng202.team6.models.*;
 
 import java.sql.SQLException;
 import java.time.Duration;
@@ -37,6 +34,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private WebView mapWebView;
 
     private String selectedtab = "Graph";
+
+    @FXML
+    private Label distanceLabel, velocityLabel, stepLabel, heartRateLabel;
 
     /**
      * --
@@ -149,7 +149,10 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     HashMap<String, Integer> filteredActivities;
 
-
+    /**
+     * Current User
+     */
+    User currUser;
 
     /**
      * Initializes chart to display latest activity.
@@ -161,6 +164,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         // Sets the activity type selection
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
+        currUser = databaseManager.getUserFromID(ApplicationManager.getCurrentUserID());
 
         // Updates the list view.
         updateListView();
@@ -193,6 +197,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void graphHandler() throws SQLException {
+        Activity selectedActivity = activities.get(selectionIndex);
+        distanceLabel.setText(Double.toString(Math.round(selectedActivity.getDistance())));
+        velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())));
+        //stepLabel.setText(Double.toString(Math.round(ActivityAnalysis.findStepCount(selectedActivity, ))));
+        heartRateLabel.setText(Double.toString(Math.round(selectedActivity.getMaxHeartRate())));
+
         if (selectedtab == "Graph") {
             System.out.println("in graph handler");
             if (graphCount == 0) {
@@ -475,6 +485,10 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             e.printStackTrace();
             ApplicationManager.displayPopUp("Oh Mate!", "You need an internet connection to use the maps feature","error");
         }
+    }
+
+    public void closeGraphs() {
+
     }
 
 }

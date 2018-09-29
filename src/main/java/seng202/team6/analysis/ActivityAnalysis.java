@@ -109,7 +109,6 @@ public class ActivityAnalysis {
      * @return a double representing the distance covered
      */
     public static double findDistanceFromStart(Activity activity, int index) {
-
         double totalDistance = 0;
         int currentIndex = 0;
 

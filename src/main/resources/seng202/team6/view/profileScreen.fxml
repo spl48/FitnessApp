@@ -40,8 +40,6 @@
                         <RowConstraints maxHeight="253.66665649414062" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="253.66665649414062" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="253.66665649414062" minHeight="1.0" prefHeight="7.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="253.66665649414062" minHeight="1.0" prefHeight="7.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="281.3333435058594" minHeight="0.0" prefHeight="7.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="281.3333435058594" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
@@ -127,7 +125,7 @@
                               <Font name="NexaLight" size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="47.0" fitWidth="47.0" onMouseClicked="#toEditProfile" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                        <ImageView fitHeight="47.0" fitWidth="47.0" onMouseClicked="#toEditProfile" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <image>
                               <Image url="@../resources/pics/edit.png" />
                            </image>
