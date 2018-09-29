@@ -14,6 +14,8 @@ import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
+import static seng202.team6.analysis.ProfileAnalysis.findStepsThisWeek;
+
 public class DatabaseManager {
     private Connection con;
     private boolean hasData = false;
@@ -351,14 +353,16 @@ public class DatabaseManager {
         String nowDate = convertToDBDateFormat(LocalDate.now());
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN '"+ date + "' AND '" + nowDate + "'");
         while(res.next()){
-            Activity activity = extractActivity(res);
-            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-            for (ActivityDataPoint dataPoint : dataPoints) {
-                activity.addActivityData(dataPoint);
-            }
-
-            activity.updateMaxHeartRate();
-            activity.updateMinHeartRate();
+//            Activity activity = extractActivity(res);
+//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+//            for (ActivityDataPoint dataPoint : dataPoints) {
+//                activity.addActivityData(dataPoint);
+//            }
+//
+//            activity.updateMaxHeartRate();
+//            activity.updateMinHeartRate();
+//            activities.add(activity);
+            Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
         return activities;
@@ -604,14 +608,16 @@ public class DatabaseManager {
                 + userid
                 + " AND NOT EXISTS (SELECT * FROM record WHERE activity.activityid = record.activityid);");
         while(res.next()){
-            Activity activity = extractActivity(res);
-            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-            for (ActivityDataPoint dataPoint : dataPoints) {
-                activity.addActivityData(dataPoint);
-            }
-            activity.updateType();
-            activity.updateMaxHeartRate();
-            activity.updateMinHeartRate();
+//            Activity activity = extractActivity(res);
+//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+//            for (ActivityDataPoint dataPoint : dataPoints) {
+//                activity.addActivityData(dataPoint);
+//            }
+//            activity.updateType();
+//            activity.updateMaxHeartRate();
+//            activity.updateMinHeartRate();
+//
+            Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
         return activities;
@@ -689,15 +695,20 @@ public class DatabaseManager {
         //getActivitiesByD
     }
     public double getUpdatedStepGoal(int userid) throws SQLException {
+        double strideLength = getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength();
         LocalDate ld = LocalDate.now();
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         String lastMondayDate = convertToDBDateFormat(ld);
         ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
+        //ArrayList<Activity> manualActivities = getActivitiesWithoutRecords(ApplicationManager.getCurrentUserID());
+        //System.out.println(activities.size());
+        //double manualSteps = findStepsThisWeek(manualActivities, strideLength);
         double totalStepCount = 0;
         for (Activity activity : activities) {
-            double currentStepCount = ActivityAnalysis.findStepCount(activity, getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength());          // Finds the step count for 1 activity
+            double currentStepCount = ActivityAnalysis.findStepCount(activity, strideLength);          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
         }
+        //totalStepCount += manualSteps;
         return totalStepCount;
     }
 

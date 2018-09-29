@@ -89,9 +89,15 @@ public class ActivityAnalysis {
      * @return a double representing the number of steps taken
      */
     public static double findStepCount(Activity activity, double strideLength) {
-        if (activity.getType().equalsIgnoreCase("walking") || activity.getType().equalsIgnoreCase("running")) {
+        double distance;
+        if (activity.getType().equalsIgnoreCase("walking") || activity.getType().equalsIgnoreCase("running") || activity.getType().equalsIgnoreCase("other")) {
             int finalIndex = activity.getActivityData().size();
-            double distance = findDistanceFromStart(activity, finalIndex - 1);
+            if (finalIndex == 0) {
+                distance = activity.getDistance();
+            } else {
+                distance = findDistanceFromStart(activity, finalIndex - 1);
+            }
+
             return (distance / (strideLength * 0.0003048));
         }
         else{
@@ -117,7 +123,6 @@ public class ActivityAnalysis {
         double nextLongitude;
         double currentLatitude;
         double nextLatitude;
-
         for (currentIndex = 0; currentIndex < index; currentIndex++) {
             currentLongitude = dataPoints.get(currentIndex).getLongitude();
             nextLongitude = dataPoints.get(currentIndex + 1).getLongitude();
