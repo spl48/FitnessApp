@@ -95,6 +95,8 @@ public class User
      */
     public StepGoal stepGoal;
 
+    public DistanceGoal distanceGoal;
+
 
 
     /**
@@ -147,6 +149,7 @@ public class User
         walkingStrideLength = estimateWalkingStrideLength(height, gender);
         runningStrideLength = estimateRunningStrideLength(height, gender);
         stepGoal = new StepGoal(70000);
+        distanceGoal = new DistanceGoal(50);
     }
 
     /**
@@ -413,6 +416,14 @@ public class User
      * @param newStepCount integer of new step count per week goal
      */
     public void setStepGoal(int newStepCount) { stepGoal.setStepGoal(newStepCount);}
+
+    public int getDistanceGoal() {
+        return distanceGoal.getGoalDistance();
+    }
+
+    public void setDistanceGoal(int distanceGoal) {
+        this.distanceGoal.setGoalDistance(distanceGoal);
+    }
 
     public void printUser() {
         System.out.println("-----------------------------------------");
