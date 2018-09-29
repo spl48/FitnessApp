@@ -58,13 +58,11 @@ public class ProfileAnalysis {
         double totalStepCount = 0;
         double currentStepCount;
         LocalDate currentDate = LocalDate.now();
-        ActivityAnalysis activityAnalysis = new ActivityAnalysis();
         TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
         LocalDate startOfWeek = currentDate.with(fieldISO, 1);
         for (int i = activities.size() - 1; i >= 0 && activities.get(i).getStartDate().isAfter(startOfWeek); i--) {
             Activity activity = activities.get(i);
-            currentStepCount = activityAnalysis.findStepCount(activity, strideLength);          // Finds the step count for 1 activity
-            System.out.println(currentStepCount + " i");
+            currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
         }
         return totalStepCount;

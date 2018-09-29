@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 
-import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -705,7 +704,7 @@ public class DatabaseManager {
         //double manualSteps = findStepsThisWeek(manualActivities, strideLength);
         double totalStepCount = 0;
         for (Activity activity : activities) {
-            double currentStepCount = ActivityAnalysis.findStepCount(activity, strideLength);          // Finds the step count for 1 activity
+            double currentStepCount = activity.findStepCount(getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength());          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
         }
         //totalStepCount += manualSteps;
