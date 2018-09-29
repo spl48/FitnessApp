@@ -10,7 +10,7 @@ public class UserTest extends TestCase {
     LocalDate dob2 = LocalDate.of(2001, 1, 9);
     LocalDate dob3 = LocalDate.of(2001, 12, 9);
     LocalDate now = LocalDate.now();
-    private User user = new User("Bob", "Wortsy", dob, "Male", 166.5, 55.0,  "bob101", 56778);
+    private User user = new User("Bob", "Wortsy", dob, "Male", 166.5, 55.0,  "bob101", 56778, 50, 100);
 
     public void testSetName() {
         user.setName("Mike", "Wobs");

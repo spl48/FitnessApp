@@ -10,10 +10,10 @@ public class MatesAITest extends TestCase {
 
     private MatesAI mates = new MatesAI("Baymax");
     LocalDate dob = LocalDate.of(2011, 5,8);
-    private User user = new User("Bob", "Wortsy", dob, "Male",166.5, 55.0,  "bob101", 56778);
+    private User user = new User("Bob", "Wortsy", dob, "Male",166.5, 55.0,  "bob101", 56778, 50, 100);
 
     LocalDate dob2 = LocalDate.of(1997, 1, 9);
-    private User user2 = new User("Mike", "Wobs", dob2, "Male",180.0, 80.0,  "mike26", 67890);
+    private User user2 = new User("Mike", "Wobs", dob2, "Male",180.0, 80.0,  "mike26", 67890, 50, 100);
 
     public void testSetName() {
         mates.setName("Fattie");

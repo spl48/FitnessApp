@@ -66,7 +66,6 @@ public class ProfileAnalysis {
             Activity activity = activities.get(i);
             currentStepCount = activityAnalysis.findStepCount(activity, strideLength);          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
-            System.out.println(activity.getType());
         }
         return totalStepCount;
     }

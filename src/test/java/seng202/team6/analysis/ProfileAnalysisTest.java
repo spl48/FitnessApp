@@ -16,7 +16,7 @@ public class ProfileAnalysisTest extends TestCase{
 
     protected void setUp() {
         LocalDate date = LocalDate.of(1998, 5, 18);
-        testUser = new User("Joe", "Bloggs",date,"Male", 170.0, 64, "JBloggs", 12345);
+        testUser = new User("Joe", "Bloggs",date,"Male", 170.0, 64, "JBloggs", 12345, 50, 100);
         testProfileAnalysis = new ProfileAnalysis();
     }
 

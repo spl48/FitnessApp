@@ -1,5 +1,8 @@
 package seng202.team6.models;
 
+import seng202.team6.controller.ApplicationManager;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -93,7 +96,9 @@ public class User
     /**
      * Goal object thast holds the goal number of steps per week
      */
-    public StepGoal stepGoal;
+    public int stepGoal;
+
+    public int distanceGoal;
 
 
 
@@ -118,7 +123,7 @@ public class User
      * @param username A String parameter that is used to set the username of the User.
      * @param userID The user ID.
      */
-    public User(String firstName, String lastName, LocalDate dob, String gender, double height, double weight, String username, int userID)
+    public User(String firstName, String lastName, LocalDate dob, String gender, double height, double weight, String username, int userID, int stepGoal, int distanceGoal)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -143,10 +148,11 @@ public class User
         this.username = username;
 
         this.userID = userID;
+        this.stepGoal = stepGoal;
+        this.distanceGoal = distanceGoal;
 
         walkingStrideLength = estimateWalkingStrideLength(height, gender);
         runningStrideLength = estimateRunningStrideLength(height, gender);
-        stepGoal = new StepGoal(70000);
     }
 
     /**
@@ -406,13 +412,25 @@ public class User
      * Returns the current steps per week goal of the user
      * @return current steps per week goal of the user
      */
-    public int getStepGoal() { return stepGoal.getGoalStepNum(); }
+    public int getStepGoal() { return stepGoal; }
 
     /**
      * sets the step goal for the user
      * @param newStepCount integer of new step count per week goal
      */
-    public void setStepGoal(int newStepCount) { stepGoal.setStepGoal(newStepCount);}
+    public void setStepGoal(int newStepCount) throws SQLException {
+        this.stepGoal = newStepCount;
+        ApplicationManager.getDatabaseManager().setStepGoal(userID, distanceGoal);
+    }
+
+    public int getDistanceGoal() {
+        return distanceGoal;
+    }
+
+    public void setDistanceGoal(int distanceGoal) throws SQLException {
+        this.distanceGoal = distanceGoal;
+        ApplicationManager.getDatabaseManager().setDistanceGoal(userID, distanceGoal);
+    }
 
     public void printUser() {
         System.out.println("-----------------------------------------");
