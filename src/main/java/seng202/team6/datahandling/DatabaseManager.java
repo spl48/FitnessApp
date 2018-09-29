@@ -463,6 +463,13 @@ public class DatabaseManager {
         Statement statement = con.createStatement();
         ResultSet res = statement.executeQuery("SELECT * FROM activity WHERE activityID = " + activityID );
         Activity activity = extractActivity(res);
+        ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+        for (ActivityDataPoint dataPoint : dataPoints) {
+            activity.addActivityData(dataPoint);
+        }
+        activity.updateType();
+        activity.updateMaxHeartRate();
+        activity.updateMinHeartRate();
 
         return activity;
     }
