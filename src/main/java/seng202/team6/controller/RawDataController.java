@@ -260,6 +260,7 @@ public class RawDataController extends WorkoutsNavigator{
     public void filterActivities(Event event) {
         ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
         ActivityManager activityManager = dbManager.getActivityManager();
+
         filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
         addActivitiesToListView(activityList);
@@ -268,6 +269,9 @@ public class RawDataController extends WorkoutsNavigator{
     @FXML
     public void editActivity() throws SQLException {
         if (selectedActivity != null) {
+            activitySelect.setMouseTransparent( true );
+            activitySelect.setFocusTraversable( false );
+
             typeEdit.getSelectionModel().select(selectedActivity.getType());
             descriptionEdit.setText(selectedActivity.getDescription());
             dateEdit.setValue(selectedActivity.getStartDate());
@@ -295,19 +299,27 @@ public class RawDataController extends WorkoutsNavigator{
         typeEdit.setVisible(false);
         notesEdit.setVisible(false);
         updateButton.setVisible(false);
+
+        activitySelect.setMouseTransparent( false );
+        activitySelect.setFocusTraversable( true );
     }
 
     @FXML
-    public void updateActivity() {
-        System.out.println("Updating");
+    public void updateActivity() throws SQLException {
+
         if (validEnteredData()) {
-            dbManager.updateDescription(descriptionEdit.getText(), selectedActivity.getActivityid());
             String startDateString = dateEdit.getValue().toString().replace("/", "-");
             String startDateTime = startDateString + "T" + selectedActivity.getStartTime();
             dbManager.updateStartDate(startDateTime, selectedActivity.getActivityid());
+            dbManager.updateDescription(descriptionEdit.getText(), selectedActivity.getActivityid());
             dbManager.updateActivityType((String) typeEdit.getSelectionModel().getSelectedItem(),selectedActivity.getActivityid());
             dbManager.updateNotes(notesEdit.getText(), selectedActivity.getActivityid());
+
+            filteredActivities = dbManager.getActivityManager().getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+            ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
+            addActivitiesToListView(activityList);
         }
+        showActivity();
         ApplicationManager.displayPopUp("Success!", "Your activity update was successful!", "confirmation");
 
     }

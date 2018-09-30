@@ -26,10 +26,28 @@ public class GoalsScreenController {
     private TextField stepGoalField, distanceGoalField;
 
     @FXML
-    private Node editButton;
+    private Node stepEditButton;
 
     @FXML
-    private Node onEditing;
+    private Node editDistanceButton;
+
+    @FXML
+    private Node stepsOnEditing;
+
+    @FXML
+    private Node onDistanceEditing;
+
+    @FXML
+    private TextField distanceEdit;
+
+    @FXML
+    private TextField stepsEdit;
+
+    @FXML
+    private Button updateStep;
+
+    @FXML
+    private Button updateDistance;
 
     @FXML
     private Node editStepGoal;
@@ -85,16 +103,16 @@ public class GoalsScreenController {
     }
 
     @FXML
-    private void setStepGoal() throws SQLException {
+    private void setStepsGoal() throws SQLException {
         int newStepGoal = user.getStepGoal();
         try {
-            newStepGoal = Integer.parseInt(stepGoalField.getText());
-            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
+            newStepGoal = Integer.parseInt(stepsEdit.getText());
+            ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setStepGoal(newStepGoal);
-        System.out.println("user step goal" + user.getStepGoal());
+        stopEditing();
     }
 
     private void setStepData() throws SQLException {
@@ -155,42 +173,41 @@ public class GoalsScreenController {
         daysToGoLabel2.setText(daysToGo);
     }
 
-    public void editGoals() {
-        //editButton.setVisible(false);
-        //updateButton.setVisible(true);
-        //onEditing.setVisible(true);
-        //editDistanceGoal.setVisible(true);
-        //editStepGoal.setVisible(true);
-        //stepGoal.setVisible(false);
-        //distanceGoal.setVisible(false);
-
+    public void editStepGoals() {
+        stepsEdit.setText(Integer.toString(user.getStepGoal()));
+        stepsOnEditing.setVisible(true);
+        stepsEdit.setVisible(true);
+        updateStep.setVisible(true);
     }
 
-    public void stopEditing() {
-        editButton.setVisible(true);
-        updateButton.setVisible(false);
-        onEditing.setVisible(false);
-        stepGoal1.setVisible(true);
-        stepsLeftLabel.setVisible(true);
-        distanceGoalLabel.setVisible(true);
-        distanceLeftLabel.setVisible(true);
-        editDistanceGoal.setVisible(false);
-        editStepGoal.setVisible(false);
+    public void editDistanceGoals() {
+        distanceEdit.setText(Integer.toString(user.getDistanceGoal()));
+        onDistanceEditing.setVisible(true);
+        distanceEdit.setVisible(true);
+        updateDistance.setVisible(true);
     }
 
-    public void updateGoals() {
-
+    public void stopEditing() throws SQLException {
+        setDistanceData();
+        setStepData();
+        stepsOnEditing.setVisible(false);
+        onDistanceEditing.setVisible(false);
+        stepsEdit.setVisible(false);
+        distanceEdit.setVisible(false);
+        updateStep.setVisible(false);
+        updateDistance.setVisible(false);
     }
 
     @FXML
     private void setDistanceGoal() throws SQLException {
         int newDistanceGoal = user.getDistanceGoal();
         try {
-            newDistanceGoal = Integer.parseInt(distanceGoalField.getText());
+            newDistanceGoal = Integer.parseInt(distanceEdit.getText());
             ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newDistanceGoal + " steps per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setDistanceGoal(newDistanceGoal);
+        stopEditing();
     }
 }

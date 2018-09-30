@@ -74,12 +74,14 @@ public class ActivityManager {
         month = setPossibleWildCard(month);
         day = setPossibleWildCard(day);
         type = setPossibleWildCard(type);
+        int userId = ApplicationManager.getCurrentUserID();
 
         HashMap<String, Integer> filteredActivities = new HashMap<String, Integer>();
 
         try {
             Statement state = connection.createStatement();
             String sqlString = "select * from activity where " +
+                    "userid = " + userId + " AND " +
                     "strftime(\"%Y\", start) LIKE '" + year + "' AND " +
                     "strftime(\"%m\", start) LIKE '" + month + "' AND " +
                     "strftime(\"%d\", start) LIKE '" + day + "' AND " +
@@ -141,6 +143,7 @@ public class ActivityManager {
             DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
             String sqlString = "select * from activity where " +
+                    "userid = " + ApplicationManager.getCurrentUserID() + " AND " +
                     "strftime(\"%Y\", start) LIKE '" + year + "' AND " +
                     "strftime(\"%m\", start) LIKE '" + month + "' AND " +
                     "strftime(\"%d\", start) LIKE '" + day + "' AND " +

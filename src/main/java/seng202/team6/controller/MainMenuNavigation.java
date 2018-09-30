@@ -3,8 +3,10 @@ package seng202.team6.controller;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 
 /**
@@ -32,7 +34,9 @@ public class MainMenuNavigation extends GeneralScreenController {
         if (selected == null) {
             selected = homeButton;
         }
+        System.out.println("Selected ID: " + selected.getId());
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+        selected.setVisible(true);
     }
 
     /**
@@ -108,6 +112,10 @@ public class MainMenuNavigation extends GeneralScreenController {
      */
     @FXML
     public void changeSelected(ActionEvent event) {
+//        System.out.println(selected.getScene());
+//        Scene selectedScene = (Scene) selected.getParent();
+//        selectedScene.();
+
         selected.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
         selected = (Button) event.getSource();
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
