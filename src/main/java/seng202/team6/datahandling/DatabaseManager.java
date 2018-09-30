@@ -13,8 +13,6 @@ import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
-import static seng202.team6.analysis.ProfileAnalysis.findStepsThisWeek;
-
 public class DatabaseManager {
     private Connection con;
     private boolean hasData = false;
