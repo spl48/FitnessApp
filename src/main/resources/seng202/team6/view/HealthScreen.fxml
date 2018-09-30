@@ -60,7 +60,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="searchBar" maxWidth="400.0" onAction="#onEnter" prefHeight="26.0" prefWidth="523.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="searchBar" maxWidth="380.0" onAction="#onEnter" prefHeight="26.0" prefWidth="523.0" GridPane.columnIndex="1" />
                         <Label alignment="CENTER" text="SEARCH" textFill="WHITE" GridPane.halignment="RIGHT">
                            <GridPane.margin>
                               <Insets right="30.0" />
