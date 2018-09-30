@@ -48,25 +48,25 @@ public class ProfileAnalysis {
         }
     }
 
-    /** A function that determines the total steps across all
-     * walking and running activities of a user within the current week.
-     * @param activities an ArrayList of activities to be analysed
-     * @param strideLength the stride length of a user in feet
-     * @return a double for the number of steps taken
-     */
-    public static double findStepsThisWeek(ArrayList<Activity> activities, double strideLength) {
-        double totalStepCount = 0;
-        double currentStepCount;
-        LocalDate currentDate = LocalDate.now();
-        TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
-        LocalDate startOfWeek = currentDate.with(fieldISO, 1);
-        for (int i = activities.size() - 1; i >= 0 && activities.get(i).getStartDate().isAfter(startOfWeek); i--) {
-            Activity activity = activities.get(i);
-            currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
-            totalStepCount += currentStepCount;
-        }
-        return totalStepCount;
-    }
+//    /** A function that determines the total steps across all
+//     * walking and running activities of a user within the current week.
+//     * @param activities an ArrayList of activities to be analysed
+//     * @param strideLength the stride length of a user in feet
+//     * @return a double for the number of steps taken
+//     */
+//    public static double findStepsThisWeek(ArrayList<Activity> activities, double strideLength) {
+//        double totalStepCount = 0;
+//        double currentStepCount;
+//        LocalDate currentDate = LocalDate.now();
+//        TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
+//        LocalDate startOfWeek = currentDate.with(fieldISO, 1);
+//        for (int i = activities.size() - 1; i >= 0 && activities.get(i).getStartDate().isAfter(startOfWeek); i--) {
+//            Activity activity = activities.get(i);
+//            currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
+//            totalStepCount += currentStepCount;
+//        }
+//        return totalStepCount;
+//    }
 
 }
 
