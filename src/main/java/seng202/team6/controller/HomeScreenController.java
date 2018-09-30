@@ -24,7 +24,7 @@ import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
-public class HomeScreenController {
+public class HomeScreenController extends GeneralScreenController {
     
 	/**
      * A choice box to select the data type to be displayed on graph. E.g "Heart rate", "Distance", etc.
@@ -143,15 +143,16 @@ public class HomeScreenController {
 
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
             healthConcerns += "-" + "Tachycardia\n".toUpperCase();
-            Text healthText = new Text();
+            Hyperlink healthText = new Hyperlink();
             healthText.setText(healthConcerns);
             healthText.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
             healthConcernsText.getChildren().add(healthText);
-//            selectProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-//                public void handle(ActionEvent event) {
-//                    loginController.this.changeSelected(event);
-//                }
-//            });
+            healthText.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    HealthController.setType(1);
+                    changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                }
+            });
 
         } else if (HealthConcernChecker.checkBradycardia(activities, age)) {
             Text healthText = new Text();

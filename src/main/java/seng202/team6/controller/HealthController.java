@@ -63,9 +63,10 @@ public class HealthController extends GeneralScreenController {
     /**
      * Initializes the health concern screen by displaying the text and button
      * corresponding to a particular health concerns if they are at risk for it.
+     *
      * @throws SQLException When there is an error in the database when getting usernames and/or activities.
      */
-    public void initialize() throws SQLException{
+    public void initialize() throws SQLException {
         getUserDetails();
         int i = 0;
         healthBox.setAlignment(Pos.CENTER);
@@ -104,7 +105,7 @@ public class HealthController extends GeneralScreenController {
 //            tachycardiaButton.setVisible(true);
         }
 
-        if(HealthConcernChecker.checkBradycardia(activities, age)) {
+        if (HealthConcernChecker.checkBradycardia(activities, age)) {
 //            bradycardiaText.setText("Bradycardia");
 //            bradycardiaButton.setVisible(true);
             GridPane healthGrid = addGrid();
@@ -158,10 +159,11 @@ public class HealthController extends GeneralScreenController {
             healthBox.getChildren().add(healthGrid);
         }
     }
+
     private GridPane addGrid() {
         GridPane grid = new GridPane();
         healthBox.setMargin(grid, new Insets(50, 50, 50, 50));
-        grid.setPrefSize(280,484);
+        grid.setPrefSize(280, 484);
         grid.setAlignment(Pos.TOP_CENTER);
 //        ColumnConstraints gridGrow = new ColumnConstraints();
 //        gridGrow.setHgrow(Priority.NEVER);
@@ -175,9 +177,10 @@ public class HealthController extends GeneralScreenController {
 
     /**
      * Gets a the current users age and activities
+     *
      * @throws SQLException When there is an error in the database when getting usernames and/or activities.
      */
-    private void getUserDetails() throws SQLException{
+    private void getUserDetails() throws SQLException {
         DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
         User user = databaseManager.getUser(userName);
@@ -189,6 +192,7 @@ public class HealthController extends GeneralScreenController {
     /**
      * Sets the type of the button pushed to 1 (tachycardia button)
      * Redirects user to the web search screen.
+     *
      * @param event When the user clicks the tachycardiaButton.
      */
     public void toTachycardiaWebSearchScreen(ActionEvent event) {
@@ -200,6 +204,7 @@ public class HealthController extends GeneralScreenController {
     /**
      * Sets the type of the button pushed to 2 (bradycardia button)
      * Redirects user to the web search screen.
+     *
      * @param event When the user clicks the bradycardiaButton.
      */
     public void toBradycardiaWebSearchScreen(ActionEvent event) {
@@ -211,6 +216,7 @@ public class HealthController extends GeneralScreenController {
     /**
      * Sets the type of the button pushed to 3 (cardiovascular button)
      * Redirects user to the web search screen.
+     *
      * @param event When the user clicks the cardiovascularButton.
      */
     public void toCardiovascularWebSearchScreen(ActionEvent event) {
@@ -221,9 +227,14 @@ public class HealthController extends GeneralScreenController {
 
     /**
      * Returns the type of the button pushed
+     *
      * @return an int indicating the button that was pushed
      */
     public static int getType() {
         return type;
+    }
+
+    public static void setType(int Type) {
+        type = Type;
     }
 }
