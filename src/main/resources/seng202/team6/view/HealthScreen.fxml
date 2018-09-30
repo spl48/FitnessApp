@@ -51,26 +51,15 @@
                         <Font name="NexaBold" size="17.0" />
                      </font>
                   </Label>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="532.6666870117188" minWidth="10.0" prefWidth="380.2666870117188" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="771.5998840332031" minWidth="10.0" prefWidth="760.5333129882814" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <TextField fx:id="searchBar" maxWidth="380.0" onAction="#onEnter" prefHeight="26.0" prefWidth="523.0" GridPane.columnIndex="1" />
-                        <Label alignment="CENTER" text="SEARCH" textFill="WHITE" GridPane.halignment="RIGHT">
-                           <GridPane.margin>
-                              <Insets right="30.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="NexaBold" size="17.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </GridPane>
+                  <TextField fx:id="searchBar" maxWidth="400.0" onAction="#onEnter" GridPane.halignment="CENTER" />
+                  <Label text="SEARCH" textFill="WHITE" GridPane.halignment="CENTER">
+                     <GridPane.margin>
+                        <Insets right="500.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="NexaBold" size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </center>

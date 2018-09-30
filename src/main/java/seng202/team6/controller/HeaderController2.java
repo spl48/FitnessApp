@@ -55,10 +55,11 @@ public class HeaderController2 extends WorkoutsNavigator {
     void initialize() {
         try {
             User currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
-            usernameMenu2.setStyle("-fx-text-fill: white;" + "-fx-background-color: #445566");
-            usernameMenu2.getSelectionModel().select(currUser.getFullName().toUpperCase());
-            ObservableList<String> availableChoices = FXCollections.observableArrayList("Logout", "Exit");
+            //usernameMenu2.setStyle("-fx-text-fill: white;" + "-fx-background-color: #445566");
+            ObservableList<String> availableChoices = FXCollections.observableArrayList(currUser.getFullName().toUpperCase(), "Logout", "Exit");
             usernameMenu2.setItems(availableChoices);
+            usernameMenu2.getSelectionModel().selectFirst();
+
         } catch (SQLException e) {
             ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.", "error");
         }

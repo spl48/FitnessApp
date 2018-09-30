@@ -45,4 +45,11 @@
      -fx-text-fill: white;
   }
 
+.choice-box .context-menu {
+    -fx-background-color: black;
+}
+
+.cb .label {
+   -fx-text-fill: white
+}
 
