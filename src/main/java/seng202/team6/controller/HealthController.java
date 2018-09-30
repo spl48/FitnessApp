@@ -75,7 +75,8 @@ public class HealthController extends GeneralScreenController {
             //healthGrid.setStyle();
             GridPane healthGrid = addGrid();
 
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            healthGrid.setHalignment(image, HPos.CENTER);
             image.setFitHeight(100);
             healthGrid.add(image, i, 0);
 
@@ -109,7 +110,8 @@ public class HealthController extends GeneralScreenController {
 //            bradycardiaText.setText("Bradycardia");
 //            bradycardiaButton.setVisible(true);
             GridPane healthGrid = addGrid();
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            healthGrid.setHalignment(image, HPos.CENTER);
             image.setFitHeight(100);
             healthGrid.add(image, i, 0);
 
@@ -135,7 +137,8 @@ public class HealthController extends GeneralScreenController {
 //            cardioVascularText.setText("Cardiovascular Disease");
 //            cardiovascularButton.setVisible(true);
             GridPane healthGrid = addGrid();
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            healthGrid.setHalignment(image, HPos.CENTER);
             image.setFitHeight(100);
             healthGrid.add(image, i, 0);
 
@@ -162,7 +165,7 @@ public class HealthController extends GeneralScreenController {
 
     private GridPane addGrid() {
         GridPane grid = new GridPane();
-        healthBox.setMargin(grid, new Insets(50, 50, 50, 50));
+        healthBox.setMargin(grid, new Insets(50, 20, 50, 20));
         grid.setPrefSize(280, 484);
         grid.setAlignment(Pos.TOP_CENTER);
 //        ColumnConstraints gridGrow = new ColumnConstraints();
@@ -234,6 +237,11 @@ public class HealthController extends GeneralScreenController {
         return type;
     }
 
+    /**
+     * Sets the type of health concern
+     *
+     * @param Type
+     */
     public static void setType(int Type) {
         type = Type;
     }
