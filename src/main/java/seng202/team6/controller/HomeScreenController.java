@@ -18,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng202.team6.analysis.HealthConcernChecker;
-import seng202.team6.analysis.ProfileAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -131,13 +130,13 @@ public class HomeScreenController extends GeneralScreenController {
     private void setHealthInfo() {
 
 
-        double BMI = ProfileAnalysis.calculateBMI(user);
+        double BMI = user.calculateBMI();
         int age = user.getAge();
 
         String BMIString = String.format("%.1f", BMI);
         BMIText.setText(BMIString);
 
-        weightType.setText("(" + ProfileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
+        weightType.setText("(" + user.analyseBMI().toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
         if (true) {
