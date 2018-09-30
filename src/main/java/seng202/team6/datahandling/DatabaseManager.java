@@ -717,4 +717,24 @@ public class DatabaseManager {
         String formattedString = date.format(formatter);
         return formattedString;
     }
+
+    /**
+     *Takes a an sql query and returns a list of activities based on the restult
+     * @param sqlString The SQL String
+     * @return An array list of activities based on the query result.
+     * @throws SQLException
+     */
+    public ArrayList<Activity> getActivitiesbyQuery(String sqlString) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        ArrayList<Activity> activities = new ArrayList<>();
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery(sqlString);
+        while(res.next()){
+            Activity activity = getActivity(res.getInt("activityid"));
+            activities.add(activity);
+        }
+        return activities;
+    }
 }
