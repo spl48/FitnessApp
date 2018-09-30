@@ -36,7 +36,10 @@ public class GoalsScreenController {
     private ProgressIndicator stepProgress;
 
     @FXML
-    private Label stepGoal;
+    private Label stepGoal1;
+
+    @FXML
+    private Label stepsLeftLabel;
 
     @FXML
     private Label distanceGoal;
@@ -57,7 +60,9 @@ public class GoalsScreenController {
         String userName = ApplicationManager.getCurrentUsername();
         user = databaseManager.getUser(userName);
 
-        stepProgress.setProgress(0.4);
+        setStepData();
+
+
     }
 
     @FXML
@@ -71,6 +76,23 @@ public class GoalsScreenController {
         }
         user.setStepGoal(newStepGoal);
         System.out.println("user step goal" + user.getStepGoal());
+    }
+
+    private void setStepData() throws SQLException {
+        double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
+        String stepGoalString = Integer.toString(user.getStepGoal()) + " Steps";
+        stepGoal1.setText(stepGoalString);
+        double stepsLeft = user.getStepGoal() - totalSteps;
+        if (stepsLeft <= 0) {
+            stepsLeft = 0;
+        }
+
+        String stepsLeftString = String.format("%.0f Steps", stepsLeft);
+        stepsLeftLabel.setText(stepsLeftString);
+
+        double progressRatio = stepsLeft / user.getStepGoal();
+        System.out.println(progressRatio);
+        stepProgress.setProgress(progressRatio);
     }
 
     public void editGoals() {
@@ -88,7 +110,8 @@ public class GoalsScreenController {
         editButton.setVisible(true);
         updateButton.setVisible(false);
         onEditing.setVisible(false);
-        stepGoal.setVisible(true);
+        stepGoal1.setVisible(true);
+        stepsLeftLabel.setVisible(true);
         distanceGoal.setVisible(true);
         editDistanceGoal.setVisible(false);
         editStepGoal.setVisible(false);
