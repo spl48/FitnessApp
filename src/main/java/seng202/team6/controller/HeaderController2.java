@@ -1,10 +1,13 @@
 package seng202.team6.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.stage.Stage;
@@ -18,7 +21,7 @@ import java.sql.SQLException;
  * <h1>Header Controller</h1>
  * <p>Sets up the application header and provides relevant functinality.</p>
  */
-public class HeaderController extends WorkoutsNavigator {
+public class HeaderController2 extends WorkoutsNavigator {
 
     /**
      * The profile image, used as a node to get the current scene.
@@ -36,7 +39,7 @@ public class HeaderController extends WorkoutsNavigator {
      * The users name which is the menu text of user options.
      */
     @FXML
-    private ComboBox usernameMenu2;
+    private ChoiceBox usernameMenu2;
 
 
     /**
@@ -52,7 +55,10 @@ public class HeaderController extends WorkoutsNavigator {
     void initialize() {
         try {
             User currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
-            usernameMenu2.setValue(currUser.getFullName().toUpperCase());
+            usernameMenu2.setStyle("-fx-text-fill: white;" + "-fx-background-color: #445566");
+            usernameMenu2.getSelectionModel().select(currUser.getFullName().toUpperCase());
+            ObservableList<String> availableChoices = FXCollections.observableArrayList("Logout", "Exit");
+            usernameMenu2.setItems(availableChoices);
         } catch (SQLException e) {
             ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.", "error");
         }
@@ -66,7 +72,7 @@ public class HeaderController extends WorkoutsNavigator {
         try {
             Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/startScreen2.fxml"));
             Scene loginScene = new Scene(loginParent);
-            Stage appStage = (Stage) (profileImg.getScene().getWindow());
+            Stage appStage = (Stage) (usernameMenu2.getScene().getWindow());
             appStage.setScene(loginScene);
             appStage.show();
         } catch (IOException e) {

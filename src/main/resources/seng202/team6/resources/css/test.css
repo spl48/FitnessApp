@@ -28,3 +28,21 @@
 .menu:focused {
 	-fx-background-color: transparent;
 }
+
+
+
+#comboBox .list-cell
+ {
+    -fx-font-family: arial;
+    -fx-font-size: 16px;
+    -fx-text-fill: white; 
+ }
+
+ #comboBox
+  {
+     -fx-font-family: arial;
+     -fx-font-size: 16px;
+     -fx-text-fill: white;
+  }
+
+

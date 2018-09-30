@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
@@ -32,6 +33,9 @@ public class GoalsScreenController {
     private Button updateButton;
 
     @FXML
+    private ProgressIndicator stepProgress;
+
+    @FXML
     private Label stepGoal;
 
     @FXML
@@ -52,6 +56,8 @@ public class GoalsScreenController {
         databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
         user = databaseManager.getUser(userName);
+
+        stepProgress.setProgress(0.4);
     }
 
     @FXML
@@ -68,13 +74,14 @@ public class GoalsScreenController {
     }
 
     public void editGoals() {
-        editButton.setVisible(false);
-        updateButton.setVisible(true);
-        onEditing.setVisible(true);
-        editDistanceGoal.setVisible(true);
-        editStepGoal.setVisible(true);
-        stepGoal.setVisible(false);
-        distanceGoal.setVisible(false);
+        //editButton.setVisible(false);
+        //updateButton.setVisible(true);
+        //onEditing.setVisible(true);
+        //editDistanceGoal.setVisible(true);
+        //editStepGoal.setVisible(true);
+        //stepGoal.setVisible(false);
+        //distanceGoal.setVisible(false);
+
     }
 
     public void stopEditing() {
