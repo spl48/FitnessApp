@@ -8,9 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
+import seng202.team6.models.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static seng202.team6.models.Goal.distanceAchieved;
+import static seng202.team6.models.Goal.stepsAchieved;
 
 /**
  * <h1>File Uploader GUI Controller</h1>
@@ -76,13 +80,18 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     @FXML
     private TextArea notesEditor;
 
+    /**
+     * The current user
+     */
+    private User user;
+
 
     /**
      * Sets the values of the activity types selection drop down, sets up the table display
      * and selects the first item.
      */
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
         
         //Setting up the list of options for the user to choose their activity type.
         ObservableList<String> activityTypes = FXCollections.observableArrayList("Walking", "Running", "Biking", "Other");
@@ -93,6 +102,10 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         refreshActivities();
         activityTable.getSelectionModel().select(0);
         updateEditing();
+
+        databaseManager = ApplicationManager.getDatabaseManager();
+        String userName = ApplicationManager.getCurrentUsername();
+        user = databaseManager.getUser(userName);
     }
 
     
@@ -177,11 +190,42 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
      * @param event When the user clicks the back arrow and wishes to exit from the upload activity checking area.
      */
     @FXML
-    public void finishEditing(Event event) {
+    public void finishEditing(Event event) throws SQLException {
         ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
         toAddWorkout(event);
+        if (stepsAchieved(user)) {
+            int stepGoal = user.getStepGoal();
+            String stepGoalString = Integer.toString(stepGoal) + " steps";
+            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "!" , "confirmation");
+        }
+        if (distanceAchieved(user)) {
+            int distanceGoal = user.getDistanceGoal();
+            String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
+            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + distanceGoalString + "!" , "confirmation");
+        } else {
+            displayRandomProgressReport();
+        }
     }
 
+
+    private void displayRandomProgressReport() throws SQLException {
+        double ran = Math.random();
+        if (ran <= 0.5) {
+            int stepGoal = user.getStepGoal();
+            double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
+            String stepGoalString = Integer.toString(stepGoal) + " steps";
+            double stepsLeft = stepGoal - totalSteps;
+            String stepsLeftString = String.format("%.0f Steps", stepsLeft);
+            ApplicationManager.displayPopUp("Congratulations", "You only have " + stepsLeftString + " until you reach your goal steps!", "confirmation");
+        } else {
+            int distanceGoal = user.getDistanceGoal();
+            double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
+            String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
+            double distanceLeft = distanceGoal - totalDistance;
+            String distanceLeftString = String.format("%.0f Kilometers", distanceLeft);
+            ApplicationManager.displayPopUp("Congratulations", "You only have " + distanceLeftString + " until you reach your goal distance!" , "confirmation");
+        }
+    }
 
 
 }

@@ -1,5 +1,8 @@
 package seng202.team6.models;
 
+import seng202.team6.controller.ApplicationManager;
+
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
