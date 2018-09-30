@@ -12,6 +12,12 @@ import seng202.team6.models.User;
 
 import javax.swing.text.html.ImageView;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
+import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+
+import static java.util.concurrent.TimeUnit.DAYS;
 
 public class GoalsScreenController {
     @FXML
@@ -44,6 +50,9 @@ public class GoalsScreenController {
     @FXML
     private Label distanceGoalLabel, distanceLeftLabel;
 
+    @FXML
+    private Label daysToGoLabel1, daysToGoLabel2;
+
     /**
      * The current database manager
      */
@@ -62,6 +71,7 @@ public class GoalsScreenController {
 
         setStepData();
         setDistanceData();
+        setDaysToGo();
 
 
     }
@@ -117,6 +127,19 @@ public class GoalsScreenController {
             progressRatio = 1;
         }
         distanceProgress.setProgress(progressRatio);
+    }
+
+    private void setDaysToGo() {
+        LocalDate ld = LocalDate.now();
+        LocalDate endOfWeek = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+        long daysBetween = ld.until(endOfWeek, ChronoUnit.DAYS);
+        if (daysBetween == 7) {
+            daysBetween = 0;
+        }
+        String days = Long.toString(daysBetween);
+        String daysToGo = days + " DAYS TO GO";
+        daysToGoLabel1.setText(daysToGo);
+        daysToGoLabel2.setText(daysToGo);
     }
 
     public void editGoals() {
