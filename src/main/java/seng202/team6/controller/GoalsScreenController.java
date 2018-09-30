@@ -7,10 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Circle;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
 
 import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.temporal.ChronoUnit;
@@ -52,6 +54,12 @@ public class GoalsScreenController {
 
     @FXML
     private Label daysToGoLabel1, daysToGoLabel2;
+
+    @FXML
+    private Circle stepCircle, distanceCircle;
+
+    @FXML
+    private javafx.scene.image.ImageView feetImage, distanceImage;
 
     /**
      * The current database manager
@@ -99,9 +107,12 @@ public class GoalsScreenController {
         }
         String stepsLeftString = String.format("%.0f Steps", stepsLeft);
         stepsLeftLabel.setText(stepsLeftString);
-        double progressRatio = stepsLeft / user.getStepGoal();
-        if (progressRatio > 1) {
+        double progressRatio = totalSteps / user.getStepGoal();
+        System.out.println(progressRatio);
+        if (progressRatio >= 1) {
             progressRatio = 1;
+            stepCircle.setVisible(false);
+            feetImage.setVisible(false);
         }
         stepProgress.setProgress(progressRatio);
     }
@@ -121,10 +132,12 @@ public class GoalsScreenController {
         if (distanceGoal == 0) {
             progressRatio = 1;
         } else {
-            progressRatio = distanceLeft / distanceGoal;
+            progressRatio = totalDistance / distanceGoal;
         }
-        if (progressRatio > 1) {
+        if (progressRatio >= 1) {
             progressRatio = 1;
+            distanceCircle.setVisible(false);
+            distanceImage.setVisible(false);
         }
         distanceProgress.setProgress(progressRatio);
     }

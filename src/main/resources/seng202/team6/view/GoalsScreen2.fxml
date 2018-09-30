@@ -103,8 +103,8 @@
                            </font>
                         </Label>
                         <ProgressIndicator fx:id="distanceProgress" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="230.0" progress="0.16" stylesheets="@../resources/css/progressIndicator.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Circle fill="WHITE" radius="85.0" stroke="#9c9a9a" strokeType="INSIDE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <ImageView GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Circle fx:id="distanceCircle" fill="WHITE" radius="85.0" stroke="#9c9a9a" strokeType="INSIDE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="distanceImage" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../resources/pics/distance.png" />
                            </image>
@@ -192,8 +192,8 @@
                            </font>
                         </Label>
                         <ProgressIndicator fx:id="stepProgress" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="230.0" progress="0.16" stylesheets="@../resources/css/progressIndicator.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Circle fill="WHITE" radius="85.0" stroke="#9c9a9a" strokeType="INSIDE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <ImageView GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Circle fx:id="stepCircle" fill="WHITE" radius="85.0" stroke="#9c9a9a" strokeType="INSIDE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ImageView fx:id="feetImage" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../resources/pics/feet.png" />
                            </image>
