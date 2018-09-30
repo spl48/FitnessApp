@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +21,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.GoalsScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.GoalsScreenController">
    <left>
       <fx:include source="sidebar.fxml" />
    </left>
@@ -94,7 +102,7 @@
                               <Font name="NexaLight" size="23.0" />
                            </font>
                         </Label>
-                        <ProgressIndicator fx:id="stepProgress" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="230.0" progress="0.16" stylesheets="@../resources/css/progressIndicator.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ProgressIndicator fx:id="distanceProgress" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="230.0" progress="0.16" stylesheets="@../resources/css/progressIndicator.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Circle fill="WHITE" radius="85.0" stroke="#9c9a9a" strokeType="INSIDE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <ImageView GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <image>
@@ -173,17 +181,17 @@
                               <Insets top="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="stepGoal1" layoutX="60.0" layoutY="372.0" prefHeight="32.0" prefWidth="153.0" text="70000 steps" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                        <Label fx:id="stepGoal1" layoutX="60.0" layoutY="372.0" prefHeight="32.0" prefWidth="153.0" text="123 steps" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                            <font>
                               <Font name="NexaLight" size="23.0" />
                            </font>
                         </Label>
-                        <Label fx:id="stepsLeft" layoutX="60.0" layoutY="421.0" text="35000 steps" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                        <Label fx:id="stepsLeftLabel" layoutX="60.0" layoutY="421.0" text="35000 steps" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                            <font>
                               <Font name="NexaLight" size="23.0" />
                            </font>
                         </Label>
-                        <ProgressIndicator fx:id="stepProgress1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="230.0" progress="0.16" stylesheets="@../resources/css/progressIndicator.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <ProgressIndicator fx:id="stepProgress" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="230.0" progress="0.16" stylesheets="@../resources/css/progressIndicator.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Circle fill="WHITE" radius="85.0" stroke="#9c9a9a" strokeType="INSIDE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <ImageView GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <image>
