@@ -19,7 +19,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ChoiceBox fx:id="usernameMenu2" onInputMethodTextChanged="#toStartScreen" prefHeight="46.0" prefWidth="288.0" style="-fx-background-color: transparent;" stylesheets="@../resources/css/test.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <ChoiceBox fx:id="usernameMenu2" onContextMenuRequested="#toStartScreen" onInputMethodTextChanged="#toStartScreen" prefHeight="46.0" prefWidth="288.0" style="-fx-background-color: transparent; -fx-background-image: url(&quot;eyesgraph.png&quot;);;" stylesheets="@../resources/css/test.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>

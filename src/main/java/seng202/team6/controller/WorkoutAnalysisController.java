@@ -196,6 +196,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void graphHandler() throws SQLException {
+
         Activity selectedActivity = activities.get(selectionIndex);
         distanceLabel.setText(Double.toString(Math.round(selectedActivity.getDistance())));
         velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())));
@@ -216,8 +217,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             Route route = makeRoute(desiredActivity);
             displayRoute(route);
         }
-
-
     }
 
     /**

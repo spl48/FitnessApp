@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team6.datahandling.ActivityManager;
@@ -13,8 +14,10 @@ import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
 import javafx.scene.image.ImageView;
+import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -88,6 +91,41 @@ public class RawDataController extends WorkoutsNavigator{
     private Label distanceLabel;
 
     /**
+     * The description edit field.
+     */
+    @FXML
+    private TextField descriptionEdit;
+
+    /**
+     * The start date edit field.
+     */
+    @FXML
+    private DatePicker dateEdit;
+
+    /**
+     * The type edit field.
+     */
+    @FXML
+    private ChoiceBox typeEdit;
+
+    /**
+     * The notes edit field.
+     */
+    @FXML
+    private TextArea notesEdit;
+
+    @FXML
+    private Node editButton;
+
+    @FXML
+    private Node editOn;
+
+    @FXML
+    private Button updateButton;
+
+
+    Activity selectedActivity;
+    /**
      * The list view which contains the activities to select from.
      */
     @FXML
@@ -112,6 +150,9 @@ public class RawDataController extends WorkoutsNavigator{
         filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
         addActivitiesToListView(activityList);
+
+        ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking", "Other");
+        typeEdit.setItems(activityTypes);
     }
 
     /**
@@ -205,7 +246,7 @@ public class RawDataController extends WorkoutsNavigator{
             addRecordToTable(record);
         }
 
-        Activity selectedActivity = dbManager.getActivity(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
+        selectedActivity = dbManager.getActivity(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
         selectedActivity.addAllActivityData(records);
         descriptionLabel.setText(selectedActivity.getDescription());
         velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
@@ -222,6 +263,63 @@ public class RawDataController extends WorkoutsNavigator{
         filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
         addActivitiesToListView(activityList);
+    }
+
+    @FXML
+    public void editActivity() throws SQLException {
+        if (selectedActivity != null) {
+            typeEdit.getSelectionModel().select(selectedActivity.getType());
+            descriptionEdit.setText(selectedActivity.getDescription());
+            dateEdit.setValue(selectedActivity.getStartDate());
+            notesEdit.setText(selectedActivity.getNotes());
+
+            editOn.setVisible(true);
+            descriptionEdit.setVisible(true);
+            dateEdit.setVisible(true);
+            typeEdit.setVisible(true);
+            notesEdit.setVisible(true);
+            updateButton.setVisible(true);
+        } else {
+            ApplicationManager.displayPopUp("No Activity Selected", "Please select an activity", "error");
+        }
+    }
+
+
+    @FXML
+    public void stopEditing() throws SQLException {
+        typeEdit.getSelectionModel().select(selectedActivity.getType());
+
+        editOn.setVisible(false);
+        descriptionEdit.setVisible(false);
+        dateEdit.setVisible(false);
+        typeEdit.setVisible(false);
+        notesEdit.setVisible(false);
+        updateButton.setVisible(false);
+    }
+
+    @FXML
+    public void updateActivity() {
+        System.out.println("Updating");
+        if (validEnteredData()) {
+            dbManager.updateDescription(descriptionEdit.getText(), selectedActivity.getActivityid());
+            String startDateString = dateEdit.getValue().toString().replace("/", "-");
+            String startDateTime = startDateString + "T" + selectedActivity.getStartTime();
+            dbManager.updateStartDate(startDateTime, selectedActivity.getActivityid());
+            dbManager.updateActivityType((String) typeEdit.getSelectionModel().getSelectedItem(),selectedActivity.getActivityid());
+            dbManager.updateNotes(notesEdit.getText(), selectedActivity.getActivityid());
+        }
+        ApplicationManager.displayPopUp("Success!", "Your activity update was successful!", "confirmation");
+
+    }
+
+
+    /**
+     * Validates the entered activity data, displaying error pop ups when relevant.
+     * @return Whether all fields are valid.
+     */
+    private boolean validEnteredData() {
+        return (DatabaseValidation.validateDateWithFormat(dateEdit.getValue().toString()) &&
+                DatabaseValidation.validateDescription(descriptionEdit.getText()));
     }
 
 }

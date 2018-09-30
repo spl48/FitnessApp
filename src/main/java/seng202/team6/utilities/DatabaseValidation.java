@@ -270,4 +270,16 @@ public class DatabaseValidation {
                 }
         return true;
     }
+
+    public static boolean validateDescription(String description) {
+        Boolean result = false;
+        if (description.length() > 30) {
+            ApplicationManager.displayPopUp("Invalid Data", "Please ensure the description is less than 30 characters", "error");
+        } else {
+            result = true;
+        }
+        return result;
+    }
+
+
 }
