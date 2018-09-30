@@ -321,14 +321,15 @@ public class DatabaseManager {
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid);
         while(res.next()){
 
-            Activity activity = extractActivity(res);
-            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-            for (ActivityDataPoint dataPoint : dataPoints) {
-                activity.addActivityData(dataPoint);
-            }
-
-            activity.updateMaxHeartRate();
-            activity.updateMinHeartRate();
+//            Activity activity = extractActivity(res);
+//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+//            for (ActivityDataPoint dataPoint : dataPoints) {
+//                activity.addActivityData(dataPoint);
+//            }
+//
+//            activity.updateMaxHeartRate();
+//            activity.updateMinHeartRate();
+            Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
         return activities;
