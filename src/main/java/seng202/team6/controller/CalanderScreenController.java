@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 
@@ -146,8 +145,8 @@ public class CalanderScreenController {
             type.setText("");
         } else {
             description.setText(activity.getDescription());
-            speed.setText(String.format("%.1f Km / hour" ,ActivityAnalysis.findAverageSpeed(activity)));
-            distance.setText(String.format("%.1f Km", ActivityAnalysis.findDistanceFromStart(activity, activity.getActivityData().size() - 1)));
+            speed.setText(String.format("%.1f Km / hour" , activity.findAverageSpeed()));
+            distance.setText(String.format("%.1f Km", activity.findDistanceFromStart(activity.getActivityData().size() - 1)));
             type.setText(activity.getType());
         }
     }

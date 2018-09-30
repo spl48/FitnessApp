@@ -17,7 +17,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.analysis.HealthConcernChecker;
 import seng202.team6.analysis.ProfileAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
@@ -25,7 +24,7 @@ import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
 
-public class HomeScreenController {
+public class HomeScreenController extends GeneralScreenController {
     
 	/**
      * A choice box to select the data type to be displayed on graph. E.g "Heart rate", "Distance", etc.
@@ -144,15 +143,16 @@ public class HomeScreenController {
 
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
             healthConcerns += "-" + "Tachycardia\n".toUpperCase();
-            Text healthText = new Text();
+            Hyperlink healthText = new Hyperlink();
             healthText.setText(healthConcerns);
             healthText.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
             healthConcernsText.getChildren().add(healthText);
-//            selectProfileButton.setOnAction(new EventHandler<ActionEvent>() {
-//                public void handle(ActionEvent event) {
-//                    loginController.this.changeSelected(event);
-//                }
-//            });
+            healthText.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    HealthController.setType(1);
+                    changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                }
+            });
 
         } else if (HealthConcernChecker.checkBradycardia(activities, age)) {
             Text healthText = new Text();
@@ -178,13 +178,9 @@ public class HomeScreenController {
     private void setStepsInfo() throws SQLException {
         //double strideLength = user.getWalkingStrideLength();
         double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
-
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
-
-
         double stepsLeft = user.getStepGoal() - totalSteps;
-        System.out.println("Steps in home"+ Double.toString(user.getStepGoal() ));
         if (stepsLeft <= 0) {
             stepsLeft = 0;
         }
@@ -236,7 +232,6 @@ public class HomeScreenController {
         //populating the series with data
         String activityDataType = activityTypeSelection.getValue().toString();
         series.setName(selectedActivity.getStartDate().toString() + " " + activityDataType);
-        ActivityAnalysis activityAnalysis = new ActivityAnalysis();
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
         	Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
         	double time = duration.toMillis() / 6000;
@@ -250,7 +245,7 @@ public class HomeScreenController {
                     yAxis.setLabel("Total Distance (KM)");
 
                     int index = selectedActivity.getActivityData().indexOf(point);
-                    double distance = activityAnalysis.findDistanceFromStart(selectedActivity, index);
+                    double distance = selectedActivity.findDistanceFromStart(index);
                     series.getData().add(new XYChart.Data(time, distance));
                     break;
                 case ("Elevation"):
@@ -260,7 +255,7 @@ public class HomeScreenController {
                 case ("Calories"):
                     String userName = ApplicationManager.getCurrentUsername();
                     yAxis.setLabel("Calories Burned");
-                    double calories = activityAnalysis.findCaloriesBurnedFromStart(duration.toMinutes(), selectedActivity.getType(), databaseManager.getUser(userName).getWeight());
+                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(), databaseManager.getUser(userName).getWeight());
                     series.getData().add(new XYChart.Data(time, calories));
                     break;
             }

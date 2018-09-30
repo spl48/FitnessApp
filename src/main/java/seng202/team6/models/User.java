@@ -290,10 +290,10 @@ public class User
      */
     public double estimateWalkingStrideLength(double height, String gender) {
         double foot = 0.0328084;
-        if (gender == "Female") {
+        if (gender.equalsIgnoreCase("Female")) {
             double strideLengthFemale = height * 0.413;
             walkingStrideLength = strideLengthFemale * foot; // estimated stride length for female
-        } else if (gender == "Male") {
+        } else if (gender.equalsIgnoreCase("Male")) {
             double strideLengthMale = height * 0.415;
             walkingStrideLength = strideLengthMale * foot; // estimated stride length for male
         }

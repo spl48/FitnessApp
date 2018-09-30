@@ -1,9 +1,9 @@
 package seng202.team6.datahandling;
 
 import com.opencsv.CSVReader;
-import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.controller.LoadingBoxController;
+import seng202.team6.models.Activity;
 import seng202.team6.utilities.DatabaseValidation;
 
 import java.io.*;
@@ -77,7 +77,7 @@ public class FileDataLoader {
                     prep.setInt(1, userid);
                     prep.setString(2, activityDescription);
                     prep.setString(3, start);
-                    prep.setString(4, ActivityAnalysis.getActivityTypeFromDescription(activityDescription));
+                    prep.setString(4, Activity.getActivityType(activityDescription));
                     prep.execute();
                     ResultSet generatedKeys = prep.getGeneratedKeys();
                     if (generatedKeys.next()) {
@@ -109,7 +109,7 @@ public class FileDataLoader {
                                 prep.setInt(1, userid);
                                 prep.setString(2, activityDescription);
                                 prep.setString(3, start);
-                                prep.setString(4, ActivityAnalysis.getActivityTypeFromDescription(activityDescription));
+                                prep.setString(4, Activity.getActivityType(activityDescription));
                                 prep.execute();
                                 ResultSet generatedKeys = prep.getGeneratedKeys();
                                 if (generatedKeys.next()) {

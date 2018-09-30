@@ -1,6 +1,5 @@
 package seng202.team6.models;
 
-import seng202.team6.analysis.ActivityAnalysis;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -87,6 +86,21 @@ public class Activity
      * The only types of Activities allowed
      */
     private static final ArrayList<String> activities = new ArrayList<String>(Arrays.asList("Running", "Walking", "Biking", "Other"));
+
+    /**
+     * Key words that indicate an activity is of type "Running"
+     */
+    private static ArrayList<String> runningWords = new ArrayList<String>(Arrays.asList("run", "running", "jog", "jogging"));
+
+    /**
+     * Key words that indicate an activity is of type "Walking"
+     */
+    private static ArrayList<String> walkingWords = new ArrayList<String>(Arrays.asList("walk", "walking", "hike", "hiking"));
+
+    /**
+     * Key words that indicate an activity is of type "Cycling"
+     */
+    private static ArrayList<String> cyclingWords = new ArrayList<String>(Arrays.asList("bike", "biking", "cycle", "cycling"));
 
     /**
      * The constructor for the Activity that takes the parameters type, date, start time, end time, distance, minimum
@@ -193,7 +207,7 @@ public class Activity
      * A function that updates the Activity type to the given type.
      */
     public void updateType() {
-        type = ActivityAnalysis.getActivityType(this);
+        type = getActivityType(description);
     }
 
 
@@ -416,13 +430,80 @@ public class Activity
 
 
     /**
+     * Finds and returns the maximum heart rate recorded in
+     * an activity.
+     * @return an int representing the maximum heart rate
+     */
+    public int findMaximumHeartRate() {
+        int maxHeartRate = 0;
+        int currentHeartRate;
+
+        for (ActivityDataPoint dataPoint : activityData) {
+            currentHeartRate = dataPoint.getHeartRate();
+            if (currentHeartRate > maxHeartRate) {
+                maxHeartRate = currentHeartRate;
+            }
+        }
+
+        return maxHeartRate;
+    }
+
+
+
+    /**
+     * Finds and returns the minimum heart rate recorded in
+     * an activity.
+     * @return an int representing the minimum heart rate
+     */
+    public int findMinimumHeartRate() {
+        if (activityData.size() == 0) {
+            return 0;
+        }
+        ArrayList<ActivityDataPoint> dataPoints = activityData;
+        int minHeartRate = dataPoints.get(0).getHeartRate();
+        int currentHeartRate;
+
+        for (ActivityDataPoint dataPoint : dataPoints) {
+            currentHeartRate = dataPoint.getHeartRate();
+            if (currentHeartRate < minHeartRate && currentHeartRate > 0) {
+                minHeartRate = currentHeartRate;
+            }
+        }
+
+        return minHeartRate;
+    }
+
+    /**
+     * Finds the total steps taken in a given activity, if
+     * that activity is of type "Running" or "Walking", otherwise
+     * returns a step count of 0
+     * @param strideLength the user of the activities stride length in feet
+     * @return a double representing the number of steps taken
+     */
+    public double findStepCount(double strideLength) {
+        if (type.equalsIgnoreCase("walking") || type.equalsIgnoreCase("running") || type.equalsIgnoreCase("other")) {
+            int finalIndex = activityData.size();
+            if (finalIndex != 0) {
+                distance = findDistanceFromStart(finalIndex - 1);
+            }
+            return (distance / (strideLength * 0.0003048));
+        }
+        else{
+            return 0;
+        }
+    }
+
+
+
+    /**
      * Converts a given angle in degrees, to radians
      * @param degrees the angle in degrees
      * @return a double representing the angle in radians
      */
-    private static double deg2rad(double degrees) {
+    private double deg2rad(double degrees) {
         return (degrees * Math.PI / 180.0);
     }
+
 
     /** Finds the total distance covered from the start of an activity
      * to a particular activity point at an index in that same activity
@@ -474,7 +555,7 @@ public class Activity
         int activityLength = getActivityData().size();
         if (activityLength >= 1) {
             double activityTime = getTotalTime();
-            double activityDistance = ActivityAnalysis.findDistanceFromStart(this, activityLength - 1);
+            double activityDistance = findDistanceFromStart(activityLength - 1);
             return (activityDistance / (activityTime / 60));
         } else {
             System.out.println("manual speed calulation");
@@ -488,6 +569,57 @@ public class Activity
         System.out.println("time " + time);
         return distance / (time / 60);
 
+    }
+
+    /**
+     * Finds the calories burned during an activity of a given activity time,
+     * using the met value for that activities type.
+     * @param activityTime the duration of the activity
+     * @param userWeight the weight of the user who participated in the activity
+     * @return a double representing the calories burned in the activity
+     */
+    public double findCaloriesBurnedFromStart(double activityTime, double userWeight) {
+        double metValue;
+        double calories;
+
+        if (type == "Biking") {
+            metValue = 6;
+        } else if (type == "Walking") {
+            metValue = 3;
+        } else if (type == "Running") {
+            metValue = 7.5;
+        } else {
+            metValue = 4.5;             // Unknown (other) activity, average met Value
+        }
+
+        calories = metValue * (3.5 * userWeight / 200 * activityTime);
+
+        if (calories < 0) {
+            return 0;
+        }
+        return calories;
+    }
+
+     /**
+     * Determines an activities type by checking if it contains a
+     * 'key word'. If no key word is found the activity type
+     * is "other".
+     * @param activityDescription the description of the activity.
+     * @return a string representing the activity type
+     */
+    public static String getActivityType(String activityDescription){
+
+        String [] words = activityDescription.split(" ");
+        for (String word : words) {
+            if (runningWords.contains(word.toLowerCase())) {
+                return "Running";
+            } else if (walkingWords.contains(word.toLowerCase())) {
+                return "Walking";
+            } else if (cyclingWords.contains(word.toLowerCase())) {
+                return "Biking";
+            }
+        }
+        return "Other";
     }
 }
 

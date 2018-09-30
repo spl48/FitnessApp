@@ -8,11 +8,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 
-import seng202.team6.analysis.ActivityAnalysis;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
+
+import static seng202.team6.analysis.ProfileAnalysis.findStepsThisWeek;
 
 public class DatabaseManager {
     private Connection con;
@@ -349,17 +350,18 @@ public class DatabaseManager {
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
         String nowDate = convertToDBDateFormat(LocalDate.now());
-        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN "+ date + " AND " + nowDate);
+        ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN '"+ date + "' AND '" + nowDate + "'");
         while(res.next()){
-
-            Activity activity = extractActivity(res);
-            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-            for (ActivityDataPoint dataPoint : dataPoints) {
-                activity.addActivityData(dataPoint);
-            }
-
-            activity.updateMaxHeartRate();
-            activity.updateMinHeartRate();
+//            Activity activity = extractActivity(res);
+//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+//            for (ActivityDataPoint dataPoint : dataPoints) {
+//                activity.addActivityData(dataPoint);
+//            }
+//
+//            activity.updateMaxHeartRate();
+//            activity.updateMinHeartRate();
+//            activities.add(activity);
+            Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
         return activities;
@@ -605,14 +607,16 @@ public class DatabaseManager {
                 + userid
                 + " AND NOT EXISTS (SELECT * FROM record WHERE activity.activityid = record.activityid);");
         while(res.next()){
-            Activity activity = extractActivity(res);
-            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-            for (ActivityDataPoint dataPoint : dataPoints) {
-                activity.addActivityData(dataPoint);
-            }
-            activity.updateType();
-            activity.updateMaxHeartRate();
-            activity.updateMinHeartRate();
+//            Activity activity = extractActivity(res);
+//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
+//            for (ActivityDataPoint dataPoint : dataPoints) {
+//                activity.addActivityData(dataPoint);
+//            }
+//            activity.updateType();
+//            activity.updateMaxHeartRate();
+//            activity.updateMinHeartRate();
+//
+            Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
         return activities;
@@ -690,18 +694,17 @@ public class DatabaseManager {
         //getActivitiesByD
     }
     public double getUpdatedStepGoal(int userid) throws SQLException {
+        double strideLength = getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength();
         LocalDate ld = LocalDate.now();
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         String lastMondayDate = convertToDBDateFormat(ld);
         ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
         double totalStepCount = 0;
         for (Activity activity : activities) {
-            double currentStepCount = ActivityAnalysis.findStepCount(activity, getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength());          // Finds the step count for 1 activity
+            double currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
         }
-        int stepgoal = getUserFromID(ApplicationManager.getCurrentUserID()).getStepGoal();
-        double updatedStepGoal = stepgoal - totalStepCount;
-        return updatedStepGoal;
+        return totalStepCount;
     }
 
     public String convertToDBDateFormat(LocalDate date){
