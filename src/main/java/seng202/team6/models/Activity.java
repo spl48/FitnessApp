@@ -430,6 +430,50 @@ public class Activity
 
 
     /**
+     * Finds and returns the maximum heart rate recorded in
+     * an activity.
+     * @return an int representing the maximum heart rate
+     */
+    public int findMaximumHeartRate() {
+        int maxHeartRate = 0;
+        int currentHeartRate;
+
+        for (ActivityDataPoint dataPoint : activityData) {
+            currentHeartRate = dataPoint.getHeartRate();
+            if (currentHeartRate > maxHeartRate) {
+                maxHeartRate = currentHeartRate;
+            }
+        }
+
+        return maxHeartRate;
+    }
+
+
+
+    /**
+     * Finds and returns the minimum heart rate recorded in
+     * an activity.
+     * @return an int representing the minimum heart rate
+     */
+    public int findMinimumHeartRate() {
+        if (activityData.size() == 0) {
+            return 0;
+        }
+        ArrayList<ActivityDataPoint> dataPoints = activityData;
+        int minHeartRate = dataPoints.get(0).getHeartRate();
+        int currentHeartRate;
+
+        for (ActivityDataPoint dataPoint : dataPoints) {
+            currentHeartRate = dataPoint.getHeartRate();
+            if (currentHeartRate < minHeartRate && currentHeartRate > 0) {
+                minHeartRate = currentHeartRate;
+            }
+        }
+
+        return minHeartRate;
+    }
+
+    /**
      * Finds the total steps taken in a given activity, if
      * that activity is of type "Running" or "Walking", otherwise
      * returns a step count of 0

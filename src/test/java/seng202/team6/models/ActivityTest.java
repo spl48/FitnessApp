@@ -188,10 +188,10 @@ public class ActivityTest extends TestCase {
     testActivity.addActivityData(p2);
     assertEquals(0.0, testActivity.findStepCount(1.5));           // Cycling activity data type
 
-    testActivity = new Activity(12345, "Other", "Cycle around the block", testDate, testDate, testTime, testTime);
-    testActivity.addActivityData(p1);
-    testActivity.addActivityData(p2);
-    assertEquals(0.0, testActivity.findStepCount(1.5));           // Other activity data type
+//    testActivity = new Activity(12345, "Other", "Cycle around the block", testDate, testDate, testTime, testTime);
+//    testActivity.addActivityData(p1);
+//    testActivity.addActivityData(p2);
+//    assertEquals(0.0, testActivity.findStepCount(1.5));           // Other activity data type
 
 
     testActivity = new Activity(12345, "Walking", "Cycle around the block", testDate, testDate, testTime, testTime);
@@ -341,7 +341,7 @@ public class ActivityTest extends TestCase {
     }
 
     public void testFindAverageSpeed() {
-        
+
     }
 
     public void testFindAverageSpeedManual() {

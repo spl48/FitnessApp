@@ -43,7 +43,7 @@ public class HealthConcernChecker {
      */
     private static boolean checkTachycardiaThreshold(int heartRateThreshold, ArrayList<Activity> activities) {
         for(Activity activity : activities) {
-            double maxHeartRate = activity.getMaxHeartRate();
+            double maxHeartRate = activity.findMaximumHeartRate();
             if (activity.getType().equals("Walking") && maxHeartRate >= heartRateThreshold) { // User is at risk for Tachycardia
                 return true;
             }
@@ -83,7 +83,7 @@ public class HealthConcernChecker {
      */
     private static boolean determineBradycardiaOutcome (double heartRateThreshold, ArrayList<Activity> activities) {
         for (Activity activity : activities) {
-            double minimumHeartRate = activity.getMinHeartRate();
+            double minimumHeartRate = activity.findMinimumHeartRate();
             if (activity.getType().equals("Walking") && minimumHeartRate < heartRateThreshold) { // User is at risk for Bradycardia
                 return true;
             }
@@ -104,7 +104,7 @@ public class HealthConcernChecker {
     public static boolean checkCardiovascularMortality(ArrayList<Activity> activities, int age) {
         if (age >= 18) { // User is an adult
             for (Activity activity : activities) {
-                double maximumHeartRate = activity.getMaxHeartRate();
+                double maximumHeartRate = activity.findMaximumHeartRate();
                 if (activity.getType().equals("Walking") && maximumHeartRate > 83) { // User is at risk for Cardiovascular mortality
                     return true;
                 }
