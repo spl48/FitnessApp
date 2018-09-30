@@ -699,15 +699,11 @@ public class DatabaseManager {
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         String lastMondayDate = convertToDBDateFormat(ld);
         ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
-        //ArrayList<Activity> manualActivities = getActivitiesWithoutRecords(ApplicationManager.getCurrentUserID());
-        //System.out.println(activities.size());
-        //double manualSteps = findStepsThisWeek(manualActivities, strideLength);
         double totalStepCount = 0;
         for (Activity activity : activities) {
-            double currentStepCount = activity.findStepCount(getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength());          // Finds the step count for 1 activity
+            double currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
             totalStepCount += currentStepCount;
         }
-        //totalStepCount += manualSteps;
         return totalStepCount;
     }
 
