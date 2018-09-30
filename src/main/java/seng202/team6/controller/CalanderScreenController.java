@@ -145,8 +145,8 @@ public class CalanderScreenController {
             type.setText("");
         } else {
             description.setText(activity.getDescription());
-            speed.setText(String.format("%.1f Km / hour" , activity.findAverageSpeed()));
-            distance.setText(String.format("%.1f Km", activity.findDistanceFromStart(activity.getActivityData().size() - 1)));
+            speed.setText(String.format("%.2f Km / hour" , activity.findAverageSpeed()));
+            distance.setText(String.format("%.2f Km", activity.findDistanceFromStart(activity.getActivityData().size() - 1)));
             type.setText(activity.getType());
         }
     }
