@@ -92,12 +92,12 @@
                               <Insets top="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="stepGoal" alignment="CENTER" layoutX="60.0" layoutY="372.0" prefHeight="32.0" prefWidth="153.0" text="12 km" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Label fx:id="distanceGoalLabel" alignment="CENTER" layoutX="60.0" layoutY="372.0" prefHeight="32.0" prefWidth="153.0" text="lorem km" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="NexaLight" size="23.0" />
                            </font>
                         </Label>
-                        <Label fx:id="distanceLeft" layoutX="60.0" layoutY="421.0" text="4 km" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                        <Label fx:id="distanceLeftLabel" layoutX="60.0" layoutY="421.0" text="ipsum  km" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                            <font>
                               <Font name="NexaLight" size="23.0" />
                            </font>
@@ -186,7 +186,7 @@
                               <Font name="NexaLight" size="23.0" />
                            </font>
                         </Label>
-                        <Label fx:id="stepsLeftLabel" layoutX="60.0" layoutY="421.0" text="35000 steps" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                        <Label fx:id="stepsLeftLabel" layoutX="60.0" layoutY="421.0" text="35000 steps" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                            <font>
                               <Font name="NexaLight" size="23.0" />
                            </font>

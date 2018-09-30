@@ -33,7 +33,7 @@ public class GoalsScreenController {
     private Button updateButton;
 
     @FXML
-    private ProgressIndicator stepProgress;
+    private ProgressIndicator stepProgress, distanceProgress;
 
     @FXML
     private Label stepGoal1;
@@ -42,7 +42,7 @@ public class GoalsScreenController {
     private Label stepsLeftLabel;
 
     @FXML
-    private Label distanceGoal;
+    private Label distanceGoalLabel, distanceLeftLabel;
 
     /**
      * The current database manager
@@ -61,6 +61,7 @@ public class GoalsScreenController {
         user = databaseManager.getUser(userName);
 
         setStepData();
+        setDistanceData();
 
 
     }
@@ -86,13 +87,36 @@ public class GoalsScreenController {
         if (stepsLeft <= 0) {
             stepsLeft = 0;
         }
-
         String stepsLeftString = String.format("%.0f Steps", stepsLeft);
         stepsLeftLabel.setText(stepsLeftString);
-
         double progressRatio = stepsLeft / user.getStepGoal();
-        System.out.println(progressRatio);
+        if (progressRatio > 1) {
+            progressRatio = 1;
+        }
         stepProgress.setProgress(progressRatio);
+    }
+
+    public void setDistanceData() throws SQLException {
+        int distanceGoal = user.getDistanceGoal();
+        double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
+        String distanceGoalString = Integer.toString(distanceGoal) + " Kilometers";
+        distanceGoalLabel.setText(distanceGoalString);
+        double distanceLeft = distanceGoal - totalDistance;
+        if (distanceLeft <= 0) {
+            distanceLeft = 0;
+        }
+        String distanceLeftString = String.format("%.0f Kilometers", distanceLeft);
+        distanceLeftLabel.setText(distanceLeftString);
+        double progressRatio;
+        if (distanceGoal == 0) {
+            progressRatio = 1;
+        } else {
+            progressRatio = distanceLeft / distanceGoal;
+        }
+        if (progressRatio > 1) {
+            progressRatio = 1;
+        }
+        distanceProgress.setProgress(progressRatio);
     }
 
     public void editGoals() {
@@ -112,7 +136,8 @@ public class GoalsScreenController {
         onEditing.setVisible(false);
         stepGoal1.setVisible(true);
         stepsLeftLabel.setVisible(true);
-        distanceGoal.setVisible(true);
+        distanceGoalLabel.setVisible(true);
+        distanceLeftLabel.setVisible(true);
         editDistanceGoal.setVisible(false);
         editStepGoal.setVisible(false);
     }

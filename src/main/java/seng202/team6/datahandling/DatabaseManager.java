@@ -685,11 +685,17 @@ public class DatabaseManager {
         updateStepGoal.execute();
     }
 
-    public void getUpdatedDistanceGoal(int userid, int newGoal) throws SQLException {
+    public double getUpdatedDistanceGoal(int userid) throws SQLException {
         LocalDate ld = LocalDate.now();
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         String lastMondayDate = convertToDBDateFormat(ld);
-        //getActivitiesByD
+        ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
+        double totalDistance = 0;
+        for (Activity activity : activities) {
+            double currentDistance = activity.getDistance();          // Finds the step count for 1 activity
+            totalDistance += currentDistance;
+        }
+        return totalDistance;
     }
     public double getUpdatedStepGoal(int userid) throws SQLException {
         double strideLength = getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength();
