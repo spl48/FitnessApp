@@ -35,7 +35,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private String selectedtab = "Graph";
 
     @FXML
-    private Label distanceLabel, velocityLabel, stepLabel, heartRateLabel;
+    private Label distanceLabel, velocityLabel, stepsLabel, heartRateLabel;
 
     /**
      * --
@@ -197,10 +197,14 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private void graphHandler() throws SQLException {
         Activity selectedActivity = activities.get(selectionIndex);
-        distanceLabel.setText(Double.toString(Math.round(selectedActivity.getDistance())));
-        velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())));
-        //stepLabel.setText(Double.toString(Math.round(ActivityAnalysis.findStepCount(selectedActivity, ))));
-        heartRateLabel.setText(Double.toString(Math.round(selectedActivity.getMaxHeartRate())));
+        String distanceString = String.format("%.1f", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size()-1));
+        String velocityString = String.format("%.1f", selectedActivity.findAverageSpeed());
+        String stepsString = String.format("%.0f", selectedActivity.findStepCount(currUser.getWalkingStrideLength()));
+        String hrString = String.format("%.0f",(double)selectedActivity.getMaxHeartRate());
+        distanceLabel.setText(distanceString);
+        velocityLabel.setText(velocityString);
+        stepsLabel.setText(stepsString);
+        heartRateLabel.setText(hrString);
 
         if (selectedtab == "Graph") {
             System.out.println("in graph handler");
