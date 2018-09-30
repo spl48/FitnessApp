@@ -2,6 +2,7 @@ package seng202.team6.models;
 
 import seng202.team6.controller.ApplicationManager;
 
+import javax.sound.midi.SysexMessage;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -94,10 +95,13 @@ public class User
 
 
     /**
-     * Goal object thast holds the goal number of steps per week
+     * Goal object that holds the goal number of steps per week
      */
     public int stepGoal;
 
+    /**
+     * Goal object that holds the goal distance per week
+     */
     public int distanceGoal;
 
 
@@ -431,6 +435,35 @@ public class User
         this.distanceGoal = distanceGoal;
         ApplicationManager.getDatabaseManager().setDistanceGoal(userID, distanceGoal);
     }
+
+
+
+    /**
+     * A function that returns the body mass index of a user.
+     * @return a double that is a users BMI.
+     */
+    public double calculateBMI() {
+        return weight / ((height / 100) * (height / 100));
+    }
+
+    /** A function that determines a users weight category,
+     * from there BMI.
+     * @return a string of the category for the users weight
+     */
+    public String analyseBMI() {
+        double BMI = calculateBMI();
+        if (BMI < 18.5) {
+            return "UnderWeight";
+        } else if (BMI < 24.9) {
+            return "Healthy Weight";
+        } else if (BMI < 29.9) {
+            return "OverWeight";
+        } else {
+            return "Obese";
+        }
+    }
+
+
 
     public void printUser() {
         System.out.println("-----------------------------------------");

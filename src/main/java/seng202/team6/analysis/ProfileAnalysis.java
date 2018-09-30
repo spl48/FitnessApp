@@ -1,52 +1,52 @@
-package seng202.team6.analysis;
-
-
-import seng202.team6.models.Activity;
-import seng202.team6.models.User;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
-/**
- * This class analyses a users profile. With methods that
- * analyse their BMI and overall step count
- */
-public class ProfileAnalysis {
-
-    /**
-     * A function that returns the body mass index of a user.
-     * @param user the user for which the BMI is being calculated.
-     * @return a double that is a users BMI.
-     */
-    public static double calculateBMI(User user) {
-        double weight = user.getWeight();
-        double height = user.getHeight() / 100;
-
-        return weight / (height * height);
-    }
-
-    /** A function that determines a users weight category,
-     * from there BMI.
-     * @param BMI the BMI of the user
-     * @return a string of the category for the users weight
-     */
-    public static String analyseBMI(double BMI) {
-        if (BMI < 18.5) {
-            return "UnderWeight";
-        } else if (BMI < 24.9) {
-            return "Healthy Weight";
-        } else if (BMI < 29.9) {
-            return "OverWeight";
-        } else {
-            return "Obese";
-        }
-    }
+//package seng202.team6.analysis;
+//
+//
+//import seng202.team6.models.Activity;
+//import seng202.team6.models.User;
+//
+//import java.time.DayOfWeek;
+//import java.time.LocalDate;
+//import java.time.temporal.TemporalField;
+//import java.time.temporal.WeekFields;
+//import java.util.ArrayList;
+//import java.util.Collections;
+//import java.util.List;
+//import java.util.Locale;
+//
+///**
+// * This class analyses a users profile. With methods that
+// * analyse their BMI and overall step count
+// */
+//public class ProfileAnalysis {
+//
+//    /**
+//     * A function that returns the body mass index of a user.
+//     * @param user the user for which the BMI is being calculated.
+//     * @return a double that is a users BMI.
+//     */
+//    public static double calculateBMI(User user) {
+//        double weight = user.getWeight();
+//        double height = user.getHeight() / 100;
+//
+//        return weight / (height * height);
+//    }
+//
+//    /** A function that determines a users weight category,
+//     * from there BMI.
+//     * @param BMI the BMI of the user
+//     * @return a string of the category for the users weight
+//     */
+//    public static String analyseBMI(double BMI) {
+//        if (BMI < 18.5) {
+//            return "UnderWeight";
+//        } else if (BMI < 24.9) {
+//            return "Healthy Weight";
+//        } else if (BMI < 29.9) {
+//            return "OverWeight";
+//        } else {
+//            return "Obese";
+//        }
+//    }
 
 //    /** A function that determines the total steps across all
 //     * walking and running activities of a user within the current week.
@@ -67,8 +67,8 @@ public class ProfileAnalysis {
 //        }
 //        return totalStepCount;
 //    }
-
-}
+//
+//}
 
 
 //
