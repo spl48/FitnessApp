@@ -18,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng202.team6.analysis.HealthConcernChecker;
-import seng202.team6.analysis.ProfileAnalysis;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -129,45 +128,62 @@ public class HomeScreenController extends GeneralScreenController {
      * health concerns they have
      */
     private void setHealthInfo() {
-        String healthConcerns = "";
 
-        double BMI = ProfileAnalysis.calculateBMI(user);
+
+        double BMI = user.calculateBMI();
         int age = user.getAge();
 
         String BMIString = String.format("%.1f", BMI);
         BMIText.setText(BMIString);
 
-        weightType.setText("(" + ProfileAnalysis.analyseBMI(BMI).toUpperCase() + ")");
+        weightType.setText("(" + user.analyseBMI().toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
+        if (true) {
+            if (HealthConcernChecker.checkTachycardia(activities, age)) {
+                String healthConcerns = "-" + "Tachycardia\n".toUpperCase();
+                Hyperlink healthText = new Hyperlink();
+                healthText.setText(healthConcerns);
+                healthText.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
+                healthConcernsText.getChildren().add(healthText);
+                healthText.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        HealthController.setType(1);
+                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                    }
+                });
 
-        if (HealthConcernChecker.checkTachycardia(activities, age)) {
-            healthConcerns += "-" + "Tachycardia\n".toUpperCase();
-            Hyperlink healthText = new Hyperlink();
-            healthText.setText(healthConcerns);
-            healthText.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
-            healthConcernsText.getChildren().add(healthText);
-            healthText.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-                    HealthController.setType(1);
-                    changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
-                }
-            });
-
-        } else if (HealthConcernChecker.checkBradycardia(activities, age)) {
-            Text healthText = new Text();
-            healthText.setText(healthConcerns);
-            healthConcerns += "-" + "Bradycardia\n".toUpperCase();
-            healthConcernsText.getChildren().add(new Text(healthConcerns));
-        } else if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
-            Text healthText = new Text();
-            healthText.setText(healthConcerns);
-            healthConcerns += "-" + "Cardiac Diseases\n".toUpperCase();
-            healthConcernsText.getChildren().add(new Text(healthConcerns));
+            }
+            if (HealthConcernChecker.checkBradycardia(activities, age)) {
+                String healthConcerns = "-" + "Bradycardia\n".toUpperCase();
+                Hyperlink healthText = new Hyperlink();
+                healthText.setText(healthConcerns);
+                healthText.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
+                healthConcernsText.getChildren().add(healthText);
+                healthText.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        HealthController.setType(2);
+                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                    }
+                });
+            }
+            if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
+                String healthConcerns = "-" + "Cardiac Diseases\n".toUpperCase();
+                Hyperlink healthText = new Hyperlink();
+                healthText.setText(healthConcerns);
+                healthText.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
+                healthConcernsText.getChildren().add(healthText);
+                healthText.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        HealthController.setType(3);
+                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                    }
+                });
+            }
         } else {
-            Text healthText = new Text();
-            healthText.setText(healthConcerns);
-            healthConcernsText.getChildren().add(new Text("Nothing"));
+            String healthConcerns = "Nothing";
+            Label healthText = new Label(healthConcerns);
+            healthConcernsText.getChildren().add(healthText);
         }
     }
 

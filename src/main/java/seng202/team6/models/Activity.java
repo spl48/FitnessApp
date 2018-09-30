@@ -556,18 +556,23 @@ public class Activity
         if (activityLength >= 1) {
             double activityTime = getTotalTime();
             double activityDistance = findDistanceFromStart(activityLength - 1);
-            return (activityDistance / (activityTime / 60));
+            if ((activityTime / 60) == 0) {
+                return 0;
+            } else {
+                return (activityDistance / (activityTime / 60));
+            }
         } else {
-            System.out.println("manual speed calulation");
             return findAverageSpeedManual();
         }
     }
 
     public double findAverageSpeedManual() {
         double time = getTotalTime();
-        System.out.println("distance " + distance);
-        System.out.println("time " + time);
-        return distance / (time / 60);
+        if ((time / 60) == 0) {
+            return 0;
+        } else {
+            return distance / (time / 60);
+        }
 
     }
 

@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -40,6 +41,9 @@ public class HealthController extends GeneralScreenController {
     @FXML
     private HBox healthBox;
 
+    @FXML
+    private TextField searchBar;
+
     /**
      * The type for the button that is pushed.
      * 0 : No button pushed
@@ -60,6 +64,8 @@ public class HealthController extends GeneralScreenController {
     ArrayList<Activity> activities;
 
 
+    private static String query;
+
     /**
      * Initializes the health concern screen by displaying the text and button
      * corresponding to a particular health concerns if they are at risk for it.
@@ -75,7 +81,8 @@ public class HealthController extends GeneralScreenController {
             //healthGrid.setStyle();
             GridPane healthGrid = addGrid();
 
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            healthGrid.setHalignment(image, HPos.CENTER);
             image.setFitHeight(100);
             healthGrid.add(image, i, 0);
 
@@ -109,7 +116,8 @@ public class HealthController extends GeneralScreenController {
 //            bradycardiaText.setText("Bradycardia");
 //            bradycardiaButton.setVisible(true);
             GridPane healthGrid = addGrid();
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            healthGrid.setHalignment(image, HPos.CENTER);
             image.setFitHeight(100);
             healthGrid.add(image, i, 0);
 
@@ -135,7 +143,8 @@ public class HealthController extends GeneralScreenController {
 //            cardioVascularText.setText("Cardiovascular Disease");
 //            cardiovascularButton.setVisible(true);
             GridPane healthGrid = addGrid();
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.jpg");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            healthGrid.setHalignment(image, HPos.CENTER);
             image.setFitHeight(100);
             healthGrid.add(image, i, 0);
 
@@ -162,8 +171,9 @@ public class HealthController extends GeneralScreenController {
 
     private GridPane addGrid() {
         GridPane grid = new GridPane();
-        healthBox.setMargin(grid, new Insets(50, 50, 50, 50));
+        healthBox.setMargin(grid, new Insets(50, 20, 50, 20));
         grid.setPrefSize(280, 484);
+        grid.setPadding(new Insets(5,5,5,5));
         grid.setAlignment(Pos.TOP_CENTER);
 //        ColumnConstraints gridGrow = new ColumnConstraints();
 //        gridGrow.setHgrow(Priority.NEVER);
@@ -234,7 +244,29 @@ public class HealthController extends GeneralScreenController {
         return type;
     }
 
+    /**
+     * Sets the type of health concern
+     *
+     * @param Type
+     */
     public static void setType(int Type) {
         type = Type;
+    }
+
+    @FXML
+    public void onEnter(ActionEvent ae){
+        System.out.println(searchBar.getCharacters());
+        setType(4);
+        setURL(searchBar.getCharacters().toString());
+        changeScreen(ae, "/seng202/team6/view/WebSearch.fxml");
+        //searchBar.clear();
+    }
+
+    public static void setURL(String searchquery) {
+        query = searchquery;
+    }
+
+    public static String getURL() {
+        return query;
     }
 }
