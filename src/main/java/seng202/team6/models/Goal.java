@@ -1,5 +1,8 @@
 package seng202.team6.models;
 
+import seng202.team6.controller.ApplicationManager;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -133,6 +136,26 @@ public class Goal
     public boolean getGoalReached()
     {
         return goalReached;
+    }
+
+    public static boolean stepsAchieved(User user) throws SQLException {
+        int stepGoal = user.getStepGoal();
+        double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
+        double stepsLeft = stepGoal - totalSteps;
+        if (stepsLeft <= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean distanceAchieved(User user) throws SQLException {
+        int distanceGoal = user.getStepGoal();
+        double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
+        double stepsLeft = distanceGoal - totalDistance;
+        if (stepsLeft <= 0 && distanceGoal > 0) {
+            return true;
+        }
+        return false;
     }
 
 }
