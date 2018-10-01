@@ -20,6 +20,8 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
 import static java.util.concurrent.TimeUnit.DAYS;
+import static seng202.team6.models.Goal.distanceAchieved;
+import static seng202.team6.models.Goal.stepsAchieved;
 
 public class GoalsScreenController {
     @FXML
@@ -116,6 +118,10 @@ public class GoalsScreenController {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setStepGoal(newStepGoal);
+        if (!stepsAchieved(user)) {
+            stepCircle.setVisible(true);
+            feetImage.setVisible(true);
+        }
         stopEditing();
     }
 
@@ -225,6 +231,10 @@ public class GoalsScreenController {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setDistanceGoal(newDistanceGoal);
+        if (!distanceAchieved(user)) {
+            distanceCircle.setVisible(true);
+            distanceImage.setVisible(true);
+        }
         stopEditing();
     }
 }
