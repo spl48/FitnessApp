@@ -15,7 +15,7 @@
 <AnchorPane prefHeight="718.0" prefWidth="220.0" style="-fx-background-color: rgb(40,40,40); -fx-border-color: transparent rgb(63,179,164) transparent  transparent; -fx-border-width: 15;" styleClass="mainNavigation" stylesheets="@../resources/css/style.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation2">
 
     <children>
-        <GridPane fx:id="homeButton" layoutY="7.0" onMouseClicked="#toHomeScreen" prefHeight="727.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0">
+        <GridPane fx:id="homeButton" layoutY="7.0" onMouseClicked="#tutorial" prefHeight="727.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
@@ -37,6 +37,7 @@
                   <Image url="@../resources/pics/eyes2.png" />
                </image>
             </ImageView>
+            <Label prefHeight="79.0" prefWidth="210.0" GridPane.columnIndex="1" />
             <GridPane fx:id="healthButton" onMouseClicked="#toHealthScreen" prefHeight="74.0" styleClass="navIcon" GridPane.columnIndex="1" GridPane.rowIndex="6">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="50.0" />
