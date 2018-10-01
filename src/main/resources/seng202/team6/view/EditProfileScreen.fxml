@@ -89,7 +89,7 @@
                                     <Font name="NexaBold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="405.0" layoutY="187.0" prefHeight="23.0" prefWidth="184.0" text="Stride Length:" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                              <Label layoutX="405.0" layoutY="187.0" prefHeight="23.0" prefWidth="184.0" text="Walking Stride:" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="NexaBold" size="18.0" />
                                  </font>
