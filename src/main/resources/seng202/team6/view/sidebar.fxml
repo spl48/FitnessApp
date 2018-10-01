@@ -88,15 +88,11 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-            <Button fx:id="tutorialButton" mnemonicParsing="false" onAction="#tutorial" onMouseEntered="#lightenButton" onMouseExited="#lightenButton" prefHeight="68.0" prefWidth="225.0">
-               <graphic>
-                      <ImageView fitHeight="94.0" fitWidth="139.0">
-                          <image>
-                              <Image url="@../resources/pics/eyes.png" />
-                          </image>
-                      </ImageView>
-               </graphic>
-            </Button>
+                <ImageView fitHeight="94.0" fitWidth="139.0" GridPane.halignment="CENTER">
+                    <image>
+                        <Image url="@../resources/pics/eyes.png" />
+                    </image>
+                </ImageView>
             </children>
         </GridPane>
     </children>
