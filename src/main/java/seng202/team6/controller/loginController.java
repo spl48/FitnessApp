@@ -85,6 +85,47 @@ public class loginController extends GeneralScreenController {
 
         // Directs to the Home Screen.
         changeScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
+        tutorial();
+    }
+
+    public void tutorial() {
+        try {
+            if (databaseManager.getLoginCount() == 0) {
+                ApplicationManager.displayPopUp("MATES Tutorial", "Looking to your left, you will see the menu bar consisting of \n" +
+                        "- Home\n" +
+                        "- Profile\n" +
+                        "- Workouts\n" +
+                        "- Calendar\n" +
+                        "- Goals\n" +
+                        "- Health", "tutorialbig");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'HOME'\n\n" +
+                        "The top left corner of the Home Screen shows your BMI and potential health issues.", "tutorialsmall");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'HOME'\n\n" +
+                        "The top right corner of the Home Screen shows the steps taken and the remaining steps to reach your goal.", "tutorialsmall");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'HOME'\n\n" +
+                        "The bottom right corner you will see No Activity Data for now, but once an activity data is uploaded, it shows your latest activity analysis.", "tutorialbig");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'HOME'\n\n" +
+                        "The bottom left corner is where you will see me. I will be giving you motivational quotes because I believe in you. Not because I’m programmed to but because I want to.", "tutorialbig");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'PROFILE'\n\n" +
+                        "This is where you will see your personal information and body measurements.\nThere is an edit button where I will help you change your information.", "tutorialbig");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'WORKOUTS'\n\n" +
+                        "is where you can upload, view and analyse your activity data.", "tutorialsmall");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'CALENDAR'\n\n" +
+                        "Displays the calendar view of the activities.\nYou can view the activities you have done on each day.", "tutorialsmall");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'GOALS'\n\n" +
+                        "is where I can help you set specific target goals for yourself like step goals and distance goals.", "tutorialsmall");
+                ApplicationManager.displayPopUp("MATES Tutorial", "'HEALTH'\n\n" +
+                        "is where you can search health related questions and displays your potential health issues based on your activity data.", "tutorialbig");
+                ApplicationManager.displayPopUp("MATES Tutorial", "If you want to get help from me again, feel free to click the photo on the menu bar" +
+                        " and I will give you a detailed tutorial for the page you are on.\n\n"
+                        + "I hope I helped!", "tutorialbig");
+                databaseManager.updateLoginCount(databaseManager.getLoginCount());
+            } else {
+                databaseManager.updateLoginCount(databaseManager.getLoginCount());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

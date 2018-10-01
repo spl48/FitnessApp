@@ -20,6 +20,8 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
 import static java.util.concurrent.TimeUnit.DAYS;
+import static seng202.team6.models.Goal.distanceAchieved;
+import static seng202.team6.models.Goal.stepsAchieved;
 
 public class GoalsScreenController {
     @FXML
@@ -102,6 +104,10 @@ public class GoalsScreenController {
 
     }
 
+    /**
+     * Updated the users step goal in the database to the users entered value
+     * @throws SQLException
+     */
     @FXML
     private void setStepsGoal() throws SQLException {
         int newStepGoal = user.getStepGoal();
@@ -112,9 +118,19 @@ public class GoalsScreenController {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setStepGoal(newStepGoal);
+        if (!stepsAchieved(user)) {
+            stepCircle.setVisible(true);
+            feetImage.setVisible(true);
+            stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
+        }
         stopEditing();
     }
 
+    /**
+     * Sets the data for the step goal section with the users current step goal per week, and how many steps until this goal is reached.
+     * If the goal is reached, only the progress chart is displayed
+     * @throws SQLException
+     */
     private void setStepData() throws SQLException {
         double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String stepGoalString = Integer.toString(user.getStepGoal()) + " Steps";
@@ -131,10 +147,16 @@ public class GoalsScreenController {
             progressRatio = 1;
             stepCircle.setVisible(false);
             feetImage.setVisible(false);
+            stepProgress.setStyle("-fx-accent: green");
         }
         stepProgress.setProgress(progressRatio);
     }
 
+    /**
+     * Sets the data for the step distance section with the users current distance goal per week, and how many kilometers until this goal is reached.
+     * If the goal is reached, only the progress chart is displayed
+     * @throws SQLException
+     */
     public void setDistanceData() throws SQLException {
         int distanceGoal = user.getDistanceGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
@@ -156,10 +178,14 @@ public class GoalsScreenController {
             progressRatio = 1;
             distanceCircle.setVisible(false);
             distanceImage.setVisible(false);
+            distanceProgress.setStyle("-fx-accent: green");
         }
         distanceProgress.setProgress(progressRatio);
     }
 
+    /**
+     * Sets the step and distance goal sections to display the number of days the user has for the current goal week. i.e days until Sunday.
+     */
     private void setDaysToGo() {
         LocalDate ld = LocalDate.now();
         LocalDate endOfWeek = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
@@ -203,11 +229,16 @@ public class GoalsScreenController {
         int newDistanceGoal = user.getDistanceGoal();
         try {
             newDistanceGoal = Integer.parseInt(distanceEdit.getText());
-            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newDistanceGoal + " steps per week", "confirmation");
+            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setDistanceGoal(newDistanceGoal);
+        if (!distanceAchieved(user)) {
+            distanceCircle.setVisible(true);
+            distanceImage.setVisible(true);
+            distanceProgress.setStyle("..\\resources\\css\\progressIndicator.css");
+        }
         stopEditing();
     }
 }

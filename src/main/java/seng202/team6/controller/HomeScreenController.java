@@ -93,8 +93,8 @@ public class HomeScreenController extends GeneralScreenController {
         setStepsInfo();
         newGraph();
         updateQuote();
-
     }
+
 
     /**
      * Updates the quote by MATES AI to be the quote at the given index in the quote list
@@ -189,7 +189,7 @@ public class HomeScreenController extends GeneralScreenController {
 
     
     /**
-     * Displays the steps a user has taken
+     * Displays the steps a user has taken and the user's weekly step goal
      */
     private void setStepsInfo() throws SQLException {
         //double strideLength = user.getWalkingStrideLength();
