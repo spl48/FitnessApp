@@ -203,7 +203,7 @@ public class GoalsScreenController {
         int newDistanceGoal = user.getDistanceGoal();
         try {
             newDistanceGoal = Integer.parseInt(distanceEdit.getText());
-            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newDistanceGoal + " steps per week", "confirmation");
+            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }

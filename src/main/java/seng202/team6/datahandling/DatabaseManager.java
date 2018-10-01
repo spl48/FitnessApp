@@ -348,7 +348,7 @@ public class DatabaseManager {
         }
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
-        String nowDate = convertToDBDateFormat(LocalDate.now());
+        String nowDate = convertToDBDateFormat(LocalDate.now().plusDays(1));
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN '"+ date + "' AND '" + nowDate + "'");
         while(res.next()){
 //            Activity activity = extractActivity(res);
@@ -727,6 +727,7 @@ public class DatabaseManager {
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         String lastMondayDate = convertToDBDateFormat(ld);
         ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
+        System.out.println(activities.size());
         double totalStepCount = 0;
         for (Activity activity : activities) {
             double currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
