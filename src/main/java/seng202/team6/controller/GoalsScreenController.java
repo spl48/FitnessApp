@@ -102,6 +102,10 @@ public class GoalsScreenController {
 
     }
 
+    /**
+     * Updated the users step goal in the database to the users entered value
+     * @throws SQLException
+     */
     @FXML
     private void setStepsGoal() throws SQLException {
         int newStepGoal = user.getStepGoal();
@@ -115,6 +119,11 @@ public class GoalsScreenController {
         stopEditing();
     }
 
+    /**
+     * Sets the data for the step goal section with the users current step goal per week, and how many steps until this goal is reached.
+     * If the goal is reached, only the progress chart is displayed
+     * @throws SQLException
+     */
     private void setStepData() throws SQLException {
         double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String stepGoalString = Integer.toString(user.getStepGoal()) + " Steps";
@@ -135,6 +144,11 @@ public class GoalsScreenController {
         stepProgress.setProgress(progressRatio);
     }
 
+    /**
+     * Sets the data for the step distance section with the users current distance goal per week, and how many kilometers until this goal is reached.
+     * If the goal is reached, only the progress chart is displayed
+     * @throws SQLException
+     */
     public void setDistanceData() throws SQLException {
         int distanceGoal = user.getDistanceGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
@@ -160,6 +174,9 @@ public class GoalsScreenController {
         distanceProgress.setProgress(progressRatio);
     }
 
+    /**
+     * Sets the step and distance goal sections to display the number of days the user has for the current goal week. i.e days until Sunday.
+     */
     private void setDaysToGo() {
         LocalDate ld = LocalDate.now();
         LocalDate endOfWeek = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
