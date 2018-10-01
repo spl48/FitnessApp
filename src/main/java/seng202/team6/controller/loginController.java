@@ -90,7 +90,7 @@ public class loginController extends GeneralScreenController {
 
     public void tutorial() {
         try {
-            if (databaseManager.getLoginCount() >= 0) {
+            if (databaseManager.getLoginCount() == 0) {
                 ApplicationManager.displayPopUp("MATES Tutorial", "Looking to your left, you will see the menu bar consisting of \n" +
                         "- Home\n" +
                         "- Profile\n" +
