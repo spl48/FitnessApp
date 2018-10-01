@@ -22,6 +22,12 @@ public class MainMenuNavigation extends GeneralScreenController {
     private Button homeButton;
 
     /**
+     * The home button on the side bar.
+     */
+    @FXML
+    private Button profileButton, goalsButton, calendarButton, workoutsButton, healthButton;
+
+    /**
      * The selected menu item on the side bar.
      */
     private static Button selected;
@@ -37,6 +43,60 @@ public class MainMenuNavigation extends GeneralScreenController {
         System.out.println("Selected ID: " + selected.getId());
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
         selected.setVisible(true);
+    }
+
+    public void tutorial() {
+        if (selected.getId().equals(homeButton.getId())) {
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The top left corner of the Home Screen shows your BMI and potential health issues.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The top right corner of the Home Screen shows the steps taken and the remaining steps to reach your goal.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The bottom right corner shows your latest activity analysis assuming that you have uploaded an activity data already.", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The bottom left corner is where you will see me. I will be giving you motivational quotes because I believe in you. Not because I’m programmed to but because I want to.", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+                    + "I hope I helped!", "tutorialbig");
+        } else if (selected.getId().equals(profileButton.getId())) {
+            ApplicationManager.displayPopUp("MATES Help", "'PROFILE'\n\n" +
+                    "This is where you will see your personal information and body measurements.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'PROFILE'\n\n" +
+                    "On the bottom right will be the edit button where I will help you change your information.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+                    + "I hope I helped!", "tutorialbig");
+        } else if (selected.getId().equals(workoutsButton.getId())) {
+            ApplicationManager.displayPopUp("MATES Help", "'WORKOUTS'\n\n" +
+                    "ADD WORKOUT is where you can upload your activity data manually through a form or through a file.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'WORKOUTS'\n\n" +
+                    "Raw data viewer shows all your activity log and allows you to update specific information.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'WORKOUTS'\n\n" +
+                    "Analysis is where I show you your activity analysis and lets me help you compare multiple activities at the same time.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+                    + "I hope I helped!", "tutorialbig");
+        } else if (selected.getId().equals(calendarButton.getId())) {
+            ApplicationManager.displayPopUp("MATES Help", "'CALENDAR'\n\n" +
+                    "Displays the calendar view of the activities.\nYou can view specific activities you have done on each day by clicking on the day in the calendar.", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Tutorial", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+                    + "I hope I helped!", "tutorialbig");
+        } else if (selected.getId().equals(goalsButton.getId())) {
+            ApplicationManager.displayPopUp("MATES Help", "'GOALS'\n\n" +
+                    "is where I can help you set specific target goals for yourself by clicking on the edit button at the bottom left of the specific goal.", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+                    + "I hope I helped!", "tutorialbig");
+        } else if (selected.getId().equals(healthButton.getId())) {
+            ApplicationManager.displayPopUp("MATES Help", "'HEALTH'\n\n" +
+                    "displays your potential health issues based on your activity data.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'HEALTH'\n\n" +
+                    "You can also search health related questions in the search box and press enter after.\nI will direct you to the answers of your inquiry.", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+                    + "I hope I helped!", "tutorialbig");
+        }
     }
 
     /**

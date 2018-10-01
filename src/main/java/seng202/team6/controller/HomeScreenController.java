@@ -93,8 +93,8 @@ public class HomeScreenController extends GeneralScreenController {
         setStepsInfo();
         newGraph();
         updateQuote();
-
     }
+
 
     /**
      * Updates the quote by MATES AI to be the quote at the given index in the quote list
