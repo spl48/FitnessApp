@@ -136,12 +136,12 @@ public class workoutManualEntryController extends GeneralScreenController {
     private boolean validEnteredData() throws SQLException {
         System.out.println(startDate);
         System.out.println(endDate);
-        if(DatabaseValidation.validateTime(startTime)
-                && DatabaseValidation.validateTime(endTime)
-            && DatabaseValidation.validateDateWithFormat(startDateString)
-            && DatabaseValidation.validateDateWithFormat(endDateString)
-                && DatabaseValidation.validateStartEndDate(startDate, endDate)
-                && DatabaseValidation.validateDistance(distance)){
+        if(DatabaseValidation.validateTime(startTime) &&
+                DatabaseValidation.validateTime(endTime) &&
+                DatabaseValidation.validateDateWithFormat(startDateString) &&
+                DatabaseValidation.validateDateWithFormat(endDateString) &&
+                DatabaseValidation.validateStartEndDate(startDate, endDate) &&
+                DatabaseValidation.validateDistance(distance)){
             LocalTime localStartTime = LocalTime.parse(startTime);
             LocalTime localEndTime = LocalTime.parse(endTime);
             if(DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDate, endDate)){

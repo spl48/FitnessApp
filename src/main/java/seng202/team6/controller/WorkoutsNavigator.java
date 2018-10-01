@@ -3,6 +3,8 @@ package seng202.team6.controller;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 
+import java.sql.SQLException;
+
 /**
  * <h1>Workouts navigator.</h1> //Could potentially be called workouts screen controller where all other workout screens inherit from.
  * <p>Provides navigation methods for the Workouts area./p>
@@ -32,8 +34,12 @@ public class WorkoutsNavigator extends GeneralScreenController {
      * @param event When the user clicks on a button directing to this screen.
      */
     @FXML
-    public void toWorkoutAnalysis(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutAnalysis3.fxml");
+    public void toWorkoutAnalysis(Event event) throws SQLException {
+        if (ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID()).size() > 0) {
+            changeScreen(event, "/seng202/team6/view/WorkoutAnalysis3.fxml");
+        } else {
+            ApplicationManager.displayPopUp("Cannot Open", "No activities uploaded, please upload some activites first!", "error");
+        }
     }
 
     /**

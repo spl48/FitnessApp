@@ -7,21 +7,47 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Circle;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
 
 import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
+import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+
+import static java.util.concurrent.TimeUnit.DAYS;
 
 public class GoalsScreenController {
     @FXML
     private TextField stepGoalField, distanceGoalField;
 
     @FXML
-    private Node editButton;
+    private Node stepEditButton;
 
     @FXML
-    private Node onEditing;
+    private Node editDistanceButton;
+
+    @FXML
+    private Node stepsOnEditing;
+
+    @FXML
+    private Node onDistanceEditing;
+
+    @FXML
+    private TextField distanceEdit;
+
+    @FXML
+    private TextField stepsEdit;
+
+    @FXML
+    private Button updateStep;
+
+    @FXML
+    private Button updateDistance;
 
     @FXML
     private Node editStepGoal;
@@ -44,6 +70,15 @@ public class GoalsScreenController {
     @FXML
     private Label distanceGoalLabel, distanceLeftLabel;
 
+    @FXML
+    private Label daysToGoLabel1, daysToGoLabel2;
+
+    @FXML
+    private Circle stepCircle, distanceCircle;
+
+    @FXML
+    private javafx.scene.image.ImageView feetImage, distanceImage;
+
     /**
      * The current database manager
      */
@@ -62,23 +97,33 @@ public class GoalsScreenController {
 
         setStepData();
         setDistanceData();
+        setDaysToGo();
 
 
     }
 
+    /**
+     * Updated the users step goal in the database to the users entered value
+     * @throws SQLException
+     */
     @FXML
-    private void setStepGoal() throws SQLException {
+    private void setStepsGoal() throws SQLException {
         int newStepGoal = user.getStepGoal();
         try {
-            newStepGoal = Integer.parseInt(stepGoalField.getText());
-            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
+            newStepGoal = Integer.parseInt(stepsEdit.getText());
+            ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setStepGoal(newStepGoal);
-        System.out.println("user step goal" + user.getStepGoal());
+        stopEditing();
     }
 
+    /**
+     * Sets the data for the step goal section with the users current step goal per week, and how many steps until this goal is reached.
+     * If the goal is reached, only the progress chart is displayed
+     * @throws SQLException
+     */
     private void setStepData() throws SQLException {
         double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String stepGoalString = Integer.toString(user.getStepGoal()) + " Steps";
@@ -89,13 +134,21 @@ public class GoalsScreenController {
         }
         String stepsLeftString = String.format("%.0f Steps", stepsLeft);
         stepsLeftLabel.setText(stepsLeftString);
-        double progressRatio = stepsLeft / user.getStepGoal();
-        if (progressRatio > 1) {
+        double progressRatio = totalSteps / user.getStepGoal();
+        System.out.println(progressRatio);
+        if (progressRatio >= 1) {
             progressRatio = 1;
+            stepCircle.setVisible(false);
+            feetImage.setVisible(false);
         }
         stepProgress.setProgress(progressRatio);
     }
 
+    /**
+     * Sets the data for the step distance section with the users current distance goal per week, and how many kilometers until this goal is reached.
+     * If the goal is reached, only the progress chart is displayed
+     * @throws SQLException
+     */
     public void setDistanceData() throws SQLException {
         int distanceGoal = user.getDistanceGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
@@ -111,50 +164,67 @@ public class GoalsScreenController {
         if (distanceGoal == 0) {
             progressRatio = 1;
         } else {
-            progressRatio = distanceLeft / distanceGoal;
+            progressRatio = totalDistance / distanceGoal;
         }
-        if (progressRatio > 1) {
+        if (progressRatio >= 1) {
             progressRatio = 1;
+            distanceCircle.setVisible(false);
+            distanceImage.setVisible(false);
         }
         distanceProgress.setProgress(progressRatio);
     }
 
-    public void editGoals() {
-        //editButton.setVisible(false);
-        //updateButton.setVisible(true);
-        //onEditing.setVisible(true);
-        //editDistanceGoal.setVisible(true);
-        //editStepGoal.setVisible(true);
-        //stepGoal.setVisible(false);
-        //distanceGoal.setVisible(false);
-
+    /**
+     * Sets the step and distance goal sections to display the number of days the user has for the current goal week. i.e days until Sunday.
+     */
+    private void setDaysToGo() {
+        LocalDate ld = LocalDate.now();
+        LocalDate endOfWeek = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+        long daysBetween = ld.until(endOfWeek, ChronoUnit.DAYS);
+        if (daysBetween == 7) {
+            daysBetween = 0;
+        }
+        String days = Long.toString(daysBetween);
+        String daysToGo = days + " DAYS TO GO";
+        daysToGoLabel1.setText(daysToGo);
+        daysToGoLabel2.setText(daysToGo);
     }
 
-    public void stopEditing() {
-        editButton.setVisible(true);
-        updateButton.setVisible(false);
-        onEditing.setVisible(false);
-        stepGoal1.setVisible(true);
-        stepsLeftLabel.setVisible(true);
-        distanceGoalLabel.setVisible(true);
-        distanceLeftLabel.setVisible(true);
-        editDistanceGoal.setVisible(false);
-        editStepGoal.setVisible(false);
+    public void editStepGoals() {
+        stepsEdit.setText(Integer.toString(user.getStepGoal()));
+        stepsOnEditing.setVisible(true);
+        stepsEdit.setVisible(true);
+        updateStep.setVisible(true);
     }
 
-    public void updateGoals() {
+    public void editDistanceGoals() {
+        distanceEdit.setText(Integer.toString(user.getDistanceGoal()));
+        onDistanceEditing.setVisible(true);
+        distanceEdit.setVisible(true);
+        updateDistance.setVisible(true);
+    }
 
+    public void stopEditing() throws SQLException {
+        setDistanceData();
+        setStepData();
+        stepsOnEditing.setVisible(false);
+        onDistanceEditing.setVisible(false);
+        stepsEdit.setVisible(false);
+        distanceEdit.setVisible(false);
+        updateStep.setVisible(false);
+        updateDistance.setVisible(false);
     }
 
     @FXML
     private void setDistanceGoal() throws SQLException {
         int newDistanceGoal = user.getDistanceGoal();
         try {
-            newDistanceGoal = Integer.parseInt(distanceGoalField.getText());
+            newDistanceGoal = Integer.parseInt(distanceEdit.getText());
             ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly step goal to " + newDistanceGoal + " steps per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
         user.setDistanceGoal(newDistanceGoal);
+        stopEditing();
     }
 }

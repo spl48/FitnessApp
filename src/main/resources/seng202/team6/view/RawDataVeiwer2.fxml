@@ -2,9 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -131,7 +136,7 @@
                               <Font name="NexaBold" size="19.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                        <ImageView fx:id="editButton" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#editActivity" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                            <image>
                               <Image url="@../resources/pics/edit.png" />
                            </image>
@@ -159,6 +164,40 @@
                               <Font name="NexaLight" size="13.0" />
                            </font>
                         </Label>
+                        <TextField fx:id="descriptionEdit" visible="false" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </TextField>
+                        <DatePicker fx:id="dateEdit" prefHeight="26.0" prefWidth="190.0" visible="false" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+                        <ChoiceBox fx:id="typeEdit" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: white; -fx-border-color: lightGrey;" visible="false" GridPane.rowIndex="11" GridPane.valignment="TOP" />
+                        <ImageView fx:id="editOn" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#stopEditing" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+                           <image>
+                              <Image url="@../resources/pics/editOn.png" />
+                           </image>
+                        </ImageView>
+                        <TextArea fx:id="notesEdit" prefHeight="70.0" prefWidth="188.0" visible="false" GridPane.rowIndex="13">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets bottom="10.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </TextArea>
+                        <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateActivity" prefHeight="17.0" prefWidth="58.0" style="-fx-background-color: black; -fx-background-radius: 0;" text="UPDATE" textFill="WHITE" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="14" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="NexaBold" size="10.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="35.0" />
+                           </GridPane.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                      <BorderPane.margin>
                         <Insets left="10.0" top="20.0" />

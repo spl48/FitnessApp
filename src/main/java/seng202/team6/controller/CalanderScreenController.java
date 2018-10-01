@@ -167,4 +167,12 @@ public class CalanderScreenController {
         date = date.minusMonths(1);
         setUpCalendar();
     }
+
+    public void previousActivity() {
+
+    }
+
+    public void nextActivity() {
+
+    }
 }

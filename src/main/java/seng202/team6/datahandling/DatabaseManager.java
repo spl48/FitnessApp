@@ -557,7 +557,6 @@ public class DatabaseManager {
         }
         String sql = "UPDATE user SET dateofbirth = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
         PreparedStatement updateUsername = con.prepareStatement(sql);
-        System.out.println(dateOfBirth.toString());
         updateUsername.setString(1, dateOfBirth.toString());
         updateUsername.execute();
     }
@@ -709,6 +708,30 @@ public class DatabaseManager {
             ApplicationManager.displayPopUp("Database Update Error", "Could not update activity notes!", "error");
         }
     }
+
+    public void updateDescription(String description, int activityID) {
+        updateActivityProperty(description, activityID, "description");
+    }
+
+    public void updateStartDate(String start, int activityID) {
+        updateActivityProperty(start, activityID, "start");
+    }
+
+    public void updateActivityProperty(String notes, int activityID, String property) {
+        try {
+            if (con == null) {
+                getConnection();
+            }
+            String sql = "UPDATE activity SET " + property + " = ? WHERE activityid = '" + activityID + "'";
+            PreparedStatement updateNotes = con.prepareStatement(sql);
+            updateNotes.setString(1, notes);
+            updateNotes.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ApplicationManager.displayPopUp("Database Update Error", "Could not update activity " + property + "s!", "error");
+        }
+    }
+
     public void setDistanceGoal(int userid, int newGoal) throws SQLException {
         String sql = "UPDATE user SET distancegoal = ? WHERE userid = '" + userid + "'";
         PreparedStatement updateDistanceGoal = con.prepareStatement(sql);
@@ -752,5 +775,25 @@ public class DatabaseManager {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedString = date.format(formatter);
         return formattedString;
+    }
+
+    /**
+     *Takes a an sql query and returns a list of activities based on the restult
+     * @param sqlString The SQL String
+     * @return An array list of activities based on the query result.
+     * @throws SQLException
+     */
+    public ArrayList<Activity> getActivitiesbyQuery(String sqlString) throws SQLException {
+        if(con == null) {
+            getConnection();
+        }
+        ArrayList<Activity> activities = new ArrayList<>();
+        Statement state = con.createStatement();
+        ResultSet res = state.executeQuery(sqlString);
+        while(res.next()){
+            Activity activity = getActivity(res.getInt("activityid"));
+            activities.add(activity);
+        }
+        return activities;
     }
 }

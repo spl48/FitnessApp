@@ -29,8 +29,10 @@ public class WebSearchController {
             engine.load("https://www.google.co.nz/search?q=tachycardia");
         } else if (buttonType == 2) {
             engine.load("https://www.google.co.nz/search?q=cardiovascular+disease");
-        } else if (buttonType == 3){
+        } else if (buttonType == 3) {
             engine.load("https://www.google.co.nz/search?q=cardiovascular+disease");
+        } else if (buttonType == 4) {
+            engine.load("https://www.google.co.nz/search?q=" + HealthController.getURL());
         } else {
             engine.load("https://www.google.co.nz");
         }

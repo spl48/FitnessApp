@@ -9,6 +9,8 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -40,6 +42,9 @@ public class HealthController extends GeneralScreenController {
     @FXML
     private HBox healthBox;
 
+    @FXML
+    private TextField searchBar;
+
     /**
      * The type for the button that is pushed.
      * 0 : No button pushed
@@ -60,6 +65,8 @@ public class HealthController extends GeneralScreenController {
     ArrayList<Activity> activities;
 
 
+    private static String query;
+
     /**
      * Initializes the health concern screen by displaying the text and button
      * corresponding to a particular health concerns if they are at risk for it.
@@ -75,9 +82,9 @@ public class HealthController extends GeneralScreenController {
             //healthGrid.setStyle();
             GridPane healthGrid = addGrid();
 
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
             healthGrid.setHalignment(image, HPos.CENTER);
-            image.setFitHeight(100);
+            image.setFitHeight(50);
             healthGrid.add(image, i, 0);
 
             Label title = new Label("TACHYCARDIA");
@@ -110,9 +117,9 @@ public class HealthController extends GeneralScreenController {
 //            bradycardiaText.setText("Bradycardia");
 //            bradycardiaButton.setVisible(true);
             GridPane healthGrid = addGrid();
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
             healthGrid.setHalignment(image, HPos.CENTER);
-            image.setFitHeight(100);
+            image.setFitHeight(50);
             healthGrid.add(image, i, 0);
 
             Label title = new Label("BRADYCARDIA");
@@ -137,9 +144,9 @@ public class HealthController extends GeneralScreenController {
 //            cardioVascularText.setText("Cardiovascular Disease");
 //            cardiovascularButton.setVisible(true);
             GridPane healthGrid = addGrid();
-            ImageView image = new ImageView("/seng202/team6/resources/pics/doggotest.png");
+            ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
             healthGrid.setHalignment(image, HPos.CENTER);
-            image.setFitHeight(100);
+            image.setFitHeight(50);
             healthGrid.add(image, i, 0);
 
             Label title = new Label("CARDIOVASCULAR DISEASE");
@@ -167,13 +174,19 @@ public class HealthController extends GeneralScreenController {
         GridPane grid = new GridPane();
         healthBox.setMargin(grid, new Insets(50, 20, 50, 20));
         grid.setPrefSize(280, 484);
+        grid.setPadding(new Insets(20,20,20,20));
         grid.setAlignment(Pos.TOP_CENTER);
-//        ColumnConstraints gridGrow = new ColumnConstraints();
-//        gridGrow.setHgrow(Priority.NEVER);
-        //grid.setGridLinesVisible(true);
-        grid.setStyle("-fx-background-color: white;");
         grid.setVgap(10);
-        //grid.set
+
+        Image image = new Image("/seng202/team6/resources/pics/healthGrid.png");
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+
+        grid.setBackground(new Background(new BackgroundImage(image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                bSize)));
+
         return grid;
     }
 
@@ -244,5 +257,21 @@ public class HealthController extends GeneralScreenController {
      */
     public static void setType(int Type) {
         type = Type;
+    }
+
+    @FXML
+    public void onEnter(ActionEvent ae){
+        setType(4);
+        setURL(searchBar.getCharacters().toString());
+        changeScreen(ae, "/seng202/team6/view/WebSearch.fxml");
+        //searchBar.clear();
+    }
+
+    public static void setURL(String searchquery) {
+        query = searchquery;
+    }
+
+    public static String getURL() {
+        return query;
     }
 }
