@@ -138,6 +138,12 @@ public class Goal
         return goalReached;
     }
 
+    /**
+     * Returns true if the user has done more steps within the current week than their set weekly goal
+     * @param user user to determine whether goal has been achieved
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean stepsAchieved(User user) throws SQLException {
         int stepGoal = user.getStepGoal();
         double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
@@ -148,6 +154,12 @@ public class Goal
         return false;
     }
 
+    /**
+     * Returns true if the user has logged more distance within the current week than their set weekly goal
+     * @param user user to determine whether goal has been achieved
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean distanceAchieved(User user) throws SQLException {
         int distanceGoal = user.getStepGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());

@@ -189,7 +189,7 @@ public class HomeScreenController extends GeneralScreenController {
 
     
     /**
-     * Displays the steps a user has taken
+     * Displays the steps a user has taken and the user's weekly step goal
      */
     private void setStepsInfo() throws SQLException {
         //double strideLength = user.getWalkingStrideLength();
