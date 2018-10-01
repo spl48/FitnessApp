@@ -121,6 +121,7 @@ public class GoalsScreenController {
         if (!stepsAchieved(user)) {
             stepCircle.setVisible(true);
             feetImage.setVisible(true);
+            stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
         }
         stopEditing();
     }
@@ -146,6 +147,7 @@ public class GoalsScreenController {
             progressRatio = 1;
             stepCircle.setVisible(false);
             feetImage.setVisible(false);
+            stepProgress.setStyle("-fx-accent: green");
         }
         stepProgress.setProgress(progressRatio);
     }
@@ -176,6 +178,7 @@ public class GoalsScreenController {
             progressRatio = 1;
             distanceCircle.setVisible(false);
             distanceImage.setVisible(false);
+            distanceProgress.setStyle("-fx-accent: green");
         }
         distanceProgress.setProgress(progressRatio);
     }
@@ -234,6 +237,7 @@ public class GoalsScreenController {
         if (!distanceAchieved(user)) {
             distanceCircle.setVisible(true);
             distanceImage.setVisible(true);
+            distanceProgress.setStyle("..\\resources\\css\\progressIndicator.css");
         }
         stopEditing();
     }
