@@ -199,7 +199,8 @@ public class DatabaseManager {
                         + "weight REAL,"
                         + "stridelength REAL,"
                         + "stepgoal INTEGER,"
-                        + "distancegoal INTEGER);";
+                        + "distancegoal INTEGER,"
+                        + "logins INTEGER);";
                 userTableStatement.execute(userTablesql);
                 //Create activities table
                 Statement activityTableStatement = con.createStatement();
@@ -249,7 +250,7 @@ public class DatabaseManager {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal,logins) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setString(1, username);
         prep.setString(2, dob);
@@ -261,6 +262,7 @@ public class DatabaseManager {
         prep.setDouble(8, stridelength);
         prep.setInt(9, stepGoal);
         prep.setInt(10, distanceGoal);
+        prep.setInt(11, 0);
         prep.execute();
     }
 
@@ -293,6 +295,7 @@ public class DatabaseManager {
         prep.setString(7, notes);
         prep.execute();
     }
+
     public ArrayList<Integer> getActivityIDs(int userid) throws SQLException {
         if(con == null) {
             getConnection();
@@ -306,6 +309,7 @@ public class DatabaseManager {
         }
         return activities;
     }
+
     /**
      *Takes a userid and returns a list of activities associated with the user
      * @param userid The user id used to look up the user in the database.
@@ -490,7 +494,6 @@ public class DatabaseManager {
         return activity;
     }
 
-
     /**
      * Gets an activity object based on an id.
      * @param activityID The activity id.
@@ -577,6 +580,7 @@ public class DatabaseManager {
         updateHeight.setDouble(1, height);
         updateHeight.execute();
     }
+
     public void updateWeight(double weight) throws SQLException {
         if(con == null) {
             getConnection();
@@ -586,6 +590,7 @@ public class DatabaseManager {
         updateWeight.setDouble(1, weight);
         updateWeight.execute();
     }
+
     public void updateStrideLength(double strideLength) throws SQLException {
         if(con == null) {
             getConnection();
@@ -595,6 +600,37 @@ public class DatabaseManager {
         updateStrideLength.setDouble(1, strideLength);
         updateStrideLength.execute();
     }
+
+    /**
+     * Updates the login count by adding 1
+     * @param logins An Integer parameter used to set the login count of the User
+     * @throws SQLException
+     */
+    public void updateLoginCount(int logins) throws SQLException {
+        if (con == null) {
+            getConnection();
+        }
+        logins++;
+        String sql = "UPDATE user SET logins = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateLoginCount = con.prepareStatement(sql);
+        updateLoginCount.setInt(1, logins);
+        updateLoginCount.execute();
+    }
+
+    public int getLoginCount() throws SQLException {
+        System.out.println("In login functions");
+        if (con == null) {
+            getConnection();
+        }
+        int logins = 0;
+        Statement state = con.createStatement();
+        System.out.println("Before query" + logins);
+        ResultSet res = state.executeQuery("select logins from user where userid = " + ApplicationManager.getCurrentUserID());
+        System.out.println("After query" + logins);
+        logins = res.getInt("logins");
+        return logins;
+    }
+
 
     public ArrayList<Activity> getActivitiesWithoutRecords(int userid) throws SQLException {
         if(con == null) {
