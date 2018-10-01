@@ -81,7 +81,7 @@ public class Uploader extends WorkoutsNavigator {
                 boolean work = loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
                 if (work == true) {
                     ApplicationManager.displayPopUp("Data Confirmation", "Activity Data has been uploaded!", "confirmation");
-                    changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml");
+                    changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml", "ACTIVITY UPLOAD");
                 }
                 else{
                     ApplicationManager.displayPopUp("Data validation", "Invalid CSV file detected!", "error");

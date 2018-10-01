@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -19,17 +20,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../resources/css/graph.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
-    <top>
-        <fx:include source="header.fxml" />
-    </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../resources/css/graph.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.WorkoutAnalysisController">
     <left>
         <fx:include source="sidebar.fxml" />
     </left>
     <center>
-        <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                <Insets />
             </BorderPane.margin>
             <center>
                 <GridPane prefHeight="602.0" prefWidth="810.0" BorderPane.alignment="CENTER">
@@ -68,6 +66,9 @@
                            </content>
                         </Tab>
                     </tabs>
+                     <GridPane.margin>
+                        <Insets top="10.0" />
+                     </GridPane.margin>
                   </TabPane>
                   <GridPane prefHeight="210.0" prefWidth="803.0" GridPane.rowIndex="1">
                     <columnConstraints>
@@ -130,6 +131,9 @@
                            <GridPane.margin>
                               <Insets bottom="20.0" left="10.0" right="10.0" />
                            </GridPane.margin>
+                           <effect>
+                              <DropShadow color="#000000c8" height="11.93" offsetX="2.0" offsetY="2.0" radius="4.7075" width="8.9" />
+                           </effect>
                         </GridPane>
                         <GridPane style="-fx-background-color: white;">
                            <columnConstraints>
@@ -178,6 +182,9 @@
                            <GridPane.margin>
                               <Insets bottom="20.0" left="10.0" right="10.0" />
                            </GridPane.margin>
+                           <effect>
+                              <DropShadow color="#000000c8" height="11.93" offsetX="2.0" offsetY="2.0" radius="4.7075" width="8.9" />
+                           </effect>
                         </GridPane>
                         <GridPane style="-fx-background-color: white;" GridPane.columnIndex="1">
                            <columnConstraints>
@@ -226,6 +233,9 @@
                            <GridPane.margin>
                               <Insets bottom="20.0" left="10.0" right="10.0" />
                            </GridPane.margin>
+                           <effect>
+                              <DropShadow color="#000000c8" height="11.93" offsetX="2.0" offsetY="2.0" radius="4.7075" width="8.9" />
+                           </effect>
                         </GridPane>
                         <GridPane style="-fx-background-color: white;" GridPane.columnIndex="2">
                            <columnConstraints>
@@ -274,6 +284,9 @@
                            <GridPane.margin>
                               <Insets bottom="20.0" left="10.0" right="10.0" />
                            </GridPane.margin>
+                           <effect>
+                              <DropShadow color="#000000c8" height="11.93" offsetX="2.0" offsetY="2.0" radius="4.7075" width="8.9" />
+                           </effect>
                         </GridPane>
                      </children>
                      <GridPane.margin>
@@ -282,41 +295,13 @@
                   </GridPane>
                     </children>
                <BorderPane.margin>
-                  <Insets left="20.0" />
+                  <Insets />
                </BorderPane.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
                 </GridPane>
             </center>
-            <top>
-                <GridPane alignment="CENTER" prefHeight="69.0" prefWidth="1140.0" BorderPane.alignment="CENTER">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="563.6000366210938" minWidth="10.0" prefWidth="419.6000671386719" />
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="741.7332458496094" minWidth="10.0" prefWidth="720.3999328613281" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Label prefHeight="100.0" prefWidth="530.0" text="WORKOUT ANALYSIS" textFill="WHITE" GridPane.columnIndex="1">
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                            <font>
-                                <Font name="NexaBold" size="27.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="150.0" fitWidth="30.0" onMouseClicked="#toWorkoutsScreen" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../resources/pics/back2.png" />
-                            </image>
-                            <GridPane.margin>
-                                <Insets left="30.0" />
-                            </GridPane.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></ImageView>
-                    </children>
-                </GridPane>
-            </top>
          <right>
             <GridPane prefHeight="602.0" prefWidth="292.0" BorderPane.alignment="CENTER">
               <columnConstraints>
@@ -326,17 +311,19 @@
               <rowConstraints>
                 <RowConstraints />
                 <RowConstraints />
-                  <RowConstraints maxHeight="292.9333862304687" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="575.0000045776367" minHeight="10.0" prefHeight="570.7333572387695" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="570.7333572387695" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                      <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="594.0" prefWidth="271.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                          <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefWidth="127.0" style="-fx-background-color: white;" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                      <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="625.0" prefWidth="272.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" top="10.0" />
+                     </GridPane.margin></ListView>
+                          <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: white;" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </ChoiceBox>
-                          <ImageView fitHeight="150.0" fitWidth="32.0" onMouseClicked="#toFilter" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                          <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#toFilter" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                               <image>
                                   <Image url="@../resources/pics/filter2.png" />
                               </image>
@@ -349,10 +336,13 @@
                           </ImageView>
                </children>
                <padding>
-                  <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets left="10.0" right="10.0" top="10.0" />
                </padding>
             </GridPane>
          </right>
+         <top>
+              <fx:include source="header.fxml" />
+         </top>
         </BorderPane>
     </center>
 </BorderPane>

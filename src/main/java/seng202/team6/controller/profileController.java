@@ -61,6 +61,6 @@ public class profileController extends GeneralScreenController {
      * @param event When the edit toggle button is pressed.
      */
     public void toEditProfile(Event event) {
-        changeScreen(event, "/seng202/team6/view/EditProfileScreen.fxml");
+        changeScreen(event, "/seng202/team6/view/EditProfileScreen.fxml", "PROFILE");
     }
 }

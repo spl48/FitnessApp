@@ -1,5 +1,5 @@
 .axis-label {
-  -fx-text-fill: #ffffff;
+  -fx-text-fill: grey;
   -fx-font-family: "Nexa Bold";
   -fx-font-size: 15;
 }
@@ -13,11 +13,11 @@
    -fx-background-color: transparent;
    -fx-font-family: "Nexa Bold";
    -fx-font-size: 12;
-   -fx-text-fill: #ffffff;
+   -fx-text-fill: grey;
 }
 
 .chart-legend-item{
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: grey;
 }
 
 .chart-plot-background {

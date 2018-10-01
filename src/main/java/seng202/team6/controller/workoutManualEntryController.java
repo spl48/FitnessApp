@@ -89,7 +89,7 @@ public class workoutManualEntryController extends GeneralScreenController {
      */
     @FXML
     public void toWorkOutScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
     }
 
     /**

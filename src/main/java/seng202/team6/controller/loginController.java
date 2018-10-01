@@ -84,7 +84,7 @@ public class loginController extends GeneralScreenController {
         ApplicationManager.setCurrentUser(userid, userProfile);
 
         // Directs to the Home Screen.
-        changeScreen(event, "/seng202/team6/view/HomeScreen.fxml");
+        changeScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
     }
 
 
@@ -94,7 +94,7 @@ public class loginController extends GeneralScreenController {
      */
     @FXML
     public void toStartScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/startScreen2.fxml");
+        changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
     }
 
 

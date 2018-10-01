@@ -9,38 +9,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.Uploader">
-   <top>
-      <fx:include source="header.fxml" />
-   </top>
    <left>
       <fx:include source="sidebar.fxml" />
    </left>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
-         <top>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="381.0" layoutY="58.0" prefHeight="88.0" prefWidth="409.0" text="ADD WORKOUTS" textFill="WHITE">
-                     <font>
-                        <Font name="NexaBold" size="48.0" />
-                     </font>
-                  </Label>
-                  <ImageView layoutX="79.0" layoutY="71.0" onMouseClicked="#toWorkoutsScreen">
-                     <image>
-                        <Image url="@../resources/pics/back2.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </top>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
             <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
@@ -78,7 +55,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Label layoutX="119.0" layoutY="14.0" text="UPLOAD FILE" textFill="WHITE">
+                        <Label layoutX="119.0" layoutY="14.0" text="UPLOAD FILE" textFill="#515151">
                            <font>
                               <Font name="NexaBold" size="22.0" />
                            </font>
@@ -87,7 +64,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label layoutX="110.0" layoutY="8.0" text="MANUAL ENTRY" textFill="WHITE">
+                        <Label layoutX="110.0" layoutY="8.0" text="MANUAL ENTRY" textFill="#515151">
                            <font>
                               <Font name="NexaBold" size="22.0" />
                            </font>
@@ -95,20 +72,17 @@
                      </children>
                   </AnchorPane>
                </children>
+               <BorderPane.margin>
+                  <Insets bottom="200.0" left="200.0" right="200.0" top="200.0" />
+               </BorderPane.margin>
             </GridPane>
          </center>
-         <bottom>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </bottom>
-         <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </right>
          <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            <Insets />
          </BorderPane.margin>
+         <top>
+            <fx:include source="header.fxml" />
+         </top>
       </BorderPane>
    </center>
 </BorderPane>

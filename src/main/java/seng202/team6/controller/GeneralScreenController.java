@@ -67,8 +67,9 @@ public class GeneralScreenController {
      * @param event When something is clicked.
      * @param screen The screen to change to.
      */
-    public void changeScreen(Event event, String screen) {
+    public void changeScreen(Event event, String screen, String screenName) {
         try {
+            ApplicationManager.setCurrScreen(screenName);
             Parent loginParent = FXMLLoader.load(getClass().getResource(screen));
             Scene loginScene = new Scene(loginParent);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

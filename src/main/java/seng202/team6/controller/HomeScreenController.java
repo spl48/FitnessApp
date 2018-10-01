@@ -149,7 +149,7 @@ public class HomeScreenController extends GeneralScreenController {
                 healthText.setOnAction(new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         HealthController.setType(1);
-                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml", "HEALTH");
                     }
                 });
 
@@ -163,7 +163,7 @@ public class HomeScreenController extends GeneralScreenController {
                 healthText.setOnAction(new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         HealthController.setType(2);
-                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml", "HEALTH");
                     }
                 });
             }
@@ -176,7 +176,7 @@ public class HomeScreenController extends GeneralScreenController {
                 healthText.setOnAction(new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         HealthController.setType(3);
-                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+                        changeScreen(event, "/seng202/team6/view/WebSearch.fxml", "HEALTH");
                     }
                 });
             }

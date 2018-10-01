@@ -1,4 +1,4 @@
-
+/* 
 .headerMenu .label {
 	-fx-text-fill: white;
 	-fx-font-size: 21px;
@@ -30,6 +30,27 @@
 }
 
 
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+     -fx-background-color: darkgray;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: blue;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: black;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;  4 1 8 1 */
+/*}
+
 
 #comboBox .list-cell
  {
@@ -52,4 +73,104 @@
 .cb .label {
    -fx-text-fill: white
 }
+ */
 
+ /* VARIABLE DEFINITIONS: Only these 4 variables have to be adjusted, the rest is copy-paste */
+* {
+    -fx-my-menu-color:  rgb(40,40,40);                  /* Change according to your needs */
+    -fx-my-menu-color-highlighted: rgb(60,60,60);      /* Change according to your needs */
+    -fx-my-menu-font-color:white;             /* Change according to your needs */
+    -fx-my-menu-font-color-highlighted: lightYellow; /* Change according to your needs */
+}
+
+.menu-bar > .container > .menu-button > .label {
+	fx-text-fill: GREEN;
+}
+
+/* MENU BAR + Top-level MENU BUTTONS */
+/*** The menu bar itself ***/    
+.menu-bar {
+    -fx-background-color: -fx-my-menu-color;
+}
+
+/*** Top-level menu itself (not selected / hovered) ***/
+.menu-bar > .container > .menu-button {
+    -fx-background-color: -fx-my-menu-color;
+   /* -fx-alignment: right; */
+}
+
+/*** Top-level menu's label (not selected / hovered) ***/
+.menu-bar > .container > .menu-button > .label {
+    -fx-text-fill: -fx-my-menu-font-color;
+    -fx-font-size: 15px;
+    -fx-font-family: "Nexa Bold";
+    /*-fx-text-alignment: right;*/
+}
+
+/*** Top-level menu's label (disabled) ***/
+.menu-bar > .container > .menu-button > .label:disabled {
+    -fx-opacity: 1.0;
+}
+
+/*** Top-level menu itself (selected / hovered) ***/
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background-color: -fx-my-menu-color-highlighted;
+}
+
+/*** Top-level menu's label (selected / hovered) ***/
+.menu-bar > .container > .menu-button:hover > .label,
+.menu-bar > .container > .menu-button:focused > .label,
+.menu-bar > .container > .menu-button:showing > .label {
+    -fx-text-fill: -fx-my-menu-font-color-highlighted;
+}
+
+/* MENU ITEM (children of a MENU BUTTON) */
+/*** The item itself (not hovered / focused) ***/    
+.menu-item {
+    -fx-background-color: -fx-my-menu-color; 
+}
+
+/*** The item's label (not hovered / focused) ***/   
+.menu-item .label {
+    -fx-text-fill: -fx-my-menu-font-color;
+}
+
+/*** The item's label (disabled) ***/   
+.menu-item .label:disabled {
+    -fx-opacity: 1.0;
+}    
+
+/*** The item itself (hovered / focused) ***/    
+.menu-item:focused, .menu-item:hovered {
+    -fx-background-color: -fx-my-menu-color-highlighted; 
+}
+
+/*** The item's label (hovered / focused) ***/  
+.menu-item:focused .label, .menu-item:hovered .label {
+    -fx-text-fill: -fx-my-menu-font-color-highlighted;
+}
+
+/* CONTEXT MENU */
+/*** The context menu that contains a menu's menu items ***/  
+.context-menu {
+    -fx-background-color: -fx-my-menu-color; 
+}
+
+.menu-item .label{
+   -fx-text-alignment:right; 
+}
+
+.menu-item .label .text{
+   -fx-text-alignment:right; 
+}
+
+.header {
+    -fx-background-color:  rgb(40,40,40);
+    /*-fx-background-color: rgb(62,71,88)*/
+    /*-fx-border-color:  transparent transparent  rgb(63,179,164) transparent;*/
+    -fx-border-color:  transparent transparent  rgb(62,71,88) transparent;
+    -fx-border-width: 8px;
+    /*-fx-effect: dropshadow(three-pass-box, grey, 100, 0, 0,5);*/
+}

@@ -27,7 +27,7 @@ public class startScreenController extends GeneralScreenController {
     public void toLoginScreen(ActionEvent event) throws SQLException, ClassNotFoundException {
         DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
         if (databaseManager.getUsernames().size() > 0) {
-            changeScreen(event, "/seng202/team6/view/loginScreen.fxml");
+            changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
         } else {
             ApplicationManager.displayPopUp("No Users", "It seems like there are no users in the database\nPlease register first.", "error");
         }
@@ -39,7 +39,7 @@ public class startScreenController extends GeneralScreenController {
      */
     @FXML
     public void toRegisterScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/registerScreen2.fxml");
+        changeScreen(event, "/seng202/team6/view/registerScreen2.fxml", "REGISTER");
     }
 
     /**
