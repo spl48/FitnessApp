@@ -196,7 +196,7 @@ public class HealthController extends GeneralScreenController {
         GridPane grid = new GridPane();
         healthBox.setMargin(grid, new Insets(50, 20, 50, 20));
         grid.setPrefSize(280, 484);
-        grid.setPadding(new Insets(20,20,20,20));
+        grid.setPadding(new Insets(40,20,20,20));
         grid.setAlignment(Pos.TOP_CENTER);
         grid.setVgap(10);
 
