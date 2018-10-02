@@ -23,6 +23,7 @@ import seng202.team6.models.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static javafx.scene.text.TextAlignment.CENTER;
 import static javafx.scene.text.TextAlignment.JUSTIFY;
 
 public class HealthController extends GeneralScreenController {
@@ -141,8 +142,8 @@ public class HealthController extends GeneralScreenController {
         }
 
         if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
-//            cardioVascularText.setText("Cardiovascular Disease");
-//            cardiovascularButton.setVisible(true);
+            //            cardioVascularText.setText("Cardiovascular Disease");
+            //            cardiovascularButton.setVisible(true);
             GridPane healthGrid = addGrid();
             ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
             healthGrid.setHalignment(image, HPos.CENTER);
@@ -159,6 +160,27 @@ public class HealthController extends GeneralScreenController {
             description.setPrefWidth(280);
             description.setWrapText(true);
             description.setTextAlignment(JUSTIFY);
+            title.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
+            description.setStyle("-fx-font: 13 NexaBold; -fx-fill: #494949;");
+            healthGrid.setHalignment(title, HPos.CENTER);
+            healthGrid.setHalignment(description, HPos.CENTER);
+            healthGrid.add(title, i, 1);
+            healthGrid.add(description, i, 2);
+            i++;
+            healthBox.getChildren().add(healthGrid);
+        }
+        if (!HealthConcernChecker.checkCardiovascularMortality(activities, age) && !HealthConcernChecker.checkBradycardia(activities, age) && !HealthConcernChecker.checkTachycardia(activities, age)) {
+            GridPane healthGrid = addGrid();
+            ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
+            healthGrid.setHalignment(image, HPos.CENTER);
+            image.setFitHeight(50);
+            healthGrid.add(image, i, 0);
+
+            Label title = new Label("NOTHING");
+            Label description = new Label("You are healthy!");
+            description.setPrefWidth(280);
+            description.setWrapText(true);
+            description.setTextAlignment(CENTER);
             title.setStyle("-fx-font: 17 NexaBold; -fx-fill: #494949;");
             description.setStyle("-fx-font: 13 NexaBold; -fx-fill: #494949;");
             healthGrid.setHalignment(title, HPos.CENTER);
