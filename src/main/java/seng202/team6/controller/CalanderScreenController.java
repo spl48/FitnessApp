@@ -24,7 +24,7 @@ public class CalanderScreenController {
     GridPane calendar;
     // Text representing activities information
     @FXML
-    Text description, speed, distance, type;
+    Text description, speed, distance, type, dateText;
 
     // List of the current users activities
     ArrayList<Activity> activities;
@@ -81,6 +81,10 @@ public class CalanderScreenController {
 
         column = date.getDayOfWeek().getValue();
 
+        if (column == 7) {          // sets to first column if the day is sunday
+            column = 0;
+        }
+
         // Sets the date of the first day of the month
         text = new Text(String.valueOf(date.getDayOfMonth()));
         pane = days.get(row * 7 + column);
@@ -98,7 +102,7 @@ public class CalanderScreenController {
                 pane.setTopAnchor(text, 5.0);
                 pane.getChildren().add(text);
 
-                pane.setOnMouseClicked(e -> displayActivity(null));
+                pane.setOnMouseClicked(e -> displayActivities(null));
 
                 checkDateActivities(pane);
 
@@ -121,34 +125,50 @@ public class CalanderScreenController {
      */
     public void checkDateActivities(AnchorPane pane) {
         Text text;
+        ArrayList<Activity> activitiesOnDate = new ArrayList<>();
         for(Activity activity : activities) {
             if (activity.getStartDate().equals(date)) {     // Activity was undertake on current date
                 text = new Text("*");
                 pane.setBottomAnchor(text, 5.0);
                 pane.getChildren().add(text);
-                pane.setOnMouseClicked(e -> displayActivity(activity));
+                activitiesOnDate.add(activity);
             }
         }
+
+        pane.setOnMouseClicked(e -> displayActivities(activitiesOnDate));
     }
 
 
     /**
      * Displays the activity imformation when the activity has been selected,
      * sets field to empty if a date with no activity (null) was selected
-     * @param activity
+     * @param activities
      */
-    public void displayActivity(Activity activity) {
-        if (activity == null) {     // No activity on selected date
+    public void displayActivities(ArrayList<Activity> activities) {
+        if (activities.size() == 0) {     // No activity on selected date
+            System.out.println("1");
             description.setText("");
             speed.setText("");
             distance.setText("");
             type.setText("");
         } else {
-            description.setText(activity.getDescription());
-            speed.setText(String.format("%.2f Km / hour" , activity.findAverageSpeed()));
-            distance.setText(String.format("%.2f Km", activity.findDistanceFromStart(activity.getActivityData().size() - 1)));
-            type.setText(activity.getType());
+            System.out.println("2");
+            String descriptionText = "";
+            String speedText = "";
+            String distanceText = "";
+            String typeText = "";
+            for (Activity activity : activities) {
+                descriptionText += activity.getDescription() + "\n";
+                speedText += String.format("%.2f Km / hour\n" , activity.findAverageSpeed());
+                distanceText += String.format("%.2f Km\n", activity.findDistanceFromStart(activity.getActivityData().size() - 1));
+                typeText += activity.getType() + "\n";
+            }
+            description.setText(descriptionText);
+            speed.setText(speedText);
+            distance.setText(distanceText);
+            type.setText(typeText);
         }
+
     }
 
 
