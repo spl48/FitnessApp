@@ -318,7 +318,7 @@
                      <GridPane.margin>
                         <Insets bottom="30.0" top="10.0" />
                      </GridPane.margin></ListView>
-                          <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: white;" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                          <ChoiceBox fx:id="activityTypeSelection" onAction="#clearGraph" onMouseClicked="#clearList" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: white;" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>

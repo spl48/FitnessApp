@@ -173,7 +173,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
         webEngine = mapWebView.getEngine();
         webEngine.load(getClass().getResource("/seng202/team6/resources/map.html").toExternalForm());
-        System.out.println("First Init");
     }
 
 
@@ -198,17 +197,18 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private void graphHandler() throws SQLException {
 
         Activity selectedActivity = activities.get(selectionIndex);
+
         String distanceString = String.format("%.1f", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size()-1));
         String velocityString = String.format("%.1f", selectedActivity.findAverageSpeed());
         String stepsString = String.format("%.0f", selectedActivity.findStepCount(currUser.getWalkingStrideLength()));
         String hrString = String.format("%.0f",(double)selectedActivity.getMaxHeartRate());
+
         distanceLabel.setText(distanceString);
         velocityLabel.setText(velocityString);
         stepsLabel.setText(stepsString);
         heartRateLabel.setText(hrString);
 
         if (selectedtab == "Graph") {
-            System.out.println("in graph handler");
             if (graphCount == 0) {
                 newGraph();
                 graphCount += 1;
@@ -216,11 +216,18 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 addSeries();
             }
         } else {
+            activityTypeSelection.setVisible(false);
             activityList.getSelectionModel().select(selectionIndex);
             Activity desiredActivity = activities.get(selectionIndex);
             Route route = makeRoute(desiredActivity);
             displayRoute(route);
         }
+    }
+
+    @FXML
+    private void clearList() {
+        System.out.println("Im here!!");
+        activityList.getSelectionModel().clearSelection();
     }
 
     /**
@@ -297,8 +304,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         for (ActivityDataPoint point : selectedActivity.getActivityData()) {
             Duration duration = Duration.between(selectedActivity.getStartTime(), point.getTime());
             double time = duration.toMillis() / 60000.0;
-            //System.out.printf();
-            //time = time / 10;
+
             switch (activityType) {
                 case ("Heart Rate"):
                     yAxis.setLabel("Heart Rate (BPM)");
@@ -332,23 +338,10 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * Opens filter pop up screen
      */
     public void toFilter() {
-//        ApplicationManager.displayPopUp("Filter activities", "Soon to be implemented in the next update!" +
-//                "\nWatch the patch notes for more information.", "notification");
-
         if (activities.size() >= 1) {
             ApplicationManager.displayPopUp("test", "test", "filter");
             updateListView();
             clearGraph();
-//            ActivityManager activityManager = databaseManager.getActivityManager();
-//            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
-//            activities = activityManager.getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
-//            ObservableList<String> availableActivities = FXCollections.observableArrayList();
-//            ObservableList<String> items = FXCollections.observableArrayList(availableActivities);
-//            activityList.setItems(items);
-//            for(int i = 0; i <= activities.size()-1; i++) {
-//                System.out.println(activities.get(i).getDescription());
-//            }
-//            activityList.setItems(FXCollections.observableArrayList(filteredActivities.keySet()));
         } else {
             ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
         }
@@ -367,6 +360,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         yearFilter = newYearFilter;
         typeFilter = newTypeFilter;
     }
+
 
     /**
      * Removes the selected activity from the plot area
@@ -418,11 +412,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void initMap() {
+        activityTypeSelection.setVisible(false);
         selectedtab = "Map";
         activityList.getSelectionModel().clearSelection();
         activityList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        System.out.println("Setting single");
-        System.out.println("Initialising maps");
+
         if (activities.size() >= 1) {
             activityList.getSelectionModel().select(selectionIndex);
             Activity desiredActivity = activities.get(selectionIndex);
@@ -439,12 +433,13 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void initGraphs() throws SQLException {
+        activityTypeSelection.setVisible(true);
         selectedtab = "Graph";
         clearGraph();
         activityList.getSelectionModel().select(selectionIndex);
         graphHandler();
         activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        System.out.println("Initialising graphs");
+
         analysisGraph.setCreateSymbols(false);
         activityList.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             Node node = event.getPickResult().getIntersectedNode();
