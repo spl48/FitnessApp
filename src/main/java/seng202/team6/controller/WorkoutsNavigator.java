@@ -17,7 +17,7 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     @FXML
     public void toWorkoutsScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml");
+        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
     }
 
     /**
@@ -26,7 +26,8 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     @FXML
     public void toRawDataVeiwer(Event event) {
-        changeScreen(event, "/seng202/team6/view/RawDataVeiwer2.fxml");
+        ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
+        changeScreen(event, "/seng202/team6/view/RawDataVeiwer2.fxml", "RAW DATA VIEWER");
     }
 
     /**
@@ -35,8 +36,9 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     @FXML
     public void toWorkoutAnalysis(Event event) throws SQLException {
+        ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
         if (ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID()).size() > 0) {
-            changeScreen(event, "/seng202/team6/view/WorkoutAnalysis3.fxml");
+            changeScreen(event, "/seng202/team6/view/WorkoutAnalysis3.fxml", "ANALYSIS");
         } else {
             ApplicationManager.displayPopUp("Cannot Open", "No activities uploaded, please upload some activites first!", "error");
         }
@@ -48,7 +50,8 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     @FXML
     public void toAddWorkout(Event event) {
-        changeScreen(event, "/seng202/team6/view/AddWorkout.fxml");
+        ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
+        changeScreen(event, "/seng202/team6/view/AddWorkout.fxml", "ADD ACTIVITY");
     }
 
     /**
@@ -57,21 +60,8 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     @FXML
     public void toWorkoutManualEntry(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutManualEntry.fxml");
-    }
-
-    /**
-     * Navigates the user to the Upload Workouts Screen.
-     * @param event When the user clicks on a button directing to this screen.
-     */
-    @FXML
-    public void toUploadWorkoutFile(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml");
-    }
-
-    @FXML
-    public void toMaps(Event event) {
-        changeScreen(event, "/seng202/team6/view/MapsScreen.fxml");
+        ApplicationManager.setBackOptions(true, "/seng202/team6/view/AddWorkout.fxml", "ADD WORKOUT");
+        changeScreen(event, "/seng202/team6/view/WorkoutManualEntry.fxml", "ADD MANUAL ACTIVITY");
     }
 
 }

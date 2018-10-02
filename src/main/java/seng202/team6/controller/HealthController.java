@@ -235,7 +235,7 @@ public class HealthController extends GeneralScreenController {
      */
     public void toTachycardiaWebSearchScreen(ActionEvent event) {
         type = 1;
-        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+        changeScreen(event, "/seng202/team6/view/WebSearch.fxml", "HEALTH");
     }
 
 
@@ -247,7 +247,7 @@ public class HealthController extends GeneralScreenController {
      */
     public void toBradycardiaWebSearchScreen(ActionEvent event) {
         type = 2;
-        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+        changeScreen(event, "/seng202/team6/view/WebSearch.fxml", "HEALTH");
     }
 
 
@@ -259,7 +259,7 @@ public class HealthController extends GeneralScreenController {
      */
     public void toCardiovascularWebSearchScreen(ActionEvent event) {
         type = 3;
-        changeScreen(event, "/seng202/team6/view/WebSearch.fxml");
+        changeScreen(event, "/seng202/team6/view/WebSearch.fxml", "HEALTH");
     }
 
 
@@ -285,7 +285,7 @@ public class HealthController extends GeneralScreenController {
     public void onEnter(ActionEvent ae){
         setType(4);
         setURL(searchBar.getCharacters().toString());
-        changeScreen(ae, "/seng202/team6/view/WebSearch.fxml");
+        changeScreen(ae, "/seng202/team6/view/WebSearch.fxml", "HEALTH");
         //searchBar.clear();
     }
 

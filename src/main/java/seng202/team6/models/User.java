@@ -4,6 +4,7 @@ import seng202.team6.controller.ApplicationManager;
 
 import javax.sound.midi.SysexMessage;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -285,6 +286,11 @@ public class User
         return weight;
     }
 
+    double RoundTo2Decimals(double val) {
+        DecimalFormat df2 = new DecimalFormat("###.#");
+        return Double.valueOf(df2.format(val));
+    }
+
     /**
      * A function that estimates the wqalking stride length of the user given the
      * Double parameter height and sets the user stride length to the
@@ -301,6 +307,7 @@ public class User
             double strideLengthMale = height * 0.415;
             walkingStrideLength = strideLengthMale * foot; // estimated stride length for male
         }
+        walkingStrideLength = RoundTo2Decimals(walkingStrideLength);
         return walkingStrideLength;
     }
 
@@ -341,6 +348,7 @@ public class User
             double runningStrideLengthInches = heightInches * 1.35;
             runningStrideLength = runningStrideLengthInches / 12;
         }
+        runningStrideLength = RoundTo2Decimals(runningStrideLength);
         return runningStrideLength;
     }
 

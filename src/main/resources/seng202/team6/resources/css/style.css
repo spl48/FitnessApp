@@ -1,0 +1,40 @@
+/* GOALS SCREEN */
+
+.goalBox {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 5,5);
+}
+
+/* MAIN NAVIGATION SCREEN */
+
+@font-face {
+    font-family: 'Nexa Bold';
+    src: url("NexaBold.otf");
+}
+
+.navIcon .text {
+    -fx-font-family: "Nexa Bold";
+    -fx-font-size: 20;
+}
+
+.navIcon {
+    -fx-margin: 0 0 0 0;
+}
+
+.navIcon:hover {
+    -fx-background-color: rgb(39,111,101);
+}
+
+.navIcon:focused {
+    -fx-background-color: rgb(39,111,101);
+}
+
+
+/* HEADER */
+
+.mainNaviagation {
+    -fx-background-color:  rgb(40,40,40);
+    -fx-border-color:  transparent transparent  rgb(63,179,164) transparent;
+    -fx-border-width: 8px; 
+}

@@ -17,15 +17,15 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.GoalsScreenController">
    <left>
-      <fx:include source="sidebar.fxml" />
+      <fx:include source="sidebar.fxml" BorderPane.alignment="TOP_CENTER" />
    </left>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="760.0" prefWidth="1149.0" style="-fx-background-color: rgb(244,244,244);" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            <Insets bottom="8.0" />
          </BorderPane.margin>
          <center>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane stylesheets="@../resources/css/style.css" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="502.4667053222656" minWidth="10.0" prefWidth="490.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="501.5999282836914" minWidth="10.0" prefWidth="97.39995727539065" />
@@ -35,7 +35,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane prefHeight="575.0" prefWidth="121.0" style="-fx-background-color: white;" GridPane.columnIndex="2">
+                  <GridPane prefHeight="575.0" prefWidth="121.0" style="-fx-background-color: white;" styleClass="goalBox" GridPane.columnIndex="2">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="0.0" prefWidth="490.0" />
                         <ColumnConstraints />
@@ -138,7 +138,7 @@
                         </Button>
                      </children>
                   </GridPane>
-                  <GridPane layoutX="10.0" layoutY="10.0" prefHeight="575.0" prefWidth="121.0" style="-fx-background-color: white;">
+                  <GridPane layoutX="10.0" layoutY="10.0" prefHeight="575.0" prefWidth="121.0" styleClass="goalBox" stylesheets="@../resources/css/style.css">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="0.0" prefWidth="0.0" />
                         <ColumnConstraints />
@@ -251,7 +251,7 @@
             </GridPane>
          </center>
          <top>
-            <fx:include source="header2.fxml" />
+            <fx:include source="header.fxml" />
          </top>
       </BorderPane>
    </center>

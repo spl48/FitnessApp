@@ -19,7 +19,7 @@ public class profileController extends GeneralScreenController {
      * The labels containing the user details from the database.
      */
     @FXML
-    private Label firstNameLabel, lastNameLabel, usernameLabel, birthDateLabel, genderLabel, heightLabel, weightLabel;
+    private Label firstNameLabel, lastNameLabel, usernameLabel, birthDateLabel, genderLabel, heightLabel, weightLabel, strideLabel;
 
     /**
      * The top name display.
@@ -51,6 +51,7 @@ public class profileController extends GeneralScreenController {
         genderLabel.setText(currUser.getGender());
         heightLabel.setText(Double.toString(currUser.getHeight()));
         weightLabel.setText(Double.toString(currUser.getWeight()));
+        strideLabel.setText(Double.toString(currUser.getWalkingStrideLength()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         birthDateLabel.setText(currUser.getDOB().format(formatter));
     }
@@ -61,6 +62,6 @@ public class profileController extends GeneralScreenController {
      * @param event When the edit toggle button is pressed.
      */
     public void toEditProfile(Event event) {
-        changeScreen(event, "/seng202/team6/view/EditProfileScreen.fxml");
+        changeScreen(event, "/seng202/team6/view/EditProfileScreen.fxml", "PROFILE");
     }
 }

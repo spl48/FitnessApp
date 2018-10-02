@@ -90,6 +90,11 @@ public class PopUpBoxController extends GeneralScreenController {
                 createPopUpBox("/seng202/team6/view/FilterActivityPopUp.fxml", 400, 350);
             } else if (type == "loader") {
                 createPopUpBox("/seng202/team6/view/LoadingPopUp.fxml", 400, 150);
+            } else if (type == "tutorialsmall") {
+                createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 350);
+            } else if (type == "tutorialbig") {
+                createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 380);
+
             }
     }
 

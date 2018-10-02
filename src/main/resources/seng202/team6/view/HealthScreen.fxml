@@ -12,27 +12,20 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HealthController">
-   <top>
-      <fx:include source="header.fxml" />
-   </top>
    <left>
       <fx:include source="sidebar.fxml" />
    </left>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane prefHeight="123.0" prefWidth="1140.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="65.0" prefWidth="1126.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" layoutX="2.0" layoutY="18.0" prefHeight="88.0" prefWidth="1137.0" text="MY HEALTH CONCERNS" textFill="WHITE">
-                     <font>
-                        <Font name="NexaBold" size="27.0" />
-                     </font>
-                  </Label>
+                  <fx:include source="header.fxml" />
                </children>
             </AnchorPane>
          </top>
          <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            <Insets />
          </BorderPane.margin>
          <center>
             <GridPane BorderPane.alignment="CENTER">

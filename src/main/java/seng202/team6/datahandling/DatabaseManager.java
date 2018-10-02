@@ -199,7 +199,8 @@ public class DatabaseManager {
                         + "weight REAL,"
                         + "stridelength REAL,"
                         + "stepgoal INTEGER,"
-                        + "distancegoal INTEGER);";
+                        + "distancegoal INTEGER,"
+                        + "logins INTEGER);";
                 userTableStatement.execute(userTablesql);
                 //Create activities table
                 Statement activityTableStatement = con.createStatement();
@@ -249,7 +250,7 @@ public class DatabaseManager {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal,logins) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setString(1, username);
         prep.setString(2, dob);
@@ -261,6 +262,7 @@ public class DatabaseManager {
         prep.setDouble(8, stridelength);
         prep.setInt(9, stepGoal);
         prep.setInt(10, distanceGoal);
+        prep.setInt(11, 0);
         prep.execute();
     }
 
@@ -348,7 +350,7 @@ public class DatabaseManager {
         }
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = con.createStatement();
-        String nowDate = convertToDBDateFormat(LocalDate.now());
+        String nowDate = convertToDBDateFormat(LocalDate.now().plusDays(1));
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN '"+ date + "' AND '" + nowDate + "'");
         while(res.next()){
 //            Activity activity = extractActivity(res);
@@ -595,6 +597,36 @@ public class DatabaseManager {
         updateStrideLength.execute();
     }
 
+    /**
+     * Updates the login count by adding 1
+     * @param logins An Integer parameter used to set the login count of the User
+     * @throws SQLException
+     */
+    public void updateLoginCount(int logins) throws SQLException {
+        if (con == null) {
+            getConnection();
+        }
+        logins++;
+        String sql = "UPDATE user SET logins = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
+        PreparedStatement updateLoginCount = con.prepareStatement(sql);
+        updateLoginCount.setInt(1, logins);
+        updateLoginCount.execute();
+    }
+
+    public int getLoginCount() throws SQLException {
+        System.out.println("In login functions");
+        if (con == null) {
+            getConnection();
+        }
+        int logins = 0;
+        Statement state = con.createStatement();
+        System.out.println("Before query" + logins);
+        ResultSet res = state.executeQuery("select logins from user where userid = " + ApplicationManager.getCurrentUserID());
+        System.out.println("After query" + logins);
+        logins = res.getInt("logins");
+        return logins;
+    }
+
     public ArrayList<Activity> getActivitiesWithoutRecords(int userid) throws SQLException {
         if(con == null) {
             getConnection();
@@ -727,6 +759,7 @@ public class DatabaseManager {
         ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         String lastMondayDate = convertToDBDateFormat(ld);
         ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
+        System.out.println(activities.size());
         double totalStepCount = 0;
         for (Activity activity : activities) {
             double currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity

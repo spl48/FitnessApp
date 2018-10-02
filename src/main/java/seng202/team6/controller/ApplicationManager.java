@@ -39,6 +39,13 @@ public class ApplicationManager {
      */
     private static int curQuoteIndex;
 
+    private static String currScreenName = "HOME";
+
+    private static boolean backButtonRequired = false;
+
+    private static String prevScreen = "/seng202/team6/view/HomeScreen.fxml";
+    private static String prevScreenName = "HOME";
+
 
     /**
      * Initialises a session in the application by setting up the database and setting the
@@ -49,6 +56,23 @@ public class ApplicationManager {
         currentActivityNumber = databaseManager.getActivityManager().getNumberActivities();
     }
 
+    public static void setBackOptions(boolean backNeeded, String previousScreen, String previousScreenName) {
+        backButtonRequired = backNeeded;
+        prevScreen = previousScreen;
+        prevScreenName = previousScreenName;
+    }
+
+    public static String getPrevScreen() {
+        return prevScreen;
+    }
+
+    public static String getPrevScreenName() {
+        return prevScreenName;
+    }
+
+    public static boolean isBackButtonRequired() {
+        return backButtonRequired;
+    }
 
     /**
      * Sets the current user details.
@@ -59,6 +83,15 @@ public class ApplicationManager {
         currentUsername = username;
         currentUserID = userid;
     }
+
+    public static void setCurrScreen(String newScreen) {
+        currScreenName = newScreen;
+    }
+
+    public static String getCurrScreen() {
+        return currScreenName;
+    }
+
 
     /**
      * Sets the current user username.

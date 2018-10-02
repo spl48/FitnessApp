@@ -81,7 +81,7 @@ public class registerController extends GeneralScreenController {
      */
     @FXML
     public void toStartScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/startScreen2.fxml");
+        changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
     }
 
     /**

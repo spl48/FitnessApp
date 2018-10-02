@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.stage.Stage;
 import seng202.team6.datahandling.DatabaseManager;
@@ -41,6 +42,9 @@ public class HeaderController2 extends WorkoutsNavigator {
     @FXML
     private ChoiceBox usernameMenu2;
 
+    @FXML
+    private Label headerScreenName;
+
 
     /**
      * The application's database manager.
@@ -53,13 +57,20 @@ public class HeaderController2 extends WorkoutsNavigator {
      */
     @FXML
     void initialize() {
+//        try {
+//            User currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
+//            //usernameMenu2.setStyle("-fx-text-fill: white;" + "-fx-background-color: #445566");
+//            ObservableList<String> availableChoices = FXCollections.observableArrayList(currUser.getFullName().toUpperCase(), "Logout", "Exit");
+//            usernameMenu2.setItems(availableChoices);
+//            usernameMenu2.getSelectionModel().selectFirst();
+//
+//        } catch (SQLException e) {
+//            ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.", "error");
+//        }
+
         try {
             User currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
-            //usernameMenu2.setStyle("-fx-text-fill: white;" + "-fx-background-color: #445566");
-            ObservableList<String> availableChoices = FXCollections.observableArrayList(currUser.getFullName().toUpperCase(), "Logout", "Exit");
-            usernameMenu2.setItems(availableChoices);
-            usernameMenu2.getSelectionModel().selectFirst();
-
+            usernameMenu.setText(currUser.getFullName().toUpperCase());
         } catch (SQLException e) {
             ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.", "error");
         }
