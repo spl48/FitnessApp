@@ -77,7 +77,8 @@
 
  /* VARIABLE DEFINITIONS: Only these 4 variables have to be adjusted, the rest is copy-paste */
 * {
-    -fx-my-menu-color:  rgb(40,40,40);                  /* Change according to your needs */
+    /* -fx-my-menu-color:  rgb(40,40,40);*/
+    -fx-my-menu-color:  rgb(62,71,88);                 /* Change according to your needs */
     -fx-my-menu-color-highlighted: rgb(60,60,60);      /* Change according to your needs */
     -fx-my-menu-font-color:white;             /* Change according to your needs */
     -fx-my-menu-font-color-highlighted: lightYellow; /* Change according to your needs */
@@ -160,17 +161,20 @@
 
 .menu-item .label{
    -fx-text-alignment:right; 
+   -fx-text-fill: white;
 }
 
 .menu-item .label .text{
    -fx-text-alignment:right; 
+   -fx-background-color: white; 
 }
 
 .header {
-    -fx-background-color:  rgb(40,40,40);
-    /*-fx-background-color: rgb(62,71,88)*/
+    /*-fx-background-color:  rgb(40,40,40);*/
+    -fx-background-color: rgb(62,71,88);
     /*-fx-border-color:  transparent transparent  rgb(63,179,164) transparent;*/
-    -fx-border-color:  transparent transparent  rgb(62,71,88) transparent;
-    -fx-border-width: 8px;
+    /*-fx-border-color:  transparent transparent  rgb(62,71,88) transparent;*/
+    /* -fx-border-color:  transparent transparent  rgb(81, 99, 133) transparent;
+    -fx-border-width: 8px; */
     /*-fx-effect: dropshadow(three-pass-box, grey, 100, 0, 0,5);*/
 }

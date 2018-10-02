@@ -118,11 +118,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private ChoiceBox<String> activityTypeSelection;
 
-//    /**
-//     * Array that has all the activities the user can select to display on the graph
-//     */
-//    private ArrayList<Activity> activities = new ArrayList();
-
     /**
      * Array list of current series being displayed on the plot area.
      */

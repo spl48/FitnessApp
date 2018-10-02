@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import jdk.management.resource.internal.inst.AbstractPlainDatagramSocketImplRMHooks;
 
 
 /**
@@ -21,6 +22,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
     @FXML
     private Node homeButton;
 
+
        /**
      * The home button on the side bar.
      */
@@ -34,9 +36,20 @@ public class MainMenuNavigation2 extends GeneralScreenController {
 
     @FXML
     void initialize() {
-        if (selected == null) {
+        if (selected == null || ApplicationManager.getCurrScreen() == "HOME") {
             selected = homeButton;
+        } else if (ApplicationManager.getCurrScreen() == "HEALTH") {
+            selected = healthButton;
+        } else if (ApplicationManager.getCurrScreen() == "GOALS") {
+            selected = goalsButton;
+        } else if (ApplicationManager.getCurrScreen() == "CALENDAR") {
+            selected = calendarButton;
+        } else if (ApplicationManager.getCurrScreen() == "PROFILE") {
+            selected = profileButton;
+        } else {
+            selected = workoutsButton;
         }
+
         System.out.println("Selected ID: " + selected.getId());
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
         selected.setVisible(true);
@@ -105,6 +118,8 @@ public class MainMenuNavigation2 extends GeneralScreenController {
         ApplicationManager.setBackOptions(false, "", "");
         changeSelected(event);
         changeScreen(event, screen, screenName);
+        System.out.println("Selected ID2: " + selected.getId());
+        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
     /**
@@ -113,7 +128,9 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     @FXML
     public void toHomeScreen(Event event) {
+
         changeMenuScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
+        darkenButton(event);
     }
 
     /**
@@ -174,32 +191,32 @@ public class MainMenuNavigation2 extends GeneralScreenController {
 //        selectedScene.();
 
         selected.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
-        selected = (GridPane) event.getSource();
+        selected = (Node) event.getSource();
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
 
-//    /**
-//     * Darkens the menu item in the side bar to indicate that the is on that item..
-//     * @param event User enters menu item area with mouse.
-//     */
-//    @FXML
-//    public void darkenButton(Event event) {
-//        Button btn = (Button) event.getSource();
-//        btn.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
-//    }
-//
-//    /**
-//     * Returns the menu item back to normal formatting ensures it does not change the selected item.
-//     * @param event User exits menu item area with mouse.
-//     */
-//    @FXML
-//    public void lightenButton(MouseEvent event){
-//        if (selected == null) {
-//            selected = homeButton;
-//        }
-//        Button btn = (Button) event.getSource();
-//        if (!btn.getId().equals(selected.getId())) {
-//            btn.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
-//        }
-//    }
+    /**
+     * Darkens the menu item in the side bar to indicate that the is on that item..
+     * @param event User enters menu item area with mouse.
+     */
+    @FXML
+    public void darkenButton(Event event) {
+        Button btn = (Button) event.getSource();
+        btn.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+    }
+
+    /**
+     * Returns the menu item back to normal formatting ensures it does not change the selected item.
+     * @param event User exits menu item area with mouse.
+     */
+    @FXML
+    public void lightenButton(MouseEvent event){
+        if (selected == null) {
+            selected = homeButton;
+        }
+        Button btn = (Button) event.getSource();
+        if (!btn.getId().equals(selected.getId())) {
+            btn.setStyle("-fx-background-color:#b2e4ca; -fx-background-radius: 0;");
+        }
+    }
 }

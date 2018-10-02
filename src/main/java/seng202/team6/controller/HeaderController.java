@@ -45,6 +45,9 @@ public class HeaderController extends WorkoutsNavigator {
 
     @FXML
     private Node backButton;
+
+    @FXML
+    private Node backArrow;
     
 
     /**
@@ -63,8 +66,10 @@ public class HeaderController extends WorkoutsNavigator {
 
         if (ApplicationManager.isBackButtonRequired()) {
             backButton.setVisible(true);
+            backArrow.setVisible(true);
         } else {
             backButton.setVisible(false);
+            backArrow.setVisible(false);
         }
     }
 

@@ -2,7 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,201 +13,90 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="718.0" prefWidth="220.0" style="-fx-background-color: rgb(178,228,201);" styleClass="mainNavigation" stylesheets="@../resources/css/style.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation2">
-
+<AnchorPane prefHeight="694.0" prefWidth="210.0" style="-fx-background-color: rgb(178,228,201);" styleClass="mainNavigation" stylesheets="@../resources/css/font.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.MainMenuNavigation2">
+    <BorderPane.margin>
+        <Insets top="8.0" />
+    </BorderPane.margin>
     <children>
-        <GridPane prefHeight="727.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0">
+        <GridPane id="thisGrid" prefHeight="676.0" prefWidth="210.0" styleClass="mainNavGrid" stylesheets="@../resources/css/font.css">
             <columnConstraints>
-                <ColumnConstraints />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="151.19999237060546" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="131.20000610351565" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-            <Label fx:id="tutorialButton" onMouseClicked="#tutorial" prefHeight="79.0" prefWidth="210.0" GridPane.columnIndex="1">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Label>
-            <GridPane fx:id="healthButton" onMouseClicked="#toHealthScreen" prefHeight="35.0" styleClass="navIcon" GridPane.columnIndex="1" GridPane.rowIndex="6">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="50.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="155.0" minWidth="10.0" prefWidth="160.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="22.0" fitWidth="25.0" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../resources/pics/health.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="HEALTH" textFill="WHITE" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                     <font>
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#toHomeScreen" onMouseClicked="#darkenButton" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="72.0" prefWidth="210.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HOME" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                    <font>
                         <Font name="NexaBold" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </GridPane>
-            <GridPane fx:id="goalsButton" onMouseClicked="#toGoalsScreen" prefHeight="35.0" prefWidth="275.0" styleClass="navIcon" GridPane.columnIndex="1" GridPane.rowIndex="5">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="155.0" minWidth="10.0" prefWidth="154.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="29.0" fitWidth="29.0" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../resources/pics/goal.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="GOALS" textFill="WHITE" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                     <font>
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="profileButton" mnemonicParsing="false" onAction="#toProfileScreen" onMouseClicked="#darkenButton" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="246.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="PROFILE" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                    <font>
                         <Font name="NexaBold" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </GridPane>
-            <GridPane fx:id="calendarButton" onMouseClicked="#toCalendarScreen" prefHeight="35.0" prefWidth="328.0" styleClass="navIcon" GridPane.columnIndex="1" GridPane.rowIndex="4">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="155.0" minWidth="10.0" prefWidth="154.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="27.0" fitWidth="27.0" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../resources/pics/calendar.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="CALENDAR" textFill="WHITE" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                     <font>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="goalsButton" mnemonicParsing="false" onAction="#toGoalsScreen" onMouseClicked="#darkenButton" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="300.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="GOALS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                    <font>
                         <Font name="NexaBold" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </GridPane>
-            <GridPane fx:id="workoutsButton" onMouseClicked="#toWorkoutsScreen" prefHeight="35.0" prefWidth="305.0" styleClass="navIcon" GridPane.columnIndex="1" GridPane.rowIndex="3">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="3.0" prefWidth="45.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="164.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="26.0" fitWidth="35.0" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../resources/pics/workouts.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="WORKOUTS" textFill="WHITE" GridPane.columnIndex="1" GridPane.valignment="CENTER">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                     <font>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="calendarButton" mnemonicParsing="false" onAction="#toCalendarScreen" onMouseClicked="#darkenButton" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="302.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="CALENDAR" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                    <font>
                         <Font name="NexaBold" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </GridPane>
-            <GridPane fx:id="profileButton" onMouseClicked="#toProfileScreen" prefHeight="35.0" prefWidth="358.0" styleClass="navIcon" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="45.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="10.0" prefWidth="164.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="26.0" fitWidth="22.0" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../resources/pics/userIcon.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="PROFILE" textFill="WHITE" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                     <font>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="workoutsButton" layoutX="10.0" layoutY="92.0" mnemonicParsing="false" onAction="#toWorkoutsScreen" onMouseClicked="#darkenButton" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="82.0" prefWidth="294.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="WORKOUTS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                    <font>
                         <Font name="NexaBold" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </GridPane>
-            <GridPane fx:id="homeButton" onMouseClicked="#toHomeScreen" prefHeight="35.0" prefWidth="307.0" styleClass="navIcon" GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="45.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="155.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="24.0" fitWidth="27.0" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../resources/pics/home.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="HOME" textFill="WHITE" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                     <font>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <effect>
+                        <ColorAdjust />
+                    </effect>
+                </Button>
+                <Button fx:id="healthButton" mnemonicParsing="false" onAction="#toHealthScreen" onMouseClicked="#darkenButton" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="84.0" prefWidth="210.0" style="-fx-background-color: #b2e4ca; -fx-background-radius: 0;" text="HEALTH" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.vgrow="SOMETIMES">
+                    <font>
                         <Font name="NexaBold" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </GridPane>
-            <ImageView fx:id="tutorialButton" fitHeight="101.0" fitWidth="149.0" onMouseClicked="#tutorial" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
-               <image>
-                  <Image url="@../resources/pics/eyes.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <ImageView fitHeight="94.0" fitWidth="139.0" GridPane.halignment="CENTER">
+                    <image>
+                        <Image url="@../resources/pics/eyes.png" />
+                    </image>
+                </ImageView>
             </children>
         </GridPane>
     </children>
+   <opaqueInsets>
+      <Insets right="20.0" />
+   </opaqueInsets>
 </AnchorPane>

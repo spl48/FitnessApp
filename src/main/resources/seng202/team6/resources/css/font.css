@@ -10,7 +10,7 @@
 
 .text {
     -fx-font-family: "Nexa Bold";
-    -fx-font-size: 20;
+    -fx-font-size: 22;
 }
 
 /*#homeButton {*/
@@ -36,11 +36,11 @@
     -fx-background-radius: 0;
 }
 
-.navIcon:hover {
+/* .navIcon:hover {
     -fx-background-color: rgb(39,111,101);
-}
+} */
 
-.navIcon:focused {
+/* .navIcon:focused {
     -fx-background-color: rgb(39,111,101);
-}
+} */
 
