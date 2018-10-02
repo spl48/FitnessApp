@@ -32,7 +32,7 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-            <Label fx:id="tutorialButton" onMouseClicked="#tutorial" prefHeight="79.0" prefWidth="210.0" GridPane.columnIndex="1">
+            <Label fx:id="tutorialButton2" onMouseClicked="#tutorial" prefHeight="79.0" prefWidth="210.0" GridPane.columnIndex="1">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Label>

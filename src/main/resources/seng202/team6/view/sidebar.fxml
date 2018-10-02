@@ -88,7 +88,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <ImageView fitHeight="94.0" fitWidth="139.0" GridPane.halignment="CENTER">
+                <ImageView fx:id="tutorialButton" onMouseClicked="#tutorial" fitHeight="94.0" fitWidth="139.0" GridPane.halignment="CENTER">
                     <image>
                         <Image url="@../resources/pics/eyes.png" />
                     </image>
