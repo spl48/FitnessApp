@@ -53,7 +53,6 @@
             <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <TextField fx:id="usernameEntry" prefHeight="35.0" prefWidth="300.0" GridPane.columnIndex="5" GridPane.columnSpan="2">
@@ -91,11 +90,6 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="strideEntry" prefHeight="35.0" prefWidth="300.0" promptText="in feet" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="8">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
             <Label style="-fx-color: white;" text="Username: " GridPane.columnIndex="4">
                <font>
                   <Font name="NexaBold" size="15.0" />
@@ -126,12 +120,7 @@
                   <Font name="NexaBold" size="15.0" />
                </font>
             </Label>
-            <Label style="-fx-color: white;" text="Stride Length (ft):" GridPane.columnIndex="4" GridPane.rowIndex="8">
-               <font>
-                  <Font name="NexaBold" size="15.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#createNewUser" onMouseClicked="#createNewUser" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: rgb(63,179,164);" text="CREATE" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="10">
+            <Button mnemonicParsing="false" onAction="#createNewUser" onMouseClicked="#createNewUser" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: rgb(63,179,164);" text="CREATE" textFill="WHITE" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
                <font>
                   <Font name="NexaBold" size="15.0" />
                </font>
@@ -142,11 +131,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Circle fx:id="backButton" fill="#3fb3a4" onMouseClicked="#toStartScreen" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.rowIndex="10">
+            <Circle fx:id="backButton" fill="#3fb3a4" onMouseClicked="#toStartScreen" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="21.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.rowIndex="9">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Circle>
-            <ImageView fitHeight="20.0" fitWidth="11.0" onMouseClicked="#toStartScreen" onMousePressed="#createNewUser" GridPane.columnIndex="4" GridPane.rowIndex="10">
+            <ImageView fitHeight="20.0" fitWidth="11.0" onMouseClicked="#toStartScreen" onMousePressed="#createNewUser" GridPane.columnIndex="4" GridPane.rowIndex="9">
                <image>
                   <Image url="@../resources/pics/arrow.png" />
                </image>

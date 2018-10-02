@@ -15,7 +15,7 @@
 
 .navIcon .text {
     -fx-font-family: "Nexa Bold";
-    -fx-font-size: 20;
+    -fx-font-size: 22;
 }
 
 .navIcon {
@@ -34,7 +34,7 @@
 /* HEADER */
 
 .mainNaviagation {
-    -fx-background-color:  rgb(40,40,40);
-    -fx-border-color:  transparent transparent  rgb(63,179,164) transparent;
-    -fx-border-width: 8px; 
+    /*-fx-background-color:  rgb(40,40,40);
+    -fx-border-color:  transparent transparent  rgb(63,179,164) transparent;*/
+    /*-fx-border-width: 8px; */
 }

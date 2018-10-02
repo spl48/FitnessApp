@@ -10,6 +10,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.image.ImageView;
@@ -56,18 +57,22 @@ public class loginController extends GeneralScreenController {
      * @throws ClassNotFoundException Error when connecting when getting usernames.
      */
     @FXML
-    void initialize() throws SQLException, ClassNotFoundException {
+    void initialize() {
 
-        // Populates the grid with user profiles from the database.
-        int index = 0;
-        ArrayList<String> usernames = databaseManager.getUsernames();
-        for (String user : usernames) {
-            addProfile(profileGrid, index++, user);
+        try {
+            // Populates the grid with user profiles from the database.
+            int index = 0;
+            ArrayList<String> usernames = databaseManager.getUsernames();
+            for (String user : usernames) {
+                addProfile(profileGrid, index++, user);
+            }
+
+            // Sets the style of the selected user profile.
+            selected.setStyle(getButtonStyle("4"));
+            selected.setFont(Font.font("Nexa Bold", 23));
+        } catch (Exception e) {
+            ApplicationManager.displayErrorPopUp(e);
         }
-
-        // Sets the style of the selected user profile.
-        selected.setStyle(getButtonStyle("4"));
-        selected.setFont(Font.font("Nexa Bold", 23));
     }
 
     /**
@@ -77,15 +82,16 @@ public class loginController extends GeneralScreenController {
     @FXML
     public void login(ActionEvent event) throws SQLException {
 
-        // Sets the current user profile.
-        String userProfile = selected.getText();
-        User user = databaseManager.getUser(userProfile);
-        int userid = user.getUserID();
-        ApplicationManager.setCurrentUser(userid, userProfile);
 
-        // Directs to the Home Screen.
-        changeScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
-        tutorial();
+            // Sets the current user profile.
+            String userProfile = selected.getText();
+            User user = databaseManager.getUser(userProfile);
+            int userid = user.getUserID();
+            ApplicationManager.setCurrentUser(userid, userProfile);
+
+            // Directs to the Home Screen.
+            changeScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
+            tutorial();
     }
 
     public void tutorial() {
@@ -199,7 +205,7 @@ public class loginController extends GeneralScreenController {
         profileCircle.setStrokeType(StrokeType.INSIDE);
         GridPane.setHalignment(profileCircle, HPos.CENTER);
         GridPane.setValignment(profileCircle, VPos.CENTER);
-        grid.add(profileCircle, columnInd, 0); // Adds the circle to the grid.
+        grid.add(profileCircle, columnInd, 1); // Adds the circle to the grid.
 
         // Gets the image and sets constraints to go on top of the circle.
         ImageView imgView = new ImageView();
@@ -209,7 +215,7 @@ public class loginController extends GeneralScreenController {
         GridPane.setValignment(imgView, VPos.CENTER);
         Image img = new Image(getClass().getResource("/seng202/team6/resources/pics/userIcon.png").toExternalForm());
         imgView.setImage(img);
-        grid.add(imgView, columnInd, 0); // Adds the image to the grid.
+        grid.add(imgView, columnInd, 1); // Adds the image to the grid.
     }
 
 
@@ -249,7 +255,33 @@ public class loginController extends GeneralScreenController {
         GridPane.setRowSpan(selectProfileButton, 2);
 
         // Adds the button to the grid.
-        grid.add(selectProfileButton, columnInd, 0);
+        grid.add(selectProfileButton, columnInd, 1);
+    }
+
+    public void addDeleteButton(GridPane grid, int columnInd, String username) {
+        // Gets the image and sets constraints to go on top of the circle.
+        ImageView delButton = new ImageView();
+        delButton.setFitHeight(27);
+        delButton.setFitWidth(27);
+        GridPane.setHalignment(delButton, HPos.RIGHT);
+        GridPane.setValignment(delButton, VPos.TOP);
+        Image img = new Image(getClass().getResource("/seng202/team6/resources/pics/delete_button.png").toExternalForm());
+        delButton.setCursor(Cursor.HAND);
+        delButton.setImage(img);
+
+        delButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                ApplicationManager.displayPopUp("Profile Deletion", "Are you sure you want to do this?", "confirmation");
+                databaseManager.removeUser(username);
+                if (databaseManager.getUsernames().size() > 0) {
+                    changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
+                } else {
+                    toStartScreen(event);
+                }
+            }
+        });
+
+        grid.add(delButton, columnInd, 0); // Adds the image to the grid.
     }
 
 
@@ -269,6 +301,9 @@ public class loginController extends GeneralScreenController {
 
         // Adds the selection button.
         addButton(grid, username, columnInd);
+
+        // Add the delete button
+        addDeleteButton(grid, columnInd, username);
     }
 
 

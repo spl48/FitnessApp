@@ -28,10 +28,6 @@
    </top>
    <center>
       <GridPane fx:id="profileGrid" alignment="CENTER" BorderPane.alignment="CENTER">
-        <columnConstraints>
-        </columnConstraints>
-        <rowConstraints>
-        </rowConstraints>
          <BorderPane.margin>
             <Insets left="50.0" right="50.0" top="60.0" />
          </BorderPane.margin>

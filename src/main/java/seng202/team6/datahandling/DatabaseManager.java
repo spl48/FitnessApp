@@ -147,17 +147,25 @@ public class DatabaseManager {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public ArrayList<String> getUsernames() throws SQLException, ClassNotFoundException {
-        if(con == null) {
+    public ArrayList<String> getUsernames() {
+
+
+        if (con == null) {
             getConnection();
         }
 
         ArrayList<String> users = new ArrayList<String>();
-        Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT * FROM user");
-        while(res.next()){
-            users.add(res.getString("username"));
+        try {
+            Statement state = con.createStatement();
+            ResultSet res = state.executeQuery("SELECT * FROM user");
+            while (res.next()) {
+                users.add(res.getString("username"));
+            }
+
+        } catch (Exception e) {
+            ApplicationManager.displayErrorPopUp(e);
         }
+
         return users;
     }
 
@@ -246,11 +254,11 @@ public class DatabaseManager {
         return con;
     }
 
-    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight, double stridelength, int stepGoal, int distanceGoal) throws SQLException, ClassNotFoundException {
+    public void addUser(String username, String dob, String firstname, String lastname, String gender, double height, double weight, int stepGoal, int distanceGoal) throws SQLException, ClassNotFoundException {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal,logins) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stepgoal,distancegoal,logins) VALUES(?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setString(1, username);
         prep.setString(2, dob);
@@ -259,10 +267,10 @@ public class DatabaseManager {
         prep.setString(5, gender);
         prep.setDouble(6, height);
         prep.setDouble(7, weight);
-        prep.setDouble(8, stridelength);
-        prep.setInt(9, stepGoal);
-        prep.setInt(10, distanceGoal);
-        prep.setInt(11, 0);
+//        prep.setDouble(8, stridelength);
+        prep.setInt(8, stepGoal);
+        prep.setInt(9, distanceGoal);
+        prep.setInt(10, 0);
         prep.execute();
     }
 
@@ -271,12 +279,19 @@ public class DatabaseManager {
      * @param username A username of the User to be deleted.
      * @throws SQLException
      */
-    public void removeUser(String username) throws SQLException {
-        if(con == null) {
-            getConnection();
+    public void removeUser(String username) {
+
+        try {
+            if (con == null) {
+                getConnection();
+            }
+            Statement state = con.createStatement();
+            System.out.println("At the start of profile deletion");
+            state.executeUpdate("DELETE FROM user WHERE username = '" + username + "'");
+            System.out.println("At the end of profile deletion");
+        } catch (SQLException e) {
+            ApplicationManager.displayErrorPopUp(e);
         }
-        Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("DELETE FROM user WHERE username = " + username);
     }
 
 
