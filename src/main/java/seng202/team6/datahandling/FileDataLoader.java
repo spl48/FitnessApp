@@ -63,6 +63,7 @@ public class FileDataLoader {
                 System.out.println("validation failed");
                 return false;
             } else {
+                databaseManager.getCon().setAutoCommit(false);
                 System.out.println("validation passed");
                 int activityid = 0;
                 nextLine = rawData.get(0);
@@ -142,9 +143,17 @@ public class FileDataLoader {
                 PreparedStatement updateEnd = databaseManager.getCon().prepareStatement(sql);
                 updateEnd.setString(1, end);
                 updateEnd.execute();
+                databaseManager.getCon().commit();
                 return true;
             }
         } catch (Exception e) {
+                try{
+                    if (databaseManager.getCon() != null) {
+                        databaseManager.getCon().rollback();
+                    }
+                } catch (SQLException e2) {
+                    System.out.println(e2.getMessage());
+                }
             e.printStackTrace();
             return false;
             //ApplicationManager.displayPopUp("Database Error" , "Could not load csv into database", "error");
