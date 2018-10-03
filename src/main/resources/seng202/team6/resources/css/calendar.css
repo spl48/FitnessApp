@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Nexa Bold';
+    src: url("NexaBold.otf");
+}
+
+.GridPane {
+    -fx-background-color: #bacddb;
+    -fx-font-family: "Nexa Bold";
+    -fx-background-radius: 10;
+
+}
+.GridPane > *:hover {
+    -fx-background-color: #aabbc8;
+}
