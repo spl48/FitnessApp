@@ -134,8 +134,7 @@ public class workoutManualEntryController extends GeneralScreenController {
      * @return Whether all fields are valid.
      */
     private boolean validEnteredData() throws SQLException {
-        System.out.println(startDate);
-        System.out.println(endDate);
+
         if(DatabaseValidation.validateTime(startTime) &&
                 DatabaseValidation.validateTime(endTime) &&
                 DatabaseValidation.validateDateWithFormat(startDateString) &&

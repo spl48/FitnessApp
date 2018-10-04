@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.converter.LocalTimeStringConverter;
 import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
@@ -76,7 +77,8 @@ public class RawDataController extends WorkoutsNavigator{
      * The date description label.
      */
     @FXML
-    private Label dateLabel;
+    private Label startDateLabel, endDateLabel, startTimeLabel, endTimeLabel;
+
 
     /**
      * The average velocity label.
@@ -100,7 +102,33 @@ public class RawDataController extends WorkoutsNavigator{
      * The start date edit field.
      */
     @FXML
-    private DatePicker dateEdit;
+    private DatePicker startDateEdit;
+
+
+    /**
+     * The end date edit field.
+     */
+    @FXML
+    private DatePicker endDateEdit;
+
+    /**
+     * The start time edit field.
+     */
+    @FXML
+    private TextField startTimeEdit;
+
+    /**
+     * The end time edit field.
+     */
+    @FXML
+    private TextField endTimeEdit;
+
+    /**
+     * The end time edit field.
+     */
+    @FXML
+    private TextField distanceEdit;
+
 
     /**
      * The type edit field.
@@ -141,6 +169,8 @@ public class RawDataController extends WorkoutsNavigator{
      */
     HashMap<String, Integer> filteredActivities;
 
+    private boolean isEditing = false;
+
 
     /**
      * Initialises the raw data viewer screen, populates table and list view based on filters.
@@ -173,7 +203,10 @@ public class RawDataController extends WorkoutsNavigator{
             descriptionLabel.setText("No Activity Selected");
             velocityLabel.setText("No Activity Selected");
             distanceLabel.setText("No Activity Selected");
-            dateLabel.setText("No Activity Selected");
+            startDateLabel.setText("No Activity Selected");
+            endDateLabel.setText("No Activity Selected");
+            startTimeEdit.setText("No Activity Selected");
+            endTimeEdit.setText("No Activity Selected");
             typeLabel.setText("No Activity Selected");
             notesLabel.setText("No Activity Selected");
             activitySelect.setMouseTransparent( true );
@@ -251,19 +284,27 @@ public class RawDataController extends WorkoutsNavigator{
         descriptionLabel.setText(selectedActivity.getDescription());
         velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
         distanceLabel.setText(Double.toString(Math.round(selectedActivity.findDistanceFromStart(records.size()-1))) + " km");
-        dateLabel.setText(selectedActivity.getStartDate().toString());
+        startDateLabel.setText(selectedActivity.getStartDate().toString());
+        endDateLabel.setText(selectedActivity.getEndDate().toString());
+        startTimeLabel.setText(selectedActivity.getStartTime().toString());
+        endTimeLabel.setText(selectedActivity.getEndTime().toString());
         typeLabel.setText(selectedActivity.getType());
         notesLabel.setText(selectedActivity.getNotes());
     }
 
     @FXML
     public void filterActivities(Event event) {
-        ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
-        ActivityManager activityManager = dbManager.getActivityManager();
 
-        filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
-        ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
-        addActivitiesToListView(activityList);
+        if (isEditing) {
+            ApplicationManager.displayPopUp("Can't open filter", "Please finish editing before trying to filter!", "error");
+        } else {
+            ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
+            ActivityManager activityManager = dbManager.getActivityManager();
+
+            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+            ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
+            addActivitiesToListView(activityList);
+        }
     }
 
     @FXML
@@ -271,18 +312,18 @@ public class RawDataController extends WorkoutsNavigator{
         if (selectedActivity != null) {
             activitySelect.setMouseTransparent( true );
             activitySelect.setFocusTraversable( false );
+            isEditing = true;
 
             typeEdit.getSelectionModel().select(selectedActivity.getType());
             descriptionEdit.setText(selectedActivity.getDescription());
-            dateEdit.setValue(selectedActivity.getStartDate());
+            startDateEdit.setValue(selectedActivity.getStartDate());
+            endDateEdit.setValue(selectedActivity.getEndDate());
+            startTimeEdit.setText(selectedActivity.getStartTime().toString());
+            endTimeEdit.setText(selectedActivity.getEndTime().toString());
+            distanceEdit.setText(Double.toString(selectedActivity.getDistance()));
             notesEdit.setText(selectedActivity.getNotes());
 
-            editOn.setVisible(true);
-            descriptionEdit.setVisible(true);
-            dateEdit.setVisible(true);
-            typeEdit.setVisible(true);
-            notesEdit.setVisible(true);
-            updateButton.setVisible(true);
+            setVisablityEdit(true);
         } else {
             ApplicationManager.displayPopUp("No Activity Selected", "Please select an activity", "error");
         }
@@ -291,26 +332,41 @@ public class RawDataController extends WorkoutsNavigator{
 
     @FXML
     public void stopEditing() throws SQLException {
-        typeEdit.getSelectionModel().select(selectedActivity.getType());
-
-        editOn.setVisible(false);
-        descriptionEdit.setVisible(false);
-        dateEdit.setVisible(false);
-        typeEdit.setVisible(false);
-        notesEdit.setVisible(false);
-        updateButton.setVisible(false);
+//        typeEdit.getSelectionModel().select(selectedActivity.getType());
+        isEditing = false;
+        setVisablityEdit(false);
 
         activitySelect.setMouseTransparent( false );
         activitySelect.setFocusTraversable( true );
+    }
+
+    private void setVisablityEdit(Boolean isVisable) {
+        if (selectedActivity.isManualActivity()) {
+            distanceEdit.setVisible(isVisable);
+        }
+
+        editOn.setVisible(isVisable);
+        descriptionEdit.setVisible(isVisable);
+        startDateEdit.setVisible(isVisable);
+        endDateEdit.setVisible(isVisable);
+        startTimeEdit.setVisible(isVisable);
+        endTimeEdit.setVisible(isVisable);
+        typeEdit.setVisible(isVisable);
+        notesEdit.setVisible(isVisable);
+        updateButton.setVisible(isVisable);
     }
 
     @FXML
     public void updateActivity() throws SQLException {
 
         if (validEnteredData()) {
-            String startDateString = dateEdit.getValue().toString().replace("/", "-");
-            String startDateTime = startDateString + "T" + selectedActivity.getStartTime();
+            String startDateString = startDateEdit.getValue().toString().replace("/", "-");
+            String startDateTime = startDateString + "T" + startTimeEdit.getText();
+            String endDateString = endDateEdit.getValue().toString().replace("/", "-");
+            String endDateTime = endDateString + "T" + endTimeEdit.getText();
+
             dbManager.updateStartDate(startDateTime, selectedActivity.getActivityid());
+            dbManager.updateEndDate(endDateTime, selectedActivity.getActivityid());
             dbManager.updateDescription(descriptionEdit.getText(), selectedActivity.getActivityid());
             dbManager.updateActivityType((String) typeEdit.getSelectionModel().getSelectedItem(),selectedActivity.getActivityid());
             dbManager.updateNotes(notesEdit.getText(), selectedActivity.getActivityid());
@@ -325,13 +381,33 @@ public class RawDataController extends WorkoutsNavigator{
     }
 
 
-    /**
-     * Validates the entered activity data, displaying error pop ups when relevant.
-     * @return Whether all fields are valid.
-     */
-    private boolean validEnteredData() {
-        return (DatabaseValidation.validateDateWithFormat(dateEdit.getValue().toString()) &&
-                DatabaseValidation.validateDescription(descriptionEdit.getText()));
+//    /**
+//     * Validates the entered activity data, displaying error pop ups when relevant.
+//     * @return Whether all fields are valid.
+//     */
+//    private boolean validEnteredData() {
+//        return (DatabaseValidation.validateDateWithFormat(dateEdit.getValue().toString()) &&
+//                DatabaseValidation.validateDescription(descriptionEdit.getText()));
+//    }
+
+    private boolean validEnteredData() throws SQLException {
+
+        Double distance;
+        if (selectedActivity.isManualActivity()) {
+            distance = Double.parseDouble(distanceEdit.getText());
+        } else {
+            distance = selectedActivity.getDistance();
+        }
+
+        return (DatabaseValidation.validateDescription(descriptionEdit.getText())) &&
+                DatabaseValidation.validateTime(startTimeEdit.getText()) &&
+                DatabaseValidation.validateTime(endTimeEdit.getText()) &&
+                DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
+                DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
+                DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
+                DatabaseValidation.validateDistance(distance) &&
+                DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(startTimeEdit.getText()), LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue());
+
     }
 
 }

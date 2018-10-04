@@ -728,6 +728,10 @@ public class DatabaseManager {
         updateActivityProperty(start, activityID, "start");
     }
 
+    public void updateEndDate(String end, int activityID) {
+        updateActivityProperty(end, activityID, "end");
+    }
+
     public void updateActivityProperty(String notes, int activityID, String property) {
         try {
             if (con == null) {

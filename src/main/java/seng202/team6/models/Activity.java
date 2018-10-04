@@ -629,5 +629,10 @@ public class Activity
         }
         return "Other";
     }
+
+
+    public boolean isManualActivity() {
+        return activityData.size() <= 0;
+    }
 }
 
