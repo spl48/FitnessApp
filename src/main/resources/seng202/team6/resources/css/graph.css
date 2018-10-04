@@ -4,6 +4,11 @@
   -fx-font-size: 15;
 }
 
+.axis {
+    -fx-tick-label-fill: grey;
+    -fx-font-family: "Nexa Bold";
+}
+
 @font-face {
     font-family: 'Nexa Bold';
     src: url("NexaBold.otf");
@@ -38,6 +43,4 @@
 
 }
 
-.axis-minor-tick-mark {
-    -fx-stroke: transparent;
-}
+
