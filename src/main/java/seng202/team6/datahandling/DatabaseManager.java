@@ -290,11 +290,23 @@ public class DatabaseManager {
             }
             Statement state = con.createStatement();
             System.out.println("At the start of profile deletion");
+            removeRecords();
+            state.executeUpdate("DELETE FROM activity where userid = " + ApplicationManager.getCurrentUserID());
             state.executeUpdate("DELETE FROM user WHERE username = '" + username + "'");
             System.out.println("At the end of profile deletion");
         } catch (SQLException e) {
             ApplicationManager.displayErrorPopUp(e);
         }
+    }
+
+    public void removeRecords() throws SQLException {
+        if (con == null) {
+            getConnection();
+        }
+        Statement state = con.createStatement();
+        state.executeUpdate("delete from record where exists(select * from activity where activity.activityid = record.activityid and activity.userid = " + ApplicationManager.getCurrentUserID() + ")");
+
+
     }
 
 
@@ -693,6 +705,7 @@ public class DatabaseManager {
         }
         return activities;
     }
+
 
     public void updateActivityType(String type, int activityID) {
 
