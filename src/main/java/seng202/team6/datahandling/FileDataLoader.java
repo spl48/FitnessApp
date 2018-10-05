@@ -36,7 +36,6 @@ public class FileDataLoader {
     }
     */
 
-
     public boolean importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager) throws IOException, SQLException {
         int numLines = countLines(CSVLocation);
         System.out.println("Num Lines "+ numLines);
@@ -144,6 +143,7 @@ public class FileDataLoader {
                 updateEnd.setString(1, end);
                 updateEnd.execute();
                 databaseManager.getCon().commit();
+                databaseManager.getCon().setAutoCommit(true);
                 return true;
             }
         } catch (Exception e) {

@@ -158,7 +158,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         // Sets the activity type selection
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
-        currUser = databaseManager.getUserFromID(ApplicationManager.getCurrentUserID());
+        currUser = databaseManager.getUserReader().getUserFromID(ApplicationManager.getCurrentUserID());
 
         // Updates the list view.
         updateListView();
@@ -319,7 +319,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 case ("Calories"):
                     String userName = ApplicationManager.getCurrentUsername();
                     yAxis.setLabel("Calories Burned");
-                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(),databaseManager.getUser(userName).getWeight());
+                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(),databaseManager.getUserReader().getUser(userName).getWeight());
                     series.getData().add(new XYChart.Data(time, calories));
                     break;
             }

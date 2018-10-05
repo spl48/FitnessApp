@@ -56,7 +56,7 @@ public class HeaderController extends WorkoutsNavigator {
     @FXML
     void initialize() {
         try {
-            User currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
+            User currUser = databaseManager.getUserReader().getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
             usernameMenu.setText(currUser.getFullName().toUpperCase());
         } catch (SQLException e) {
             ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.", "error");

@@ -92,7 +92,7 @@ public class registerController extends GeneralScreenController {
      */
     @FXML
     public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
-        ArrayList<String> usernames = databaseManager.getUsernames();
+        ArrayList<String> usernames = databaseManager.getUserReader().getUsernames();
         // Checks for Register Limit
         if (usernames.size() == 5) {
             ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
@@ -111,7 +111,7 @@ public class registerController extends GeneralScreenController {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         } else if (validEnteredData()) {
             try {
-                databaseManager.addUser(username, birthDate.toString(), first, last, gender, height, weight,70000, 0);
+                databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight,10000, 10);
                 ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
                 toStartScreen(event);
             } catch (SQLException e) {
@@ -129,7 +129,6 @@ public class registerController extends GeneralScreenController {
     private void setEnteredData() {
         username = usernameEntry.getText();
         first = firstNameEntry.getText();
-        last = lastNameEntry.getText();
         gender = genderComboBox.getValue();
         birthDate = birthDateEntry.getValue();
         try {

@@ -44,7 +44,7 @@ public class CalanderScreenController {
         int column;
 
         DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
-        activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
 
         // Adds a column pane to each calender box
         for (row = 0; row <= 6; row++) {

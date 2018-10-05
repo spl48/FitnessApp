@@ -105,7 +105,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
 
         databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
-        user = databaseManager.getUser(userName);
+        user = databaseManager.getUserReader().getUser(userName);
     }
 
     
@@ -135,7 +135,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     private void refreshActivities() {
         try {
             // Gets all the current activities from the database. (Can be made more efficient with query possibly)
-            ArrayList<Activity> activities = databaseManager.getActivities(ApplicationManager.getCurrentUserID());
+            ArrayList<Activity> activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
 
             // Clears the old data from the table.
             for (int i = 0; i < activityTable.getItems().size(); i++) {
@@ -176,8 +176,8 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     public void updateActivity() {
         
         // Updates the activity details.
-        databaseManager.updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
-        databaseManager.updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
+        databaseManager.getActivityManager().updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
+        databaseManager.getActivityManager().updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
 
         // Updates the table with the new data. (Can be made more efficient by changing row only.)
         refreshActivities();
@@ -192,6 +192,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     @FXML
     public void finishEditing(Event event) throws SQLException {
         ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
+        System.out.println(ApplicationManager.getCurrentActivityNumber());
         toAddWorkout(event);
         if (stepsAchieved(user)) {
             int stepGoal = user.getStepGoal();
@@ -212,14 +213,14 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         double ran = Math.random();
         if (ran <= 0.5) {
             int stepGoal = user.getStepGoal();
-            double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
+            double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
             String stepGoalString = Integer.toString(stepGoal) + " steps";
             double stepsLeft = stepGoal - totalSteps;
             String stepsLeftString = String.format("%.0f Steps", stepsLeft);
             ApplicationManager.displayPopUp("Congratulations", "You only have " + stepsLeftString + " until you reach your goal steps!", "confirmation");
         } else {
             int distanceGoal = user.getDistanceGoal();
-            double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
+            double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
             String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
             double distanceLeft = distanceGoal - totalDistance;
             String distanceLeftString = String.format("%.0f Kilometers", distanceLeft);

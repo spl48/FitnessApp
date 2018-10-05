@@ -154,7 +154,7 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
 
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
-        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivityManager().getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
         for (Activity activity : activities) { // Add all activities to available activities initially
             availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
@@ -321,7 +321,7 @@ public class WorkoutAnalysisController2 extends WorkoutsNavigator {
                 case ("Calories"):
                     String userName = ApplicationManager.getCurrentUsername();
                     yAxis.setLabel("Calories Burned");
-                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(), databaseManager.getUser(userName).getWeight());
+                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(), databaseManager.getUserReader().getUser(userName).getWeight());
                     series.getData().add(new XYChart.Data(time, calories));
                     break;
             }

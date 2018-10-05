@@ -118,7 +118,7 @@ public class PopUpBoxController extends GeneralScreenController {
 
     public void removedUser() {
         System.out.println(ApplicationManager.getCurrentUsername());
-        databaseManager.removeUser(ApplicationManager.getCurrentUsername());
+        databaseManager.getUserWriter().removeUser(ApplicationManager.getCurrentUsername());
         closeWindow();
     }
 

@@ -119,8 +119,8 @@ public class HomeScreenController extends GeneralScreenController {
     private void setUpInfo() throws SQLException {
         databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
-        user = databaseManager.getUser(userName);
-        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
+        user = databaseManager.getUserReader().getUser(userName);
+        activities = databaseManager.getActivityManager().getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
     }
 
     /**
@@ -193,7 +193,7 @@ public class HomeScreenController extends GeneralScreenController {
      */
     private void setStepsInfo() throws SQLException {
         //double strideLength = user.getWalkingStrideLength();
-        double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
+        double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
         double stepsLeft = user.getStepGoal() - totalSteps;
@@ -271,7 +271,7 @@ public class HomeScreenController extends GeneralScreenController {
                 case ("Calories"):
                     String userName = ApplicationManager.getCurrentUsername();
                     yAxis.setLabel("Calories Burned");
-                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(), databaseManager.getUser(userName).getWeight());
+                    double calories = selectedActivity.findCaloriesBurnedFromStart(duration.toMinutes(), databaseManager.getUserReader().getUser(userName).getWeight());
                     series.getData().add(new XYChart.Data(time, calories));
                     break;
             }

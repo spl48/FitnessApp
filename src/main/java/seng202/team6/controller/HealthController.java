@@ -221,9 +221,9 @@ public class HealthController extends GeneralScreenController {
     private void getUserDetails() throws SQLException {
         DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
-        User user = databaseManager.getUser(userName);
+        User user = databaseManager.getUserReader().getUser(userName);
         age = user.getAge();
-        activities = databaseManager.getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
+        activities = databaseManager.getActivityManager().getActivitiesWithRecords(ApplicationManager.getCurrentUserID());
 
     }
 

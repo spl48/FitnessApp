@@ -39,7 +39,7 @@ public class profileController extends GeneralScreenController {
     public void initialize() throws SQLException {
 
         // Gets the current user object.
-        User currUser = databaseManager.getUserFromID(ApplicationManager.getCurrentUserID()); //Replace with database current user.
+        User currUser = databaseManager.getUserReader().getUserFromID(ApplicationManager.getCurrentUserID()); //Replace with database current user.
 
         // Sets the top name display.
         topNameLabel.setText(currUser.getFullName().toUpperCase());
