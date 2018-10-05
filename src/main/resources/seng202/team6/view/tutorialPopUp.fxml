@@ -84,6 +84,11 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
+            <ImageView fx:id="cancelButton" fitHeight="16.0" fitWidth="18.0" onMouseClicked="#cancel" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../resources/pics/delete_button.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </top>

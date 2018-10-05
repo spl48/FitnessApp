@@ -29,7 +29,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
     /**
      * The selected menu item on the side bar.
      */
-    private static Node selected;
+    public static Node selected;
 
     @FXML
     void initialize() {

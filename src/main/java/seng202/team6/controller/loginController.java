@@ -51,6 +51,8 @@ public class loginController extends GeneralScreenController {
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
+
+
     /**
      * Initialises the profile selection screen by adding profiles into grid and setting the selected formatting.
      * @throws SQLException When there is an error in the database when getting usernames.
@@ -75,6 +77,7 @@ public class loginController extends GeneralScreenController {
         }
     }
 
+
     /**
      * Sets the current user property of ApplicationManager and directs the user to the Home Screen.
      * @param event When the login button is clicked.
@@ -93,6 +96,8 @@ public class loginController extends GeneralScreenController {
             changeScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
             tutorial();
     }
+
+
 
     public void tutorial() {
         try {

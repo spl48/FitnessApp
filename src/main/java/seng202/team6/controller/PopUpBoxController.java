@@ -1,5 +1,6 @@
 package seng202.team6.controller;
 
+import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,11 +31,16 @@ public class PopUpBoxController extends GeneralScreenController {
     @FXML
     private Label errorTitle;
 
+    @FXML
+    public ImageView cancelButton;
+
     /** The error title text. */
     private static String errorTitleText;
 
     /** Error message text. */
     private static String errorMessage;
+
+
 
 
     /**
@@ -96,6 +103,10 @@ public class PopUpBoxController extends GeneralScreenController {
                 createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 380);
 
             }
+    }
+
+    public void cancel() {
+        closeWindow();
     }
 
 
