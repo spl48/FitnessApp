@@ -64,7 +64,7 @@ public class LoadingBoxController extends PopUpBoxController {
      * Displays the loading pop up.
      */
     public void display() {
-        this.displayErrorPopUP("", "", "loader");
+        this.displayPopUP("", "", "loader");
     }
     
 }

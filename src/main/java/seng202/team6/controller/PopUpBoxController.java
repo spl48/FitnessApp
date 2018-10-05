@@ -1,6 +1,7 @@
 package seng202.team6.controller;
 
 import javafx.concurrent.Service;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +41,9 @@ public class PopUpBoxController extends GeneralScreenController {
 
     /** Error message text. */
     private static String errorMessage;
+
+    /** Error message text. */
+    private static boolean confirmationStatus;
 
     /**
      * The Application's database manager.
@@ -86,7 +90,7 @@ public class PopUpBoxController extends GeneralScreenController {
      * @param title The title of the error pop up.
      * @param message The message contained within the error pop up.
      */
-    public void displayErrorPopUP(String title, String message, String type) {
+    public void displayPopUP(String title, String message, String type) {
         
         // Sets the class properties to the error message and title.
         errorMessage = message.toUpperCase();
@@ -109,6 +113,8 @@ public class PopUpBoxController extends GeneralScreenController {
                 createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 380);
             } else if (type == "profileDelete") {
                 createPopUpBox("/seng202/team6/view/profileDeletePopUp.fxml", 400, 350);
+            } else if (type == "yesNo") {
+                createPopUpBox("/seng202/team6/view/yesNoPopUp.fxml", 400, 350);
             }
     }
 
@@ -148,6 +154,19 @@ public class PopUpBoxController extends GeneralScreenController {
             System.out.println("Loading error\nSorry, could not load pop up.");
             e.printStackTrace();
         }
+    }
+
+    public void getAnswer(ActionEvent event) {
+        if (((Button)event.getSource()).getId().equals("yesButton")) {
+            confirmationStatus = true;
+        } else {
+            confirmationStatus = false;
+        }
+        closeWindow();
+    }
+
+    public boolean getConfirmationStatus() {
+        return confirmationStatus;
     }
 
     /**

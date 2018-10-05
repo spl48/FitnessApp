@@ -289,25 +289,30 @@ public class DatabaseManager {
                 getConnection();
             }
             Statement state = con.createStatement();
-            System.out.println("At the start of profile deletion");
-            removeRecords();
-            state.executeUpdate("DELETE FROM activity where userid = " + ApplicationManager.getCurrentUserID());
-            state.executeUpdate("DELETE FROM records where userid = " + ApplicationManager.getCurrentUserID());
+            removeRecords(getUserID(username));
+            state.executeUpdate("DELETE FROM activity where userid = " + getUserID(username));
             state.executeUpdate("DELETE FROM user WHERE username = '" + username + "'");
-            System.out.println("At the end of profile deletion");
         } catch (SQLException e) {
             ApplicationManager.displayErrorPopUp(e);
         }
     }
 
-    public void removeRecords() throws SQLException {
+    public int getUserID(String username) {
+        try {
+            Statement state = con.createStatement();
+            return state.executeUpdate("select userid FROM user where username = " + username);
+        } catch (SQLException e) {
+            ApplicationManager.displayErrorPopUp(e);
+            return 1;
+        }
+    }
+
+    public void removeRecords(int userId) throws SQLException {
         if (con == null) {
             getConnection();
         }
         Statement state = con.createStatement();
-        state.executeUpdate("delete from record where exists(select * from activity where activity.activityid = record.activityid and activity.userid = " + ApplicationManager.getCurrentUserID() + ")");
-
-
+        state.executeUpdate("delete from record where exists(select * from activity where activity.activityid = record.activityid and activity.userid = " + userId + ")");
     }
 
 

@@ -276,12 +276,14 @@ public class loginController extends GeneralScreenController {
 
         delButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                ApplicationManager.displayPopUp("Profile Deletion", "Are you sure you want to do this?", "confirmation");
-                databaseManager.removeUser(username);
-                if (databaseManager.getUsernames().size() > 0) {
-                    changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
-                } else {
-                    toStartScreen(event);
+                boolean answer = ApplicationManager.getAnswerFromPopUp("Are you sure you want to do this?");
+                if (answer == true) {
+                    databaseManager.removeUser(username);
+                    if (databaseManager.getUsernames().size() > 0) {
+                        changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
+                    } else {
+                        toStartScreen(event);
+                    }
                 }
             }
         });
