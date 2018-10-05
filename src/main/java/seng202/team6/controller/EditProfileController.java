@@ -34,7 +34,10 @@ public class EditProfileController {
      * Profile detail text fields used when editing textual attributes of the user.
      */
     @FXML
-    private TextField fnameField, lnameField, usernameField, weightField, heightField, strideField;
+    private TextField fnameField, lnameField, usernameField, weightField, heightField;
+
+    @FXML
+    private Label strideLabel;
 
     /**
      * Gender choice used for editing the gender.
@@ -96,7 +99,7 @@ public class EditProfileController {
         genderField.setValue(currUser.getGender());
         heightField.setText(Double.toString(currUser.getHeight()));
         weightField.setText(Double.toString(currUser.getWeight()));
-        strideField.setText(Double.toString(currUser.getWalkingStrideLength()));
+        strideLabel.setText(Double.toString(currUser.getWalkingStrideLength()));
         dobField.setValue(currUser.getDOB());
 
         // Sets the name display at the top of the profile window.
@@ -150,8 +153,6 @@ public class EditProfileController {
             ApplicationManager.getDatabaseManager().updateDateOfBirth(birthDate);
             ApplicationManager.getDatabaseManager().updateHeight(height);
             ApplicationManager.getDatabaseManager().updateWeight(weight);
-            ApplicationManager.getDatabaseManager().updateStrideLength(stride);
-
             // Directs back to the profile screen and displays confirmation method.
             ApplicationManager.displayPopUp("Update Success", "You have successfully updated your profile!", "confirmation");
             toProfile(event); 
@@ -176,7 +177,6 @@ public class EditProfileController {
         try {
             height = Double.parseDouble(heightField.getText());
             weight = Double.parseDouble(weightField.getText());
-            stride = Double.parseDouble(strideField.getText());
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Type", "Please ensure measurement fields are numeric values.", "error");
         }
@@ -194,8 +194,7 @@ public class EditProfileController {
                 UserDataValidation.validateBirthDate(birthDate) &&
                 UserDataValidation.validateGender(gender) &&
                 UserDataValidation.validateDoubleValue(height, "Height", 280, 55, "cm") &&
-                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2, "kg") &&
-                UserDataValidation.validateDoubleValue(stride, "Stride Length", 2.5,0.3, "feet");
+                UserDataValidation.validateDoubleValue(weight, "Weight", 600,2, "kg");
     }
 
 }

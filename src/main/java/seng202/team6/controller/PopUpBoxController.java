@@ -1,5 +1,6 @@
 package seng202.team6.controller;
 
+import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,10 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import seng202.team6.datahandling.DatabaseManager;
 
 import java.io.IOException;
 
@@ -29,11 +32,21 @@ public class PopUpBoxController extends GeneralScreenController {
     @FXML
     private Label errorTitle;
 
+    @FXML
+    public ImageView cancelButton;
+
     /** The error title text. */
     private static String errorTitleText;
 
     /** Error message text. */
     private static String errorMessage;
+
+    /**
+     * The Application's database manager.
+     */
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
+
+
 
 
     /**
@@ -94,8 +107,19 @@ public class PopUpBoxController extends GeneralScreenController {
                 createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 350);
             } else if (type == "tutorialbig") {
                 createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 380);
-
+            } else if (type == "profileDelete") {
+                createPopUpBox("/seng202/team6/view/profileDeletePopUp.fxml", 400, 350);
             }
+    }
+
+    public void cancel() {
+        closeWindow();
+    }
+
+    public void removedUser() {
+        System.out.println(ApplicationManager.getCurrentUsername());
+        databaseManager.removeUser(ApplicationManager.getCurrentUsername());
+        closeWindow();
     }
 
 
