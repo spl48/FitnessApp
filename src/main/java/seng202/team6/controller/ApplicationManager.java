@@ -143,7 +143,12 @@ public class ApplicationManager {
      * @param type The type of the pop up.
      */
     public static void displayPopUp(String title, String message, String type) {
-        popUpBoxController.displayErrorPopUP(title, message, type);
+        popUpBoxController.displayPopUP(title, message, type);
+    }
+
+    public static boolean getAnswerFromPopUp(String message) {
+        popUpBoxController.displayPopUP("Confirmation", message, "yesNo");
+        return popUpBoxController.getConfirmationStatus();
     }
 
     /**
@@ -152,7 +157,7 @@ public class ApplicationManager {
      */
     public static void displayErrorPopUp(Exception e) {
         e.printStackTrace();
-        popUpBoxController.displayErrorPopUP(e.getClass().getSimpleName(), e.getMessage(), "error");
+        popUpBoxController.displayPopUP(e.getClass().getSimpleName(), e.getMessage(), "error");
     }
 
     /**
@@ -161,7 +166,7 @@ public class ApplicationManager {
      */
     public static void displayErrorPopUpCustom(String title, String message, Exception e) {
         e.printStackTrace();
-        popUpBoxController.displayErrorPopUP(title, message, "error");
+        popUpBoxController.displayPopUP(title, message, "error");
     }
 
 

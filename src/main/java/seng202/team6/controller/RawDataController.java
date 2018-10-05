@@ -177,6 +177,8 @@ public class RawDataController extends WorkoutsNavigator{
      */
     public void initialize() {
         ActivityManager activityManager = dbManager.getActivityManager();
+
+        resetFilters();
         filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
         addActivitiesToListView(activityList);

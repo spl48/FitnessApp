@@ -54,26 +54,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
 
     /**
-     * The year filter value.
-     */
-    private static String yearFilter = "All";
-
-    /**
-     * The month filter value.
-     */
-    private static String monthFilter = "All";
-
-    /**
-     * The day filter value.
-     */
-    private static String dayFilter = "All";
-
-    /**
-     * The type filter value.
-     */
-    private static String typeFilter = "All";
-
-    /**
      * ListView of activities
      */
     @FXML
@@ -148,6 +128,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     User currUser;
 
+    @FXML
+    TabPane graphMapTab;
+
     /**
      * Initializes chart to display latest activity.
      * @throws SQLException
@@ -159,6 +142,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         activityTypeSelection.setItems(dataChoices);
         activityTypeSelection.getSelectionModel().select(0);
         currUser = databaseManager.getUserReader().getUserFromID(ApplicationManager.getCurrentUserID());
+
+        // Resets the filter values.
+        resetFilters();
 
         // Updates the list view.
         updateListView();
@@ -175,12 +161,24 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         // Sets the activity array and creates an array of strings for these
         activities = databaseManager.getActivityManager().getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
-        for (Activity activity : activities) { // Add all activities to available activities initially
-            availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
+        if (activities.size() > 0) {
+            for (Activity activity : activities) { // Add all activities to available activities initially
+                availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
+            }
+            // Adds the activities to the list view.
+            activityList.setItems(FXCollections.observableArrayList(availableActivities));;
+            activityList.setMouseTransparent( false );
+            activityList.setFocusTraversable( true );
+        } else {
+            activityList.setItems(FXCollections.observableArrayList("No Activities Available"));
+            distanceLabel.setText("");
+            velocityLabel.setText("");
+            heartRateLabel.setText("");
+            stepsLabel.setText("");
+            activityList.setMouseTransparent( true );
+            activityList.setFocusTraversable( false );
         }
 
-        // Adds the activities to the list view.
-        activityList.setItems(FXCollections.observableArrayList(availableActivities));
     }
 
     /**
@@ -191,31 +189,33 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private void graphHandler() throws SQLException {
 
-        Activity selectedActivity = activities.get(selectionIndex);
+        if (activities.size() > 0) {
+            Activity selectedActivity = activities.get(selectionIndex);
 
-        String distanceString = String.format("%.1f", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size()-1));
-        String velocityString = String.format("%.1f", selectedActivity.findAverageSpeed());
-        String stepsString = String.format("%.0f", selectedActivity.findStepCount(currUser.getWalkingStrideLength()));
-        String hrString = String.format("%.0f",(double)selectedActivity.getMaxHeartRate());
+            String distanceString = String.format("%.1f", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1));
+            String velocityString = String.format("%.1f", selectedActivity.findAverageSpeed());
+            String stepsString = String.format("%.0f", selectedActivity.findStepCount(currUser.getWalkingStrideLength()));
+            String hrString = String.format("%.0f", (double) selectedActivity.getMaxHeartRate());
 
-        distanceLabel.setText(distanceString);
-        velocityLabel.setText(velocityString);
-        stepsLabel.setText(stepsString);
-        heartRateLabel.setText(hrString);
+            distanceLabel.setText(distanceString);
+            velocityLabel.setText(velocityString);
+            stepsLabel.setText(stepsString);
+            heartRateLabel.setText(hrString);
 
-        if (selectedtab == "Graph") {
-            if (graphCount == 0) {
-                newGraph();
-                graphCount += 1;
-            } else if (graphCount >= 1) {
-                addSeries();
+            if (selectedtab == "Graph") {
+                if (graphCount == 0) {
+                    newGraph();
+                    graphCount += 1;
+                } else if (graphCount >= 1) {
+                    addSeries();
+                }
+            } else {
+                activityTypeSelection.setVisible(false);
+                activityList.getSelectionModel().select(selectionIndex);
+                Activity desiredActivity = activities.get(selectionIndex);
+                Route route = makeRoute(desiredActivity);
+                displayRoute(route);
             }
-        } else {
-            activityTypeSelection.setVisible(false);
-            activityList.getSelectionModel().select(selectionIndex);
-            Activity desiredActivity = activities.get(selectionIndex);
-            Route route = makeRoute(desiredActivity);
-            displayRoute(route);
         }
     }
 
