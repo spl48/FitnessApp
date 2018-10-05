@@ -106,7 +106,6 @@
                               <TextField fx:id="usernameField" prefHeight="35.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="heightField" prefHeight="35.0" prefWidth="96.0" promptText="in cm" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                               <TextField fx:id="weightField" layoutX="676.0" layoutY="100.0" prefHeight="35.0" prefWidth="211.0" promptText="in kg" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                              <TextField fx:id="strideField" layoutX="676.0" layoutY="143.0" prefHeight="35.0" prefWidth="211.0" promptText="in feet" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                               <DatePicker fx:id="dobField" prefHeight="34.0" prefWidth="214.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <ComboBox fx:id="genderField" prefHeight="34.0" prefWidth="211.0" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-background-radius: 0.1;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <ImageView fitHeight="47.0" fitWidth="47.0" onMouseClicked="#toProfile" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
@@ -125,6 +124,16 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
+                              <Label fx:id="strideLabel" prefHeight="23.0" prefWidth="34.0" text="2.5" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="23.0" prefWidth="90.0" text="feet" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </GridPane>
                         <Label fx:id="nameTitle" alignment="CENTER" layoutY="54.0" prefHeight="73.0" prefWidth="1067.0" text="JOSEPH BLOGGS" textAlignment="CENTER">

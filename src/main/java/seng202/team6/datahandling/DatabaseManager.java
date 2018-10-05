@@ -258,7 +258,10 @@ public class DatabaseManager {
         if(con == null) {
             getConnection();
         }
-        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stepgoal,distancegoal,logins) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        LocalDate date = LocalDate.now();
+        User user = new User(firstname,lastname,date,gender,height,weight,"aaa", 123,stepGoal,distanceGoal);
+
+        String sqlprep1 = "INSERT INTO user(username,dateofbirth,firstname,lastname,gender,height,weight,stridelength,stepgoal,distancegoal,logins) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement prep = con.prepareStatement(sqlprep1);
         prep.setString(1, username);
         prep.setString(2, dob);
@@ -267,10 +270,10 @@ public class DatabaseManager {
         prep.setString(5, gender);
         prep.setDouble(6, height);
         prep.setDouble(7, weight);
-//        prep.setDouble(8, stridelength);
-        prep.setInt(8, stepGoal);
-        prep.setInt(9, distanceGoal);
-        prep.setInt(10, 0);
+        prep.setDouble(8, user.getWalkingStrideLength());
+        prep.setInt(9, stepGoal);
+        prep.setInt(10, distanceGoal);
+        prep.setInt(11, 0);
         prep.execute();
     }
 
@@ -602,13 +605,15 @@ public class DatabaseManager {
         updateWeight.setDouble(1, weight);
         updateWeight.execute();
     }
-    public void updateStrideLength(double strideLength) throws SQLException {
+    public void updateStrideLength(double stridelength) throws SQLException {
         if(con == null) {
             getConnection();
         }
+        User user = getUser(ApplicationManager.getCurrentUsername());
+        user.setWalkingStrideLength(stridelength);
         String sql = "UPDATE user SET stridelength = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
         PreparedStatement updateStrideLength = con.prepareStatement(sql);
-        updateStrideLength.setDouble(1, strideLength);
+        updateStrideLength.setDouble(1, stridelength);
         updateStrideLength.execute();
     }
 
