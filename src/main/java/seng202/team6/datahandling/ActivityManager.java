@@ -31,10 +31,11 @@ public class ActivityManager {
      */
     public ArrayList<String> getPossibleYears() {
         ArrayList<String> years = new ArrayList<String>();
+        int currUser = ApplicationManager.getCurrentUserID();
 
         try {
             Statement state = connection.createStatement();
-            String sqlString = "SELECT DISTINCT STRFTIME('%Y', start) FROM ACTIVITY";
+            String sqlString = "SELECT DISTINCT STRFTIME('%Y', start) FROM ACTIVITY WHERE userid = " + currUser;
             ResultSet yearsResult = state.executeQuery(sqlString);
 
             while (yearsResult.next()) {

@@ -12,6 +12,26 @@ import java.sql.SQLException;
 public class WorkoutsNavigator extends GeneralScreenController {
 
     /**
+     * The year filter value.
+     */
+    protected static String yearFilter = "All";
+
+    /**
+     * The month filter value.
+     */
+    protected static String monthFilter = "All";
+
+    /**
+     * The day filter value.
+     */
+    protected static String dayFilter = "All";
+
+    /**
+     * The type filter value.
+     */
+    protected static String typeFilter = "All";
+
+    /**
      * Navigates the user to the Workouts Splash Screen.
      * @param event When the user clicks on a button directing to this screen.
      */
@@ -62,6 +82,13 @@ public class WorkoutsNavigator extends GeneralScreenController {
     public void toWorkoutManualEntry(Event event) {
         ApplicationManager.setBackOptions(true, "/seng202/team6/view/AddWorkout.fxml", "ADD WORKOUT");
         changeScreen(event, "/seng202/team6/view/WorkoutManualEntry.fxml", "ADD MANUAL ACTIVITY");
+    }
+
+    public void resetFilters() {
+        yearFilter = "All";
+        monthFilter = "All";
+        dayFilter = "All";
+        typeFilter = "All";
     }
 
 }
