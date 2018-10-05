@@ -292,6 +292,7 @@ public class DatabaseManager {
             System.out.println("At the start of profile deletion");
             removeRecords();
             state.executeUpdate("DELETE FROM activity where userid = " + ApplicationManager.getCurrentUserID());
+            state.executeUpdate("DELETE FROM records where userid = " + ApplicationManager.getCurrentUserID());
             state.executeUpdate("DELETE FROM user WHERE username = '" + username + "'");
             System.out.println("At the end of profile deletion");
         } catch (SQLException e) {
