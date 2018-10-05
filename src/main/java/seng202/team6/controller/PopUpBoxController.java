@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import seng202.team6.datahandling.DatabaseManager;
 
 import java.io.IOException;
 
@@ -39,6 +40,11 @@ public class PopUpBoxController extends GeneralScreenController {
 
     /** Error message text. */
     private static String errorMessage;
+
+    /**
+     * The Application's database manager.
+     */
+    private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
 
@@ -101,11 +107,18 @@ public class PopUpBoxController extends GeneralScreenController {
                 createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 350);
             } else if (type == "tutorialbig") {
                 createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 380);
-
+            } else if (type == "profileDelete") {
+                createPopUpBox("/seng202/team6/view/profileDeletePopUp.fxml", 400, 350);
             }
     }
 
     public void cancel() {
+        closeWindow();
+    }
+
+    public void removedUser() {
+        System.out.println(ApplicationManager.getCurrentUsername());
+        databaseManager.removeUser(ApplicationManager.getCurrentUsername());
         closeWindow();
     }
 
