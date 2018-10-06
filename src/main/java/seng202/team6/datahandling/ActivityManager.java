@@ -113,7 +113,6 @@ public class ActivityManager {
             String sqlString = "SELECT COUNT(*) as activityCount FROM ACTIVITY";
             ResultSet result = state.executeQuery(sqlString);
             int count = result.getInt("activityCount");
-            System.out.println("Count " + count);
             return count;
         } catch (SQLException e) {
             e.printStackTrace();

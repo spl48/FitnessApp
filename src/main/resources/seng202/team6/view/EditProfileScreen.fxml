@@ -108,7 +108,7 @@
                               <TextField fx:id="weightField" layoutX="676.0" layoutY="100.0" prefHeight="35.0" prefWidth="211.0" promptText="in kg" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                               <DatePicker fx:id="dobField" prefHeight="34.0" prefWidth="214.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <ComboBox fx:id="genderField" prefHeight="34.0" prefWidth="211.0" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-background-radius: 0.1;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <ImageView fitHeight="47.0" fitWidth="47.0" onMouseClicked="#toProfile" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                              <ImageView fx:id="editOn" fitHeight="47.0" fitWidth="47.0" onMouseClicked="#toProfile" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                                  <image>
                                     <Image url="@../resources/pics/editOn.png" />
                                  </image>
@@ -116,7 +116,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <Button mnemonicParsing="false" onAction="#updateProfile" prefHeight="45.0" prefWidth="118.0" style="-fx-background-color: black;" text="UPDATE" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                              <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateProfile" prefHeight="45.0" prefWidth="118.0" style="-fx-background-color: black;" text="UPDATE" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="NexaBold" size="15.0" />
                                  </font>
@@ -150,8 +150,11 @@
                   </AnchorPane>
                </children>
                <BorderPane.margin>
-                  <Insets />
+                  <Insets left="40.0" right="40.0" />
                </BorderPane.margin>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
             </AnchorPane>
          </center>
       </BorderPane>
