@@ -95,7 +95,7 @@ public class GoalsScreenController {
     public void initialize() throws SQLException {
         databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
-        user = databaseManager.getUser(userName);
+        user = databaseManager.getUserReader().getUser(userName);
 
         setStepData();
         setDistanceData();
@@ -132,7 +132,7 @@ public class GoalsScreenController {
      * @throws SQLException
      */
     private void setStepData() throws SQLException {
-        double totalSteps = ApplicationManager.getDatabaseManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
+        double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String stepGoalString = Integer.toString(user.getStepGoal()) + " Steps";
         stepGoal1.setText(stepGoalString);
         double stepsLeft = user.getStepGoal() - totalSteps;
@@ -159,7 +159,7 @@ public class GoalsScreenController {
      */
     public void setDistanceData() throws SQLException {
         int distanceGoal = user.getDistanceGoal();
-        double totalDistance = ApplicationManager.getDatabaseManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
+        double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
         String distanceGoalString = Integer.toString(distanceGoal) + " Kilometers";
         distanceGoalLabel.setText(distanceGoalString);
         double distanceLeft = distanceGoal - totalDistance;

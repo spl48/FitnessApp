@@ -64,7 +64,7 @@ public class loginController extends GeneralScreenController {
         try {
             // Populates the grid with user profiles from the database.
             int index = 0;
-            ArrayList<String> usernames = databaseManager.getUsernames();
+            ArrayList<String> usernames = databaseManager.getUserReader().getUsernames();
             for (String user : usernames) {
                 addProfile(profileGrid, index++, user);
             }
@@ -88,7 +88,7 @@ public class loginController extends GeneralScreenController {
 
             // Sets the current user profile.
             String userProfile = selected.getText();
-            User user = databaseManager.getUser(userProfile);
+            User user = databaseManager.getUserReader().getUser(userProfile);
             int userid = user.getUserID();
             ApplicationManager.setCurrentUser(userid, userProfile);
 
@@ -101,7 +101,7 @@ public class loginController extends GeneralScreenController {
 
     public void tutorial() {
         try {
-            if (databaseManager.getLoginCount() == 0) {
+            if (databaseManager.getUserReader().getLoginCount() == 0) {
                 ApplicationManager.displayPopUp("MATES Tutorial", "Looking to your left, you will see the menu bar consisting of \n" +
                         "- Home\n" +
                         "- Profile\n" +
@@ -130,9 +130,9 @@ public class loginController extends GeneralScreenController {
                 ApplicationManager.displayPopUp("MATES Tutorial", "If you want to get help from me again, feel free to click the photo on the menu bar" +
                         " and I will give you a detailed tutorial for the page you are on.\n\n"
                         + "I hope I helped!", "tutorialbig");
-                databaseManager.updateLoginCount(databaseManager.getLoginCount());
+                databaseManager.getUserWriter().updateLoginCount(databaseManager.getUserReader().getLoginCount());
             } else {
-                databaseManager.updateLoginCount(databaseManager.getLoginCount());
+                databaseManager.getUserWriter().updateLoginCount(databaseManager.getUserReader().getLoginCount());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -278,8 +278,8 @@ public class loginController extends GeneralScreenController {
             public void handle(MouseEvent event) {
                 boolean answer = ApplicationManager.getAnswerFromPopUp("Are you sure you want to do this?");
                 if (answer == true) {
-                    databaseManager.removeUser(username);
-                    if (databaseManager.getUsernames().size() > 0) {
+                    databaseManager.getUserWriter().removeUser(username);
+                    if (databaseManager.getUserReader().getUsernames().size() > 0) {
                         changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
                     } else {
                         toStartScreen(event);

@@ -57,7 +57,7 @@ public class WorkoutsNavigator extends GeneralScreenController {
     @FXML
     public void toWorkoutAnalysis(Event event) throws SQLException {
         ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
-        if (ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID()).size() > 0) {
+        if (ApplicationManager.getDatabaseManager().getActivityManager().getActivities(ApplicationManager.getCurrentUserID()).size() > 0) {
             changeScreen(event, "/seng202/team6/view/WorkoutAnalysis3.fxml", "ANALYSIS");
         } else {
             ApplicationManager.displayPopUp("Cannot Open", "No activities uploaded, please upload some activites first!", "error");

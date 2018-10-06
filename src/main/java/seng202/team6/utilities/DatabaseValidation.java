@@ -229,7 +229,7 @@ public class DatabaseValidation {
      * @throws SQLException
      */
     public static boolean validateNonDuplicateData(ArrayList<String[]> data) throws SQLException {
-        ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID());
+        ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
         //ArrayList<String> duplicateList = new ArrayList<>();
         for (String[] line : data){
             if(!line[0].equalsIgnoreCase("#start")){
@@ -259,7 +259,7 @@ public class DatabaseValidation {
         //}
     }
     public static boolean validateNonDuplicateActivity(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate) throws SQLException {
-        ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivities(ApplicationManager.getCurrentUserID());
+        ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
                 for (Activity activity : activities){
                     if(startTime.isAfter(activity.getStartTime()) && endTime.isBefore(activity.getEndTime())
                             && (startDate.isEqual(activity.getStartDate()) || endDate.isEqual(activity.getEndDate()))){

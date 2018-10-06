@@ -39,7 +39,7 @@ public class Uploader extends WorkoutsNavigator {
      */
     @FXML
     void initialize() throws SQLException {
-        currUser = databaseManager.getUser(ApplicationManager.getCurrentUsername());
+        currUser = databaseManager.getUserReader().getUser(ApplicationManager.getCurrentUsername());
     }
 
 

@@ -100,7 +100,7 @@ public class profileController extends GeneralScreenController {
     public void initialize() throws SQLException {
 
         // Gets the current user object.
-        currUser = databaseManager.getUserFromID(ApplicationManager.getCurrentUserID()); //Replace with database current user.
+        currUser = databaseManager.getUserReader().getUserFromID(ApplicationManager.getCurrentUserID()); //Replace with database current user.
 
         // Sets the top name display.
         topNameLabel.setText(currUser.getFullName().toUpperCase());
@@ -160,8 +160,8 @@ public class profileController extends GeneralScreenController {
     public void updateProfile(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
 
         // Gets the user and the usernames from the database and initialises their data in the edit screen.
-        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
-        ArrayList<String> usernames = databaseManager.getUsernames();
+        User currUser = ApplicationManager.getDatabaseManager().getUserReader().getUser(ApplicationManager.getCurrentUsername());
+        ArrayList<String> usernames = databaseManager.getUserReader().getUsernames();
         setEnteredData(); // Sets the class variables to the entered data
 
         // Checks if the user has entered a duplicate username and displays error if so.
@@ -177,13 +177,13 @@ public class profileController extends GeneralScreenController {
         } else if (validEnteredData()) {
 
             // Enters data into the database.
-            ApplicationManager.getDatabaseManager().updateFirstName(first);
-            ApplicationManager.getDatabaseManager().updateLastName(last);
-            ApplicationManager.getDatabaseManager().updateUsername(username);
-            ApplicationManager.getDatabaseManager().updateGender(gender);
-            ApplicationManager.getDatabaseManager().updateDateOfBirth(birthDate);
-            ApplicationManager.getDatabaseManager().updateHeight(height);
-            ApplicationManager.getDatabaseManager().updateWeight(weight);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateFirstName(first);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateLastName(last);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateUsername(username);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateGender(gender);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateDateOfBirth(birthDate);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateHeight(height);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateWeight(weight);
 
             // Directs back to the profile screen and displays confirmation method.
             ApplicationManager.displayPopUp("Update Success", "You have successfully updated your profile!", "confirmation");

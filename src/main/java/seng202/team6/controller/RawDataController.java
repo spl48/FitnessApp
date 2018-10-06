@@ -271,7 +271,7 @@ public class RawDataController extends WorkoutsNavigator{
      * @throws SQLException
      */
     public void showActivity() throws SQLException {
-        ArrayList<ActivityDataPoint> records = dbManager.getActivityRecords(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
+        ArrayList<ActivityDataPoint> records = dbManager.getActivityManager().getActivityRecords(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
 
         for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
             rawDataTable.getItems().clear();
@@ -281,7 +281,7 @@ public class RawDataController extends WorkoutsNavigator{
             addRecordToTable(record);
         }
 
-        selectedActivity = dbManager.getActivity(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
+        selectedActivity = dbManager.getActivityManager().getActivity(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
         selectedActivity.addAllActivityData(records);
         descriptionLabel.setText(selectedActivity.getDescription());
         velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
@@ -367,11 +367,11 @@ public class RawDataController extends WorkoutsNavigator{
             String endDateString = endDateEdit.getValue().toString().replace("/", "-");
             String endDateTime = endDateString + "T" + endTimeEdit.getText();
 
-            dbManager.updateStartDate(startDateTime, selectedActivity.getActivityid());
-            dbManager.updateEndDate(endDateTime, selectedActivity.getActivityid());
-            dbManager.updateDescription(descriptionEdit.getText(), selectedActivity.getActivityid());
-            dbManager.updateActivityType((String) typeEdit.getSelectionModel().getSelectedItem(),selectedActivity.getActivityid());
-            dbManager.updateNotes(notesEdit.getText(), selectedActivity.getActivityid());
+            dbManager.getActivityManager().updateStartDate(startDateTime, selectedActivity.getActivityid());
+            dbManager.getActivityManager().updateEndDate(endDateTime, selectedActivity.getActivityid());
+            dbManager.getActivityManager().updateDescription(descriptionEdit.getText(), selectedActivity.getActivityid());
+            dbManager.getActivityManager().updateActivityType((String) typeEdit.getSelectionModel().getSelectedItem(),selectedActivity.getActivityid());
+            dbManager.getActivityManager().updateNotes(notesEdit.getText(), selectedActivity.getActivityid());
 
             filteredActivities = dbManager.getActivityManager().getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
             ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());

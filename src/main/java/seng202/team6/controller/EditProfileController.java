@@ -86,7 +86,7 @@ public class EditProfileController {
     public void initialize() throws SQLException {
         
         // Gets current user.
-        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
+        User currUser = ApplicationManager.getDatabaseManager().getUserReader().getUser(ApplicationManager.getCurrentUsername());
 
         // Initialises the gender drop down options.
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");
@@ -129,8 +129,8 @@ public class EditProfileController {
     public void updateProfile(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
 
         // Gets the user and the usernames from the database and initialises their data in the edit screen.
-        User currUser = ApplicationManager.getDatabaseManager().getUser(ApplicationManager.getCurrentUsername());
-        ArrayList<String> usernames = databaseManager.getUsernames();
+        User currUser = ApplicationManager.getDatabaseManager().getUserReader().getUser(ApplicationManager.getCurrentUsername());
+        ArrayList<String> usernames = databaseManager.getUserReader().getUsernames();
         setEnteredData(); // Sets the class variables to the entered data
 
         // Checks if the user has entered a duplicate username and displays error if so.
@@ -146,13 +146,13 @@ public class EditProfileController {
         } else if (validEnteredData()) {
 
             // Enters data into the database.
-            ApplicationManager.getDatabaseManager().updateFirstName(first);
-            ApplicationManager.getDatabaseManager().updateLastName(last);
-            ApplicationManager.getDatabaseManager().updateUsername(username);
-            ApplicationManager.getDatabaseManager().updateGender(gender);
-            ApplicationManager.getDatabaseManager().updateDateOfBirth(birthDate);
-            ApplicationManager.getDatabaseManager().updateHeight(height);
-            ApplicationManager.getDatabaseManager().updateWeight(weight);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateFirstName(first);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateLastName(last);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateUsername(username);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateGender(gender);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateDateOfBirth(birthDate);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateHeight(height);
+            ApplicationManager.getDatabaseManager().getUserWriter().updateWeight(weight);
             // Directs back to the profile screen and displays confirmation method.
             ApplicationManager.displayPopUp("Update Success", "You have successfully updated your profile!", "confirmation");
             toProfile(event); 
