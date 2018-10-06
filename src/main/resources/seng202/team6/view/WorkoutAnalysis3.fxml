@@ -314,7 +314,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="570.7333572387695" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                      <ListView fx:id="activityList" onMouseClicked="#graphHandler" prefHeight="625.0" prefWidth="272.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                      <ListView fx:id="activityList" onMouseClicked="#selectNewActivity" prefHeight="625.0" prefWidth="272.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="30.0" top="10.0" />
                      </GridPane.margin></ListView>

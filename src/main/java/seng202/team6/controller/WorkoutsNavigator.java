@@ -31,14 +31,6 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     protected static String typeFilter = "All";
 
-    /**
-     * Navigates the user to the Workouts Splash Screen.
-     * @param event When the user clicks on a button directing to this screen.
-     */
-    @FXML
-    public void toWorkoutsScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
-    }
 
     /**
      * Navigates the user to the Raw Data Viewer Screen..

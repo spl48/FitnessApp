@@ -8,21 +8,16 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.*;
 
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class WorkoutAnalysisController extends WorkoutsNavigator {
 
@@ -187,7 +182,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * @throws SQLException
      */
     @FXML
-    private void graphHandler() throws SQLException {
+    private void selectNewActivity() throws SQLException {
 
         if (activities.size() > 0) {
             Activity selectedActivity = activities.get(selectionIndex);
@@ -333,7 +328,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      * Opens filter pop up screen
      */
     public void toFilter() {
-        if (activities.size() >= 1) {
+        if (ApplicationManager.getDatabaseManager().getActivityManager().getNumberUserActivities() >= 1) {
             ApplicationManager.displayPopUp("test", "test", "filter");
             updateListView();
             clearGraph();
@@ -428,39 +423,42 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void initGraphs() throws SQLException {
-        activityTypeSelection.setVisible(true);
-        selectedtab = "Graph";
-        clearGraph();
-        activityList.getSelectionModel().select(selectionIndex);
-        graphHandler();
-        activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        analysisGraph.setCreateSymbols(false);
-        activityList.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            Node node = event.getPickResult().getIntersectedNode();
-            while (node != null && node != activityList && !(node instanceof ListCell)) {
-                node = node.getParent();
-            }
-            if (node instanceof ListCell) {
-                // prevent further handling
-                event.consume();
-                ListCell cell = (ListCell) node;
-                ListView lv = cell.getListView();
-                // focus the listview
-                lv.requestFocus();
-                if (!cell.isEmpty()) {
-                    // handle selection for non-empty cells
-                    int index = cell.getIndex();
-                    if (cell.isSelected()) {
-                        lv.getSelectionModel().clearSelection(index);
-                        selectionIndex = index;
-                    } else {
-                        lv.getSelectionModel().select(index);
-                        selectionIndex = index;
+        if (activities.size() > 0) {
+            activityTypeSelection.setVisible(true);
+            selectedtab = "Graph";
+            clearGraph();
+            activityList.getSelectionModel().select(selectionIndex);
+            selectNewActivity();
+            activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+            analysisGraph.setCreateSymbols(false);
+            activityList.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                Node node = event.getPickResult().getIntersectedNode();
+                while (node != null && node != activityList && !(node instanceof ListCell)) {
+                    node = node.getParent();
+                }
+                if (node instanceof ListCell) {
+                    // prevent further handling
+                    event.consume();
+                    ListCell cell = (ListCell) node;
+                    ListView lv = cell.getListView();
+                    // focus the listview
+                    lv.requestFocus();
+                    if (!cell.isEmpty()) {
+                        // handle selection for non-empty cells
+                        int index = cell.getIndex();
+                        if (cell.isSelected()) {
+                            lv.getSelectionModel().clearSelection(index);
+                            selectionIndex = index;
+                        } else {
+                            lv.getSelectionModel().select(index);
+                            selectionIndex = index;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
 

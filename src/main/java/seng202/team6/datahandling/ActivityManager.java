@@ -130,6 +130,25 @@ public class ActivityManager {
     }
 
     /**
+     * Gets the total number of entered activities into the database by executing an query.
+     * @return The number of activities in the activities table.
+     */
+    public int getNumberUserActivities() {
+        try {
+            Statement state = connection.createStatement();
+            String sqlString = "SELECT COUNT(*) as activityCount FROM ACTIVITY where userid = " + ApplicationManager.getCurrentUserID();
+            ResultSet result = state.executeQuery(sqlString);
+            int count = result.getInt("activityCount");
+            return count;
+        } catch (SQLException e) {
+            ApplicationManager.displayErrorPopUp(e);
+        }
+        return 0;
+
+    }
+
+
+    /**
      * Gets activities from the database based on a filter.
      * @param year The year filter
      * @param month The month filter
@@ -263,15 +282,6 @@ public class ActivityManager {
         String nowDate = databaseManager.convertToDBDateFormat(LocalDate.now().plusDays(1));
         ResultSet res = state.executeQuery("SELECT * FROM activity WHERE userid = " + userid + " AND start BETWEEN '"+ date + "' AND '" + nowDate + "'");
         while(res.next()){
-//            Activity activity = extractActivity(res);
-//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-//            for (ActivityDataPoint dataPoint : dataPoints) {
-//                activity.addActivityData(dataPoint);
-//            }
-//
-//            activity.updateMaxHeartRate();
-//            activity.updateMinHeartRate();
-//            activities.add(activity);
             Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
