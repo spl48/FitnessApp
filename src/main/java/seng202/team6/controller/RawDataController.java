@@ -142,8 +142,6 @@ public class RawDataController extends WorkoutsNavigator{
     @FXML
     private TextArea notesEdit;
 
-    @FXML
-    private Node editButton;
 
     @FXML
     private Node editOn;
@@ -310,7 +308,7 @@ public class RawDataController extends WorkoutsNavigator{
     }
 
     @FXML
-    public void editActivity() throws SQLException {
+    public void editActivity() {
         if (selectedActivity != null) {
             activitySelect.setMouseTransparent( true );
             activitySelect.setFocusTraversable( false );
@@ -333,13 +331,16 @@ public class RawDataController extends WorkoutsNavigator{
 
 
     @FXML
-    public void stopEditing() throws SQLException {
-//        typeEdit.getSelectionModel().select(selectedActivity.getType());
-        isEditing = false;
-        setVisablityEdit(false);
+    public void stopEditing() {
+        boolean exitEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you want to finish editing? Your changes will not be saved.");
 
-        activitySelect.setMouseTransparent( false );
-        activitySelect.setFocusTraversable( true );
+        if (exitEditing) {
+            isEditing = false;
+            setVisablityEdit(false);
+
+            activitySelect.setMouseTransparent(false);
+            activitySelect.setFocusTraversable(true);
+        }
     }
 
     private void setVisablityEdit(Boolean isVisable) {

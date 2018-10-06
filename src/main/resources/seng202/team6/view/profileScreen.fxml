@@ -19,11 +19,8 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.profileController">
-   <left>
-      <fx:include source="sidebar.fxml" />
-   </left>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(62,71,88);" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -211,7 +208,7 @@
                         <Insets bottom="30.0" />
                      </padding>
                      <effect>
-                        <DropShadow />
+                        <DropShadow blurType="TWO_PASS_BOX" color="#8d8d8d" height="38.79" offsetX="5.0" offsetY="5.0" radius="14.4475" />
                      </effect>
                   </AnchorPane>
                </center>
@@ -219,4 +216,11 @@
          </children>
       </AnchorPane>
    </center>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <fx:include source="sidebar.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </left>
 </BorderPane>

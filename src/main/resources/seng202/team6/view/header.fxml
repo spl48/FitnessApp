@@ -17,21 +17,22 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" prefHeight="65.0" prefWidth="1139.0" styleClass="header" stylesheets="@../resources/css/test.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HeaderController">
+<AnchorPane prefHeight="65.0" prefWidth="1139.0" styleClass="header" stylesheets="@../resources/css/test.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HeaderController">
    <children>
-      <GridPane layoutX="-1.0" prefHeight="65.0" prefWidth="1141.0">
+      <GridPane prefHeight="65.0" prefWidth="1141.0" stylesheets="@../resources/css/style.css" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="0.0" prefWidth="200.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1037.0" minWidth="10.0" prefWidth="864.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints fx:id="headerGrid" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="801.0" minWidth="10.0" prefWidth="791.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="9.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <MenuBar prefHeight="27.0" prefWidth="221.0" styleClass="headerMenu" stylesheets="@../resources/css/test.css" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <MenuBar fx:id="menuOuter" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="228.0" styleClass="headerMenu" stylesheets="@../resources/css/test.css" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <menus>
-                  <Menu fx:id="usernameMenu" styleClass="menuItem" text="JOE BLOGGS">
+                  <Menu fx:id="usernameMenu" mnemonicParsing="false" styleClass="menuItem" text="JOE BLOGGS">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#toStartScreen" style="-fx-text-fill: black; -fx-font-size: 18px;" text="Logout" />
                         <MenuItem mnemonicParsing="false" onAction="#toStartScreen" style="-fx-text-fill: black; -fx-font-size: 18;" text="Exit" />
@@ -47,13 +48,16 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
+               <padding>
+                  <Insets left="-20.0" />
+               </padding>
             </MenuBar>
-            <Label fx:id="headerScreenName" alignment="CENTER" prefHeight="33.0" prefWidth="441.0" text="GOALS SCREEN" textAlignment="CENTER" textFill="#f5f5f5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="headerScreenName" alignment="CENTER" prefHeight="33.0" prefWidth="441.0" text="GOALS SCREEN" textAlignment="CENTER" textFill="#f5f5f5" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="NexaBold" size="27.0" />
                </font>
             </Label>
-            <Circle fx:id="backButton" fill="#3fb3a4" onMouseClicked="#back" onMouseExited="#darkenCircle" onMouseMoved="#lightenCircle" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.halignment="CENTER">
+            <Circle id="headerBackButton" fx:id="backButton" fill="#3fb3a4" onMouseClicked="#back" radius="17.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.halignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

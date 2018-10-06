@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,9 +16,6 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.ActivityUploaderController">
-   <left>
-      <fx:include source="sidebar.fxml" />
-   </left>
    <center>
       <BorderPane prefHeight="703.0" prefWidth="986.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -39,23 +37,23 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="43.26667594909668" minHeight="0.0" prefHeight="43.26667594909668" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="202.8" minHeight="0.0" prefHeight="75.6" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="286.6" minHeight="0.0" prefHeight="49.20000000000002" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="253.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="202.8" minHeight="0.0" prefHeight="66.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="286.6" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="296.0" minHeight="10.0" prefHeight="292.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="103.19993286132814" minHeight="0.0" prefHeight="58.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ChoiceBox fx:id="typeSelect" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="265.0" style="-fx-background-color: white; -fx-border-color: lightGrey;" GridPane.rowIndex="1">
+                        <ChoiceBox fx:id="typeSelect" minWidth="-Infinity" prefHeight="38.0" prefWidth="290.0" style="-fx-background-color: white; -fx-border-color: lightGrey;" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </ChoiceBox>
-                        <TextArea fx:id="notesEditor" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="237.0" prefWidth="266.0" GridPane.rowIndex="3">
+                        <TextArea fx:id="notesEditor" minWidth="-Infinity" prefHeight="241.0" prefWidth="290.0" GridPane.rowIndex="3">
                            <GridPane.margin>
-                              <Insets top="20.0" />
+                              <Insets right="20.0" top="20.0" />
                            </GridPane.margin>
                         </TextArea>
-                        <Label fx:id="noteLabel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="265.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Notes:" textFill="#575757" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                        <Label fx:id="noteLabel" minWidth="-Infinity" prefHeight="32.0" prefWidth="290.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Notes:" textFill="#575757" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                            <font>
                               <Font name="NexaBold" size="17.0" />
                            </font>
@@ -63,7 +61,7 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="265.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Type:" textFill="#575757">
+                        <Label minWidth="-Infinity" prefHeight="32.0" prefWidth="290.0" style="-fx-border-color: transparent transparent rgb(41,41,41) transparent;" text="Type:" textFill="#575757">
                            <font>
                               <Font name="NexaBold" size="17.0" />
                            </font>
@@ -79,7 +77,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="workoutFileUploadButton" mnemonicParsing="false" onAction="#updateActivity" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="41.0" prefWidth="317.0" style="-fx-background-color: rgb(63,179,164);" text="UPDATE ACTIVITY" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                              <Button fx:id="workoutFileUploadButton" mnemonicParsing="false" onAction="#updateActivity" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="41.0" prefWidth="290.0" style="-fx-background-color: rgb(63,179,164);" text="UPDATE ACTIVITY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                  <font>
                                     <Font name="NexaBold" size="16.0" />
                                  </font>
@@ -158,4 +156,11 @@
          </top>
       </BorderPane>
    </center>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <fx:include source="sidebar.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </left>
 </BorderPane>

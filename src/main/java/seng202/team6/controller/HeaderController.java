@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
@@ -48,7 +50,6 @@ public class HeaderController extends WorkoutsNavigator {
 
     @FXML
     private Node backArrow;
-    
 
     /**
      * Initialises the name at the right of the header.

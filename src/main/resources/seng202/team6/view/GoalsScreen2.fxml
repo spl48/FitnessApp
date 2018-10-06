@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,9 +17,6 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.GoalsScreenController">
-   <left>
-      <fx:include source="sidebar.fxml" BorderPane.alignment="TOP_CENTER" />
-   </left>
    <center>
       <BorderPane prefHeight="760.0" prefWidth="1149.0" style="-fx-background-color: rgb(244,244,244);" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -255,4 +253,11 @@
          </top>
       </BorderPane>
    </center>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <fx:include source="sidebar.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="TOP_CENTER" />
+         </children>
+      </AnchorPane>
+   </left>
 </BorderPane>

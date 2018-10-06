@@ -3,6 +3,7 @@ package seng202.team6.controller;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -19,18 +20,18 @@ public class MainMenuNavigation extends GeneralScreenController {
      * The home button on the side bar.
      */
     @FXML
-    private Button homeButton;
+    private Node homeButton;
 
     /**
      * The home button on the side bar.
      */
     @FXML
-    private Button profileButton, goalsButton, calendarButton, workoutsButton, healthButton;
+    private Node profileButton, goalsButton, calendarButton, workoutsButton, healthButton;
 
     /**
      * The selected menu item on the side bar.
      */
-    private static Button selected;
+    private static Node selected;
 
     /**
      * Initialising the selected menu item to home by default when first loaded and applying formatting.
@@ -40,7 +41,7 @@ public class MainMenuNavigation extends GeneralScreenController {
         if (selected == null) {
             selected = homeButton;
         }
-        System.out.println("Selected ID: " + selected.getId());
+
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
         selected.setVisible(true);
     }

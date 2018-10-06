@@ -95,7 +95,6 @@ public class ActivityManager {
                     "strftime(\"%m\", start) LIKE '" + month + "' AND " +
                     "strftime(\"%d\", start) LIKE '" + day + "' AND " +
                     "workout LIKE '" + type + "'";
-            System.out.println(sqlString);
             ResultSet filteredActivityResult = state.executeQuery(sqlString);
 
             while (filteredActivityResult.next()) {
@@ -399,7 +398,7 @@ public class ActivityManager {
             activity.addActivityData(dataPoint);
         }
         activity.setDistance(res.getDouble("distance"));
-        activity.updateType();
+        //activity.updateType();
         activity.updateMaxHeartRate();
         activity.updateMinHeartRate();
 
