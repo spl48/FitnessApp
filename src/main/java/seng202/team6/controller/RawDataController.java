@@ -345,14 +345,14 @@ public class RawDataController extends WorkoutsNavigator{
     private void setVisablityEdit(Boolean isVisable) {
         if (selectedActivity.isManualActivity()) {
             distanceEdit.setVisible(isVisable);
+            startDateEdit.setVisible(isVisable);
+            endDateEdit.setVisible(isVisable);
+            startTimeEdit.setVisible(isVisable);
+            endTimeEdit.setVisible(isVisable);
         }
 
         editOn.setVisible(isVisable);
         descriptionEdit.setVisible(isVisable);
-        startDateEdit.setVisible(isVisable);
-        endDateEdit.setVisible(isVisable);
-        startTimeEdit.setVisible(isVisable);
-        endTimeEdit.setVisible(isVisable);
         typeEdit.setVisible(isVisable);
         notesEdit.setVisible(isVisable);
         updateButton.setVisible(isVisable);
