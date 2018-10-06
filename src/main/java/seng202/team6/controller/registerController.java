@@ -129,6 +129,7 @@ public class registerController extends GeneralScreenController {
     private void setEnteredData() {
         username = usernameEntry.getText();
         first = firstNameEntry.getText();
+        last = lastNameEntry.getText();
         gender = genderComboBox.getValue();
         birthDate = birthDateEntry.getValue();
         try {
