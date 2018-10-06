@@ -122,39 +122,31 @@ public class DatabaseUserWriter {
         updateWeight.setDouble(1, weight);
         updateWeight.execute();
     }
-    public void updateStrideLength(double stridelength) throws SQLException {
-        User user = databaseManager.getUserReader().getUser(ApplicationManager.getCurrentUsername());
-        user.setWalkingStrideLength(stridelength);
-        String sql = "UPDATE user SET stridelength = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
-        PreparedStatement updateStrideLength = connection.prepareStatement(sql);
-        updateStrideLength.setDouble(1, stridelength);
-        updateStrideLength.execute();
-    }
 
     /**
      * Updates the login count by adding 1
      * @param logins An Integer parameter used to set the login count of the User
-     * @throws SQLException
      */
-    public void updateLoginCount(int logins) throws SQLException {
-        logins++;
-        String sql = "UPDATE user SET logins = ? WHERE userid = " + ApplicationManager.getCurrentUserID();
-        PreparedStatement updateLoginCount = connection.prepareStatement(sql);
-        updateLoginCount.setInt(1, logins);
-        updateLoginCount.execute();
+    public void updateLoginCount(int logins) {
+        setUserIntegerProperty(ApplicationManager.getCurrentUserID(), ++logins, "logins");
     }
 
-    public void setDistanceGoal(int userid, int newGoal) throws SQLException {
-        String sql = "UPDATE user SET distancegoal = ? WHERE userid = '" + userid + "'";
-        PreparedStatement updateDistanceGoal = connection.prepareStatement(sql);
-        updateDistanceGoal.setInt(1, newGoal);
-        updateDistanceGoal.execute();
+    public void setDistanceGoal(int userid, int newGoal) {
+        setUserIntegerProperty(userid, newGoal, "distancegoal");
     }
 
-    public void setStepGoal(int userid, int newGoal) throws SQLException {
-        String sql = "UPDATE user SET stepgoal = ? WHERE userid = '" + userid + "'";
-        PreparedStatement updateStepGoal = connection.prepareStatement(sql);
-        updateStepGoal.setInt(1, newGoal);
-        updateStepGoal.execute();
+    public void setStepGoal(int userid, int newGoal) {
+        setUserIntegerProperty(userid, newGoal, "stepGoal");
+    }
+
+    public void setUserIntegerProperty(int userid, int newGoalValue, String property) {
+        try {
+            String sql = "UPDATE user SET " + property + " = ? WHERE userid = '" + userid + "'";
+            PreparedStatement updateStepGoal = connection.prepareStatement(sql);
+            updateStepGoal.setInt(1, newGoalValue);
+            updateStepGoal.execute();
+        } catch (SQLException e) {
+            ApplicationManager.displayErrorPopUp(e);
+        }
     }
 }

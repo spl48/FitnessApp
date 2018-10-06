@@ -17,11 +17,16 @@ import java.util.ArrayList;
  * a chosen date if that date is selected/p>
  */
 public class CalanderScreenController {
+
     //Title of the calendar, showing the month and year
     @FXML
     Text title;
+
+    // The grid pane which represents the calendar view.
     @FXML
     GridPane calendar;
+
+
     // Text representing activities information
     @FXML
     Text description, speed, distance, type, dateText;

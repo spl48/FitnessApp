@@ -24,60 +24,56 @@ import static seng202.team6.models.Goal.distanceAchieved;
 import static seng202.team6.models.Goal.stepsAchieved;
 
 public class GoalsScreenController {
-    @FXML
-    private TextField stepGoalField, distanceGoalField;
 
-    @FXML
-    private Node stepEditButton;
-
-    @FXML
-    private Node editDistanceButton;
-
+    /** Steps goal editing toggleButton */
     @FXML
     private Node stepsOnEditing;
 
+    /** Distance goal editing toggleButton */
     @FXML
     private Node onDistanceEditing;
 
+    /** Distance goal editing field */
     @FXML
     private TextField distanceEdit;
 
+    /** Steps goal editing field */
     @FXML
     private TextField stepsEdit;
 
+    /** Step goal update button */
     @FXML
     private Button updateStep;
 
+    /** Distance goal update button */
     @FXML
     private Button updateDistance;
 
-    @FXML
-    private Node editStepGoal;
-
-    @FXML
-    private Node editDistanceGoal;
-
-    @FXML
-    private Button updateButton;
-
+    /** Progress indicators for steps and progress goals.*/
     @FXML
     private ProgressIndicator stepProgress, distanceProgress;
 
+    /** Step goal label. */
     @FXML
     private Label stepGoal1;
 
+    /** Steps left label */
     @FXML
     private Label stepsLeftLabel;
 
+    /** The distance left and steps left labels. */
     @FXML
     private Label distanceGoalLabel, distanceLeftLabel;
 
+    /** The days to go labels */
     @FXML
     private Label daysToGoLabel1, daysToGoLabel2;
 
+    /** The circles covering the goal progress indicators to make a ring. These are removed once the goal is reached. */
     @FXML
     private Circle stepCircle, distanceCircle;
 
+    /** The images that are displayed in the center of the goal progress indicators, for goals and distance. */
     @FXML
     private javafx.scene.image.ImageView feetImage, distanceImage;
 
@@ -92,16 +88,18 @@ public class GoalsScreenController {
     private User user;
 
 
+    /** Initialises the current instance properties and sets the initial data. */
     public void initialize() throws SQLException {
+
+        // Sets up the current instance of the database manager and the current User instance.
         databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
         user = databaseManager.getUserReader().getUser(userName);
 
+        // Sets the initial data into labels such as the distance, step and days to go labels.
         setStepData();
         setDistanceData();
         setDaysToGo();
-
-
     }
 
     /**
@@ -109,20 +107,29 @@ public class GoalsScreenController {
      * @throws SQLException
      */
     @FXML
-    private void setStepsGoal() throws SQLException {
+    private void setStepsGoal() {
+
+        // Initialises the new step goal to their current step goal.
         int newStepGoal = user.getStepGoal();
+
+        //  Tries to get a valid integer new step goal from the user entry if valid otherwise displays an error.
         try {
             newStepGoal = Integer.parseInt(stepsEdit.getText());
             ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
+
+        // Sets the user step goal to the value read and checks if the goal is achieved. If not it ensures the images
+        // are displayed on top of the progress indicator so it looks like a ring.
         user.setStepGoal(newStepGoal);
         if (!stepsAchieved(user)) {
             stepCircle.setVisible(true);
             feetImage.setVisible(true);
             stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
         }
+
+        // Stops the editing situation once an update has been made.
         stopEditing();
     }
 
@@ -131,7 +138,7 @@ public class GoalsScreenController {
      * If the goal is reached, only the progress chart is displayed
      * @throws SQLException
      */
-    private void setStepData() throws SQLException {
+    private void setStepData() {
         double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String stepGoalString = Integer.toString(user.getStepGoal()) + " Steps";
         stepGoal1.setText(stepGoalString);
@@ -142,7 +149,7 @@ public class GoalsScreenController {
         String stepsLeftString = String.format("%.0f Steps", stepsLeft);
         stepsLeftLabel.setText(stepsLeftString);
         double progressRatio = totalSteps / user.getStepGoal();
-        System.out.println(progressRatio);
+
         if (progressRatio >= 1) {
             progressRatio = 1;
             stepCircle.setVisible(false);
@@ -157,7 +164,7 @@ public class GoalsScreenController {
      * If the goal is reached, only the progress chart is displayed
      * @throws SQLException
      */
-    public void setDistanceData() throws SQLException {
+    public void setDistanceData() {
         int distanceGoal = user.getDistanceGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
         String distanceGoalString = Integer.toString(distanceGoal) + " Kilometers";
@@ -199,6 +206,8 @@ public class GoalsScreenController {
         daysToGoLabel2.setText(daysToGo);
     }
 
+
+    /** Allows the user to edit their step goals after clicking the step edit toggle button. */
     public void editStepGoals() {
         stepsEdit.setText(Integer.toString(user.getStepGoal()));
         stepsOnEditing.setVisible(true);
@@ -206,6 +215,7 @@ public class GoalsScreenController {
         updateStep.setVisible(true);
     }
 
+    /** Allows the user to edit their distance goals after clicking the distance edit toggle button. */
     public void editDistanceGoals() {
         distanceEdit.setText(Integer.toString(user.getDistanceGoal()));
         onDistanceEditing.setVisible(true);
@@ -213,9 +223,14 @@ public class GoalsScreenController {
         updateDistance.setVisible(true);
     }
 
-    public void stopEditing() throws SQLException {
+    /** Stops all editing of all fields, attempts to set the distance and step data */
+    public void stopEditing() {
+
+        // Sets the date
         setDistanceData();
         setStepData();
+
+        // Hides all of the editing fields.
         stepsOnEditing.setVisible(false);
         onDistanceEditing.setVisible(false);
         stepsEdit.setVisible(false);
@@ -224,12 +239,13 @@ public class GoalsScreenController {
         updateDistance.setVisible(false);
     }
 
+    /** Sets the distance goal if valid and enters it into the database. */
     @FXML
-    private void setDistanceGoal() throws SQLException {
+    private void setDistanceGoal() {
         int newDistanceGoal = user.getDistanceGoal();
         try {
             newDistanceGoal = Integer.parseInt(distanceEdit.getText());
-            ApplicationManager.displayPopUp("Updated Goal", "Succesfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
+            ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }

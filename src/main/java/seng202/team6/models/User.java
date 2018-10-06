@@ -430,7 +430,7 @@ public class User
      * sets the step goal for the user
      * @param newStepCount integer of new step count per week goal
      */
-    public void setStepGoal(int newStepCount) throws SQLException {
+    public void setStepGoal(int newStepCount) {
         this.stepGoal = newStepCount;
         ApplicationManager.getDatabaseManager().getUserWriter().setStepGoal(userID, stepGoal);
     }
@@ -439,7 +439,7 @@ public class User
         return distanceGoal;
     }
 
-    public void setDistanceGoal(int distanceGoal) throws SQLException {
+    public void setDistanceGoal(int distanceGoal) {
         this.distanceGoal = distanceGoal;
         ApplicationManager.getDatabaseManager().getUserWriter().setDistanceGoal(userID, distanceGoal);
     }

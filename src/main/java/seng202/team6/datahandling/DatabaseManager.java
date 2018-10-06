@@ -80,6 +80,7 @@ public class DatabaseManager {
             if(!res.next()) {
                 System.out.println("Building the User table...");
                 //Build the tables
+
                 //Create users table
                 Statement userTableStatement = con.createStatement();
                 String userTablesql = "CREATE TABLE IF NOT EXISTS user(userid INTEGER PRIMARY KEY,"
@@ -95,6 +96,7 @@ public class DatabaseManager {
                         + "distancegoal INTEGER,"
                         + "logins INTEGER);";
                 userTableStatement.execute(userTablesql);
+
                 //Create activities table
                 Statement activityTableStatement = con.createStatement();
                 String activityTablesql = "CREATE TABLE IF NOT EXISTS activity(activityid INTEGER PRIMARY KEY," + "userid INTEGER,"
@@ -106,7 +108,6 @@ public class DatabaseManager {
                         + "notes text,"
                         + "FOREIGN KEY(userid) REFERENCES user(userid));";
                 activityTableStatement.execute(activityTablesql);
-                //Create workouts table
 
                 //Create records table
                 Statement recordTableStatement = con.createStatement();

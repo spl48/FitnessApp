@@ -39,11 +39,24 @@ public class ApplicationManager {
      */
     private static int curQuoteIndex;
 
+    /**
+     * The current screen name which the user is currently on.
+     */
     private static String currScreenName = "HOME";
 
+    /**
+     * Flag for header use if the back button is needed.
+     */
     private static boolean backButtonRequired = false;
 
+    /**
+     * The default initialisation previous screen path
+     */
     private static String prevScreen = "/seng202/team6/view/HomeScreen.fxml";
+
+    /**
+     * The default initialisation previous screen name.
+     */
     private static String prevScreenName = "HOME";
 
 
@@ -56,20 +69,41 @@ public class ApplicationManager {
         currentActivityNumber = databaseManager.getActivityManager().getNumberActivities();
     }
 
+    /**
+     * Sets the class variables to the 'back' navigation status of the screen.
+     * @param backNeeded Whether the back button is needed in the header.
+     * @param previousScreen The path to the previous screen.
+     * @param previousScreenName The name of the previous screen.
+     */
     public static void setBackOptions(boolean backNeeded, String previousScreen, String previousScreenName) {
         backButtonRequired = backNeeded;
         prevScreen = previousScreen;
         prevScreenName = previousScreenName;
     }
 
+
+    /**
+     * Gets the path to the previous screen.
+     * @return The path to the previous screen.
+     */
     public static String getPrevScreen() {
         return prevScreen;
     }
 
+
+    /**
+     * Gets the name of the previous screen.
+     * @return The name of the previous screen.
+     */
     public static String getPrevScreenName() {
         return prevScreenName;
     }
 
+
+    /**
+     * Checks if the back button is needed on the header.
+     * @return Whether the back button is required.
+     */
     public static boolean isBackButtonRequired() {
         return backButtonRequired;
     }
@@ -84,10 +118,19 @@ public class ApplicationManager {
         currentUserID = userid;
     }
 
+    /**
+     * Sets the current screen path.
+     * @param newScreen The new current screen path.
+     */
     public static void setCurrScreen(String newScreen) {
         currScreenName = newScreen;
     }
 
+
+    /**
+     * Gets the current screen.
+     * @return The current screen.
+     */
     public static String getCurrScreen() {
         return currScreenName;
     }
@@ -146,6 +189,13 @@ public class ApplicationManager {
         popUpBoxController.displayPopUP(title, message, type);
     }
 
+
+    /**
+     * Displays a pop up which gives the user an option of yes and no. If the user selects yes then the function will return
+     * true otherwise it will return false.
+     * @param message The message to display in the pop up describing what is being confirmed.
+     * @return Whether the user picks yes or no on the pop up.
+     */
     public static boolean getAnswerFromPopUp(String message) {
         popUpBoxController.displayPopUP("Confirmation", message, "yesNo");
         return popUpBoxController.getConfirmationStatus();
