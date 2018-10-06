@@ -98,7 +98,9 @@ public class loginController extends GeneralScreenController {
     }
 
 
-
+    /**
+     * A function that does a User Tutorial for First Time Users.
+     */
     public void tutorial() {
         try {
             if (databaseManager.getUserReader().getLoginCount() == 0) {
