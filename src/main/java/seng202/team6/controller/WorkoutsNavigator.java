@@ -37,7 +37,7 @@ public class WorkoutsNavigator extends GeneralScreenController {
      * @param event When the user clicks on a button directing to this screen.
      */
     @FXML
-    public void toRawDataVeiwer(Event event) {
+    public void toRawDataViewer(Event event) {
         ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
         changeScreen(event, "/seng202/team6/view/RawDataVeiwer2.fxml", "RAW DATA VIEWER");
     }

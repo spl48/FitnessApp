@@ -18,12 +18,13 @@ import static seng202.team6.models.Goal.stepsAchieved;
 
 /**
  * <h1>File Uploader GUI Controller</h1>
- * <p>Initialises and applies functionality to the File Upload screen allowing the user to upload Activities</p>
+ * <p>Initialises and applies functionality to the file upload editing screen allowing the user to update the type of
+ * their activities and add any desired notes.</p>
  */
 public class  ActivityUploaderController extends WorkoutsNavigator {
 
     /**
-     * A Table view which holds all the top level activity data that the user uploads.
+     * A Table view which holds all the raw level activity data that the user uploads.
      */
     @FXML
     private TableView activityTable;
@@ -81,7 +82,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     private TextArea notesEditor;
 
     /**
-     * The current user
+     * The current user which is logged in.
      */
     private User user;
 
@@ -103,6 +104,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         activityTable.getSelectionModel().select(0);
         updateEditing();
 
+        // Gets the current instance data
         databaseManager = ApplicationManager.getDatabaseManager();
         String userName = ApplicationManager.getCurrentUsername();
         user = databaseManager.getUserReader().getUser(userName);
@@ -110,7 +112,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
 
     
     /**
-     * Binds selected attributes of Activity to selected columns in the table.
+     * Binds selected attributes of an Activity Record to selected columns in the table.
      */
     private void setupTable() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("activityid"));
@@ -134,7 +136,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
      */
     private void refreshActivities() {
         try {
-            // Gets all the current activities from the database. (Can be made more efficient with query possibly)
+            // Gets all the current activities from the database.
             ArrayList<Activity> activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
 
             // Clears the old data from the table.
@@ -190,15 +192,20 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
      * @param event When the user clicks the back arrow and wishes to exit from the upload activity checking area.
      */
     @FXML
-    public void finishEditing(Event event) throws SQLException {
+    public void toAddWorkout(Event event) {
+
+        // Updates the current activity number and executes the super class version of to add workout screen.
         ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
-        System.out.println(ApplicationManager.getCurrentActivityNumber());
-        toAddWorkout(event);
+        super.toAddWorkout(event);
+
+        // Checks if the user has achieved their step goal, if so displays a congratulatory message.
         if (stepsAchieved(user)) {
             int stepGoal = user.getStepGoal();
             String stepGoalString = Integer.toString(stepGoal) + " steps";
             ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "!" , "confirmation");
         }
+
+        // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
         if (distanceAchieved(user)) {
             int distanceGoal = user.getDistanceGoal();
             String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
@@ -209,19 +216,24 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     }
 
 
-    private void displayRandomProgressReport() throws SQLException {
+    /**
+     * Displays a random progress report based on the user's updated goal once updating their activity goals.
+     */
+    private void displayRandomProgressReport() {
+
+        // Gets a random double to act as the probability.
         double ran = Math.random();
+
+        // Displays a goal or distance motivation pop up with a chance of 50%.
         if (ran <= 0.5) {
             int stepGoal = user.getStepGoal();
             double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
-            String stepGoalString = Integer.toString(stepGoal) + " steps";
             double stepsLeft = stepGoal - totalSteps;
             String stepsLeftString = String.format("%.0f Steps", stepsLeft);
             ApplicationManager.displayPopUp("Congratulations", "You only have " + stepsLeftString + " until you reach your goal steps!", "confirmation");
         } else {
             int distanceGoal = user.getDistanceGoal();
             double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
-            String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
             double distanceLeft = distanceGoal - totalDistance;
             String distanceLeftString = String.format("%.0f Kilometers", distanceLeft);
             ApplicationManager.displayPopUp("Congratulations", "You only have " + distanceLeftString + " until you reach your goal distance!" , "confirmation");

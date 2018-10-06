@@ -72,7 +72,7 @@ public class DatabaseUserReader {
     }
     public User getUserFromID(int userid) throws SQLException {
         // Checks the connection to the database.
-        // Trys to query the database for a user.
+        // Tries to query the database for a user.
         Statement statement = connection.createStatement();
         String sqlString = "SELECT * FROM user WHERE userid = " + userid;
         ResultSet userData = statement.executeQuery(sqlString);

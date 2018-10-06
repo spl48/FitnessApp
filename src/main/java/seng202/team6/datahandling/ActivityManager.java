@@ -1,5 +1,6 @@
 package seng202.team6.datahandling;
 
+import org.apache.commons.beanutils.converters.SqlDateConverter;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -483,11 +484,23 @@ public class ActivityManager {
         }
     }
 
-    public double getUpdatedDistanceGoal(int userid) throws SQLException {
-        LocalDate ld = LocalDate.now();
-        ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        String lastMondayDate = databaseManager.convertToDBDateFormat(ld);
-        ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
+    public ArrayList<Activity> getActivitiesForWeeklyGoal(int userid) {
+        ArrayList<Activity> activities = new ArrayList<Activity>();
+        try {
+            LocalDate ld = LocalDate.now();
+            ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            String lastMondayDate = databaseManager.convertToDBDateFormat(ld);
+            activities = getActivitiesByDate(userid, lastMondayDate);
+        } catch (SQLException e) {
+            ApplicationManager.displayErrorPopUp(e);
+        }
+        return activities;
+    }
+
+    public double getUpdatedDistanceGoal(int userid) {
+
+        ArrayList<Activity> activities = getActivitiesForWeeklyGoal(userid);
+
         double totalDistance = 0;
         for (Activity activity : activities) {
             double currentDistance = activity.getDistance();          // Finds the step count for 1 activity
@@ -495,17 +508,20 @@ public class ActivityManager {
         }
         return totalDistance;
     }
-    public double getUpdatedStepGoal(int userid) throws SQLException {
-        double strideLength = databaseManager.getUserReader().getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength();
-        LocalDate ld = LocalDate.now();
-        ld = ld.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        String lastMondayDate = databaseManager.convertToDBDateFormat(ld);
-        ArrayList<Activity> activities = getActivitiesByDate(userid, lastMondayDate);
-        System.out.println(activities.size());
+    public double getUpdatedStepGoal(int userid) {
+
         double totalStepCount = 0;
-        for (Activity activity : activities) {
-            double currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
-            totalStepCount += currentStepCount;
+
+        try {
+            double strideLength = databaseManager.getUserReader().getUserFromID(ApplicationManager.getCurrentUserID()).getWalkingStrideLength();
+            ArrayList<Activity> activities = getActivitiesForWeeklyGoal(userid);
+
+            for (Activity activity : activities) {
+                double currentStepCount = activity.findStepCount(strideLength);          // Finds the step count for 1 activity
+                totalStepCount += currentStepCount;
+            }
+        } catch (SQLException e) {
+            ApplicationManager.displayErrorPopUp(e);
         }
         return totalStepCount;
     }

@@ -144,7 +144,7 @@ public class Goal
      * @return boolean
      * @throws SQLException
      */
-    public static boolean stepsAchieved(User user) throws SQLException {
+    public static boolean stepsAchieved(User user) {
         int stepGoal = user.getStepGoal();
         double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         double stepsLeft = stepGoal - totalSteps;
@@ -160,7 +160,7 @@ public class Goal
      * @return boolean
      * @throws SQLException
      */
-    public static boolean distanceAchieved(User user) throws SQLException {
+    public static boolean distanceAchieved(User user) {
         int distanceGoal = user.getStepGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
         double stepsLeft = distanceGoal - totalDistance;

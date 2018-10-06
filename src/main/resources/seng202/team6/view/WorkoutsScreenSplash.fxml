@@ -35,7 +35,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView onMouseClicked="#toRawDataVeiwer" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <ImageView onMouseClicked="#toRawDataViewer" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@../resources/pics/rawdata.png" />
                      </image>

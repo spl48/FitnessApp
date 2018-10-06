@@ -116,12 +116,14 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     /**
      * The filtered list of activities.
      */
-    HashMap<String, Integer> filteredActivities;
+    private HashMap<String, Integer> filteredActivities;
 
     /**
      * Current User
      */
-    User currUser;
+    private User currUser;
+
+    private int numActivities = ApplicationManager.getDatabaseManager().getActivityManager().getNumberUserActivities();
 
     @FXML
     TabPane graphMapTab;
@@ -152,7 +154,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     }
 
 
-    private void updateListView() {
+    private void updateListView() throws SQLException {
         // Sets the activity array and creates an array of strings for these
         activities = databaseManager.getActivityManager().getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
@@ -164,12 +166,17 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             activityList.setItems(FXCollections.observableArrayList(availableActivities));;
             activityList.setMouseTransparent( false );
             activityList.setFocusTraversable( true );
+            selectionIndex = 0;
+            selectNewActivity();
         } else {
             activityList.setItems(FXCollections.observableArrayList("No Activities Available"));
+
             distanceLabel.setText("");
             velocityLabel.setText("");
             heartRateLabel.setText("");
             stepsLabel.setText("");
+
+            clearGraph();
             activityList.setMouseTransparent( true );
             activityList.setFocusTraversable( false );
         }
@@ -216,7 +223,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
     @FXML
     private void clearList() {
-        System.out.println("Im here!!");
         activityList.getSelectionModel().clearSelection();
     }
 
@@ -225,7 +231,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void newGraph() {
-        if (activities.size() >= 1) {
+        if (numActivities >= 1) {
             int activity = selectionIndex;
             Activity selectedActivity = activities.get(selectionIndex);
             String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
@@ -255,7 +261,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void addSeries() throws SQLException {
-        if (activities.size() >= 1) {
+        if (numActivities >= 1) {
             int activity = selectionIndex;
             if (activity == -1) {
                 System.out.println("-1");
@@ -327,8 +333,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     /**
      * Opens filter pop up screen
      */
-    public void toFilter() {
-        if (ApplicationManager.getDatabaseManager().getActivityManager().getNumberUserActivities() >= 1) {
+    public void toFilter() throws SQLException {
+        if (numActivities >= 1) {
             ApplicationManager.displayPopUp("test", "test", "filter");
             updateListView();
             clearGraph();
@@ -373,7 +379,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private void clearGraph() {
         analysisGraph.getData().clear();
         graphCount = 0;
-        //activityList.getSelectionModel().clearSelection();
         analysisGraph.getYAxis().setLabel("");
         analysisGraph.getXAxis().setLabel("");
         currentSeriesTypes.clear();
