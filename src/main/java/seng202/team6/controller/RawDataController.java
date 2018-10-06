@@ -331,16 +331,21 @@ public class RawDataController extends WorkoutsNavigator{
 
 
     @FXML
-    public void stopEditing() {
+    public void stopEditingCheck() {
         boolean exitEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you want to finish editing? Your changes will not be saved.");
 
         if (exitEditing) {
-            isEditing = false;
-            setVisablityEdit(false);
-
-            activitySelect.setMouseTransparent(false);
-            activitySelect.setFocusTraversable(true);
+            stopEditing();
         }
+    }
+
+    @FXML
+    private void stopEditing() {
+        isEditing = false;
+        setVisablityEdit(false);
+
+        activitySelect.setMouseTransparent(false);
+        activitySelect.setFocusTraversable(true);
     }
 
     private void setVisablityEdit(Boolean isVisable) {
@@ -377,22 +382,22 @@ public class RawDataController extends WorkoutsNavigator{
             filteredActivities = dbManager.getActivityManager().getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
             ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
             addActivitiesToListView(activityList);
+
+            showActivity();
+            ApplicationManager.displayPopUp("Success!", "Your activity update was successful!", "confirmation");
+            stopEditing();
+        } else {
+            ApplicationManager.displayPopUp("Update Failure", "Your activity update was unsuccessful", "error");
         }
-        showActivity();
-        ApplicationManager.displayPopUp("Success!", "Your activity update was successful!", "confirmation");
+
 
     }
 
 
-//    /**
-//     * Validates the entered activity data, displaying error pop ups when relevant.
-//     * @return Whether all fields are valid.
-//     */
-//    private boolean validEnteredData() {
-//        return (DatabaseValidation.validateDateWithFormat(dateEdit.getValue().toString()) &&
-//                DatabaseValidation.validateDescription(descriptionEdit.getText()));
-//    }
-
+     /**
+     * Validates the entered activity data, displaying error pop ups when relevant.
+     * @return Whether all fields are valid.
+     */
     private boolean validEnteredData() throws SQLException {
 
         Double distance;

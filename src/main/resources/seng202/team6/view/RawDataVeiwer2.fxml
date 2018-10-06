@@ -145,7 +145,7 @@
                         </TextField>
                         <DatePicker fx:id="startDateEdit" prefHeight="5.0" prefWidth="188.0" visible="false" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                         <ChoiceBox fx:id="typeEdit" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: white; -fx-border-color: lightGrey;" visible="false" GridPane.rowIndex="16" GridPane.valignment="TOP" />
-                        <ImageView fx:id="editOn" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#stopEditing" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="19">
+                        <ImageView fx:id="editOn" fitHeight="24.0" fitWidth="24.0" onMouseClicked="#stopEditingCheck" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="19">
                            <image>
                               <Image url="@../resources/pics/editOn.png" />
                            </image>
