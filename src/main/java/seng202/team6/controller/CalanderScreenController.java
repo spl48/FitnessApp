@@ -34,10 +34,6 @@ public class CalanderScreenController {
     @FXML
     private ImageView activityPrev;
 
-    /**
-     * The Application database manager.
-     */
-    private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
     /**
      * The activity description label.
@@ -85,10 +81,6 @@ public class CalanderScreenController {
     GridPane calendar;
 
 
-    // Text representing activities information
-    @FXML
-    Text description, speed, distance, type, dateText;
-
     // List of the current users activities
     ArrayList<Activity> activities;
 
@@ -96,7 +88,11 @@ public class CalanderScreenController {
     LocalDate date = LocalDate.now();
     ArrayList<AnchorPane> days   = new ArrayList<>();
 
-    ArrayList<Activity> activitiesOnDate = new ArrayList<>();
+    /**
+     * Array list containing the activities performed on that day.
+     */
+    ArrayList<Activity> dayActivities = new ArrayList<>();
+
 
     /**
      * Initializes the fitness calendar screen, setting panes for each
@@ -168,7 +164,6 @@ public class CalanderScreenController {
                 pane.setLeftAnchor(text, 5.0);
                 pane.getChildren().add(text);
 
-                pane.setOnMouseClicked(e -> displayActivities(null));
 
                 checkDateActivities(pane);
 
@@ -190,6 +185,7 @@ public class CalanderScreenController {
      * @param pane the pane for which the activity (if found) is displayed
      */
     public void checkDateActivities(AnchorPane pane) {
+        ArrayList<Activity> activitiesOnDate = new ArrayList<>();
 
         for(Activity activity : activities) {
             if (activity.getStartDate().equals(date)) {     // Activity was undertake on current date
@@ -202,48 +198,14 @@ public class CalanderScreenController {
 
                 ImageView image = new ImageView("/seng202/team6/resources/pics/calendaractivityicon.png");
                 pane.getChildren().add(image);
-                pane.setBottomAnchor(image, 5.0);
-                pane.setLeftAnchor(image, 15.0);
+                pane.setBottomAnchor(image, 12.0);
+                pane.setLeftAnchor(image, 32.0);
 
                 activitiesOnDate.add(activity);
             }
         }
         pane.setOnMouseClicked(e -> showActivity(activitiesOnDate));
     }
-
-
-    /**
-     * Displays the activity imformation when the activity has been selected,
-     * sets field to empty if a date with no activity (null) was selected
-     * @param activities
-     */
-    public void displayActivities(ArrayList<Activity> activities) {
-        if (activities.size() == 0) {     // No activity on selected date
-            System.out.println("1");
-            description.setText("");
-            speed.setText("");
-            distance.setText("");
-            type.setText("");
-        } else {
-            System.out.println("2");
-            String descriptionText = "";
-            String speedText = "";
-            String distanceText = "";
-            String typeText = "";
-            for (Activity activity : activities) {
-                descriptionText += activity.getDescription() + "\n";
-                speedText += String.format("%.2f Km / hour\n" , activity.findAverageSpeed());
-                distanceText += String.format("%.2f Km\n", activity.findDistanceFromStart(activity.getActivityData().size() - 1));
-                typeText += activity.getType() + "\n";
-            }
-            description.setText(descriptionText);
-            speed.setText(speedText);
-            distance.setText(distanceText);
-            type.setText(typeText);
-        }
-
-    }
-
 
     /**
      * Sets the calendar view to the next month
@@ -261,11 +223,11 @@ public class CalanderScreenController {
         setUpCalendar();
     }
 
-    public void previousActivity() {
 
-    }
-
-
+    /**
+     * Displays activities performed on selected day
+     * @param activities
+     */
     public void showActivity(ArrayList<Activity> activities) {
         if (activities.size() == 0) {     // No activity on selected date
             activityNext.setVisible(false);
@@ -293,7 +255,6 @@ public class CalanderScreenController {
             typeLabel.setText(selectedActivity.getType());
             notesLabel.setText(selectedActivity.getNotes());
         } else if (activities.size() > 1) {
-
             activityNext.setVisible(true);
             activityPrev.setVisible(true);
             Activity selectedActivity = activities.get(0);
@@ -306,26 +267,60 @@ public class CalanderScreenController {
             endTimeLabel.setText(selectedActivity.getEndTime().toString());
             typeLabel.setText(selectedActivity.getType());
             notesLabel.setText(selectedActivity.getNotes());
+            setDayActivities(activities);
+
         }
     }
 
+    /**
+     * Button to let user see next activity of that day on calendar.
+     * allows for cyclic loop of activities.
+     */
     public void nextActivity() {
         activityArrayIndex++;
 
         // if you want to do a cyclic loop of the data
-        if (activityArrayIndex >= activitiesOnDate.size()) {
+        if (activityArrayIndex >= dayActivities.size()) {
             activityArrayIndex = 0;
         }
-        System.out.println(activityArrayIndex);
+        Activity selectedActivity = dayActivities.get(activityArrayIndex);
+        descriptionLabel.setText(selectedActivity.getDescription());
+        velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
+        distanceLabel.setText(String.format("%.2f Km\n", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1)));
+        startDateLabel.setText(selectedActivity.getStartDate().toString());
+        endDateLabel.setText(selectedActivity.getEndDate().toString());
+        startTimeLabel.setText(selectedActivity.getStartTime().toString());
+        endTimeLabel.setText(selectedActivity.getEndTime().toString());
+        typeLabel.setText(selectedActivity.getType());
+        notesLabel.setText(selectedActivity.getNotes());
     }
+
+
 
     public void prevActivity() {
         activityArrayIndex--;
 
         // if you want to do a cyclic loop of the data
         if (activityArrayIndex < 0) {
-            activityArrayIndex = activitiesOnDate.size() - 1;
+            activityArrayIndex = dayActivities.size() - 1;
         }
-        System.out.println(activityArrayIndex);
+        Activity selectedActivity = dayActivities.get(activityArrayIndex);
+        descriptionLabel.setText(selectedActivity.getDescription());
+        velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
+        distanceLabel.setText(String.format("%.2f Km\n", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1)));
+        startDateLabel.setText(selectedActivity.getStartDate().toString());
+        endDateLabel.setText(selectedActivity.getEndDate().toString());
+        startTimeLabel.setText(selectedActivity.getStartTime().toString());
+        endTimeLabel.setText(selectedActivity.getEndTime().toString());
+        typeLabel.setText(selectedActivity.getType());
+        notesLabel.setText(selectedActivity.getNotes());
+    }
+
+    /**
+     * Button to let user see previous activity of that day on calendar.
+     * allows for cyclic loop of activities.
+     */
+    public void setDayActivities(ArrayList<Activity> activities) {
+        dayActivities = activities;
     }
 }
