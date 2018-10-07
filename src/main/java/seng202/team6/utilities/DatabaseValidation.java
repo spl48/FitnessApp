@@ -294,13 +294,11 @@ public class DatabaseValidation {
     }
 
     public static boolean validateNotes(String notes) {
-        boolean valid = false;
-        if (notes.length() >= 111) {
+        boolean valid = true;
+        if (notes != null && notes.length() >= 111) {
             ApplicationManager.displayPopUp("Invalid Data", "Make sure that notes is not longer than 110 characters.", "error");
             System.out.println("Notes is too long");
             valid = false;
-        } else if (notes.length() <= 110 || notes.isEmpty()) {
-            valid = true;
         }
         return valid;
     }
