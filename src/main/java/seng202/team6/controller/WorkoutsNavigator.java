@@ -72,7 +72,7 @@ public class WorkoutsNavigator extends GeneralScreenController {
      */
     @FXML
     public void toWorkoutManualEntry(Event event) {
-        ApplicationManager.setBackOptions(true, "/seng202/team6/view/AddWorkout.fxml", "ADD WORKOUT");
+        ApplicationManager.setBackOptions(true, "/seng202/team6/view/AddWorkout.fxml", "ADD ACTIVITY");
         changeScreen(event, "/seng202/team6/view/WorkoutManualEntry.fxml", "ADD MANUAL ACTIVITY");
     }
 
