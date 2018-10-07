@@ -13,6 +13,8 @@ import seng202.team6.utilities.DatabaseValidation;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 
 /**
@@ -135,7 +137,8 @@ public class workoutManualEntryController extends GeneralScreenController {
      * @return Whether all fields are valid.
      */
     private boolean validEnteredData() throws SQLException {
-
+        DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
+                .withResolverStyle(ResolverStyle.STRICT);
         // Validate all the activity fields.
         if(DatabaseValidation.validateTime(startTime) &&
                 DatabaseValidation.validateTime(endTime) &&
@@ -143,14 +146,15 @@ public class workoutManualEntryController extends GeneralScreenController {
                 DatabaseValidation.validateDateWithFormat(endDateString) &&
                 DatabaseValidation.validateStartEndDate(startDate, endDate) &&
                 DatabaseValidation.validateStartEndTime(startTime, endTime) &&
-                DatabaseValidation.validateDistance(distance)){
-            LocalTime localStartTime = LocalTime.parse(startTime);
-            LocalTime localEndTime = LocalTime.parse(endTime);
+                DatabaseValidation.validateDistance(distance)) {
+            LocalTime localStartTime = LocalTime.parse(startTime, strictTimeFormatter);
+            LocalTime localEndTime = LocalTime.parse(endTime, strictTimeFormatter);
+
             if(DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDate, endDate)){
                 notes = notes_E.getText();
                 return true;
             }
-            else{
+            else {
                 return false;
             }
         }
