@@ -150,9 +150,8 @@ public class workoutManualEntryController extends GeneralScreenController {
                 ActivityValidation.validateDistance(distance) &&
                 ActivityValidation.validateNotes(notes_E.getText())) {
             LocalTime localEndTime = LocalTime.parse(endTime, strictTimeFormatter);
-            LocalTime localStartTime = LocalTime.parse(startTime, strictTimeFormatter);
 
-            if(DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDate, endDate)){
+            if(DatabaseValidation.validateNonDuplicateActivity(localEndTime, startDate, endDate,dbManager)){
                 notes = notes_E.getText();
                 return true;
             }

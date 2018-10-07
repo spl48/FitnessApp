@@ -463,7 +463,7 @@ public class RawDataController extends WorkoutsNavigator{
     }
 
 
-     /**
+    /**
      * Validates the entered activity data, displaying error pop ups when relevant.
      * @return Whether all fields are valid.
      */
@@ -474,10 +474,6 @@ public class RawDataController extends WorkoutsNavigator{
         // Checks if the data is valid, this is different for the manual entry as a there are more fields
         // as there are more fields to edit.
         if (selectedActivity.isManualActivity()) {
-            DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
-                    .withResolverStyle(ResolverStyle.STRICT);
-            LocalTime localEndTime = LocalTime.parse(startTimeEdit.getText(), strictTimeFormatter);
-            LocalTime localStartTime = LocalTime.parse(endTimeEdit.getText(), strictTimeFormatter);
             try {
                 distance = Double.parseDouble(distanceEdit.getText());
                 return (ActivityValidation.validateDescription(descriptionEdit.getText())) &&
@@ -489,9 +485,8 @@ public class RawDataController extends WorkoutsNavigator{
                         DatabaseValidation.validateStartEndTime(startTimeEdit.getText(), endTimeEdit.getText()) &&
                         ActivityValidation.validateNotes(notesEdit.getText()) &&
                         ActivityValidation.validateDistance(distance) &&
-                        DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDateEdit.getValue(), endDateEdit.getValue());
+                        DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue(),ApplicationManager.getDatabaseManager());
             } catch (NumberFormatException e) {
-                ApplicationManager.displayPopUp("Invalid Input", "Please ensure that distance is a numerical value and is in the range of 0 to 1000 km.", "error");
                 if(ApplicationManager.getCurrentUserID() != 0) {
                     ApplicationManager.displayPopUp("Invalid Data Type", "Check that distance is a number.", "error");
                 }
