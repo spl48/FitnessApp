@@ -354,8 +354,8 @@ public class RawDataController extends WorkoutsNavigator{
             descriptionEdit.setText(selectedActivity.getDescription());
             startDateEdit.setValue(selectedActivity.getStartDate());
             endDateEdit.setValue(selectedActivity.getEndDate());
-            startTimeEdit.setText(selectedActivity.getStartTime().toString());
-            endTimeEdit.setText(selectedActivity.getEndTime().toString());
+            startTimeEdit.setText(selectedActivity.getStartTime().toString() + ":00");
+            endTimeEdit.setText(selectedActivity.getEndTime().toString() +":00");
             distanceEdit.setText(Double.toString(selectedActivity.getDistance()));
             notesEdit.setText(selectedActivity.getNotes());
 
@@ -435,9 +435,11 @@ public class RawDataController extends WorkoutsNavigator{
                 String startDateTime = startDateString + "T" + startTimeEdit.getText();
                 String endDateString = endDateEdit.getValue().toString().replace("/", "-");
                 String endDateTime = endDateString + "T" + endTimeEdit.getText();
+                String distance = distanceEdit.getText();
 
                 dbManager.getActivityManager().updateStartDate(startDateTime, selectedActivity.getActivityid());
                 dbManager.getActivityManager().updateEndDate(endDateTime, selectedActivity.getActivityid());
+                dbManager.getActivityManager().updateDistance(distance, selectedActivity.getActivityid());
             }
 
             // Updates the description, type and notes fields.
@@ -470,18 +472,24 @@ public class RawDataController extends WorkoutsNavigator{
         // Checks if the data is valid, this is different for the manual entry as a there are more fields
         // as there are more fields to edit.
         if (selectedActivity.isManualActivity()) {
-            distance = Double.parseDouble(distanceEdit.getText());
-            return (ActivityValidation.validateDescription(descriptionEdit.getText())) &&
-                    DatabaseValidation.validateTime(startTimeEdit.getText()) &&
-                    DatabaseValidation.validateTime(endTimeEdit.getText()) &&
-                    DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
-                    DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
-                    DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
-                    DatabaseValidation.validateStartEndTime(startTimeEdit.getText(), endTimeEdit.getText()) &&
-                    ActivityValidation.validateNotes(notesEdit.getText()) &&
-                    ActivityValidation.validateDistance(distance) &&
-                    DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue(),dbManager);
-
+            try {
+                distance = Double.parseDouble(distanceEdit.getText());
+                return (ActivityValidation.validateDescription(descriptionEdit.getText())) &&
+                        DatabaseValidation.validateTime(startTimeEdit.getText()) &&
+                        DatabaseValidation.validateTime(endTimeEdit.getText()) &&
+                        DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
+                        DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
+                        DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
+                        DatabaseValidation.validateStartEndTime(startTimeEdit.getText(), endTimeEdit.getText()) &&
+                        ActivityValidation.validateNotes(notesEdit.getText()) &&
+                        ActivityValidation.validateDistance(distance) &&
+                        DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue(),ApplicationManager.getDatabaseManager());
+            } catch (NumberFormatException e) {
+                if(ApplicationManager.getCurrentUserID() != 0) {
+                    ApplicationManager.displayPopUp("Invalid Data Type", "Check that distance is a number.", "error");
+                }
+                return false;
+            }
         } else {
             return (ActivityValidation.validateDescription(descriptionEdit.getText()) &&
                     ActivityValidation.validateNotes(notesEdit.getText()));

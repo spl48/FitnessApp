@@ -129,7 +129,8 @@ public class UserDataValidation {
         boolean valid = false;
         if (gender == "") {
             popUpBoxController.displayPopUP("Empty Gender Field", "Please provide a gender.", "error");
-        } else if (!(gender == "Female" || gender == "Male")) {
+        } else if (!(gender.equals("Female") || gender.equals("Male"))) {
+            System.out.println("Gender: " + gender);
             ApplicationManager.displayPopUp("Incorrect Gender", "Please make sure the gender is valid!", "error");
         } else {
             System.out.println("Gender OK");

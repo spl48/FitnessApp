@@ -218,9 +218,9 @@ public class ActivityManager {
      * Removes all records from a given user **FIX THIS**
      * @throws SQLException
      */
-    public void removeRecords() throws SQLException {
+    public void removeRecords(String username) throws SQLException {
         Statement state = connection.createStatement();
-        state.executeUpdate("delete from record where exists(select * from activity where activity.activityid = record.activityid and activity.userid = " + ApplicationManager.getCurrentUserID() + ")");
+        state.executeUpdate("delete from record where exists(select userid from user where username = '" + username + "')");
     }
 
     /**
@@ -425,15 +425,6 @@ public class ActivityManager {
                 + userid
                 + " AND EXISTS (SELECT * FROM record WHERE activity.activityid = record.activityid);");
         while(res.next()){
-//            Activity activity = extractActivity(res);
-//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-//            for (ActivityDataPoint dataPoint : dataPoints) {
-//                activity.addActivityData(dataPoint);
-//            }
-//            activity.updateType();
-//            activity.updateMaxHeartRate();
-//            activity.updateMinHeartRate();
-//            activities.add(activity);
             Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
@@ -455,6 +446,9 @@ public class ActivityManager {
         updateActivityProperty(description, activityID, "description");
     }
 
+    public void updateDistance(String distance, int activityID) {
+        updateActivityProperty(distance, activityID, "distance");
+    }
 
     public void updateStartDate(String start, int activityID) {
         updateActivityProperty(start, activityID, "start");

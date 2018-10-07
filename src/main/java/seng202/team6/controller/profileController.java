@@ -203,6 +203,7 @@ public class profileController extends GeneralScreenController {
         first = fnameField.getText();
         last = lnameField.getText();
         gender = genderField.getValue();
+        System.out.println(gender);
         birthDate = dobField.getValue();
 
         // Tries to set the double attributes.

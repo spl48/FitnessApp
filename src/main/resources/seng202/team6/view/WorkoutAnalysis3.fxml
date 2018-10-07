@@ -221,7 +221,7 @@
                                     <Insets />
                                  </GridPane.margin>
                               </ImageView>
-                              <Label text="VELOCITY" textFill="#676767" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Label text="AVG. VELOCITY" textFill="#676767" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <font>
                                     <Font name="NexaBold" size="17.0" />
                                  </font>

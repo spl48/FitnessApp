@@ -46,3 +46,11 @@
 #headerBackButton:hover {
     -fx-fill: #5473a7;
 }
+
+/* RAW DATA VIEWER */
+
+.date-picker .text-field {
+    -fx-font-size: 12px;
+}
+
+
