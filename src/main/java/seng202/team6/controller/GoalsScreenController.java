@@ -173,6 +173,7 @@ public class GoalsScreenController {
     public void setDistanceData() {
         int distanceGoal = user.getDistanceGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
+        System.out.println(totalDistance);
         String distanceGoalString = Integer.toString(distanceGoal) + " Kilometers";
         distanceGoalLabel.setText(distanceGoalString);
         double distanceLeft = distanceGoal - totalDistance;
