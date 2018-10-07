@@ -104,6 +104,42 @@ public class GoalsScreenController {
     }
 
     /**
+<<<<<<< HEAD
+     * Updated the users step goal in the database to the users entered value
+     * @throws SQLException
+     */
+    @FXML
+    private void setStepsGoal() {
+
+        // Initialises the new step goal to their current step goal.
+        int newStepGoal = user.getStepGoal();
+
+        //  Tries to get a valid integer new step goal from the user entry if valid otherwise displays an error.
+        try {
+            newStepGoal = Integer.parseInt(stepsEdit.getText());
+
+            // Sets the user step goal to the value read and checks if the goal is achieved. If not it ensures the images
+            // are displayed on top of the progress indicator so it looks like a ring.
+            if (UserDataValidation.validStepGoal(newStepGoal)) {
+                user.setStepGoal(newStepGoal);
+                ApplicationManager.displayPopUp("Updated Steps Goal", "Successfully changed your weekly step goal to " + newStepGoal + " steps per week.", "confirmation");
+                if (!stepsAchieved(user)) {
+                    stepCircle.setVisible(true);
+                    feetImage.setVisible(true);
+                    stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
+                }
+
+                // Stops the editing situation once an update has been made.
+                stopEditingStep();
+            }
+        } catch (NumberFormatException e) {
+            ApplicationManager.displayPopUp("Invalid Steps Goal", "Please ensure the steps goal is an integer value and is between 0 and 500000 steps.", "error");
+        }
+    }
+
+    /**
+=======
+>>>>>>> cf3c021e495446e00e50bf8ab113897789342098
      * Sets the data for the step goal section with the users current step goal per week, and how many steps until this goal is reached.
      * If the goal is reached, only the progress chart is displayed
      * @throws SQLException
@@ -137,6 +173,7 @@ public class GoalsScreenController {
     public void setDistanceData() {
         int distanceGoal = user.getDistanceGoal();
         double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
+        System.out.println(totalDistance);
         String distanceGoalString = Integer.toString(distanceGoal) + " Kilometers";
         distanceGoalLabel.setText(distanceGoalString);
         double distanceLeft = distanceGoal - totalDistance;
@@ -237,7 +274,7 @@ public class GoalsScreenController {
 
             if (UserDataValidation.validDistanceGoal(newDistanceGoal)) {
                 user.setDistanceGoal(newDistanceGoal);
-                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
+                ApplicationManager.displayPopUp("Updated Distance Goal", "Successfully changed your weekly distance goal to " + newDistanceGoal + " km per week", "confirmation");
                 if (!distanceAchieved(user)) {
                     distanceCircle.setVisible(true);
                     distanceImage.setVisible(true);
@@ -249,43 +286,10 @@ public class GoalsScreenController {
             }
 
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data into distance field!", "error");
+            ApplicationManager.displayPopUp("Invalid Distance Goal", "Please ensure that distance goal is an integer value and is between 0 to 350 km.", "error");
         }
     }
 
-    /**
-     * Updated the users step goal in the database to the users entered value
-     * @throws SQLException
-     */
-    @FXML
-    private void setStepsGoal() {
 
-        // Initialises the new step goal to their current step goal.
-        int newStepGoal = user.getStepGoal();
-
-        //  Tries to get a valid integer new step goal from the user entry if valid otherwise displays an error.
-        try {
-            newStepGoal = Integer.parseInt(stepsEdit.getText());
-
-            // Sets the user step goal to the value read and checks if the goal is achieved. If not it ensures the images
-            // are displayed on top of the progress indicator so it looks like a ring.
-            if (UserDataValidation.validStepGoal(newStepGoal)) {
-                user.setStepGoal(newStepGoal);
-                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
-                if (!stepsAchieved(user)) {
-                    stepCircle.setVisible(true);
-                    feetImage.setVisible(true);
-                    stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
-                }
-
-                // Stops the editing situation once an update has been made.
-                setVisibilityStep(false);
-                ApplicationManager.setEditingStatus(false);
-                setStepData();
-            }
-        } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
-        }
-    }
 
 }

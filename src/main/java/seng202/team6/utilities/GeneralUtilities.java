@@ -50,6 +50,12 @@ public class GeneralUtilities {
         }
         return true;
     }
+
+    /**
+     * Checks if the given String can be parse into a Local Date.
+     * @param inDate string to be parsed into a LocalDate.
+     * @return false if given string cannot be parsed into a LocalDate, true if it can.
+     */
     public static boolean isValidDateWithFormat(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d");
         dateFormat.setLenient(false);

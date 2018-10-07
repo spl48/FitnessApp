@@ -129,7 +129,7 @@ public class workoutManualEntryController extends GeneralScreenController {
         try {
             distance = Double.parseDouble(distance_E.getText());
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data correctly!", "error");
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numerical values.", "error");
         }
     }
 

@@ -296,7 +296,7 @@ public class DatabaseValidation {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                     LocalDate recordDate = LocalDate.parse(line[0], formatter);
                     if(recordTime.isAfter(activity.getStartTime()) && recordTime.isBefore(activity.getEndTime())
-                        && (recordDate.isEqual(activity.getStartDate()) || recordDate.isEqual(activity.getEndDate()))){
+                            && (recordDate.isEqual(activity.getStartDate()) || recordDate.isEqual(activity.getEndDate()))){
                         if(ApplicationManager.getCurrentUserID() != 0) {
                             ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity data detected!", "error");
                         }
@@ -306,7 +306,7 @@ public class DatabaseValidation {
                 }
             }
         }
-            return true;
+        return true;
     }
     public static boolean validateNonDuplicateActivity(LocalTime endTime, LocalDate startDate, LocalDate endDate, DatabaseManager databaseManager) throws SQLException {
         ArrayList<Activity> activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());

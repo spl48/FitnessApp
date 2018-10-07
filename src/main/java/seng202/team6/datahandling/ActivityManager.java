@@ -490,10 +490,9 @@ public class ActivityManager {
     public double getUpdatedDistanceGoal(int userid) {
 
         ArrayList<Activity> activities = getActivitiesForWeeklyGoal(userid);
-
         double totalDistance = 0;
         for (Activity activity : activities) {
-            double currentDistance = activity.getDistance();          // Finds the step count for 1 activity
+            double currentDistance = activity.findDistanceFromStart(activity.getActivityData().size()-1);          // Finds the step count for 1 activity
             totalDistance += currentDistance;
         }
         return totalDistance;

@@ -56,7 +56,7 @@ public class DatabaseManager {
             initialiseDatabase();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!", "error");
+            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist.", "error");
         } catch (SQLException e) {
             e.printStackTrace();
             ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.", "error");

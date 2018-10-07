@@ -31,6 +31,9 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     public static Node selected;
 
+    /**
+     * Initialises the screen
+     */
     @FXML
     void initialize() {
 
@@ -59,17 +62,17 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     public void tutorial() {
         if (selected.getId().equals(homeButton.getId())) {
-            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-                    "The top left corner of the Home Screen shows your BMI and potential health issues.", "tutorialsmall");
-            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-                    "The top right corner of the Home Screen shows the steps taken and the remaining steps to reach your goal.", "tutorialsmall");
-            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-                    "The bottom right corner shows your latest activity analysis assuming that you have uploaded an activity data already.", "tutorialbig");
-            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-                    "The bottom left corner is where you will see me. I will be giving you motivational quotes because I believe in you. Not because I’m programmed to but because I want to.", "tutorialbig");
-            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
-                    " and I will give you a detailed tutorial for the page you are on.\n\n"
-                    + "I hope I helped!", "tutorialbig");
+//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+//                    "The top left corner of the Home Screen shows your BMI and potential health issues.", "tutorialsmall");
+//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+//                    "The top right corner of the Home Screen shows the steps taken and the remaining steps to reach your goal.", "tutorialsmall");
+//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+//                    "The bottom right corner shows your latest activity analysis assuming that you have uploaded an activity data already.", "tutorialbig");
+//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+//                    "The bottom left corner is where you will see me. I will be giving you motivational quotes because I believe in you. Not because I’m programmed to but because I want to.", "tutorialbig");
+//            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+//                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+//                    + "I hope I helped!", "tutorialbig");
         } else if (selected.getId().equals(profileButton.getId())) {
             ApplicationManager.displayPopUp("MATES Help", "'PROFILE'\n\n" +
                     "This is where you will see your personal information and body measurements.", "tutorialsmall");

@@ -104,7 +104,7 @@ public class registerController extends GeneralScreenController {
     public void createNewUser(ActionEvent event) {
         ArrayList<String> usernames = databaseManager.getUserReader().getUsernames();
         // Checks for Register Limit
-        if (usernames.size() == 5) {
+        if (usernames.size() == MAX_USER_NUMBER) {
             ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
         } else {
 
@@ -119,7 +119,7 @@ public class registerController extends GeneralScreenController {
 
             // Checks if duplicates present then if so and notifies if so.
             if (duplicate == true) {
-                ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
+                ApplicationManager.displayPopUp("Username Already Exists", "Please choose a different username.", "error");
             } else if (validEnteredData()) {
                 try {
                     databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight, DEFAULT_STEP_GOAL, DEFAULT_DISTANCE_GOAL);
@@ -148,7 +148,7 @@ public class registerController extends GeneralScreenController {
             height = Double.parseDouble(heightEntry.getText());
             weight = Double.parseDouble(weightEntry.getText());
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers.", "error");
         }
     }
 
