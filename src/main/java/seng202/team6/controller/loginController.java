@@ -93,13 +93,10 @@ public class loginController extends GeneralScreenController {
             tutorial();
     }
 
-
-<<<<<<< HEAD
-=======
+    
     /**
      * A function that does a User Tutorial for First Time Users.
      */
->>>>>>> a09880f558ba449ef0a51ce60655d8a3865bcc24
     public void tutorial() {
 
         try {
