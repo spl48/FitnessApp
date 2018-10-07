@@ -233,7 +233,6 @@ public class HomeScreenController extends GeneralScreenController {
      * @throws SQLException
      */
     public void addSeries() throws SQLException {
-
     	int lastIndex = activities.size() - 1;
     	Activity selectedActivity = activities.get(lastIndex);
         graphPanelTitle.setText("LATEST " + selectedActivity.getType().toUpperCase() + " ACTIVITY");
