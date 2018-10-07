@@ -28,6 +28,16 @@ public class registerController extends GeneralScreenController {
     int MAX_USER_NUMBER = 5;
 
     /**
+     * The default number of steps for the user step goal
+     */
+    int DEFAULT_STEP_GOAL = 70000;
+
+    /**
+     * The default distance gor the user distance goal (KM's)
+     */
+    int DEFAULT_DISTANCE_GOAL = 30;
+
+    /**
      * User details textual fields.
      */
     @FXML
@@ -112,7 +122,7 @@ public class registerController extends GeneralScreenController {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         } else if (validEnteredData()) {
             try {
-                databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight,10000, 10);
+                databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight,DEFAULT_STEP_GOAL, DEFAULT_DISTANCE_GOAL);
                 ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
                 toStartScreen(event);
             } catch (SQLException e) {
