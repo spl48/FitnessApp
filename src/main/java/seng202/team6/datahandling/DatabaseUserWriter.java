@@ -68,8 +68,8 @@ public class DatabaseUserWriter {
         try {
             Statement state = connection.createStatement();
             System.out.println("At the start of profile deletion");
-            databaseManager.getActivityManager().removeRecords();
-            state.executeUpdate("DELETE FROM activity where userid = " + ApplicationManager.getCurrentUserID());
+            databaseManager.getActivityManager().removeRecords(username);
+            state.executeUpdate("DELETE FROM activity where userid = (select userid from user where username = '" + username + "')");
             state.executeUpdate("DELETE FROM user WHERE username = '" + username + "'");
             System.out.println("At the end of profile deletion");
         } catch (SQLException e) {

@@ -21,6 +21,19 @@ import java.util.ArrayList;
  */
 public class CalanderScreenController {
 
+    private int activityArrayIndex = 0;
+    /**
+     * Button for next activity
+     */
+    @FXML
+    private ImageView activityNext;
+
+    /**
+     * Button for previous activity
+     */
+    @FXML
+    private ImageView activityPrev;
+
     /**
      * The Application database manager.
      */
@@ -83,6 +96,7 @@ public class CalanderScreenController {
     LocalDate date = LocalDate.now();
     ArrayList<AnchorPane> days   = new ArrayList<>();
 
+    ArrayList<Activity> activitiesOnDate = new ArrayList<>();
 
     /**
      * Initializes the fitness calendar screen, setting panes for each
@@ -176,14 +190,11 @@ public class CalanderScreenController {
      * @param pane the pane for which the activity (if found) is displayed
      */
     public void checkDateActivities(AnchorPane pane) {
-        ArrayList<Activity> activitiesOnDate = new ArrayList<>();
+
         for(Activity activity : activities) {
             if (activity.getStartDate().equals(date)) {     // Activity was undertake on current date
-//                text = new Text("*");
-//                pane.setBottomAnchor(text, 5.0);
-//                pane.getChildren().add(text);
-                pane.getChildren().clear();
 
+                pane.getChildren().clear();
                 Text text = new Text(String.valueOf(date.getDayOfMonth()));
                 pane.setTopAnchor(text, 5.0);
                 pane.setLeftAnchor(text, 5.0);
@@ -193,13 +204,7 @@ public class CalanderScreenController {
                 pane.getChildren().add(image);
                 pane.setBottomAnchor(image, 5.0);
                 pane.setLeftAnchor(image, 15.0);
-//                BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
 
-//                pane.setBackground(new Background(new BackgroundImage(image,
-//                        BackgroundRepeat.NO_REPEAT,
-//                        BackgroundRepeat.NO_REPEAT,
-//                        BackgroundPosition.CENTER,
-//                        bSize)));
                 activitiesOnDate.add(activity);
             }
         }
@@ -260,12 +265,11 @@ public class CalanderScreenController {
 
     }
 
-    public void nextActivity() {
-
-    }
 
     public void showActivity(ArrayList<Activity> activities) {
         if (activities.size() == 0) {     // No activity on selected date
+            activityNext.setVisible(false);
+            activityPrev.setVisible(false);
             descriptionLabel.setText("No Activity Selected");
             velocityLabel.setText("No Activity Selected");
             distanceLabel.setText("No Activity Selected");
@@ -275,7 +279,23 @@ public class CalanderScreenController {
             endDateLabel.setText("No Activity Selected");
             typeLabel.setText("No Activity Selected");
             notesLabel.setText("No Activity Selected");
-        } else {
+        } else if (activities.size() == 1){
+            activityNext.setVisible(false);
+            activityPrev.setVisible(false);
+            Activity selectedActivity = activities.get(0);
+            descriptionLabel.setText(selectedActivity.getDescription());
+            velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
+            distanceLabel.setText(String.format("%.2f Km\n", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1)));
+            startDateLabel.setText(selectedActivity.getStartDate().toString());
+            endDateLabel.setText(selectedActivity.getEndDate().toString());
+            startTimeLabel.setText(selectedActivity.getStartTime().toString());
+            endTimeLabel.setText(selectedActivity.getEndTime().toString());
+            typeLabel.setText(selectedActivity.getType());
+            notesLabel.setText(selectedActivity.getNotes());
+        } else if (activities.size() > 1) {
+
+            activityNext.setVisible(true);
+            activityPrev.setVisible(true);
             Activity selectedActivity = activities.get(0);
             descriptionLabel.setText(selectedActivity.getDescription());
             velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
@@ -287,5 +307,25 @@ public class CalanderScreenController {
             typeLabel.setText(selectedActivity.getType());
             notesLabel.setText(selectedActivity.getNotes());
         }
+    }
+
+    public void nextActivity() {
+        activityArrayIndex++;
+
+        // if you want to do a cyclic loop of the data
+        if (activityArrayIndex >= activitiesOnDate.size()) {
+            activityArrayIndex = 0;
+        }
+        System.out.println(activityArrayIndex);
+    }
+
+    public void prevActivity() {
+        activityArrayIndex--;
+
+        // if you want to do a cyclic loop of the data
+        if (activityArrayIndex < 0) {
+            activityArrayIndex = activitiesOnDate.size() - 1;
+        }
+        System.out.println(activityArrayIndex);
     }
 }

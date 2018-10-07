@@ -209,12 +209,20 @@ public class GoalsScreenController {
         }
     }
 
+    /**
+     * Toggles the visibility of the edit step goal elements
+     * @param isVisible boolean true if elements visible
+     */
     private void setVisibilityStep(boolean isVisible) {
         stepsOnEditing.setVisible(isVisible);
         stepsEdit.setVisible(isVisible);
         updateStep.setVisible(isVisible);
     }
 
+    /**
+     * Toggles the visibility of the edit distance goal elements
+     * @param isVisible boolean true of elements visible
+     */
     private void setVisibilityDistance(boolean isVisible) {
         onDistanceEditing.setVisible(isVisible);
         distanceEdit.setVisible(isVisible);
