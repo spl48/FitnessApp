@@ -104,6 +104,7 @@ public class GoalsScreenController {
     }
 
     /**
+<<<<<<< HEAD
      * Updated the users step goal in the database to the users entered value
      * @throws SQLException
      */
@@ -137,6 +138,8 @@ public class GoalsScreenController {
     }
 
     /**
+=======
+>>>>>>> cf3c021e495446e00e50bf8ab113897789342098
      * Sets the data for the step goal section with the users current step goal per week, and how many steps until this goal is reached.
      * If the goal is reached, only the progress chart is displayed
      * @throws SQLException
@@ -242,12 +245,20 @@ public class GoalsScreenController {
         }
     }
 
+    /**
+     * Toggles the visibility of the edit step goal elements
+     * @param isVisible boolean true if elements visible
+     */
     private void setVisibilityStep(boolean isVisible) {
         stepsOnEditing.setVisible(isVisible);
         stepsEdit.setVisible(isVisible);
         updateStep.setVisible(isVisible);
     }
 
+    /**
+     * Toggles the visibility of the edit distance goal elements
+     * @param isVisible boolean true of elements visible
+     */
     private void setVisibilityDistance(boolean isVisible) {
         onDistanceEditing.setVisible(isVisible);
         distanceEdit.setVisible(isVisible);
@@ -268,12 +279,14 @@ public class GoalsScreenController {
                     distanceImage.setVisible(true);
                     distanceProgress.setStyle("..\\resources\\css\\progressIndicator.css");
                 }
-                stopEditingDistance();
+                setVisibilityDistance(false);
                 ApplicationManager.setEditingStatus(false);
+                setDistanceData();
             }
 
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Distance Goal", "Please ensure that distance goal is an integer value and is between 0 to 350 km.", "error");
         }
     }
+
 }

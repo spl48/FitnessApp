@@ -2,14 +2,17 @@ package seng202.team6.utilities;
 
 import com.opencsv.CSVReader;
 import junit.framework.TestCase;
-import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.datahandling.DatabaseUserReader;
-import seng202.team6.datahandling.DatabaseUserWriter;
+import seng202.team6.datahandling.FileDataLoader;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class DatabaseValidationTest extends TestCase {
@@ -28,7 +31,6 @@ public class DatabaseValidationTest extends TestCase {
     ArrayList<String[]> invalidTimeData = new ArrayList<>();
     ArrayList<String[]> missingFieldData = new ArrayList<>();
     ArrayList<String[]> validData = new ArrayList<>();
-    DatabaseManager databaseManager = new DatabaseManager("test");
     int DATE_INDEX = 0;
     int TIME_INDEX = 1;
     int HEARTRATE_INDEX = 2;
@@ -36,66 +38,67 @@ public class DatabaseValidationTest extends TestCase {
     int LONGITUDE_INDEX = 4;
     int ELEVATION_INDEX = 5;
 
-    public void setUp() throws Exception {
-        super.setUp();
+    public DatabaseValidationTest(){
         String[] nextLine;
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/corrupted_field_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            corruptedFieldData.add(nextLine);
+        try {
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/corrupted_field_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                corruptedFieldData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/empty_csv_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                emptyCsvData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/future_date_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                futureDateData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_activity_line_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidActivityData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_date_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidDateData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_elevation_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidElevationData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_first_line_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidFirstLineData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_heartrate_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidHeartRateData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_latitude_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidLatitudeData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_longitude_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidLongitudeData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_time_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                invalidTimeData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/missing_field_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                missingFieldData.add(nextLine);
+            }
+            reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/valid_data_test.csv"));
+            while ((nextLine = reader.readNext()) != null) {
+                validData.add(nextLine);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/empty_csv_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            emptyCsvData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/future_date_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            futureDateData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_activity_line_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidActivityData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_date_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidDateData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_elevation_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidElevationData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_first_line_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidFirstLineData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_heartrate_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidHeartRateData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_latitude_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidLatitudeData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_longitude_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidLongitudeData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/invalid_time_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            invalidTimeData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/missing_field_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            missingFieldData.add(nextLine);
-        }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/valid_data_test.csv"));
-        while ((nextLine = reader.readNext()) != null) {
-            validData.add(nextLine);
-        }
-
-    }
-
-    public void tearDown() throws Exception {
-        reader.close();
     }
 
     public void testValidateLineLength() {
@@ -124,9 +127,6 @@ public class DatabaseValidationTest extends TestCase {
         assertFalse(DatabaseValidation.validateLatitude(invalidLine[LATITUDE_INDEX]));
         String[] corruptedLatitudeLine = corruptedFieldData.get(5);
         assertFalse(DatabaseValidation.validateLatitude(corruptedLatitudeLine[LATITUDE_INDEX]));
-    }
-
-    public void testValidateDistance() {
     }
 
     public void testValidateHeartRate() {
@@ -169,15 +169,65 @@ public class DatabaseValidationTest extends TestCase {
     }
 
     public void testValidateNonDuplicateData() {
+        FileDataLoader dataLoader = new FileDataLoader();
+        DatabaseManager databaseManager = new DatabaseManager("test");
+        Connection con = databaseManager.getCon();
+        try {
+            con.setAutoCommit(false);
+            Statement userTableStatement = con.createStatement();
+            String userTablesql = "DELETE FROM user";
+            userTableStatement.execute(userTablesql);
+            Statement activityTableStatement = con.createStatement();
+            String activityTablesql = "DELETE FROM activity";
+            activityTableStatement.execute(activityTablesql);
+            Statement recordTableStatement = con.createStatement();
+            String recordTablesql = "DELETE FROM record";
+            recordTableStatement.execute(recordTablesql);
+            con.commit();
+            con.setAutoCommit(true);
+            assertTrue(DatabaseValidation.validateNonDuplicateData(validData, databaseManager));
+            dataLoader.importDataFromCSV(0, "src/main/resources/seng202/team6/resources/tests/valid_data_test.csv",databaseManager);
+            assertFalse(DatabaseValidation.validateNonDuplicateData(validData, databaseManager));
+            con.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void testValidateNonDuplicateActivity() {
-    }
-
-    public void testValidateDescription() {
-        String validDescription = "this is 30 characters long aaa";
-        String invalidDescription = "this is 31 characters long aaaa";
-        assertTrue(DatabaseValidation.validateDescription(validDescription));
-        assertFalse(DatabaseValidation.validateDescription(invalidDescription));
+        DatabaseManager databaseManager = new DatabaseManager("test");
+        Connection con = databaseManager.getCon();
+        FileDataLoader dataLoader = new FileDataLoader();
+        try {
+            con.setAutoCommit(false);
+            Statement userTableStatement = con.createStatement();
+            String userTablesql = "DELETE FROM user";
+            userTableStatement.execute(userTablesql);
+            Statement activityTableStatement = con.createStatement();
+            String activityTablesql = "DELETE FROM activity";
+            activityTableStatement.execute(activityTablesql);
+            Statement recordTableStatement = con.createStatement();
+            String recordTablesql = "DELETE FROM record";
+            recordTableStatement.execute(recordTablesql);
+            con.commit();
+            con.setAutoCommit(true);
+            assertTrue(DatabaseValidation.validateNonDuplicateData(validData, databaseManager));
+            dataLoader.importDataFromCSV(0, "src/main/resources/seng202/team6/resources/tests/valid_data_test.csv",databaseManager);
+            LocalDate testInvalidStartDate = LocalDate.of(2015, 4, 10);
+            LocalDate testInvalidEndDate = LocalDate.of(2015, 4, 10);
+            LocalTime testInvalidEndTime = LocalTime.of(23,50,30);
+            LocalDate testValidStartDate = LocalDate.of(2015, 4, 11);
+            LocalDate testValidEndDate = LocalDate.of(2015, 4, 11);
+            LocalTime testValidEndTime = LocalTime.of(23,50,30);
+            assertTrue(DatabaseValidation.validateNonDuplicateActivity(testValidEndTime,testValidStartDate,testValidEndDate,databaseManager));
+            assertFalse(DatabaseValidation.validateNonDuplicateActivity(testInvalidEndTime,testInvalidStartDate,testInvalidEndDate,databaseManager));
+            con.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

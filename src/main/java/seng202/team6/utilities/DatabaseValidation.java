@@ -1,6 +1,7 @@
 package seng202.team6.utilities;
 
 import seng202.team6.controller.ApplicationManager;
+import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class DatabaseValidation {
 
-    public static boolean validate(ArrayList<String[]> data) throws SQLException {
+    public static boolean validate(ArrayList<String[]> data, DatabaseManager databaseManager) throws SQLException {
         if(!validateNotEmpty(data)) {
             return false;
         }else {
@@ -29,7 +30,7 @@ public class DatabaseValidation {
                                 && validateElevation(line[5]))) {
                             return false;
                         } else {
-                            if (!validateNonDuplicateData(data)) {
+                            if (!validateNonDuplicateData(data, databaseManager)) {
                                 return false;
                             }
                         }
@@ -139,6 +140,7 @@ public class DatabaseValidation {
         }
     }
 
+<<<<<<< HEAD
     public static boolean validateDistance(double distance){
         if(!(distance >= 0 && distance <= 1000)){
             System.out.println("Invalid distance detected! Distance out of range (maximum 1000 km!).");
@@ -313,12 +315,10 @@ public class DatabaseValidation {
      * @return True if the record is not a duplicate, false otherwise.
      * @throws SQLException
      */
-    public static boolean validateNonDuplicateData(ArrayList<String[]> data) throws SQLException {
-        ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
-        //ArrayList<String> duplicateList = new ArrayList<>();
+    public static boolean validateNonDuplicateData(ArrayList<String[]> data, DatabaseManager databaseManager) throws SQLException {
+        ArrayList<Activity> activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
         for (String[] line : data){
             if(!line[0].equalsIgnoreCase("#start")){
-                //duplicateList.add(line[0] + " " + line[1]);
                 for (Activity activity : activities){
                     LocalTime recordTime = LocalTime.parse(line[1]);
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -334,17 +334,9 @@ public class DatabaseValidation {
                 }
             }
         }
-        /*
-        if(!GeneralUtilities.hasNoDuplicates(duplicateList)){
-            ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity records detected!", "error");
-            System.out.println("Duplicate records detected!");
-            return false;
-        }
-        else {
-        */
             return true;
-        //}
     }
+<<<<<<< HEAD
     public static boolean validateNonDuplicateActivity(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate) throws SQLException {
         ArrayList<Activity> activities = ApplicationManager.getDatabaseManager().getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
                 for (Activity activity : activities){
@@ -371,12 +363,20 @@ public class DatabaseValidation {
         if (description.length() > 30) {
             if(ApplicationManager.getCurrentUserID() != 0) {
                 ApplicationManager.displayPopUp("Invalid Data", "Please ensure that activity description is less than 30 characters.", "error");
+=======
+    public static boolean validateNonDuplicateActivity(LocalTime endTime, LocalDate startDate, LocalDate endDate, DatabaseManager databaseManager) throws SQLException {
+        ArrayList<Activity> activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
+        for (Activity activity : activities){
+            if((endTime.isAfter(activity.getStartTime()) && endTime.isBefore(activity.getEndTime()))
+                    && (startDate.isEqual(activity.getStartDate()) || endDate.isEqual(activity.getEndDate()))){
+                if(ApplicationManager.getCurrentUserID() != 0) {
+                    ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity data detected!", "error");
+                }
+                System.out.println("Duplicate data detected!");
+                return false;
+>>>>>>> cf3c021e495446e00e50bf8ab113897789342098
             }
-        } else {
-            result = true;
         }
-        return result;
+        return true;
     }
-
-
 }

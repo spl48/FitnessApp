@@ -126,10 +126,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private int numActivities = ApplicationManager.getDatabaseManager().getActivityManager().getNumberUserActivities();
 
 
-    /**
-     * Initializes chart to display latest activity.
-     * @throws SQLException
-     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
 
@@ -152,6 +148,10 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     }
 
 
+    /**
+     * Initializes chart to display latest activity.
+     * @throws SQLException
+     */
     private void updateListView() throws SQLException {
 
         // Sets the activity array and creates an array of strings for these
@@ -265,7 +265,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     }
 
     /**
-     *Adds a series of data to the chart
+     *Adds a series of data to the chart if not already on the graph, otherwise removes the selected activity from the graph
      * @throws SQLException
      */
     @FXML
@@ -273,7 +273,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         if (activities.size() > 0) {
             int activity = selectionIndex;
             if (activity == -1) {
-                System.out.println("-1");
                 removeData(activities.get(selectionIndex));
                 graphCount -= 1;
             } else if (currentSeriesTypes.contains(activities.get(activity))) {
@@ -473,7 +472,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
 
     /**
-     * Displays the given out
+     * Displays the given route in the maps webview
      * @param newRoute route to be displayed
      */
     private void displayRoute(Route newRoute) {

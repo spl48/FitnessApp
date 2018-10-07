@@ -11,10 +11,13 @@ import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 
+import seng202.team6.utilities.ActivityValidation;
 import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -353,8 +356,8 @@ public class RawDataController extends WorkoutsNavigator{
             descriptionEdit.setText(selectedActivity.getDescription());
             startDateEdit.setValue(selectedActivity.getStartDate());
             endDateEdit.setValue(selectedActivity.getEndDate());
-            startTimeEdit.setText(selectedActivity.getStartTime().toString());
-            endTimeEdit.setText(selectedActivity.getEndTime().toString());
+            startTimeEdit.setText(selectedActivity.getStartTime().toString() + ":00");
+            endTimeEdit.setText(selectedActivity.getEndTime().toString() +":00");
             distanceEdit.setText(Double.toString(selectedActivity.getDistance()));
             notesEdit.setText(selectedActivity.getNotes());
 
@@ -471,25 +474,32 @@ public class RawDataController extends WorkoutsNavigator{
         // Checks if the data is valid, this is different for the manual entry as a there are more fields
         // as there are more fields to edit.
         if (selectedActivity.isManualActivity()) {
+            DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
+                    .withResolverStyle(ResolverStyle.STRICT);
+            LocalTime localEndTime = LocalTime.parse(startTimeEdit.getText(), strictTimeFormatter);
+            LocalTime localStartTime = LocalTime.parse(endTimeEdit.getText(), strictTimeFormatter);
             try {
                 distance = Double.parseDouble(distanceEdit.getText());
-                return (DatabaseValidation.validateDescription(descriptionEdit.getText())) &&
+                return (ActivityValidation.validateDescription(descriptionEdit.getText())) &&
                         DatabaseValidation.validateTime(startTimeEdit.getText()) &&
                         DatabaseValidation.validateTime(endTimeEdit.getText()) &&
                         DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
                         DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
                         DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
                         DatabaseValidation.validateStartEndTime(startTimeEdit.getText(), endTimeEdit.getText()) &&
-                        DatabaseValidation.validateNotes(notesEdit.getText()) &&
-                        DatabaseValidation.validateDistance(distance) &&
-                        DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(startTimeEdit.getText()), LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue());
+                        ActivityValidation.validateNotes(notesEdit.getText()) &&
+                        ActivityValidation.validateDistance(distance) &&
+                        DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDateEdit.getValue(), endDateEdit.getValue());
             } catch (NumberFormatException e) {
                 ApplicationManager.displayPopUp("Invalid Input", "Please ensure that distance is a numerical value and is in the range of 0 to 1000 km.", "error");
+                if(ApplicationManager.getCurrentUserID() != 0) {
+                    ApplicationManager.displayPopUp("Invalid Data Type", "Check that distance is a number.", "error");
+                }
                 return false;
             }
         } else {
-            return (DatabaseValidation.validateDescription(descriptionEdit.getText()) &&
-                    DatabaseValidation.validateNotes(notesEdit.getText()));
+            return (ActivityValidation.validateDescription(descriptionEdit.getText()) &&
+                    ActivityValidation.validateNotes(notesEdit.getText()));
         }
     }
 

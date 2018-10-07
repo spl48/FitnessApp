@@ -1,17 +1,10 @@
 package seng202.team6.datahandling;
 
 import java.sql.*;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 
 import seng202.team6.controller.ApplicationManager;
-import seng202.team6.models.Activity;
-import seng202.team6.models.ActivityDataPoint;
-import seng202.team6.models.User;
 
 public class DatabaseManager {
     private Connection con;
@@ -40,9 +33,11 @@ public class DatabaseManager {
      */
     private void getConnection() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection("jdbc:sqlite:Data.db");
-            initialiseDatabase();
+            if(con == null) {
+                Class.forName("org.sqlite.JDBC");
+                con = DriverManager.getConnection("jdbc:sqlite:Data.db");
+                initialiseDatabase();
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!", "error");
@@ -54,14 +49,14 @@ public class DatabaseManager {
     /**
      * Establishes the database connection to the test file
      */
-    private void getConnectionTest() {
+    public void getConnectionTest() {
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:Test.db");
             initialiseDatabase();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!", "error");
+            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist.", "error");
         } catch (SQLException e) {
             e.printStackTrace();
             ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.", "error");
