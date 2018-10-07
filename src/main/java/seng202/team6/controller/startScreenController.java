@@ -15,10 +15,6 @@ import java.sql.SQLException;
  */
 public class startScreenController extends GeneralScreenController {
 
-    @FXML
-    private Button signInButton;
-
-
     /**
      * Directs the user to the login screen.
      * @param event When the login button is clicked.

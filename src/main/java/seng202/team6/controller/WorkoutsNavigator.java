@@ -76,6 +76,9 @@ public class WorkoutsNavigator extends GeneralScreenController {
         changeScreen(event, "/seng202/team6/view/WorkoutManualEntry.fxml", "ADD MANUAL ACTIVITY");
     }
 
+    /**
+     * Resets the workout filter fields.
+     */
     public void resetFilters() {
         yearFilter = "All";
         monthFilter = "All";

@@ -107,7 +107,7 @@ public class registerController extends GeneralScreenController {
             }
         }
 
-        // Checks if duplicates present then if so
+        // Checks if duplicates present then if so and notifies if so.
         if (duplicate == true) {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         } else if (validEnteredData()) {
@@ -128,8 +128,6 @@ public class registerController extends GeneralScreenController {
      * if not displays an error pop up.
      */
     private void setEnteredData() {
-
-
         username = usernameEntry.getText();
         first = firstNameEntry.getText();
         last = lastNameEntry.getText();
