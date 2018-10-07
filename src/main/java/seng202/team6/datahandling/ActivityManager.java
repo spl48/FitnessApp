@@ -425,15 +425,6 @@ public class ActivityManager {
                 + userid
                 + " AND EXISTS (SELECT * FROM record WHERE activity.activityid = record.activityid);");
         while(res.next()){
-//            Activity activity = extractActivity(res);
-//            ArrayList<ActivityDataPoint> dataPoints = this.getDataPoints(activity);
-//            for (ActivityDataPoint dataPoint : dataPoints) {
-//                activity.addActivityData(dataPoint);
-//            }
-//            activity.updateType();
-//            activity.updateMaxHeartRate();
-//            activity.updateMinHeartRate();
-//            activities.add(activity);
             Activity activity = getActivity(res.getInt("activityid"));
             activities.add(activity);
         }
@@ -455,6 +446,9 @@ public class ActivityManager {
         updateActivityProperty(description, activityID, "description");
     }
 
+    public void updateDistance(String distance, int activityID) {
+        updateActivityProperty(distance, activityID, "distance");
+    }
 
     public void updateStartDate(String start, int activityID) {
         updateActivityProperty(start, activityID, "start");
