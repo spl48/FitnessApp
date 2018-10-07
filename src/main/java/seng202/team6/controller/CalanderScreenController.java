@@ -1,11 +1,14 @@
 package seng202.team6.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
+import seng202.team6.models.ActivityDataPoint;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -17,6 +20,48 @@ import java.util.ArrayList;
  * a chosen date if that date is selected/p>
  */
 public class CalanderScreenController {
+
+    /**
+     * The Application database manager.
+     */
+    private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
+
+    /**
+     * The activity description label.
+     */
+    @FXML
+    private Label descriptionLabel;
+
+    /**
+     * The type description label
+     */
+    @FXML
+    private Label typeLabel;
+
+    /**
+     * The notes description label.
+     */
+    @FXML
+    private Label notesLabel;
+
+    /**
+     * The date description label.
+     */
+    @FXML
+    private Label startDateLabel, endDateLabel, startTimeLabel, endTimeLabel;
+
+
+    /**
+     * The average velocity label.
+     */
+    @FXML
+    private Label velocityLabel;
+
+    /**
+     * The distance label.
+     */
+    @FXML
+    private Label distanceLabel;
 
     //Title of the calendar, showing the month and year
     @FXML
@@ -79,7 +124,7 @@ public class CalanderScreenController {
 
         title.setText(date.getMonth().toString() + " " + date.getYear());
 
-        //Decreases the date unitl the first day of the month is reached
+        //Decreases the date until the first day of the month is reached
         while (date.getDayOfMonth() != 1) {
             date = date.minusDays(1);
         }
@@ -94,6 +139,7 @@ public class CalanderScreenController {
         text = new Text(String.valueOf(date.getDayOfMonth()));
         pane = days.get(row * 7 + column);
         pane.setTopAnchor(text, 5.0);
+        pane.setLeftAnchor(text, 5.0);
         pane.getChildren().add(text);
         checkDateActivities(pane);
         date = date.plusDays(1);
@@ -105,6 +151,7 @@ public class CalanderScreenController {
                 pane = days.get(row * 7 + column);
                 text = new Text(String.valueOf(date.getDayOfMonth()));
                 pane.setTopAnchor(text, 5.0);
+                pane.setLeftAnchor(text, 5.0);
                 pane.getChildren().add(text);
 
                 pane.setOnMouseClicked(e -> displayActivities(null));
@@ -119,7 +166,7 @@ public class CalanderScreenController {
         }
 
         date = date.minusMonths(1);
-
+        pane.setBackground(null);
     }
 
 
@@ -129,18 +176,34 @@ public class CalanderScreenController {
      * @param pane the pane for which the activity (if found) is displayed
      */
     public void checkDateActivities(AnchorPane pane) {
-        Text text;
         ArrayList<Activity> activitiesOnDate = new ArrayList<>();
         for(Activity activity : activities) {
             if (activity.getStartDate().equals(date)) {     // Activity was undertake on current date
-                text = new Text("*");
-                pane.setBottomAnchor(text, 5.0);
+//                text = new Text("*");
+//                pane.setBottomAnchor(text, 5.0);
+//                pane.getChildren().add(text);
+                pane.getChildren().clear();
+
+                Text text = new Text(String.valueOf(date.getDayOfMonth()));
+                pane.setTopAnchor(text, 5.0);
+                pane.setLeftAnchor(text, 5.0);
                 pane.getChildren().add(text);
+
+                ImageView image = new ImageView("/seng202/team6/resources/pics/calendaractivityicon.png");
+                pane.getChildren().add(image);
+                pane.setBottomAnchor(image, 5.0);
+                pane.setLeftAnchor(image, 15.0);
+//                BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+
+//                pane.setBackground(new Background(new BackgroundImage(image,
+//                        BackgroundRepeat.NO_REPEAT,
+//                        BackgroundRepeat.NO_REPEAT,
+//                        BackgroundPosition.CENTER,
+//                        bSize)));
                 activitiesOnDate.add(activity);
             }
         }
-
-        pane.setOnMouseClicked(e -> displayActivities(activitiesOnDate));
+        pane.setOnMouseClicked(e -> showActivity(activitiesOnDate));
     }
 
 
@@ -199,5 +262,30 @@ public class CalanderScreenController {
 
     public void nextActivity() {
 
+    }
+
+    public void showActivity(ArrayList<Activity> activities) {
+        if (activities.size() == 0) {     // No activity on selected date
+            descriptionLabel.setText("No Activity Selected");
+            velocityLabel.setText("No Activity Selected");
+            distanceLabel.setText("No Activity Selected");
+            startDateLabel.setText("No Activity Selected");
+            startTimeLabel.setText("No Activity Selected");
+            endTimeLabel.setText("No Activity Selected");
+            endDateLabel.setText("No Activity Selected");
+            typeLabel.setText("No Activity Selected");
+            notesLabel.setText("No Activity Selected");
+        } else {
+            Activity selectedActivity = activities.get(0);
+            descriptionLabel.setText(selectedActivity.getDescription());
+            velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
+            distanceLabel.setText(String.format("%.2f Km\n", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1)));
+            startDateLabel.setText(selectedActivity.getStartDate().toString());
+            endDateLabel.setText(selectedActivity.getEndDate().toString());
+            startTimeLabel.setText(selectedActivity.getStartTime().toString());
+            endTimeLabel.setText(selectedActivity.getEndTime().toString());
+            typeLabel.setText(selectedActivity.getType());
+            notesLabel.setText(selectedActivity.getNotes());
+        }
     }
 }
