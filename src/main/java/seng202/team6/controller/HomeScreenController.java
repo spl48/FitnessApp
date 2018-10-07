@@ -30,8 +30,16 @@ public class HomeScreenController extends GeneralScreenController {
      */
     @FXML
     private ComboBox activityTypeSelection;
+
+    /**
+     * The number x axis for the home screen controller graph.
+     */
     @FXML
     private NumberAxis xAxis;
+
+    /**
+     * The number y axis for the home screen controller graph.
+     */
     @FXML
     private NumberAxis yAxis;
     /**
@@ -57,8 +65,6 @@ public class HomeScreenController extends GeneralScreenController {
      */
     @FXML
     private Label quoteLabel;
-
-
 
     /**
      * The current database manager
@@ -86,7 +92,6 @@ public class HomeScreenController extends GeneralScreenController {
         ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(activityDataTypes);
         activityTypeSelection.getSelectionModel().select(activityDataTypes.get(0));
-        System.out.println("Init Home");
 
         setUpInfo();
         setHealthInfo();
@@ -191,7 +196,7 @@ public class HomeScreenController extends GeneralScreenController {
     /**
      * Displays the steps a user has taken and the user's weekly step goal
      */
-    private void setStepsInfo() throws SQLException {
+    private void setStepsInfo() {
         //double strideLength = user.getWalkingStrideLength();
         double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String totalStepsString = String.format("%.0f", totalSteps);

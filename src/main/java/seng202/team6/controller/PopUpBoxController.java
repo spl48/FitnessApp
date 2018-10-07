@@ -1,6 +1,5 @@
 package seng202.team6.controller;
 
-import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -33,8 +31,8 @@ public class PopUpBoxController extends GeneralScreenController {
     @FXML
     private Label errorTitle;
 
-    @FXML
-    public ImageView cancelButton;
+//    @FXML
+//    public ImageView cancelButton;
 
     /** The error title text. */
     private static String errorTitleText;
@@ -49,8 +47,6 @@ public class PopUpBoxController extends GeneralScreenController {
      * The Application's database manager.
      */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
-
-
 
 
     /**
@@ -118,15 +114,15 @@ public class PopUpBoxController extends GeneralScreenController {
             }
     }
 
-    public void cancel() {
-        closeWindow();
-    }
-
-    public void removedUser() {
-        System.out.println(ApplicationManager.getCurrentUsername());
-        databaseManager.getUserWriter().removeUser(ApplicationManager.getCurrentUsername());
-        closeWindow();
-    }
+//    public void cancel() {
+//        closeWindow();
+//    }
+//
+//    public void removedUser() {
+//        System.out.println(ApplicationManager.getCurrentUsername());
+//        databaseManager.getUserWriter().removeUser(ApplicationManager.getCurrentUsername());
+//        closeWindow();
+//    }
 
 
     /**
@@ -156,6 +152,11 @@ public class PopUpBoxController extends GeneralScreenController {
         }
     }
 
+    /**
+     * Sets the confirmation status to true or false depending on the action that the user takes.
+     * Whether they click the yes button or the no button.
+     * @param event When the user clicks either the yes or no buttons.
+     */
     public void getAnswer(ActionEvent event) {
         if (((Button)event.getSource()).getId().equals("yesButton")) {
             confirmationStatus = true;
@@ -165,6 +166,7 @@ public class PopUpBoxController extends GeneralScreenController {
         closeWindow();
     }
 
+    /** Gets the confimation status for yes /no pop up purposes */
     public boolean getConfirmationStatus() {
         return confirmationStatus;
     }

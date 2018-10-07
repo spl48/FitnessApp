@@ -1,8 +1,6 @@
 package seng202.team6.datahandling;
 
 import com.opencsv.CSVReader;
-import seng202.team6.controller.ApplicationManager;
-import seng202.team6.controller.LoadingBoxController;
 import seng202.team6.models.Activity;
 import seng202.team6.utilities.DatabaseValidation;
 
@@ -14,35 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class FileDataLoader {
-    int FIRST_ENTRY = 0;
-    /*
-    public static void main(String[] args){
-        try {
-            //Change this to local at some point
-            CSVReader reader = new CSVReader(new FileReader("c:/Users/Gavin/Desktop/SENG202/sample_data.csv"));
-            String[]nextline;
-            while((nextline = reader.readNext()) != null){
-                if(nextline != null)
-                {
-                    System.out.println(Arrays.toString(nextline));
-                }
-            }
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-        System.out.println("CSV read complete");
-    }
-    */
 
-    public boolean importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager) throws IOException, SQLException {
-        int numLines = countLines(CSVLocation);
-        System.out.println("Num Lines "+ numLines);
-        LoadingBoxController loadBox = new LoadingBoxController();
-        loadBox.setMaximum(numLines);
-        //loadBox.display();
-            //Change this to local at some point
+    public boolean importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager) throws IOException, SQLException {int numLines = countLines(CSVLocation);
+
         try {
             CSVReader reader = new CSVReader(new FileReader(CSVLocation));
             String[] nextLine;
@@ -82,7 +54,6 @@ public class FileDataLoader {
                     ResultSet generatedKeys = prep.getGeneratedKeys();
                     if (generatedKeys.next()) {
                         activityid = generatedKeys.getInt(1);
-                        //System.out.println(activityid);
                     }
                     previousLine = nextLine;
                 }
@@ -98,7 +69,7 @@ public class FileDataLoader {
                             updateEnd.setString(1, end);
                             updateEnd.execute();
                             activityDescription = nextLine[1];
-                            //loadBox.updateLoadingProgress(lineCount);
+
                             if ((x = x + 1) < rawData.size()) {
                                 nextLine = rawData.get(x);
                                 activityStartDate = nextLine[0];

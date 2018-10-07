@@ -33,6 +33,8 @@ public class MainMenuNavigation2 extends GeneralScreenController {
 
     @FXML
     void initialize() {
+
+        // Checks what screen the user is on.
         if (selected == null || ApplicationManager.getCurrScreen() == "HOME") {
             selected = homeButton;
         } else if (ApplicationManager.getCurrScreen() == "HEALTH") {
@@ -46,8 +48,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
         } else {
             selected = workoutsButton;
         }
-
-        System.out.println("Selected ID: " + selected.getId());
+        // Sets the darkening effect to the selected screen on the side bar.
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
         selected.setVisible(true);
     }

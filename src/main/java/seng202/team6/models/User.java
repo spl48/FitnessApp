@@ -403,6 +403,8 @@ public class User
         return firstName + " " + lastName;
     }
 
+
+
     /**
      * A function that takes an Integer id and sets the User ID to the given
      * parameter.

@@ -63,11 +63,13 @@ public class profileController extends GeneralScreenController {
     @FXML
     private DatePicker dobField;
 
-    /**
-     * Name at the top of the profile page.
-     */
+    /** The update profile button. */
     @FXML
-    private Label nameTitle;
+    private Button updateButton;
+
+    /** The edit toggle button. */
+    @FXML
+    private Node editOn;
 
     /**
      * String attrbutes of the user.
@@ -77,20 +79,15 @@ public class profileController extends GeneralScreenController {
     /**
      * Double (Decimal) attributes associated with the user.
      */
-    private double height, weight, stride;
+    private double height, weight;
 
     /**
      * The date of birth of the user.
      */
     private LocalDate birthDate;
 
-    @FXML
-    private Button updateButton;
-
-    @FXML
-    private Node editOn;
-
-    User currUser;
+    /** The user object representing the user which is currently signed in. */
+    private User currUser;
 
 
     /**
@@ -119,13 +116,15 @@ public class profileController extends GeneralScreenController {
 
 
     /**
-     * Redirects the user to a screen where they can edit their details.
-     * @param event When the edit toggle button is pressed.
+     * Turns on editing functionality for the profile screen.
      */
-    public void toEditProfile(Event event) {
+    public void toEditProfile() {
+
+        // Sets the array list to the available gender options.
         ObservableList<String> availableChoices = FXCollections.observableArrayList("Male", "Female");
         genderField.setItems(availableChoices);
 
+        // Sets the initial values of the editing fields to the existing data.
         fnameField.setText(currUser.getFirstName());
         lnameField.setText(currUser.getLastName());
         usernameField.setText(currUser.getUsername());
@@ -135,6 +134,7 @@ public class profileController extends GeneralScreenController {
         strideLabel.setText(Double.toString(currUser.getWalkingStrideLength()));
         dobField.setValue(currUser.getDOB());
 
+        // Sets the viability of the editing fields to true - un hides them.
         setVisablityProfileEdit(true);
     }
 
@@ -144,11 +144,12 @@ public class profileController extends GeneralScreenController {
      * @throws IOException When the profile screen fxml cannot be loaded.
      */
     public void toProfile(Event event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/profileScreen.fxml"));
-        Scene loginScene = new Scene(loginParent);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(loginScene);
-        appStage.show();
+//        Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/profileScreen.fxml"));
+//        Scene loginScene = new Scene(loginParent);
+//        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        appStage.setScene(loginScene);
+//        appStage.show();
+        changeScreen(event, "/seng202/team6/view/profileScreen.fxml", "PROFILE");
     }
 
 
@@ -169,11 +170,14 @@ public class profileController extends GeneralScreenController {
         for (String user : usernames) {
             if ((!(currUser.getUsername().equalsIgnoreCase(username))) && (user.equalsIgnoreCase(username))) {
                 duplicate = true;
+                break;
             }
         }
 
+        // Checks if there is a duplicate, if so then displays error,
         if (duplicate == true) {
             ApplicationManager.displayPopUp("Username Already Exists", "Username Already Exists.\nPlease choose another username.", "error");
+        // Checks if the entered data is valid.
         } else if (validEnteredData()) {
 
             // Enters data into the database.
@@ -214,14 +218,23 @@ public class profileController extends GeneralScreenController {
         }
     }
 
+    /**
+     * Stops the user editing the the profile, checks with a yes /no box.
+     */
     @FXML
-    public void stopEditing() throws SQLException {
+    public void stopEditing() {
+
+        // Gets the decision from the user if they want to continue editing
         boolean stopEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you want to stop editing. Any changes made will lost.");
+
+        // Disables all the profile edit fields if the user desires to exit.
         if (stopEditing) {
             setVisablityProfileEdit(false);
         }
     }
 
+
+    /** Sets the viability to all the profile edit fields to true or false as desired. Hiding or showing them */
     private void setVisablityProfileEdit(Boolean isVisable) {
         editOn.setVisible(isVisable);
         usernameField.setVisible(isVisable);

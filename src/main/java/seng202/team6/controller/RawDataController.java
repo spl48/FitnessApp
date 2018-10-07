@@ -2,19 +2,15 @@ package seng202.team6.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.converter.LocalTimeStringConverter;
 import seng202.team6.datahandling.ActivityManager;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
-import seng202.team6.models.User;
 
-import javafx.scene.image.ImageView;
 import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
@@ -174,13 +170,17 @@ public class RawDataController extends WorkoutsNavigator{
      * Initialises the raw data viewer screen, populates table and list view based on filters.
      */
     public void initialize() {
+        // Gets the current activity data manager.
         ActivityManager activityManager = dbManager.getActivityManager();
 
+        // Resets the filter values and gets the filtered activities.
         resetFilters();
+        setupTable();
         filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
         addActivitiesToListView(activityList);
 
+        // Sets up the activity type editing drop down.
         ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking", "Other");
         typeEdit.setItems(activityTypes);
     }
@@ -192,12 +192,14 @@ public class RawDataController extends WorkoutsNavigator{
      */
     private void addActivitiesToListView(ObservableList<String> activityList) {
 
+        // Checks if there are activities available if so sets the items in the list view and selects the first item.
+        // Then sets the corresponding raw data in the table.
         if (activityList.size() > 0) {
             activitySelect.setItems(activityList);
             activitySelect.getSelectionModel().select(0);
             activitySelect.setMouseTransparent( false );
             activitySelect.setFocusTraversable( true );
-            setupTable();
+        // If no activities then all labels are changed and the list view is locked.
         } else {
             activitySelect.setItems(FXCollections.observableArrayList("No Activities Available"));
             descriptionLabel.setText("No Activity Selected");
@@ -269,16 +271,19 @@ public class RawDataController extends WorkoutsNavigator{
      * @throws SQLException
      */
     public void showActivity() throws SQLException {
+        // Gets the filtered records to populate the raw data table.
         ArrayList<ActivityDataPoint> records = dbManager.getActivityManager().getActivityRecords(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
 
         for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
             rawDataTable.getItems().clear();
         }
 
+        // Adds the records to the raw data table.
         for (ActivityDataPoint record : records) {
             addRecordToTable(record);
         }
 
+        // Gets the selected activity object and sets the information values to those which correspond with the activity.
         selectedActivity = dbManager.getActivityManager().getActivity(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
         selectedActivity.addAllActivityData(records);
         descriptionLabel.setText(selectedActivity.getDescription());
@@ -292,28 +297,40 @@ public class RawDataController extends WorkoutsNavigator{
         notesLabel.setText(selectedActivity.getNotes());
     }
 
+    /**
+     * Opens up the filter pop up and allows the user to select options to filter their results.
+      */
     @FXML
-    public void filterActivities(Event event) {
+    public void filterActivities() {
 
+        // Displays the filter pop up if user not editing their activity.
         if (isEditing) {
             ApplicationManager.displayPopUp("Can't open filter", "Please finish editing before trying to filter!", "error");
         } else {
             ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
             ActivityManager activityManager = dbManager.getActivityManager();
 
+            // Gets the activities based on the new applied filter and displays this in the list view.
             filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
             ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
             addActivitiesToListView(activityList);
         }
     }
 
+    /**
+     * Allows the user to edit their activities. Changes the raw data screen to edit mode and initialises the edit fields.
+     * Otherwise displays and error message which notifies the user that there is no activity selected.
+     */
     @FXML
     public void editActivity() {
         if (selectedActivity != null) {
+
+            // Locks the list view.
             activitySelect.setMouseTransparent( true );
             activitySelect.setFocusTraversable( false );
             isEditing = true;
 
+            // Initialises the edit fields to the existing data.
             typeEdit.getSelectionModel().select(selectedActivity.getType());
             descriptionEdit.setText(selectedActivity.getDescription());
             startDateEdit.setValue(selectedActivity.getStartDate());
@@ -323,74 +340,106 @@ public class RawDataController extends WorkoutsNavigator{
             distanceEdit.setText(Double.toString(selectedActivity.getDistance()));
             notesEdit.setText(selectedActivity.getNotes());
 
+            // Shows the edit fields - sets their visibility to true.
             setVisablityEdit(true);
         } else {
+            // Displays an notification that tells the user to select and activity.
             ApplicationManager.displayPopUp("No Activity Selected", "Please select an activity", "error");
         }
     }
 
 
+    /**
+     * Checks if the user is finished editing.
+     */
     @FXML
     public void stopEditingCheck() {
+        // Shows a yes / no pop up for finish editing confirmation.
         boolean exitEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you want to finish editing? Your changes will not be saved.");
 
+        // If the user selects yes then the screen will return to normal.
         if (exitEditing) {
             stopEditing();
         }
     }
 
+    /**
+     * Stops the user editing and hides the edit fields, unlocks the list view.
+     */
     @FXML
     private void stopEditing() {
-        isEditing = false;
-        setVisablityEdit(false);
+        isEditing = false; // Sets editing status to false
+        setVisablityEdit(false); // Hides edit fields
 
+        // Unlocks the list view.
         activitySelect.setMouseTransparent(false);
         activitySelect.setFocusTraversable(true);
     }
 
-    private void setVisablityEdit(Boolean isVisable) {
+    /**
+     * Sets the visibility of the edit fields, limiting this if the activity is connected to records which
+     * means the user can only only edit type, description and notes.
+     * @param isVisible Whether or not to display the edit fields.
+     */
+    private void setVisablityEdit(Boolean isVisible) {
+
+        // Checks if the activity selected is manual if it is set the visibility the date time fields.
         if (selectedActivity.isManualActivity()) {
-            distanceEdit.setVisible(isVisable);
-            startDateEdit.setVisible(isVisable);
-            endDateEdit.setVisible(isVisable);
-            startTimeEdit.setVisible(isVisable);
-            endTimeEdit.setVisible(isVisable);
+            distanceEdit.setVisible(isVisible);
+            startDateEdit.setVisible(isVisible);
+            endDateEdit.setVisible(isVisible);
+            startTimeEdit.setVisible(isVisible);
+            endTimeEdit.setVisible(isVisible);
         }
 
-        editOn.setVisible(isVisable);
-        descriptionEdit.setVisible(isVisable);
-        typeEdit.setVisible(isVisable);
-        notesEdit.setVisible(isVisable);
-        updateButton.setVisible(isVisable);
+        // Sets the viability of description, type and notes to editable, and the viability of the update and
+        // edit toggle buttons.
+        editOn.setVisible(isVisible);
+        descriptionEdit.setVisible(isVisible);
+        typeEdit.setVisible(isVisible);
+        notesEdit.setVisible(isVisible);
+        updateButton.setVisible(isVisible);
     }
 
+    /**
+     * Updates the currently edited activity.
+     * @throws SQLException When the
+     */
     @FXML
     public void updateActivity() throws SQLException {
 
+        // Checks if the entered information is valid.
         if (validEnteredData()) {
-            String startDateString = startDateEdit.getValue().toString().replace("/", "-");
-            String startDateTime = startDateString + "T" + startTimeEdit.getText();
-            String endDateString = endDateEdit.getValue().toString().replace("/", "-");
-            String endDateTime = endDateString + "T" + endTimeEdit.getText();
 
-            dbManager.getActivityManager().updateStartDate(startDateTime, selectedActivity.getActivityid());
-            dbManager.getActivityManager().updateEndDate(endDateTime, selectedActivity.getActivityid());
+            // Updates the additional fields if it is a manual activity.
+            if (selectedActivity.isManualActivity()) {
+                String startDateString = startDateEdit.getValue().toString().replace("/", "-");
+                String startDateTime = startDateString + "T" + startTimeEdit.getText();
+                String endDateString = endDateEdit.getValue().toString().replace("/", "-");
+                String endDateTime = endDateString + "T" + endTimeEdit.getText();
+
+                dbManager.getActivityManager().updateStartDate(startDateTime, selectedActivity.getActivityid());
+                dbManager.getActivityManager().updateEndDate(endDateTime, selectedActivity.getActivityid());
+            }
+
+            // Updates the description, type and notes fields.
             dbManager.getActivityManager().updateDescription(descriptionEdit.getText(), selectedActivity.getActivityid());
-            dbManager.getActivityManager().updateActivityType((String) typeEdit.getSelectionModel().getSelectedItem(),selectedActivity.getActivityid());
+            dbManager.getActivityManager().updateActivityType((String) typeEdit.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
             dbManager.getActivityManager().updateNotes(notesEdit.getText(), selectedActivity.getActivityid());
 
+            // Updates the list view to express the new changes made if any.
             filteredActivities = dbManager.getActivityManager().getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
             ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
             addActivitiesToListView(activityList);
 
+            // Stops the user editing and reloads the data.
+            stopEditing();
             showActivity();
             ApplicationManager.displayPopUp("Success!", "Your activity update was successful!", "confirmation");
-            stopEditing();
         } else {
+            // Displays a pop up notification
             ApplicationManager.displayPopUp("Update Failure", "Your activity update was unsuccessful", "error");
         }
-
-
     }
 
 
@@ -401,21 +450,23 @@ public class RawDataController extends WorkoutsNavigator{
     private boolean validEnteredData() throws SQLException {
 
         Double distance;
+
+        // Checks if the data is valid, this is different for the manual entry as a there are more fields
+        // as there are more fileds an;e
         if (selectedActivity.isManualActivity()) {
             distance = Double.parseDouble(distanceEdit.getText());
+            return (DatabaseValidation.validateDescription(descriptionEdit.getText())) &&
+                    DatabaseValidation.validateTime(startTimeEdit.getText()) &&
+                    DatabaseValidation.validateTime(endTimeEdit.getText()) &&
+                    DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
+                    DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
+                    DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
+                    DatabaseValidation.validateDistance(distance) &&
+                    DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(startTimeEdit.getText()), LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue());
+
         } else {
-            distance = selectedActivity.getDistance();
+            return (DatabaseValidation.validateDescription(descriptionEdit.getText()));
         }
-
-        return (DatabaseValidation.validateDescription(descriptionEdit.getText())) &&
-                DatabaseValidation.validateTime(startTimeEdit.getText()) &&
-                DatabaseValidation.validateTime(endTimeEdit.getText()) &&
-                DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
-                DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
-                DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
-                DatabaseValidation.validateDistance(distance) &&
-                DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(startTimeEdit.getText()), LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue());
-
     }
 
 }

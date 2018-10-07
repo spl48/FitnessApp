@@ -50,9 +50,6 @@ public class loginController extends GeneralScreenController {
      */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
-
-
-
     /**
      * Initialises the profile selection screen by adding profiles into grid and setting the selected formatting.
      * @throws SQLException When there is an error in the database when getting usernames.
@@ -85,7 +82,6 @@ public class loginController extends GeneralScreenController {
     @FXML
     public void login(ActionEvent event) throws SQLException {
 
-
             // Sets the current user profile.
             String userProfile = selected.getText();
             User user = databaseManager.getUserReader().getUser(userProfile);
@@ -98,8 +94,8 @@ public class loginController extends GeneralScreenController {
     }
 
 
-
     public void tutorial() {
+
         try {
             if (databaseManager.getUserReader().getLoginCount() == 0) {
                 ApplicationManager.displayPopUp("MATES Tutorial", "Looking to your left, you will see the menu bar consisting of \n" +
@@ -264,6 +260,7 @@ public class loginController extends GeneralScreenController {
     }
 
     public void addDeleteButton(GridPane grid, int columnInd, String username) {
+
         // Gets the image and sets constraints to go on top of the circle.
         ImageView delButton = new ImageView();
         delButton.setFitHeight(27);
@@ -274,6 +271,7 @@ public class loginController extends GeneralScreenController {
         delButton.setCursor(Cursor.HAND);
         delButton.setImage(img);
 
+        // Adding the delete button action
         delButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 boolean answer = ApplicationManager.getAnswerFromPopUp("Are you sure you want to do this?");
@@ -288,6 +286,7 @@ public class loginController extends GeneralScreenController {
             }
         });
 
+        // Adds the delete button to the header.
         grid.add(delButton, columnInd, 0); // Adds the image to the grid.
     }
 

@@ -8,13 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -23,12 +20,6 @@ import java.sql.SQLException;
  * <p>Sets up the application header and provides relevant functinality.</p>
  */
 public class HeaderController extends WorkoutsNavigator {
-
-    /**
-     * The profile image, used as a node to get the current scene.
-     */
-    @FXML
-    private Node profileImg;
 
     /**
      * The users name which is the menu text of user options.
@@ -42,12 +33,21 @@ public class HeaderController extends WorkoutsNavigator {
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
 
+    /**
+     * User name label at the top right of the screen.
+     */
     @FXML
     private Label headerScreenName;
 
+    /**
+     * The back button at left of the header bar.
+     */
     @FXML
     private Node backButton;
 
+    /**
+     * The back arrow at the left of the header bar.
+     */
     @FXML
     private Node backArrow;
 
@@ -57,14 +57,17 @@ public class HeaderController extends WorkoutsNavigator {
     @FXML
     void initialize() {
         try {
+            // Sets the current user and displays error otherwise.
             User currUser = databaseManager.getUserReader().getUser(ApplicationManager.getCurrentUsername()); //Replace with database current user.
             usernameMenu.setText(currUser.getFullName().toUpperCase());
         } catch (SQLException e) {
             ApplicationManager.displayPopUp("Database Error", "There is a problem accessing the database.", "error");
         }
 
+        // Sets the name at the top of the screen.
         headerScreenName.setText(ApplicationManager.getCurrScreen());
 
+        // Checks if the back button is needed and displays it.
         if (ApplicationManager.isBackButtonRequired()) {
             backButton.setVisible(true);
             backArrow.setVisible(true);
@@ -80,13 +83,19 @@ public class HeaderController extends WorkoutsNavigator {
      */
     @FXML
     public void back(Event event) {
+
+        // Sets up the back button actions.
         String tempPrev = ApplicationManager.getPrevScreen();
         String tempPrevName =  ApplicationManager.getPrevScreenName();
+
+        // Sets the relevant next back/previous screen
         if (ApplicationManager.getPrevScreenName() == "ADD WORKOUT") {
             ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
         } else if (ApplicationManager.getPrevScreenName() == "WORKOUTS") {
             ApplicationManager.setBackOptions(false, "", "");
         }
+
+        // Changes to the previous screen.
         changeScreen(event, tempPrev, tempPrevName);
     }
 
