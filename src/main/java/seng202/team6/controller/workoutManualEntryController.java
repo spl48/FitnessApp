@@ -22,8 +22,6 @@ import java.util.ArrayList;
  */
 public class workoutManualEntryController extends GeneralScreenController {
 
-    // Note start and end time will be time objects of sort when research best way to represent and get input from using
-    // gui.
     /**
      * Text fields for activity entry form.
      */
@@ -55,25 +53,18 @@ public class workoutManualEntryController extends GeneralScreenController {
     private String sessionName, sessionType, notes, startTime, endTime, startDateTime, endDateTime, startDateString, endDateString;
 
     /**
-     * Array used to store entered data as a list for validation.
-     */
-    private String[] array;
-
-    /**
-     * Array used for data validation.
-     */
-    private ArrayList<String[]> data = new ArrayList<>();
-
-    /**
      * Maximum and minimum Heart rate of the user for the activity entered.
      */
     private double distance;
 
     /**
-     * The date of the activity.
+     * The dates of the activity.
      */
     private LocalDate startDate, endDate;
 
+    /**
+     * The applications database manager.
+     */
     private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
 
 
@@ -98,13 +89,19 @@ public class workoutManualEntryController extends GeneralScreenController {
      */
     @FXML
     public void createActivity(ActionEvent event) throws SQLException {
+
+        // Sets the data to the class variables
         setEnteredData();
+
+        // Checks if the data is valid and enters it into the database if so.
         if (validEnteredData()) {
             startDateString = startDate.toString().replace("/", "-");
             endDateString = endDate.toString().replace("/", "-");
             startDateTime = startDateString + "T" + startTime;
             endDateTime = endDateString + "T" + endTime;
             dbManager.getActivityManager().addActivity(ApplicationManager.getCurrentUserID(), sessionName, startDateTime, endDateTime, sessionType, distance, notes);
+
+            // Shows a confirmation pop up and returns the user to the workouts screen.
             ApplicationManager.displayPopUp("Entry Successful", "The activity was successfully loaded into the database!", "confirmation");
             toWorkOutScreen(event);
         }
@@ -114,6 +111,8 @@ public class workoutManualEntryController extends GeneralScreenController {
      * Sets the data in the activity form to the corresponding class attributes.
      */
     private void setEnteredData() {
+
+        // Sets the entered data and saves it under class variables
         sessionName = sessionName_E.getText();
         startTime = startTime_E.getText();
         endTime = endTime_E.getText();
@@ -122,10 +121,12 @@ public class workoutManualEntryController extends GeneralScreenController {
         endDate = endDate_E.getValue();
         startDateString = startDate.toString();
         endDateString = endDate.toString();
+
+        // Checking the distance field is a valid double.
         try {
             distance = Double.parseDouble(distance_E.getText());
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data correctly!", "error");
         }
     }
 
@@ -135,6 +136,7 @@ public class workoutManualEntryController extends GeneralScreenController {
      */
     private boolean validEnteredData() throws SQLException {
 
+        // Validate all the activity fields.
         if(DatabaseValidation.validateTime(startTime) &&
                 DatabaseValidation.validateTime(endTime) &&
                 DatabaseValidation.validateDateWithFormat(startDateString) &&

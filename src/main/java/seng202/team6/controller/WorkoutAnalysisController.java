@@ -27,13 +27,19 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private WebView mapWebView;
 
-    private String selectedtab = "Graph";
-
+    /**
+     * Labels to display stats of an activity.
+     */
     @FXML
     private Label distanceLabel, velocityLabel, stepsLabel, heartRateLabel;
 
     /**
-     * --
+     * The default selected tab.
+     */
+    private String selectedtab = "Graph";
+
+    /**
+     * The web engine for the maps.
      */
     private WebEngine webEngine;
 
@@ -53,12 +59,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private ListView<String> activityList;
-
-    /**
-     * Opens filter pop up box
-     */
-    @FXML
-    private Button filterButton;
 
     /**
      * x axis of graph
@@ -114,19 +114,14 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     private int graphCount = 0;
 
     /**
-     * The filtered list of activities.
-     */
-    private HashMap<String, Integer> filteredActivities;
-
-    /**
      * Current User
      */
     private User currUser;
 
+    /**
+     * The number of activities which the user has in the database under their id.
+     */
     private int numActivities = ApplicationManager.getDatabaseManager().getActivityManager().getNumberUserActivities();
-
-    @FXML
-    TabPane graphMapTab;
 
     /**
      * Initializes chart to display latest activity.
@@ -155,9 +150,12 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
 
     private void updateListView() throws SQLException {
+
         // Sets the activity array and creates an array of strings for these
         activities = databaseManager.getActivityManager().getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
+
+        // Checks if there are activities available
         if (activities.size() > 0) {
             for (Activity activity : activities) { // Add all activities to available activities initially
                 availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
@@ -168,19 +166,22 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             activityList.setFocusTraversable( true );
             selectionIndex = 0;
             selectNewActivity();
+        // If activities not available then locks up list view and clears the labels. Cleans the graph
         } else {
+            // Sets the activity list to notify that there are no activities available.
             activityList.setItems(FXCollections.observableArrayList("No Activities Available"));
 
+            // Clears the label text.
             distanceLabel.setText("");
             velocityLabel.setText("");
             heartRateLabel.setText("");
             stepsLabel.setText("");
 
+            // Clears the graph and locks up the list view.
             clearGraph();
             activityList.setMouseTransparent( true );
             activityList.setFocusTraversable( false );
         }
-
     }
 
     /**
@@ -221,6 +222,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
     }
 
+    /**
+     * Clears the list view.
+     */
     @FXML
     private void clearList() {
         activityList.getSelectionModel().clearSelection();

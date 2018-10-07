@@ -28,10 +28,20 @@ public class registerController extends GeneralScreenController {
     int MAX_USER_NUMBER = 5;
 
     /**
+     * The default number of steps for the user step goal
+     */
+    int DEFAULT_STEP_GOAL = 70000;
+
+    /**
+     * The default distance gor the user distance goal (KM's)
+     */
+    int DEFAULT_DISTANCE_GOAL = 30;
+
+    /**
      * User details textual fields.
      */
     @FXML
-    private TextField usernameEntry, firstNameEntry, lastNameEntry, heightEntry, weightEntry, strideEntry;
+    private TextField usernameEntry, firstNameEntry, lastNameEntry, heightEntry, weightEntry;
 
     /**
      * Date Picker for user to choose their birth date.
@@ -91,7 +101,7 @@ public class registerController extends GeneralScreenController {
      * @throws SQLException Error with database.
      */
     @FXML
-    public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
+    public void createNewUser(ActionEvent event) {
         ArrayList<String> usernames = databaseManager.getUserReader().getUsernames();
         // Checks for Register Limit
         if (usernames.size() == 5) {
@@ -107,11 +117,12 @@ public class registerController extends GeneralScreenController {
             }
         }
 
+        // Checks if duplicates present then if so and notifies if so.
         if (duplicate == true) {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         } else if (validEnteredData()) {
             try {
-                databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight,10000, 10);
+                databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight,DEFAULT_STEP_GOAL, DEFAULT_DISTANCE_GOAL);
                 ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
                 toStartScreen(event);
             } catch (SQLException e) {
