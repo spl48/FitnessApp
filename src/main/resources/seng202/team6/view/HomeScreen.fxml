@@ -83,7 +83,7 @@
                      <children>
                         <ImageView fitHeight="329.0" fitWidth="527.0" layoutX="12.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/pics/matespanel.png" />
+                              <Image url="@../resources/pics/rockstarpanel.png" />
                            </image>
                         </ImageView>
                         <GridPane layoutX="83.0" layoutY="24.0" prefHeight="129.0" prefWidth="430.0">
