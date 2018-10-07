@@ -271,9 +271,17 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that ensures the start time is before the end time.
+     * @param startTime A String that represents the start time.
+     * @param endTime A String that represents the end time.
+     * @return Returns a boolean value if the start and end time is valid.
+     */
     public static boolean validateStartEndTime(String startTime, String endTime) {
-        LocalTime start = LocalTime.parse(startTime);
-        LocalTime end = LocalTime.parse(endTime);
+        DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalTime start = LocalTime.parse(startTime, strictTimeFormatter);
+        LocalTime end = LocalTime.parse(endTime, strictTimeFormatter);
         if (!(start.isBefore(end))) {
             if (ApplicationManager.getCurrentUserID() != 0) {
                 ApplicationManager.displayPopUp("Invalid Data", "Make sure start time is before end time.", "error");

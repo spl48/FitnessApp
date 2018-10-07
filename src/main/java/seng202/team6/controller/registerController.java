@@ -63,8 +63,7 @@ public class registerController extends GeneralScreenController {
     /**
      * User registering numeric details.
      */
-    private double height, weight, stride;
-
+    private double height, weight;
     /**
      * The date of birth of the user.
      */
