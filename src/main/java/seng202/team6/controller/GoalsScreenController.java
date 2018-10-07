@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
+import seng202.team6.utilities.UserDataValidation;
 
 import javax.swing.text.html.ImageView;
 import java.awt.*;
@@ -115,22 +116,24 @@ public class GoalsScreenController {
         //  Tries to get a valid integer new step goal from the user entry if valid otherwise displays an error.
         try {
             newStepGoal = Integer.parseInt(stepsEdit.getText());
-            ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
+
+            // Sets the user step goal to the value read and checks if the goal is achieved. If not it ensures the images
+            // are displayed on top of the progress indicator so it looks like a ring.
+            if (UserDataValidation.validStepGoal(newStepGoal)) {
+                user.setStepGoal(newStepGoal);
+                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
+                if (!stepsAchieved(user)) {
+                    stepCircle.setVisible(true);
+                    feetImage.setVisible(true);
+                    stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
+                }
+
+                // Stops the editing situation once an update has been made.
+                stopEditingStep();
+            }
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
         }
-
-        // Sets the user step goal to the value read and checks if the goal is achieved. If not it ensures the images
-        // are displayed on top of the progress indicator so it looks like a ring.
-        user.setStepGoal(newStepGoal);
-        if (!stepsAchieved(user)) {
-            stepCircle.setVisible(true);
-            feetImage.setVisible(true);
-            stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
-        }
-
-        // Stops the editing situation once an update has been made.
-        stopEditing();
     }
 
     /**
@@ -210,33 +213,37 @@ public class GoalsScreenController {
     /** Allows the user to edit their step goals after clicking the step edit toggle button. */
     public void editStepGoals() {
         stepsEdit.setText(Integer.toString(user.getStepGoal()));
-        stepsOnEditing.setVisible(true);
-        stepsEdit.setVisible(true);
-        updateStep.setVisible(true);
+        setVisibilityStep(true);
     }
 
     /** Allows the user to edit their distance goals after clicking the distance edit toggle button. */
     public void editDistanceGoals() {
         distanceEdit.setText(Integer.toString(user.getDistanceGoal()));
-        onDistanceEditing.setVisible(true);
-        distanceEdit.setVisible(true);
-        updateDistance.setVisible(true);
+        setVisibilityDistance(true);
     }
 
-    /** Stops all editing of all fields, attempts to set the distance and step data */
-    public void stopEditing() {
-
-        // Sets the date
+    /** Stops all editing of all fields, attempts to set the distance data */
+    public void stopEditingDistance() {
         setDistanceData();
-        setStepData();
+        setVisibilityDistance(false);
+    }
 
-        // Hides all of the editing fields.
-        stepsOnEditing.setVisible(false);
-        onDistanceEditing.setVisible(false);
-        stepsEdit.setVisible(false);
-        distanceEdit.setVisible(false);
-        updateStep.setVisible(false);
-        updateDistance.setVisible(false);
+    /** Stops all editing of all fields, attempts to set the step data */
+    public void stopEditingStep() {
+        setStepData();
+        setVisibilityStep(false);
+    }
+
+    private void setVisibilityStep(boolean isVisible) {
+        stepsOnEditing.setVisible(isVisible);
+        stepsEdit.setVisible(isVisible);
+        updateStep.setVisible(isVisible);
+    }
+
+    private void setVisibilityDistance(boolean isVisible) {
+        onDistanceEditing.setVisible(isVisible);
+        distanceEdit.setVisible(isVisible);
+        updateDistance.setVisible(isVisible);
     }
 
     /** Sets the distance goal if valid and enters it into the database. */
@@ -245,16 +252,20 @@ public class GoalsScreenController {
         int newDistanceGoal = user.getDistanceGoal();
         try {
             newDistanceGoal = Integer.parseInt(distanceEdit.getText());
-            ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
+
+            if (UserDataValidation.validDistanceGoal(newDistanceGoal)) {
+                user.setDistanceGoal(newDistanceGoal);
+                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
+                if (!distanceAchieved(user)) {
+                    distanceCircle.setVisible(true);
+                    distanceImage.setVisible(true);
+                    distanceProgress.setStyle("..\\resources\\css\\progressIndicator.css");
+                }
+                stopEditingDistance();
+            }
+
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data into distance field!", "error");
         }
-        user.setDistanceGoal(newDistanceGoal);
-        if (!distanceAchieved(user)) {
-            distanceCircle.setVisible(true);
-            distanceImage.setVisible(true);
-            distanceProgress.setStyle("..\\resources\\css\\progressIndicator.css");
-        }
-        stopEditing();
     }
 }

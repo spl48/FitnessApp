@@ -39,7 +39,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
             selected = homeButton;
         } else if (ApplicationManager.getCurrScreen() == "HEALTH") {
             selected = healthButton;
-        } else if (ApplicationManager.getCurrScreen() == "GOALS") {
+        } else if (ApplicationManager.getCurrScreen() == "WEEKLY GOALS") {
             selected = goalsButton;
         } else if (ApplicationManager.getCurrScreen() == "CALENDAR") {
             selected = calendarButton;
@@ -159,7 +159,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     @FXML
     public void toGoalsScreen(Event event) {
-        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen2.fxml", "GOALS");
+        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen2.fxml", "WEEKLY GOALS");
     }
 
     /**
