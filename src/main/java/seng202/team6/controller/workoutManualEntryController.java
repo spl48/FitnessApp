@@ -72,7 +72,7 @@ public class workoutManualEntryController extends GeneralScreenController {
 
     @FXML
     void initialize() {
-        ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking");
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Walking", "Running", "Biking", "Other");
         sessionType_E.setItems(availableChoices);
     }
 
@@ -146,7 +146,8 @@ public class workoutManualEntryController extends GeneralScreenController {
                 DatabaseValidation.validateDateWithFormat(endDateString) &&
                 DatabaseValidation.validateStartEndDate(startDate, endDate) &&
                 DatabaseValidation.validateStartEndTime(startTime, endTime) &&
-                DatabaseValidation.validateDistance(distance)) {
+                DatabaseValidation.validateDistance(distance) &&
+                DatabaseValidation.validateNotes(notes_E.getText())) {
             LocalTime localStartTime = LocalTime.parse(startTime, strictTimeFormatter);
             LocalTime localEndTime = LocalTime.parse(endTime, strictTimeFormatter);
 

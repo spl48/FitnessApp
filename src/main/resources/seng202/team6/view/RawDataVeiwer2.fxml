@@ -90,7 +90,7 @@
                               <Font name="NexaLight" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="notesLabel" alignment="TOP_LEFT" layoutX="10.0" layoutY="265.0" prefHeight="87.0" prefWidth="182.0" text="No Activity Selected" textFill="#7c7c7c" GridPane.rowIndex="18" GridPane.valignment="TOP">
+                        <Label fx:id="notesLabel" alignment="TOP_LEFT" layoutX="10.0" layoutY="265.0" prefHeight="87.0" prefWidth="182.0" text="No Activity Selected" textFill="#7c7c7c" wrapText="true" GridPane.rowIndex="18" GridPane.valignment="TOP">
                            <font>
                               <Font name="NexaLight" size="13.0" />
                            </font>

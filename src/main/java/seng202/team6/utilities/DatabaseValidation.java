@@ -211,7 +211,7 @@ public class DatabaseValidation {
             LocalDate newDate = LocalDate.parse(date, formatter);
             if(newDate.isAfter(LocalDate.now())){
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Future date detected!", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Make sure date is not a future date.", "error");
                 }
                 System.out.println("Future date detected!");
                 return false;
@@ -291,6 +291,18 @@ public class DatabaseValidation {
         } else {
             return true;
         }
+    }
+
+    public static boolean validateNotes(String notes) {
+        boolean valid = false;
+        if (notes.length() >= 111) {
+            ApplicationManager.displayPopUp("Invalid Data", "Make sure that notes is not longer than 110 characters.", "error");
+            System.out.println("Notes is too long");
+            valid = false;
+        } else if (notes.length() <= 110 || notes.isEmpty()) {
+            valid = true;
+        }
+        return valid;
     }
 
     /**

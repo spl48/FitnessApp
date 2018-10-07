@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.User;
+import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -176,13 +177,16 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
      * Updates the desired activity in the database based on the entered data into edit fields.
      */
     public void updateActivity() {
-        
-        // Updates the activity details.
-        databaseManager.getActivityManager().updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
-        databaseManager.getActivityManager().updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
 
-        // Updates the table with the new data. (Can be made more efficient by changing row only.)
-        refreshActivities();
+        if (DatabaseValidation.validateNotes(notesEditor.getText())) {
+
+            // Updates the activity details.
+            databaseManager.getActivityManager().updateActivityType((String) typeSelect.getSelectionModel().getSelectedItem(), selectedActivity.getActivityid());
+            databaseManager.getActivityManager().updateNotes(notesEditor.getText(), selectedActivity.getActivityid());
+
+            // Updates the table with the new data. (Can be made more efficient by changing row only.)
+            refreshActivities();
+        }
     }
 
 

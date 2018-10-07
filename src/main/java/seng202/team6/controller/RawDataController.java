@@ -419,7 +419,6 @@ public class RawDataController extends WorkoutsNavigator{
      */
     @FXML
     public void updateActivity() throws SQLException {
-
         // Checks if the entered information is valid.
         if (validEnteredData()) {
 
@@ -471,11 +470,14 @@ public class RawDataController extends WorkoutsNavigator{
                     DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
                     DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
                     DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
+                    DatabaseValidation.validateStartEndTime(startTimeEdit.getText(), endTimeEdit.getText()) &&
+                    DatabaseValidation.validateNotes(notesEdit.getText()) &&
                     DatabaseValidation.validateDistance(distance) &&
                     DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(startTimeEdit.getText()), LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue());
 
         } else {
-            return (DatabaseValidation.validateDescription(descriptionEdit.getText()));
+            return (DatabaseValidation.validateDescription(descriptionEdit.getText()) &&
+                    DatabaseValidation.validateNotes(notesEdit.getText()));
         }
     }
 
