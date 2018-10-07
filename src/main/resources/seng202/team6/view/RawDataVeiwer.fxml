@@ -26,7 +26,7 @@
             <Insets />
          </BorderPane.margin>
          <top>
-            <fx:include source="header.fxml" />
+            <fx:include source="Header.fxml" />
          </top>
          <center>
             <BorderPane prefHeight="566.0" prefWidth="1079.0" BorderPane.alignment="CENTER">

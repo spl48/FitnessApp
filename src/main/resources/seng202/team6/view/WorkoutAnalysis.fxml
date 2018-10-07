@@ -341,7 +341,7 @@
             </GridPane>
          </right>
          <top>
-              <fx:include source="header.fxml" />
+              <fx:include source="Header.fxml" />
          </top>
         </BorderPane>
     </center>

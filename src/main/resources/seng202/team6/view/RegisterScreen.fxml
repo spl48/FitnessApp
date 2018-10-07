@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.registerController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.RegisterController">
    <top>
       <Pane prefHeight="72.0" prefWidth="1366.0" style="-fx-background-color: rgb(62,71,88); -fx-border-color: transparent transparent black transparent;" BorderPane.alignment="CENTER">
          <children>
