@@ -19,6 +19,7 @@ public class Main extends Application {
         primaryStage.setTitle("MATES");
         primaryStage.setScene(new Scene(root, 1366, 768));
         primaryStage.show();
+        primaryStage.setResizable(false);
         ApplicationManager.initializeApplication();
     }
     public static void main(String[] args) {

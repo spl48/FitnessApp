@@ -214,24 +214,32 @@ public class GoalsScreenController {
     public void editStepGoals() {
         stepsEdit.setText(Integer.toString(user.getStepGoal()));
         setVisibilityStep(true);
+        ApplicationManager.setEditingStatus(true);
     }
 
     /** Allows the user to edit their distance goals after clicking the distance edit toggle button. */
     public void editDistanceGoals() {
         distanceEdit.setText(Integer.toString(user.getDistanceGoal()));
         setVisibilityDistance(true);
+        ApplicationManager.setEditingStatus(true);
     }
 
     /** Stops all editing of all fields, attempts to set the distance data */
     public void stopEditingDistance() {
-        setDistanceData();
-        setVisibilityDistance(false);
+        if (ApplicationManager.exitEditingCheck()) {
+            setDistanceData();
+            setVisibilityDistance(false);
+            ApplicationManager.setEditingStatus(false);
+        }
     }
 
     /** Stops all editing of all fields, attempts to set the step data */
     public void stopEditingStep() {
-        setStepData();
-        setVisibilityStep(false);
+        if (ApplicationManager.exitEditingCheck()) {
+            setStepData();
+            setVisibilityStep(false);
+            ApplicationManager.setEditingStatus(false);
+        }
     }
 
     private void setVisibilityStep(boolean isVisible) {
@@ -249,9 +257,8 @@ public class GoalsScreenController {
     /** Sets the distance goal if valid and enters it into the database. */
     @FXML
     private void setDistanceGoal() {
-        int newDistanceGoal = user.getDistanceGoal();
         try {
-            newDistanceGoal = Integer.parseInt(distanceEdit.getText());
+            int newDistanceGoal = Integer.parseInt(distanceEdit.getText());
 
             if (UserDataValidation.validDistanceGoal(newDistanceGoal)) {
                 user.setDistanceGoal(newDistanceGoal);
@@ -262,6 +269,7 @@ public class GoalsScreenController {
                     distanceProgress.setStyle("..\\resources\\css\\progressIndicator.css");
                 }
                 stopEditingDistance();
+                ApplicationManager.setEditingStatus(false);
             }
 
         } catch (NumberFormatException e) {

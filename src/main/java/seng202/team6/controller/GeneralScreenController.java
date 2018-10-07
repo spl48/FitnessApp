@@ -16,7 +16,7 @@ import java.io.IOException;
 import static javafx.scene.paint.Color.rgb;
 
 /**
- * <h1>GUI Utilities</h1> //Could be re named to GUIController since a lot of classes inherit, might make more sense.
+ * <h1>GeneralScreenController</h1>
  * <p>Provides useful methods used within many GUI controllers.</p>
  */
 public class GeneralScreenController {

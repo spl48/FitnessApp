@@ -117,11 +117,19 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      * @param screen The screen to change to.
      */
     private void changeMenuScreen(Event event, String screen, String screenName) {
-        ApplicationManager.setBackOptions(false, "", "");
-        changeSelected(event);
-        changeScreen(event, screen, screenName);
-        System.out.println("Selected ID2: " + selected.getId());
-        selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+        boolean exitEdit = true;
+
+        if (ApplicationManager.getEditingStatus() == true) {
+            exitEdit = ApplicationManager.getAnswerFromPopUp("Do you want to leave the editing form?\nYour data will not be saved.");
+        }
+
+        if (exitEdit) {
+            ApplicationManager.setBackOptions(false, "", "");
+            changeSelected(event);
+            changeScreen(event, screen, screenName);
+            selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
+            ApplicationManager.setEditingStatus(false);
+        }
     }
 
     /**

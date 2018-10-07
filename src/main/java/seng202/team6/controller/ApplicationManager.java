@@ -59,6 +59,8 @@ public class ApplicationManager {
      */
     private static String prevScreenName = "HOME";
 
+    private static boolean editingStatus = false;
+
 
     /**
      * Initialises a session in the application by setting up the database and setting the
@@ -210,15 +212,6 @@ public class ApplicationManager {
         popUpBoxController.displayPopUP(e.getClass().getSimpleName(), e.getMessage(), "error");
     }
 
-    /**
-     * Displays an error pop up with the exception data
-     * @param e The exception that occurred.
-     */
-    public static void displayErrorPopUpCustom(String title, String message, Exception e) {
-        e.printStackTrace();
-        popUpBoxController.displayPopUP(title, message, "error");
-    }
-
 
     /**
      * Gets the current activity number.
@@ -248,6 +241,19 @@ public class ApplicationManager {
      * @return current index for the quote list
      */
     public static int getCurQuoteIndex() { return curQuoteIndex; }
+
+
+    public static boolean getEditingStatus() {
+        return editingStatus;
+    }
+
+    public static void setEditingStatus(boolean isEditing) {
+        editingStatus = isEditing;
+    }
+
+    public static boolean exitEditingCheck() {
+        return getAnswerFromPopUp("Would you like to stop editing?\nYour data will not be saved.");
+    }
 
 }
 

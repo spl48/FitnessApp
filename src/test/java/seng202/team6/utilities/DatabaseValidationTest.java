@@ -39,11 +39,11 @@ public class DatabaseValidationTest extends TestCase {
     public void setUp() throws Exception {
         super.setUp();
         String[] nextLine;
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/empty_csv_test.csv"));
+        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/corrupted_field_test.csv"));
         while ((nextLine = reader.readNext()) != null) {
             corruptedFieldData.add(nextLine);
         }
-        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/corrupted_field_test.csv"));
+        reader = new CSVReader(new FileReader("src/main/resources/seng202/team6/resources/tests/empty_csv_test.csv"));
         while ((nextLine = reader.readNext()) != null) {
             emptyCsvData.add(nextLine);
         }
@@ -98,10 +98,6 @@ public class DatabaseValidationTest extends TestCase {
         reader.close();
     }
 
-    public void testValidate() throws SQLException {
-        assertTrue(DatabaseValidation.validate(validData));
-    }
-
     public void testValidateLineLength() {
         assertFalse(DatabaseValidation.validateLineLength(missingFieldData));
     }
@@ -126,6 +122,8 @@ public class DatabaseValidationTest extends TestCase {
         String[] invalidLine = invalidLatitudeData.get(7);
         assertTrue(DatabaseValidation.validateLatitude(validLine[LATITUDE_INDEX]));
         assertFalse(DatabaseValidation.validateLatitude(invalidLine[LATITUDE_INDEX]));
+        String[] corruptedLatitudeLine = corruptedFieldData.get(5);
+        assertFalse(DatabaseValidation.validateLatitude(corruptedLatitudeLine[LATITUDE_INDEX]));
     }
 
     public void testValidateDistance() {
@@ -159,8 +157,8 @@ public class DatabaseValidationTest extends TestCase {
     public void testValidateTime() {
         String[] validLine = invalidTimeData.get(1);
         String[] invalidLine = invalidTimeData.get(4);
-        assertTrue(DatabaseValidation.validateDate(validLine[TIME_INDEX]));
-        assertFalse(DatabaseValidation.validateDate(invalidLine[TIME_INDEX]));
+        assertTrue(DatabaseValidation.validateTime(validLine[TIME_INDEX]));
+        assertFalse(DatabaseValidation.validateTime(invalidLine[TIME_INDEX]));
     }
 
     public void testValidateStartEndDate() {

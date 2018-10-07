@@ -74,7 +74,6 @@ public class registerController extends GeneralScreenController {
      */
     private DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
 
-
     /**
      * Initialises the gender options for the drop down box.
      */
@@ -90,7 +89,9 @@ public class registerController extends GeneralScreenController {
      */
     @FXML
     public void toStartScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
+        if (ApplicationManager.exitEditingCheck()) {
+            changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
+        }
     }
 
     /**
@@ -123,7 +124,7 @@ public class registerController extends GeneralScreenController {
                 try {
                     databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight, DEFAULT_STEP_GOAL, DEFAULT_DISTANCE_GOAL);
                     ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
-                    toStartScreen(event);
+                    changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
                 } catch (SQLException e) {
                     e.printStackTrace();
                     ApplicationManager.displayPopUp(e.getClass().getSimpleName(), e.getMessage(), "error");
