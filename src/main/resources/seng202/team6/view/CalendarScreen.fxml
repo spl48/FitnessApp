@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -26,8 +25,6 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="previousActivityButton" layoutX="578.0" layoutY="108.0" mnemonicParsing="false" onAction="#previousActivity" prefHeight="25.0" prefWidth="74.0" text="previous" visible="false" />
-                  <Button fx:id="nextActivityButton" layoutX="1041.0" layoutY="108.0" mnemonicParsing="false" onAction="#nextActivity" text="Next" visible="false" />
                   <GridPane alignment="CENTER" prefHeight="703.0" prefWidth="1156.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="632.8" />
