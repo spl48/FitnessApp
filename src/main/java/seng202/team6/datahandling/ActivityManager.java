@@ -218,9 +218,9 @@ public class ActivityManager {
      * Removes all records from a given user **FIX THIS**
      * @throws SQLException
      */
-    public void removeRecords() throws SQLException {
+    public void removeRecords(String username) throws SQLException {
         Statement state = connection.createStatement();
-        state.executeUpdate("delete from record where exists(select * from activity where activity.activityid = record.activityid and activity.userid = " + ApplicationManager.getCurrentUserID() + ")");
+        state.executeUpdate("delete from record where exists(select userid from user where username = '" + username + "')");
     }
 
     /**
