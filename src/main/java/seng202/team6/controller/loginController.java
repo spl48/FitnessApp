@@ -94,6 +94,12 @@ public class loginController extends GeneralScreenController {
     }
 
 
+<<<<<<< HEAD
+=======
+    /**
+     * A function that does a User Tutorial for First Time Users.
+     */
+>>>>>>> a09880f558ba449ef0a51ce60655d8a3865bcc24
     public void tutorial() {
 
         try {
@@ -274,7 +280,7 @@ public class loginController extends GeneralScreenController {
         // Adding the delete button action
         delButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                boolean answer = ApplicationManager.getAnswerFromPopUp("Are you sure you want to do this?");
+                boolean answer = ApplicationManager.getAnswerFromPopUp("Are you sure you want to delete this account?");
                 if (answer == true) {
                     databaseManager.getUserWriter().removeUser(username);
                     if (databaseManager.getUserReader().getUsernames().size() > 0) {

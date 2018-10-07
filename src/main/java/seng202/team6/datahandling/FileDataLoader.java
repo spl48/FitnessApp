@@ -133,6 +133,12 @@ public class FileDataLoader {
 
     public String convertToDateTimeFormat(String date, String time) {
         String[] parts = date.split("/");
+        if (parts[0].length() == 1) {
+            parts[0] = "0" + parts[0];
+        }
+        if (parts[1].length() == 1) {
+            parts[1] = "0" + parts[1];
+        }
         String combined = parts[2] + "-" + parts[1] + "-" + parts[0] + "T" + time;
         return combined;
     }
