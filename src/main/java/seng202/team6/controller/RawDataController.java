@@ -353,8 +353,8 @@ public class RawDataController extends WorkoutsNavigator{
             descriptionEdit.setText(selectedActivity.getDescription());
             startDateEdit.setValue(selectedActivity.getStartDate());
             endDateEdit.setValue(selectedActivity.getEndDate());
-            startTimeEdit.setText(selectedActivity.getStartTime().toString());
-            endTimeEdit.setText(selectedActivity.getEndTime().toString());
+            startTimeEdit.setText(selectedActivity.getStartTime().toString() + ":00");
+            endTimeEdit.setText(selectedActivity.getEndTime().toString() +":00");
             distanceEdit.setText(Double.toString(selectedActivity.getDistance()));
             notesEdit.setText(selectedActivity.getNotes());
 
