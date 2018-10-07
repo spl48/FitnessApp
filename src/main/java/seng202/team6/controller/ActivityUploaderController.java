@@ -199,7 +199,6 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     public void toAddWorkout(Event event) {
 
         // Updates the current activity number and executes the super class version of to add workout screen.
-        ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
         super.toAddWorkout(event);
 
         // Checks if the user has achieved their step goal, if so displays a congratulatory message.
@@ -229,7 +228,7 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
         double ran = Math.random();
 
         // Displays a goal or distance motivation pop up with a chance of 50%.
-        if (ran <= 0.5) {
+        if (ran <= 1) {
             int stepGoal = user.getStepGoal();
             double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
             double stepsLeft = stepGoal - totalSteps;

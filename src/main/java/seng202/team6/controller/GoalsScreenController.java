@@ -104,39 +104,6 @@ public class GoalsScreenController {
     }
 
     /**
-     * Updated the users step goal in the database to the users entered value
-     * @throws SQLException
-     */
-    @FXML
-    private void setStepsGoal() {
-
-        // Initialises the new step goal to their current step goal.
-        int newStepGoal = user.getStepGoal();
-
-        //  Tries to get a valid integer new step goal from the user entry if valid otherwise displays an error.
-        try {
-            newStepGoal = Integer.parseInt(stepsEdit.getText());
-
-            // Sets the user step goal to the value read and checks if the goal is achieved. If not it ensures the images
-            // are displayed on top of the progress indicator so it looks like a ring.
-            if (UserDataValidation.validStepGoal(newStepGoal)) {
-                user.setStepGoal(newStepGoal);
-                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
-                if (!stepsAchieved(user)) {
-                    stepCircle.setVisible(true);
-                    feetImage.setVisible(true);
-                    stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
-                }
-
-                // Stops the editing situation once an update has been made.
-                stopEditingStep();
-            }
-        } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
-        }
-    }
-
-    /**
      * Sets the data for the step goal section with the users current step goal per week, and how many steps until this goal is reached.
      * If the goal is reached, only the progress chart is displayed
      * @throws SQLException
@@ -268,12 +235,49 @@ public class GoalsScreenController {
                     distanceImage.setVisible(true);
                     distanceProgress.setStyle("..\\resources\\css\\progressIndicator.css");
                 }
-                stopEditingDistance();
+                setVisibilityDistance(false);
                 ApplicationManager.setEditingStatus(false);
+                setDistanceData();
             }
 
         } catch (NumberFormatException e) {
             ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data into distance field!", "error");
         }
     }
+
+    /**
+     * Updated the users step goal in the database to the users entered value
+     * @throws SQLException
+     */
+    @FXML
+    private void setStepsGoal() {
+
+        // Initialises the new step goal to their current step goal.
+        int newStepGoal = user.getStepGoal();
+
+        //  Tries to get a valid integer new step goal from the user entry if valid otherwise displays an error.
+        try {
+            newStepGoal = Integer.parseInt(stepsEdit.getText());
+
+            // Sets the user step goal to the value read and checks if the goal is achieved. If not it ensures the images
+            // are displayed on top of the progress indicator so it looks like a ring.
+            if (UserDataValidation.validStepGoal(newStepGoal)) {
+                user.setStepGoal(newStepGoal);
+                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
+                if (!stepsAchieved(user)) {
+                    stepCircle.setVisible(true);
+                    feetImage.setVisible(true);
+                    stepProgress.setStyle("..\\resources\\css\\progressIndicator.css");
+                }
+
+                // Stops the editing situation once an update has been made.
+                setVisibilityStep(false);
+                ApplicationManager.setEditingStatus(false);
+                setStepData();
+            }
+        } catch (NumberFormatException e) {
+            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
+        }
+    }
+
 }
