@@ -113,7 +113,7 @@
                               <Insets right="15.0" />
                            </GridPane.margin>
                         </ImageView>
-                        <ImageView fx:id="onDistanceEditing" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#stopEditing" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                        <ImageView fx:id="onDistanceEditing" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#stopEditingDistance" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                            <image>
                               <Image url="@../resources/pics/editOn.png" />
                            </image>
@@ -216,7 +216,7 @@
                               <Insets right="15.0" />
                            </GridPane.margin>
                         </ImageView>
-                        <ImageView fx:id="stepsOnEditing" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#stopEditing" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                        <ImageView fx:id="stepsOnEditing" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#stopEditingStep" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../resources/pics/editOn.png" />
                            </image>

@@ -138,12 +138,23 @@ public class UserDataValidation {
         return valid;
      }
 
-    public static boolean validUserProfile(String userProfile) {
+    public static boolean validDistanceGoal(int distanceGoal) {
         boolean valid = false;
-        if (userProfile == null) {
-            popUpBoxController.displayPopUP("Error", "Please select a profile", "error");
+        if (distanceGoal < 0 || distanceGoal > 350) {
+            popUpBoxController.displayPopUP("Invalid Distance Goal", "Please ensure the goal is between 0 and 350 km", "error");
         } else {
-            System.out.println("Profile OK");
+            System.out.println("Distance Goal OK");
+            valid = true;
+        }
+        return valid;
+    }
+
+    public static boolean validStepGoal(int stepGoal) {
+        boolean valid = false;
+        if (stepGoal < 0 || stepGoal > 500000) {
+            popUpBoxController.displayPopUP("Invalid Distance Goal", "Please ensure the goal is between 0 and 500000 steps", "error");
+        } else {
+            System.out.println("Step Goal OK");
             valid = true;
         }
         return valid;
