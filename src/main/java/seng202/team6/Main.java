@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seng202.team6.controller.ApplicationManager;
 
@@ -21,6 +22,7 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         ApplicationManager.initializeApplication();
+        primaryStage.getIcons().add(new Image("/seng202/team6/resources/pics/windowicon.png"));
     }
     public static void main(String[] args) {
         launch(args);
