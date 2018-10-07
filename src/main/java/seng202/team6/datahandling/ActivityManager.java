@@ -38,7 +38,7 @@ public class ActivityManager {
      * @return An array list of all the years in string format.
      */
     public ArrayList<String> getPossibleYears() {
-        ArrayList<String> years = new ArrayList<String>();
+        ArrayList<String> years = new ArrayList<>();
         int currUser = ApplicationManager.getCurrentUserID();
 
         try {
@@ -85,7 +85,7 @@ public class ActivityManager {
         type = setPossibleWildCard(type);
         int userId = ApplicationManager.getCurrentUserID();
 
-        HashMap<String, Integer> filteredActivities = new HashMap<String, Integer>();
+        HashMap<String, Integer> filteredActivities = new HashMap<>();
 
         try {
             Statement state = connection.createStatement();
@@ -162,7 +162,7 @@ public class ActivityManager {
         day = setPossibleWildCard(day);
         type = setPossibleWildCard(type);
 
-        ArrayList<Activity> filteredActivities = new ArrayList<Activity>();
+        ArrayList<Activity> filteredActivities = new ArrayList<>();
 
         try {
             Statement state = connection.createStatement();
@@ -192,7 +192,7 @@ public class ActivityManager {
      * Returns an array list of activity data points associatted with a given activity.
      * @param activity the given activity
      * @return The array list of activity data points
-     * @throws SQLException
+     * @throws SQLException an sql exception
      */
     public ArrayList<ActivityDataPoint> getDataPoints(Activity activity) throws SQLException {
         int activityid = activity.getActivityid();

@@ -101,6 +101,29 @@ public class DatabaseValidationTest extends TestCase {
         }
     }
 
+    public void testValidate() {
+        DatabaseManager databaseManager = new DatabaseManager("test");
+        Connection con = databaseManager.getCon();
+        try {
+            con.setAutoCommit(false);
+            Statement userTableStatement = con.createStatement();
+            String userTablesql = "DELETE FROM user";
+            userTableStatement.execute(userTablesql);
+            Statement activityTableStatement = con.createStatement();
+            String activityTablesql = "DELETE FROM activity";
+            activityTableStatement.execute(activityTablesql);
+            Statement recordTableStatement = con.createStatement();
+            String recordTablesql = "DELETE FROM record";
+            recordTableStatement.execute(recordTablesql);
+            con.commit();
+            con.setAutoCommit(true);
+            assertTrue(DatabaseValidation.validate(validData,databaseManager));
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void testValidateLineLength() {
         assertFalse(DatabaseValidation.validateLineLength(missingFieldData));
     }
@@ -154,6 +177,17 @@ public class DatabaseValidationTest extends TestCase {
         assertFalse(DatabaseValidation.validateDate(invalidLine[DATE_INDEX]));
     }
 
+    public void testValidateDateWithFormat() {
+        String invalidDate = "13/05/2015";
+        String invalidDate2 = "32/13/2015";
+        String invalidDate3 = "2025-05-13";
+        String validDate = "2015-05-13";
+        assertTrue(DatabaseValidation.validateDateWithFormat(validDate));
+        assertFalse(DatabaseValidation.validateDateWithFormat(invalidDate));
+        assertFalse(DatabaseValidation.validateDateWithFormat(invalidDate2));
+        assertFalse(DatabaseValidation.validateDateWithFormat(invalidDate3));
+    }
+
     public void testValidateTime() {
         String[] validLine = invalidTimeData.get(1);
         String[] invalidLine = invalidTimeData.get(4);
@@ -166,6 +200,13 @@ public class DatabaseValidationTest extends TestCase {
         LocalDate afterDate = LocalDate.of(2018, 9, 29);
         assertTrue(DatabaseValidation.validateStartEndDate(beforeDate, afterDate));
         assertFalse(DatabaseValidation.validateStartEndDate(afterDate, beforeDate));
+    }
+
+    public void testValidateStartEndTime() {
+        String beforeTime = "10:15:28";
+        String afterTime = "11:09:23";
+        assertTrue(DatabaseValidation.validateStartEndTime(beforeTime, afterTime));
+        assertFalse(DatabaseValidation.validateStartEndTime(afterTime, beforeTime));
     }
 
     public void testValidateNonDuplicateData() {

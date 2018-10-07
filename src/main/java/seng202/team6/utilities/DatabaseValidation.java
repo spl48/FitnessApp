@@ -274,7 +274,7 @@ public class DatabaseValidation {
             if (ApplicationManager.getCurrentUserID() != 0) {
                 ApplicationManager.displayPopUp("Invalid Data", "Make sure start time is before end time.", "error");
             }
-            System.out.println("Invalid ");
+            System.out.println("Invalid times. Make sure start time is before end time.");
             return false;
         } else {
             return true;
