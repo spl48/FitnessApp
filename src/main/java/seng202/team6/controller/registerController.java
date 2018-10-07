@@ -63,8 +63,7 @@ public class registerController extends GeneralScreenController {
     /**
      * User registering numeric details.
      */
-    private double height, weight, stride;
-
+    private double height, weight;
     /**
      * The date of birth of the user.
      */
@@ -106,30 +105,31 @@ public class registerController extends GeneralScreenController {
         // Checks for Register Limit
         if (usernames.size() == 5) {
             ApplicationManager.displayPopUp("Maximum User Limit", "The maximum number of users allowed has been reached.\nYou cannot create more users.", "error");
-        }
+        } else {
 
-        // Checks for Duplicates
-        setEnteredData();
-        boolean duplicate = false;
-        for (String user : usernames) {
-            if (user.equalsIgnoreCase(username)) {
-                duplicate = true;
-            }
-        }
-
-        // Checks if duplicates present then if so and notifies if so.
-        if (duplicate == true) {
-            ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
-        } else if (validEnteredData()) {
-            try {
-                databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight,DEFAULT_STEP_GOAL, DEFAULT_DISTANCE_GOAL);
-                ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
-                toStartScreen(event);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                ApplicationManager.displayPopUp(e.getClass().getSimpleName(), e.getMessage(), "error");
+            // Checks for Duplicates
+            setEnteredData();
+            boolean duplicate = false;
+            for (String user : usernames) {
+                if (user.equalsIgnoreCase(username)) {
+                    duplicate = true;
+                }
             }
 
+            // Checks if duplicates present then if so and notifies if so.
+            if (duplicate == true) {
+                ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
+            } else if (validEnteredData()) {
+                try {
+                    databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight, DEFAULT_STEP_GOAL, DEFAULT_DISTANCE_GOAL);
+                    ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
+                    toStartScreen(event);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    ApplicationManager.displayPopUp(e.getClass().getSimpleName(), e.getMessage(), "error");
+                }
+
+            }
         }
     }
 
