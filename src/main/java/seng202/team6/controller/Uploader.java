@@ -75,16 +75,16 @@ public class Uploader extends WorkoutsNavigator {
                 FileDataLoader loader = new FileDataLoader();
                 boolean work = loader.importDataFromCSV(currUser.getUserID(), filePath, databaseManager);
                 if (work == true) {
-                    ApplicationManager.displayPopUp("Data Confirmation", "Activity Data has been uploaded!", "confirmation");
+                    ApplicationManager.displayPopUp("Data Confirmation", "The Activity Data has been successfully uploaded.", "confirmation");
                     ApplicationManager.setBackOptions(false, "ADD WORKOUT", "");
                     changeScreen(event, "/seng202/team6/view/WorkoutUpload2.fxml", "ACTIVITY UPLOAD");
                 }
                 else{
-                    ApplicationManager.displayPopUp("Data validation", "Invalid CSV file detected!", "error");
+                    ApplicationManager.displayPopUp("Data validation", "An Invalid CSV file detected.", "error");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                ApplicationManager.displayPopUp("Database Error" , "Could not load csv into database", "error");
+                ApplicationManager.displayPopUp("Database Error" , "Could not load the CSV file into the database.", "error");
             }
         } else {
             System.out.println("Nothing is selected!");

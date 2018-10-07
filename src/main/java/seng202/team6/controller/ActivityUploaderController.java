@@ -225,27 +225,42 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
      * @param event When the user clicks the back arrow and wishes to exit from the upload activity checking area.
      */
     @FXML
+    public void toAddWorkout(Event event) {
+    
+        // Updates the current activity number and executes the super class version of to add workout screen.
+        super.toAddWorkout(event);
+    }
+
+    /**
+     * Checks if the user has achieved any weekly goals with the new file upload and displays a pop up if they have saying the goal has been achieved.
+     * If not will display a random progress pop up to say how many steps or kilometers to achieve a weekly goal.
+     * @param event
+     */
+    @FXML
     private void doneEditing(Event event) {
+        
         boolean finishedEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you are finished editing these records?\nFurther editing can be done in Raw Data Viewer if desired.");
 
-        if (finishedEditing) {
+            if (finishedEditing) {
+
             // Checks if the user has achieved their step goal, if so displays a congratulatory message.
             if (stepsAchieved(user)) {
                 int stepGoal = user.getStepGoal();
                 String stepGoalString = Integer.toString(stepGoal) + " steps";
-                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "!", "confirmation");
+                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "." , "confirmation");
             }
 
             // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
             if (distanceAchieved(user)) {
                 int distanceGoal = user.getDistanceGoal();
                 String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
-                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + distanceGoalString + "!", "confirmation");
-            } else {
+                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly distance goal of " + distanceGoalString + "." , "confirmation");
+            }
+
+            // If no weekly goal has been achieved, display a random progress pop up
+            if (!stepsAchieved(user) & !distanceAchieved(user)) {
                 displayRandomProgressReport();
             }
-            ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber() + activityTable.getItems().size());
-            super.toAddWorkout(event);
         }
     }
 
@@ -264,13 +279,13 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
             double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
             double stepsLeft = stepGoal - totalSteps;
             String stepsLeftString = String.format("%.0f Steps", stepsLeft);
-            ApplicationManager.displayPopUp("Congratulations", "You only have " + stepsLeftString + " until you reach your goal steps!", "confirmation");
+            ApplicationManager.displayPopUp("Congratulations", "You only have " + stepsLeftString + " until you reach your goal steps.", "confirmation");
         } else {
             int distanceGoal = user.getDistanceGoal();
             double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
             double distanceLeft = distanceGoal - totalDistance;
             String distanceLeftString = String.format("%.0f Kilometers", distanceLeft);
-            ApplicationManager.displayPopUp("Congratulations", "You only have " + distanceLeftString + " until you reach your goal distance!" , "confirmation");
+            ApplicationManager.displayPopUp("Congratulations", "You only have " + distanceLeftString + " until you reach your goal distance." , "confirmation");
         }
     }
 

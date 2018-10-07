@@ -255,7 +255,7 @@ public class ApplicationManager {
     }
 
     public static boolean exitEditingCheck() {
-        return getAnswerFromPopUp("Would you like to stop editing?\nYour data will not be saved.");
+        return getAnswerFromPopUp("Would you like to stop editing? All the data that is changed will not be saved.");
     }
 
 }

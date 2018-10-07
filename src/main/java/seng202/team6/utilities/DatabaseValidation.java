@@ -45,7 +45,7 @@ public class DatabaseValidation {
         if(data.get(0).length < 6){
             System.out.println("Invalid line length detected!");
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Invalid number of data fields detected!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "There is an invalid number of data fields detected in the CSV file.", "error");
             }
             return false;
         }
@@ -56,7 +56,7 @@ public class DatabaseValidation {
                     if (line[i].length() == 0) {
                         System.out.println("Missing field detected!");
                         if(ApplicationManager.getCurrentUserID() != 0) {
-                            ApplicationManager.displayPopUp("Invalid Data", "Missing field detected!", "error");
+                            ApplicationManager.displayPopUp("Invalid Data", "There is a missing field detected in the CSV file.", "error");
                         }
                         return false;
                     }
@@ -74,7 +74,7 @@ public class DatabaseValidation {
         }
         else {
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Invalid first line detected!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Invalid first line of the CSV file detected.", "error");
             }
             System.out.println("Invalid first line detected!");
             return false;
@@ -87,7 +87,7 @@ public class DatabaseValidation {
         }
         else {
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Empty CSV file detected!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "The CSV file is empty.", "error");
             }
             System.out.println("Empty csv file detected!");
             return false;
@@ -97,7 +97,7 @@ public class DatabaseValidation {
     public static boolean validateLongitude(String inLongitude){
         if(!GeneralUtilities.isValidDouble(inLongitude)){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure longitude is a numeric value!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure longitude is a numerical value and is in range of -180 to 180 degrees.", "error");
             }
             System.out.println("Invalid longitude detected!");
             return false;
@@ -106,7 +106,7 @@ public class DatabaseValidation {
             double longitude = Double.parseDouble(inLongitude);
             if(!(longitude >= -180 && longitude <= 180)){
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Make sure longitude is in range (-180 to 180)!", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure longitude is in range of -180 to 180 degrees.", "error");
                 }
                 System.out.println("Invalid longitude detected! Longitude out of range.");
                 return false;
@@ -120,7 +120,7 @@ public class DatabaseValidation {
     public static boolean validateLatitude(String inLatitude){
         if(!GeneralUtilities.isValidDouble(inLatitude)){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure latitude is a numeric value!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure latitude is a numerical value and is in range of -90 to 90 degrees.", "error");
             }
             System.out.println("Invalid latitude detected!");
             return false;
@@ -130,7 +130,7 @@ public class DatabaseValidation {
             if(!(latitude >= -90 && latitude <= 90)){
                 System.out.println("Invalid latitude detected! Latitude out of range.");
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Make sure latitude is in range (-90 to 90)!", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure latitude is in range of -90 to 90 degrees.", "error");
                 }
                 return false;
             }
@@ -143,7 +143,7 @@ public class DatabaseValidation {
     public static boolean validateHeartRate(String inHeartRate){
         if(!GeneralUtilities.isValidInt(inHeartRate)){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure heart rate is a numeric value!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure heart rate is a numerical value and is in range 0 to 400 bpm.", "error");
             }
             System.out.println("Invalid heart rate detected!");
             return false;
@@ -153,7 +153,7 @@ public class DatabaseValidation {
             if(!(heartRate >= 0 && heartRate <= 400)){
                 System.out.println("Invalid heart rate detected! Heart rate out of range.");
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Make sure heart rate is in range (0 to 400)!", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure heart rate is in range 0 to 400 bpm.", "error");
                 }
                 return false;
             }
@@ -166,7 +166,7 @@ public class DatabaseValidation {
     public static boolean validateElevation(String inElevation){
         if(!GeneralUtilities.isValidDouble(inElevation)){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure elevation is a numeric value!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure elevation is a numerical value and is in range of -420 to 9000 m.", "error");
             }
             System.out.println("Invalid elevation detected!");
             return false;
@@ -175,7 +175,7 @@ public class DatabaseValidation {
             double elevation = Double.parseDouble(inElevation);
             if(!(elevation >= -420 && elevation <= 9000)){
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Make sure elevation is in range (-420 to 9000)!", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure elevation is in range of -420 to 9000 m.", "error");
                 }
                 System.out.println("Invalid elevation detected! Elevation out of range.");
                 return false;
@@ -190,7 +190,7 @@ public class DatabaseValidation {
         if(!GeneralUtilities.isValidDate(date)){
             System.out.println("Invalid date detected!");
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure date is of the form DD/MM/YY!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure date is of the form DD/MM/YY!", "error");
             }
             return false;
         }
@@ -199,7 +199,7 @@ public class DatabaseValidation {
             LocalDate newDate = LocalDate.parse(date, formatter);
             if(newDate.isAfter(LocalDate.now())){
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Make sure date is not a future date.", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure that date is not referencing a future date.", "error");
                 }
                 System.out.println("Future date detected!");
                 return false;
@@ -214,7 +214,7 @@ public class DatabaseValidation {
         if(!GeneralUtilities.isValidDateWithFormat(date)){
             System.out.println("Invalid date detected!");
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure date is of the form \"yyyy-MM-dd\"", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure date is of the form \"yyyy-MM-dd\".", "error");
             }
             return false;
         }
@@ -223,7 +223,7 @@ public class DatabaseValidation {
             LocalDate newDate = LocalDate.parse(date, formatter);
             if(newDate.isAfter(LocalDate.now())){
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Future date detected!", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Future date detected! Please ensure that date is not referencing a future date.", "error");
                 }
                 System.out.println("Future date detected!");
                 return false;
@@ -236,7 +236,7 @@ public class DatabaseValidation {
     public static boolean validateTime(String time){
         if(!GeneralUtilities.isValidTime(time)){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure time is of the form HH:mm:ss!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure time is of the form HH:mm:ss!", "error");
             }
             System.out.println("Invalid time detected!");
             return false;
@@ -249,7 +249,7 @@ public class DatabaseValidation {
     public static boolean validateStartEndDate(LocalDate startDate, LocalDate endDate){
         if(!(startDate.isBefore(endDate) || startDate.isEqual(endDate))){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure start date is before end date.", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure start date is before end date.", "error");
             }
             System.out.println("Invalid date detected!");
             return false;
@@ -272,9 +272,9 @@ public class DatabaseValidation {
         LocalTime end = LocalTime.parse(endTime, strictTimeFormatter);
         if (!(start.isBefore(end))) {
             if (ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure start time is before end time.", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure start time is before end time.", "error");
             }
-            System.out.println("Invalid ");
+            System.out.println("Invalid times. Make sure start time is before end time.");
             return false;
         } else {
             return true;
@@ -296,9 +296,9 @@ public class DatabaseValidation {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                     LocalDate recordDate = LocalDate.parse(line[0], formatter);
                     if(recordTime.isAfter(activity.getStartTime()) && recordTime.isBefore(activity.getEndTime())
-                        && (recordDate.isEqual(activity.getStartDate()) || recordDate.isEqual(activity.getEndDate()))){
+                            && (recordDate.isEqual(activity.getStartDate()) || recordDate.isEqual(activity.getEndDate()))){
                         if(ApplicationManager.getCurrentUserID() != 0) {
-                            ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity data detected!", "error");
+                            ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity data detected.", "error");
                         }
                         System.out.println("Duplicate data detected!");
                         return false;
@@ -306,7 +306,7 @@ public class DatabaseValidation {
                 }
             }
         }
-            return true;
+        return true;
     }
     public static boolean validateNonDuplicateActivity(LocalTime endTime, LocalDate startDate, LocalDate endDate, DatabaseManager databaseManager) throws SQLException {
         ArrayList<Activity> activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
@@ -314,7 +314,7 @@ public class DatabaseValidation {
             if((endTime.isAfter(activity.getStartTime()) && endTime.isBefore(activity.getEndTime()))
                     && (startDate.isEqual(activity.getStartDate()) || endDate.isEqual(activity.getEndDate()))){
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity data detected!", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Duplicate activity data detected.", "error");
                 }
                 System.out.println("Duplicate data detected!");
                 return false;

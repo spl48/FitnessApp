@@ -152,7 +152,7 @@ public class PopUpBoxController extends GeneralScreenController {
         closeWindow();
     }
 
-    /** Gets the confimation status for yes /no pop up purposes */
+    /** Gets the confirmation status for yes /no pop up purposes */
     public boolean getConfirmationStatus() {
         return confirmationStatus;
     }

@@ -25,7 +25,7 @@ public class startScreenController extends GeneralScreenController {
         if (databaseManager.getUserReader().getUsernames().size() > 0) {
             changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
         } else {
-            ApplicationManager.displayPopUp("No Users", "It seems like there are no users in the database\nPlease register first.", "error");
+            ApplicationManager.displayPopUp("No Users", "It seems like there are no users in the database.\nPlease register first.", "error");
         }
     }
 

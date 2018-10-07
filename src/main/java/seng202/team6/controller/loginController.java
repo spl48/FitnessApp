@@ -277,7 +277,7 @@ public class loginController extends GeneralScreenController {
         // Adding the delete button action
         delButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                boolean answer = ApplicationManager.getAnswerFromPopUp("Are you sure you want to delete this account?");
+                boolean answer = ApplicationManager.getAnswerFromPopUp("Are you sure you want to delete this account? This account will no longer be recoverable once deleted.");
                 if (answer == true) {
                     databaseManager.getUserWriter().removeUser(username);
                     if (databaseManager.getUserReader().getUsernames().size() > 0) {

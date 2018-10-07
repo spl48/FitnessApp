@@ -16,6 +16,8 @@ import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -328,7 +330,7 @@ public class RawDataController extends WorkoutsNavigator{
 
         // Displays the filter pop up if user not editing their activity.
         if (isEditing) {
-            ApplicationManager.displayPopUp("Can't open filter", "Please finish editing before trying to filter!", "error");
+            ApplicationManager.displayPopUp("Activity Filter", "Filter cannot be opened. Please finish editing before trying to filter activity data.", "error");
         } else {
             ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
             updateListView();
@@ -363,7 +365,7 @@ public class RawDataController extends WorkoutsNavigator{
             setVisablityEdit(true);
         } else {
             // Displays an notification that tells the user to select and activity.
-            ApplicationManager.displayPopUp("No Activity Selected", "Please select an activity", "error");
+            ApplicationManager.displayPopUp("No Activity Selected", "Please select an activity.", "error");
         }
     }
 
@@ -374,7 +376,7 @@ public class RawDataController extends WorkoutsNavigator{
     @FXML
     public void stopEditingCheck() {
         // Shows a yes / no pop up for finish editing confirmation.
-        boolean exitEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you want to finish editing? Your changes will not be saved.");
+        boolean exitEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you want to stop editing? All the changes made will not be saved.");
 
         // If the user selects yes then the screen will return to normal.
         if (exitEditing) {
@@ -453,15 +455,15 @@ public class RawDataController extends WorkoutsNavigator{
             // Stops the user editing and reloads the data.
             stopEditing();
             showActivity();
-            ApplicationManager.displayPopUp("Success!", "Your activity update was successful!", "confirmation");
+            ApplicationManager.displayPopUp("Update Success", "The activity is successfully updated.", "confirmation");
         } else {
             // Displays a pop up notification
-            ApplicationManager.displayPopUp("Update Failure", "Your activity update was unsuccessful", "error");
+            ApplicationManager.displayPopUp("Update Failure", "The activity is not updated.", "error");
         }
     }
 
 
-     /**
+    /**
      * Validates the entered activity data, displaying error pop ups when relevant.
      * @return Whether all fields are valid.
      */
