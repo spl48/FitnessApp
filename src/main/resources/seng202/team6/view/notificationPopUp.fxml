@@ -22,7 +22,7 @@
                   <Image url="@../../../../java/seng202/team6/resources/pics/littleBaxmax.png" />
                </image>
             </ImageView>
-            <Button layoutX="156.0" layoutY="46.0" mnemonicParsing="false" onAction="#closeWindow" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="OK!" textFill="WHITE">
+            <Button layoutX="156.0" layoutY="46.0" mnemonicParsing="false" onAction="#closeWindow" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="OK" textFill="WHITE">
                <font>
                   <Font name="NexaBold" size="14.0" />
                </font>
@@ -47,7 +47,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="errorText" text="ERROR TEXT" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.vgrow="ALWAYS">
+            <Label fx:id="errorText" text="NOTIFICATION TEXT" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.vgrow="ALWAYS">
                <font>
                   <Font name="NexaBold" size="16.0" />
                </font>
@@ -71,7 +71,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="errorTitle" text="ERROR TITLE" textFill="WHITE" textOverrun="CLIP" GridPane.halignment="LEFT">
+            <Label fx:id="errorTitle" text="NOTIFICATION" textFill="WHITE" textOverrun="CLIP" GridPane.halignment="LEFT">
                <font>
                   <Font name="NexaBold" size="14.0" />
                </font>

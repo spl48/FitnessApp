@@ -31,9 +31,6 @@ public class PopUpBoxController extends GeneralScreenController {
     @FXML
     private Label errorTitle;
 
-//    @FXML
-//    public ImageView cancelButton;
-
     /** The error title text. */
     private static String errorTitleText;
 
@@ -113,17 +110,6 @@ public class PopUpBoxController extends GeneralScreenController {
                 createPopUpBox("/seng202/team6/view/yesNoPopUp.fxml", 400, 350);
             }
     }
-
-//    public void cancel() {
-//        closeWindow();
-//    }
-//
-//    public void removedUser() {
-//        System.out.println(ApplicationManager.getCurrentUsername());
-//        databaseManager.getUserWriter().removeUser(ApplicationManager.getCurrentUsername());
-//        closeWindow();
-//    }
-
 
     /**
      * Creates a pop up box with a given scene using an fxml file and specified width and height.

@@ -17,12 +17,12 @@
    <bottom>
       <Pane prefHeight="137.0" prefWidth="398.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="100.0" fitWidth="72.0" layoutX="27.0" layoutY="15.0">
+            <ImageView fitHeight="100.0" fitWidth="72.0" layoutX="47.0" layoutY="16.0">
                <image>
                   <Image url="@../resources/pics/littleBaxmax.png" />
                </image>
             </ImageView>
-            <Button fx:id="yesButton" layoutX="156.0" layoutY="46.0" mnemonicParsing="false" onAction="#getAnswer" onMouseClicked="#getAnswer" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="YES!" textFill="WHITE">
+            <Button fx:id="yesButton" layoutX="139.0" layoutY="46.0" mnemonicParsing="false" onAction="#getAnswer" onMouseClicked="#getAnswer" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="YES" textFill="WHITE">
                <font>
                   <Font name="NexaBold" size="14.0" />
                </font>
@@ -35,7 +35,7 @@
                   <Image url="@../../../../java/seng202/team6/resources/pics/speechThing.png" />
                </image>
             </ImageView>
-            <Button fx:id="noButton" layoutX="281.0" layoutY="46.0" mnemonicParsing="false" onAction="#getAnswer" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="NO!" textFill="WHITE">
+            <Button fx:id="noButton" layoutX="256.0" layoutY="46.0" mnemonicParsing="false" onAction="#getAnswer" onMouseEntered="#darkenButton" onMouseExited="#lightenButton" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: rgb(79,79,79);" text="NO" textFill="WHITE">
                <font>
                   <Font name="NexaBold" size="14.0" />
                </font>
@@ -55,7 +55,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="errorText" text="ERROR TEXT" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.vgrow="ALWAYS">
+            <Label fx:id="errorText" text="YES NO TEXT" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.vgrow="ALWAYS">
                <font>
                   <Font name="NexaBold" size="16.0" />
                </font>
@@ -79,7 +79,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="errorTitle" text="ERROR TITLE" textFill="WHITE" textOverrun="CLIP" GridPane.halignment="LEFT">
+            <Label fx:id="errorTitle" text="YES NO TITLE" textFill="WHITE" textOverrun="CLIP" GridPane.halignment="LEFT">
                <font>
                   <Font name="NexaBold" size="14.0" />
                </font>
