@@ -20,11 +20,19 @@ public class DatabaseManager {
     private DatabaseUserReader databaseUserReader;
     private DatabaseUserWriter databaseUserWriter;
 
-    public DatabaseManager() {
-       getConnection();
-       activityManager = new ActivityManager(con, this);
-       databaseUserReader = new DatabaseUserReader(con, this);
-       databaseUserWriter = new DatabaseUserWriter(con, this);
+    public DatabaseManager(String testOrMain) {
+        if(testOrMain.equalsIgnoreCase("main")) {
+            getConnection();
+            activityManager = new ActivityManager(con, this);
+            databaseUserReader = new DatabaseUserReader(con, this);
+            databaseUserWriter = new DatabaseUserWriter(con, this);
+        }
+        if(testOrMain.equalsIgnoreCase("test")) {
+            getConnectionTest();
+            activityManager = new ActivityManager(con, this);
+            databaseUserReader = new DatabaseUserReader(con, this);
+            databaseUserWriter = new DatabaseUserWriter(con, this);
+        }
     }
 
     /**
@@ -34,6 +42,22 @@ public class DatabaseManager {
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:Data.db");
+            initialiseDatabase();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            ApplicationManager.displayPopUp("Database Error", "There is a problem with the database. It may not exist!", "error");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ApplicationManager.displayPopUp("Database Error", "Unfortunately, there is a problem the database connection.", "error");
+        }
+    }
+    /**
+     * Establishes the database connection to the test file
+     */
+    private void getConnectionTest() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:Test.db");
             initialiseDatabase();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

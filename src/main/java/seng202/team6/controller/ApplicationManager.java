@@ -12,7 +12,7 @@ public class ApplicationManager {
     /**
      * The current user ID for the user which is currently logged in.
      */
-    private static int currentUserID;
+    private static int currentUserID = 0;
 
     /**
      * The current username for the user which is logged in.
@@ -175,7 +175,7 @@ public class ApplicationManager {
      * Initialises an instance of the database manager.
      */
     private static void initializeDatabaseManager()  {
-        databaseManager = new DatabaseManager();
+        databaseManager = new DatabaseManager("Main");
     }
 
 
