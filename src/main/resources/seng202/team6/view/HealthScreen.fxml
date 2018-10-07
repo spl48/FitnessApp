@@ -18,7 +18,7 @@
          <top>
             <AnchorPane prefWidth="1341.0" BorderPane.alignment="CENTER">
                <children>
-                  <fx:include source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <fx:include source="Header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
                <rotationAxis>
                   <Point3D />
@@ -63,7 +63,7 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <fx:include source="sidebar.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="TOP_CENTER" />
+            <fx:include source="Sidebar.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="TOP_CENTER" />
          </children>
       </AnchorPane>
    </left>

@@ -9,7 +9,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.models.Goal;
 import seng202.team6.utilities.UserDataValidation;
 
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
  * <h1>Register Controller</h1>
  * <p>Initialises and applies functionality to the Register screen allowing users to make profiles in the database</p>
  */
-public class registerController extends GeneralScreenController {
+public class RegisterController extends GeneralScreenController {
 
     /**
      * The maximum number of Users
@@ -90,7 +89,7 @@ public class registerController extends GeneralScreenController {
     @FXML
     public void toStartScreen(Event event) {
         if (ApplicationManager.exitEditingCheck()) {
-            changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
+            changeScreen(event, "/seng202/team6/view/StartScreen.fxml", "START");
         }
     }
 
@@ -124,7 +123,7 @@ public class registerController extends GeneralScreenController {
                 try {
                     databaseManager.getUserWriter().addUser(username, birthDate.toString(), first, last, gender, height, weight, DEFAULT_STEP_GOAL, DEFAULT_DISTANCE_GOAL);
                     ApplicationManager.displayPopUp("User Creation", "Well done you just created the user " + username + ".", "confirmation");
-                    changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
+                    changeScreen(event, "/seng202/team6/view/StartScreen.fxml", "START");
                 } catch (SQLException e) {
                     e.printStackTrace();
                     ApplicationManager.displayPopUp(e.getClass().getSimpleName(), e.getMessage(), "error");

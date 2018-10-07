@@ -39,7 +39,7 @@ public class WorkoutsNavigator extends GeneralScreenController {
     @FXML
     public void toRawDataViewer(Event event) {
         ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
-        changeScreen(event, "/seng202/team6/view/RawDataVeiwer2.fxml", "RAW DATA VIEWER");
+        changeScreen(event, "/seng202/team6/view/RawDataVeiwer.fxml", "RAW DATA VIEWER");
     }
 
     /**
@@ -50,7 +50,7 @@ public class WorkoutsNavigator extends GeneralScreenController {
     public void toWorkoutAnalysis(Event event) throws SQLException {
         ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
         if (ApplicationManager.getDatabaseManager().getActivityManager().getActivities(ApplicationManager.getCurrentUserID()).size() > 0) {
-            changeScreen(event, "/seng202/team6/view/WorkoutAnalysis3.fxml", "ANALYSIS");
+            changeScreen(event, "/seng202/team6/view/WorkoutAnalysis.fxml", "ANALYSIS");
         } else {
             ApplicationManager.displayPopUp("Cannot Open", "No activities uploaded, please upload some activites first!", "error");
         }

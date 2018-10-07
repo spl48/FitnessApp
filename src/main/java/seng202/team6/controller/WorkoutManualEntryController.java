@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * <p>Initialises and applies functionality to the Activity Entry screen. Allows the user to manually enter their
  * Activity data./p>
  */
-public class workoutManualEntryController extends GeneralScreenController {
+public class WorkoutManualEntryController extends GeneralScreenController {
 
     /**
      * Text fields for activity entry form.

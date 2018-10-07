@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * <p>Sets up the login screen and dynamically sets the user profile display depending on the users
  * currently within the database. Logs the user in when desired user selected.</p>
  */
-public class loginController extends GeneralScreenController {
+public class LoginController extends GeneralScreenController {
 
     /**
      * The grid which the profiles from the database will be displayed.
@@ -145,7 +145,7 @@ public class loginController extends GeneralScreenController {
      */
     @FXML
     public void toStartScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
+        changeScreen(event, "/seng202/team6/view/StartScreen.fxml", "START");
     }
 
 
@@ -242,7 +242,7 @@ public class loginController extends GeneralScreenController {
         selectProfileButton.setMnemonicParsing(false);
         selectProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                loginController.this.changeSelected(event);
+                LoginController.this.changeSelected(event);
             }
         });
         selectProfileButton.setPrefHeight(226.0);
@@ -281,7 +281,7 @@ public class loginController extends GeneralScreenController {
                 if (answer == true) {
                     databaseManager.getUserWriter().removeUser(username);
                     if (databaseManager.getUserReader().getUsernames().size() > 0) {
-                        changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
+                        changeScreen(event, "/seng202/team6/view/LoginScreen.fxml", "LOGIN");
                     } else {
                         toStartScreen(event);
                     }

@@ -91,23 +91,23 @@ public class PopUpBoxController extends GeneralScreenController {
 
         // Tries to create a pop up box based on a type and displays it.
             if (type == "error") {
-                createPopUpBox("/seng202/team6/view/errorPopUp.fxml", 400, 350);
+                createPopUpBox("/seng202/team6/view/ErrorPopUp.fxml", 400, 350);
             } else if (type == "confirmation") {
-                createPopUpBox("/seng202/team6/view/confirmationPopUp.fxml", 400, 350);
+                createPopUpBox("/seng202/team6/view/ConfirmationPopUp.fxml", 400, 350);
             } else if (type == "notification") {
-                createPopUpBox("/seng202/team6/view/notificationPopUp.fxml", 400, 350);
+                createPopUpBox("/seng202/team6/view/NotificationPopUp.fxml", 400, 350);
             } else if (type == "filter") {
                 createPopUpBox("/seng202/team6/view/FilterActivityPopUp.fxml", 400, 350);
             } else if (type == "loader") {
                 createPopUpBox("/seng202/team6/view/LoadingPopUp.fxml", 400, 150);
             } else if (type == "tutorialsmall") {
-                createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 350);
+                createPopUpBox("/seng202/team6/view/TutorialPopUp.fxml", 400, 350);
             } else if (type == "tutorialbig") {
-                createPopUpBox("/seng202/team6/view/tutorialPopUp.fxml", 400, 380);
+                createPopUpBox("/seng202/team6/view/TutorialPopUp.fxml", 400, 380);
             } else if (type == "profileDelete") {
                 createPopUpBox("/seng202/team6/view/profileDeletePopUp.fxml", 400, 350);
             } else if (type == "yesNo") {
-                createPopUpBox("/seng202/team6/view/yesNoPopUp.fxml", 400, 350);
+                createPopUpBox("/seng202/team6/view/YesNoPopUp.fxml", 400, 350);
             }
     }
 

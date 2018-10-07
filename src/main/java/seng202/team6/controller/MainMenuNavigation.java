@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
  * <h1>Main Menu Navigation Controller</h1>
  * <p>Main application navigation using side bar.</p>
  */
-public class MainMenuNavigation2 extends GeneralScreenController {
+public class MainMenuNavigation extends GeneralScreenController {
 
     /**
      * The home button on the side bar.
@@ -152,7 +152,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     @FXML
     public void toProfileScreen(Event event) {
-        changeMenuScreen(event, "/seng202/team6/view/profileScreen.fxml", "PROFILE");
+        changeMenuScreen(event, "/seng202/team6/view/ProfileScreen.fxml", "PROFILE");
     }
 
     /**
@@ -170,7 +170,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     @FXML
     public void toGoalsScreen(Event event) {
-        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen2.fxml", "WEEKLY GOALS");
+        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen.fxml", "WEEKLY GOALS");
     }
 
     /**

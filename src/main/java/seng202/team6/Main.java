@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException, ClassNotFoundException {
-        Parent root = FXMLLoader.load(getClass().getResource("view/startScreen2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/StartScreen.fxml"));
         primaryStage.setTitle("MATES");
         primaryStage.setScene(new Scene(root, 1366, 768));
         primaryStage.show();

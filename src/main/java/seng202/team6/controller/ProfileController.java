@@ -5,17 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.User;
 import seng202.team6.utilities.UserDataValidation;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -26,7 +21,7 @@ import java.util.ArrayList;
  * <h1>Profile Controller</h1>
  * <p>Initialises and applies functionality to the Profile screen.</p>
  */
-public class profileController extends GeneralScreenController {
+public class ProfileController extends GeneralScreenController {
 
     /**
      * The labels containing the user details from the database.
@@ -145,7 +140,7 @@ public class profileController extends GeneralScreenController {
      * @throws IOException When the profile screen fxml cannot be loaded.
      */
     public void toProfile(Event event) throws IOException {
-        changeScreen(event, "/seng202/team6/view/profileScreen.fxml", "PROFILE");
+        changeScreen(event, "/seng202/team6/view/ProfileScreen.fxml", "PROFILE");
     }
 
 

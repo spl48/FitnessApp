@@ -105,7 +105,7 @@ public class HeaderController extends WorkoutsNavigator {
     @FXML
     public void toStartScreen() {
         try {
-            Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/startScreen2.fxml"));
+            Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/StartScreen.fxml"));
             Scene loginScene = new Scene(loginParent);
             Stage appStage = (Stage) (headerScreenName.getScene().getWindow());
             appStage.setScene(loginScene);
