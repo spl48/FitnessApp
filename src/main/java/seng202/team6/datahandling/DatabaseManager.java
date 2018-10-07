@@ -138,18 +138,6 @@ public class DatabaseManager {
                         + "elevation REAL,"
                         + "FOREIGN KEY(activityid) REFERENCES activity(activityid));";
                 recordTableStatement.execute(recordTablesql);
-                //inserting some sample data
-//                String sqlprep1 = "INSERT INTO user(username, dateofbirth, firstname, lastname, gender, height, weight, stridelength) VALUES(?,?,?,?,?,?,?,?)";
-//                PreparedStatement prep = con.prepareStatement(sqlprep1);
-//                prep.setString(1, "Billythekidzz");
-//                prep.setString(2, "1998-08-23");
-//                prep.setString(3, "Gavin");
-//                prep.setString(4, "Ong");
-//                prep.setString(5, "Male");
-//                prep.setDouble(6, 170.0);
-//                prep.setDouble(7, 65.0);
-//                prep.setDouble(8, 2.0);
-//                prep.execute();
                 System.out.println("User tables built");
             }
         }

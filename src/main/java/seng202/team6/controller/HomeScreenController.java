@@ -196,7 +196,6 @@ public class HomeScreenController extends GeneralScreenController {
      * Displays the steps a user has taken and the user's weekly step goal
      */
     private void setStepsInfo() {
-        //double strideLength = user.getWalkingStrideLength();
         double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);

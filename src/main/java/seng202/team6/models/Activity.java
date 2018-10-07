@@ -207,14 +207,6 @@ public class Activity
     }
 
     /**
-     * A function that updates the Activity type to the given type.
-     */
-    public void updateType() {
-        type = getActivityType(description);
-    }
-
-
-    /**
      * A function that sets the Activity Description to the given String parameter
      * description.
      * @param description A String parameter used to set the description of the Activity.
@@ -569,6 +561,11 @@ public class Activity
         }
     }
 
+    /**
+     * Calculates and returns the average speed
+     * of a users manual activity in km per hour.
+     * @return a double representing the manual activity average speed
+     */
     public double findAverageSpeedManual() {
         double time = getTotalTime();
         if ((time / 60) == 0) {
@@ -631,6 +628,10 @@ public class Activity
     }
 
 
+    /**
+     * Returns if the activity is manual based off if it has any records or not.
+     * @return Whether the activity is classed as a manual activity.
+     */
     public boolean isManualActivity() {
         return activityData.size() <= 0;
     }

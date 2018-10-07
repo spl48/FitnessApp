@@ -287,6 +287,10 @@ public class RawDataController extends WorkoutsNavigator{
         rawDataTable.getItems().add(record);
     }
 
+
+    /**
+     * Cleans the table view showing the records.
+     */
     private void clearTable() {
         for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
             rawDataTable.getItems().clear();

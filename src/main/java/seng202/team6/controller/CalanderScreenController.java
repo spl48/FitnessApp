@@ -35,11 +35,6 @@ public class CalanderScreenController {
     private ImageView activityPrev;
 
     /**
-     * The Application database manager.
-     */
-    private DatabaseManager dbManager = ApplicationManager.getDatabaseManager();
-
-    /**
      * The activity description label.
      */
     @FXML
@@ -76,25 +71,37 @@ public class CalanderScreenController {
     @FXML
     private Label distanceLabel;
 
-    //Title of the calendar, showing the month and year
+    /**
+     * Title of the calendar, showing the month and year
+     */
     @FXML
     Text title;
 
-    // The grid pane which represents the calendar view.
+    /**
+     * The grid pane which represents the calendar view.
+     */
     @FXML
     GridPane calendar;
 
 
-    // Text representing activities information
+    /**
+     * Text representing activities information
+     */
     @FXML
     Text description, speed, distance, type, dateText;
 
-    // List of the current users activities
+    /**
+     * List of the current users activities
+     */
     ArrayList<Activity> activities;
 
-    //The date being used, initialized to the current dates
+    /**
+     * The date being used, initialized to the current dates
+     */
     LocalDate date = LocalDate.now();
-    ArrayList<AnchorPane> days   = new ArrayList<>();
+
+
+    ArrayList<AnchorPane> days = new ArrayList<>();
 
     ArrayList<Activity> activitiesOnDate = new ArrayList<>();
 

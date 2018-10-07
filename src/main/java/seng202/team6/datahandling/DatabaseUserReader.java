@@ -61,7 +61,6 @@ public class DatabaseUserReader {
         String gender = userData.getString("gender");
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
-        Double stridelength = userData.getDouble("stridelength");
         int stepgoal = userData.getInt("stepgoal");
         int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);
@@ -85,7 +84,6 @@ public class DatabaseUserReader {
         String gender = userData.getString("gender");
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
-        Double stridelength = userData.getDouble("stridelength");
         int stepgoal = userData.getInt("stepgoal");
         int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);

@@ -1,9 +1,6 @@
 package seng202.team6.controller;
 
 import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.models.User;
-
-import java.sql.SQLException;
 
 /**
  * <h1>Application Manager</h1>
