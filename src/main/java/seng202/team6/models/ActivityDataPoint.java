@@ -5,7 +5,6 @@ import java.time.LocalTime;
 /**
  * This class implements ActivityDataPoint which are the Data Points during a User Activity.
  * Sets the required information for the given Activity Data Point.
- * @author Angelica Dela Cruz
  * @version 1.2, Aug 2018.
  */
 public class ActivityDataPoint {

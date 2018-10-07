@@ -121,7 +121,7 @@ public class GoalsScreenController {
             // are displayed on top of the progress indicator so it looks like a ring.
             if (UserDataValidation.validStepGoal(newStepGoal)) {
                 user.setStepGoal(newStepGoal);
-                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly step goal to " + newStepGoal + " steps per week", "confirmation");
+                ApplicationManager.displayPopUp("Updated Steps Goal", "Successfully changed your weekly step goal to " + newStepGoal + " steps per week.", "confirmation");
                 if (!stepsAchieved(user)) {
                     stepCircle.setVisible(true);
                     feetImage.setVisible(true);
@@ -132,7 +132,7 @@ public class GoalsScreenController {
                 stopEditingStep();
             }
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data using numbers!", "error");
+            ApplicationManager.displayPopUp("Invalid Steps Goal", "Please ensure the steps goal is an integer value and is between 0 and 500000 steps.", "error");
         }
     }
 
@@ -262,7 +262,7 @@ public class GoalsScreenController {
 
             if (UserDataValidation.validDistanceGoal(newDistanceGoal)) {
                 user.setDistanceGoal(newDistanceGoal);
-                ApplicationManager.displayPopUp("Updated Goal", "Successfully changed weekly distance goal to " + newDistanceGoal + " kms per week", "confirmation");
+                ApplicationManager.displayPopUp("Updated Distance Goal", "Successfully changed your weekly distance goal to " + newDistanceGoal + " km per week", "confirmation");
                 if (!distanceAchieved(user)) {
                     distanceCircle.setVisible(true);
                     distanceImage.setVisible(true);
@@ -273,7 +273,7 @@ public class GoalsScreenController {
             }
 
         } catch (NumberFormatException e) {
-            ApplicationManager.displayPopUp("Invalid Data", "Please enter numerical data into distance field!", "error");
+            ApplicationManager.displayPopUp("Invalid Distance Goal", "Please ensure that distance goal is an integer value and is between 0 to 350 km.", "error");
         }
     }
 }

@@ -482,7 +482,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             webEngine.executeScript(scriptToExecute);
         } catch(netscape.javascript.JSException e) {
             e.printStackTrace();
-            ApplicationManager.displayPopUp("Oh Mate!", "You need an internet connection to use the maps feature","error");
+            ApplicationManager.displayPopUp("Oh Mate!", "You need an internet connection to use the maps feature.","error");
         }
     }
 
