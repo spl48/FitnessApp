@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import seng202.team6.datahandling.DataHandlerUtilities;
 import seng202.team6.datahandling.DatabaseManager;
+import seng202.team6.utilities.ActivityValidation;
 import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
@@ -146,12 +147,11 @@ public class workoutManualEntryController extends GeneralScreenController {
                 DatabaseValidation.validateDateWithFormat(endDateString) &&
                 DatabaseValidation.validateStartEndDate(startDate, endDate) &&
                 DatabaseValidation.validateStartEndTime(startTime, endTime) &&
-                DatabaseValidation.validateDistance(distance) &&
-                DatabaseValidation.validateNotes(notes_E.getText())) {
-            LocalTime localStartTime = LocalTime.parse(startTime, strictTimeFormatter);
+                ActivityValidation.validateDistance(distance) &&
+                ActivityValidation.validateNotes(notes_E.getText())) {
             LocalTime localEndTime = LocalTime.parse(endTime, strictTimeFormatter);
 
-            if(DatabaseValidation.validateNonDuplicateActivity(localStartTime, localEndTime, startDate, endDate)){
+            if(DatabaseValidation.validateNonDuplicateActivity(localEndTime, startDate, endDate,dbManager)){
                 notes = notes_E.getText();
                 return true;
             }

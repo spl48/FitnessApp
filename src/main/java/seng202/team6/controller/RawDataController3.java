@@ -11,6 +11,7 @@ import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 
+import seng202.team6.utilities.ActivityValidation;
 import seng202.team6.utilities.DatabaseValidation;
 
 import java.sql.SQLException;
@@ -455,17 +456,17 @@ public class RawDataController3 extends WorkoutsNavigator{
         // as there are more fileds an;e
         if (selectedActivity.isManualActivity()) {
             distance = Double.parseDouble(distanceEdit.getText());
-            return (DatabaseValidation.validateDescription(descriptionEdit.getText())) &&
+            return (ActivityValidation.validateDescription(descriptionEdit.getText())) &&
                     DatabaseValidation.validateTime(startTimeEdit.getText()) &&
                     DatabaseValidation.validateTime(endTimeEdit.getText()) &&
                     DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
                     DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
                     DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
-                    DatabaseValidation.validateDistance(distance) &&
-                    DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(startTimeEdit.getText()), LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue());
+                    ActivityValidation.validateDistance(distance) &&
+                    DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue(),dbManager);
 
         } else {
-            return (DatabaseValidation.validateDescription(descriptionEdit.getText()));
+            return (ActivityValidation.validateDescription(descriptionEdit.getText()));
         }
     }
 

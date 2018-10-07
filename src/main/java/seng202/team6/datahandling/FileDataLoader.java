@@ -30,7 +30,7 @@ public class FileDataLoader {
             while ((nextLine = reader.readNext()) != null) {
                 rawData.add(nextLine);
             }
-            if (!DatabaseValidation.validate(rawData)) {
+            if (!DatabaseValidation.validate(rawData,databaseManager)) {
                 System.out.println("validation failed");
                 return false;
             } else {
@@ -85,7 +85,6 @@ public class FileDataLoader {
                                 ResultSet generatedKeys = prep.getGeneratedKeys();
                                 if (generatedKeys.next()) {
                                     activityid = generatedKeys.getInt(1);
-                                    System.out.println(activityid);
                                 }
                                 previousLine = nextLine;
                             }
