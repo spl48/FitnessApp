@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * <p>Initializes and displays a calendar of a users activates, and displays activities on
  * a chosen date if that date is selected/p>
  */
-public class CalanderScreenController {
+public class CalendarScreenController {
 
     private int activityArrayIndex = 0;
     /**
