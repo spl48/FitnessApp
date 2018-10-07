@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 
 public class DatabaseValidation {
@@ -256,15 +257,30 @@ public class DatabaseValidation {
             return true;
         }
     }
+
     public static boolean validateStartEndDate(LocalDate startDate, LocalDate endDate){
         if(!(startDate.isBefore(endDate) || startDate.isEqual(endDate))){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Make sure start date is before end date!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Make sure start date is before end date.", "error");
             }
             System.out.println("Invalid date detected!");
             return false;
         }
         else{
+            return true;
+        }
+    }
+
+    public static boolean validateStartEndTime(String startTime, String endTime) {
+        LocalTime start = LocalTime.parse(startTime);
+        LocalTime end = LocalTime.parse(endTime);
+        if (!(start.isBefore(end))) {
+            if (ApplicationManager.getCurrentUserID() != 0) {
+                ApplicationManager.displayPopUp("Invalid Data", "Make sure start time is before end time.", "error");
+            }
+            System.out.println("Invalid ");
+            return false;
+        } else {
             return true;
         }
     }
