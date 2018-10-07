@@ -136,6 +136,7 @@ public class profileController extends GeneralScreenController {
 
         // Sets the viability of the editing fields to true - un hides them.
         setVisablityProfileEdit(true);
+        ApplicationManager.setEditingStatus(true);
     }
 
     /**
@@ -144,11 +145,6 @@ public class profileController extends GeneralScreenController {
      * @throws IOException When the profile screen fxml cannot be loaded.
      */
     public void toProfile(Event event) throws IOException {
-//        Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/profileScreen.fxml"));
-//        Scene loginScene = new Scene(loginParent);
-//        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        appStage.setScene(loginScene);
-//        appStage.show();
         changeScreen(event, "/seng202/team6/view/profileScreen.fxml", "PROFILE");
     }
 
@@ -191,6 +187,7 @@ public class profileController extends GeneralScreenController {
 
             // Directs back to the profile screen and displays confirmation method.
             ApplicationManager.displayPopUp("Update Success", "You have successfully updated your profile!", "confirmation");
+            ApplicationManager.setEditingStatus(false);
             toProfile(event);
         }
     }
@@ -230,6 +227,7 @@ public class profileController extends GeneralScreenController {
         // Disables all the profile edit fields if the user desires to exit.
         if (stopEditing) {
             setVisablityProfileEdit(false);
+            ApplicationManager.setEditingStatus(false);
         }
     }
 

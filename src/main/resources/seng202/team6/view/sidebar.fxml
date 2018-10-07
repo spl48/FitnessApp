@@ -92,6 +92,9 @@
                     <image>
                         <Image url="@../resources/pics/eyes.png" />
                     </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
                 </ImageView>
             </children>
         </GridPane>
