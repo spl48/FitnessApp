@@ -1,6 +1,5 @@
 package seng202.team6.controller;
 
-import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,14 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import jdk.management.resource.internal.inst.AbstractPlainDatagramSocketImplRMHooks;
 
 import java.io.IOException;
 
 import static javafx.scene.paint.Color.rgb;
 
 /**
- * <h1>GUI Utilities</h1> //Could be re named to GUIController since a lot of classes inherit, might make more sense.
+ * <h1>GeneralScreenController</h1>
  * <p>Provides useful methods used within many GUI controllers.</p>
  */
 public class GeneralScreenController {
