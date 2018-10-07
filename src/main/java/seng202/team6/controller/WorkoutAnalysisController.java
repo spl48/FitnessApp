@@ -9,6 +9,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seng202.team6.datahandling.DatabaseManager;
@@ -123,6 +125,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     private int numActivities = ApplicationManager.getDatabaseManager().getActivityManager().getNumberUserActivities();
 
+
     /**
      * Initializes chart to display latest activity.
      * @throws SQLException
@@ -157,6 +160,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
         // Checks if there are activities available
         if (activities.size() > 0) {
+            mapWebView.setVisible(true);
+            initGraphs();
+
             for (Activity activity : activities) { // Add all activities to available activities initially
                 availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
             }
@@ -170,6 +176,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         } else {
             // Sets the activity list to notify that there are no activities available.
             activityList.setItems(FXCollections.observableArrayList("No Activities Available"));
+            mapWebView.setVisible(false);
 
             // Clears the label text.
             distanceLabel.setText("");
@@ -235,7 +242,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void newGraph() {
-        if (numActivities >= 1) {
+        if (activities.size() > 0) {
             int activity = selectionIndex;
             Activity selectedActivity = activities.get(selectionIndex);
             String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
@@ -254,8 +261,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 String errorMessage = String.format("Already displaying data for %s mate", selectedActivity.getStartDate().toString());
                 ApplicationManager.displayPopUp("Oh Mate!", errorMessage, "error");
             }
-        } else {
-            ApplicationManager.displayPopUp("Oh Mate!", "You have no uploaded activity data. Go to workouts to upload your activities.", "error");
         }
     }
 
@@ -265,7 +270,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
      */
     @FXML
     private void addSeries() throws SQLException {
-        if (numActivities >= 1) {
+        if (activities.size() > 0) {
             int activity = selectionIndex;
             if (activity == -1) {
                 System.out.println("-1");
@@ -286,8 +291,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                     graphCount += 1;
                 }
             }
-        } else {
-            ApplicationManager.displayPopUp("Oh Mate!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
         }
     }
 
@@ -421,9 +424,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             Activity desiredActivity = activities.get(selectionIndex);
             Route route = makeRoute(desiredActivity);
             displayRoute(route);
-
-        } else {
-            ApplicationManager.displayPopUp("Oh Mate!", "You have no uploaded activity data.\nGo to workouts to upload your activities.", "error");
         }
     }
 
@@ -436,6 +436,7 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         if (activities.size() > 0) {
             activityTypeSelection.setVisible(true);
             selectedtab = "Graph";
+            analysisGraph.setVisible(true);
             clearGraph();
             activityList.getSelectionModel().select(selectionIndex);
             selectNewActivity();

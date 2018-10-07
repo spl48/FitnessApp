@@ -178,6 +178,7 @@ public class RawDataController extends WorkoutsNavigator{
         resetFilters();
         setupTable();
         updateListView();
+        activitySelect.getSelectionModel().select(0);
 
         // Sets up the activity type editing drop down.
         ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking", "Other");
@@ -213,19 +214,19 @@ public class RawDataController extends WorkoutsNavigator{
         // Then sets the corresponding raw data in the table.
         if (activityList.size() > 0) {
             activitySelect.setItems(activityList);
-            activitySelect.getSelectionModel().select(0);
             activitySelect.setMouseTransparent( false );
             activitySelect.setFocusTraversable( true );
         // If no activities then all labels are changed and the list view is locked.
         } else {
             activitySelect.setItems(FXCollections.observableArrayList("No Activities Available"));
+            clearTable();
             descriptionLabel.setText("No Activity Selected");
             velocityLabel.setText("No Activity Selected");
             distanceLabel.setText("No Activity Selected");
             startDateLabel.setText("No Activity Selected");
             endDateLabel.setText("No Activity Selected");
-            startTimeEdit.setText("No Activity Selected");
-            endTimeEdit.setText("No Activity Selected");
+            startTimeLabel.setText("No Activity Selected");
+            endTimeLabel.setText("No Activity Selected");
             typeLabel.setText("No Activity Selected");
             notesLabel.setText("No Activity Selected");
             activitySelect.setMouseTransparent( true );
@@ -283,6 +284,12 @@ public class RawDataController extends WorkoutsNavigator{
         rawDataTable.getItems().add(record);
     }
 
+    private void clearTable() {
+        for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
+            rawDataTable.getItems().clear();
+        }
+    }
+
     /**
      * Shows all the records of an activity in the table view and stats to the left.
      * @throws SQLException
@@ -292,9 +299,7 @@ public class RawDataController extends WorkoutsNavigator{
         selectedActivity = filteredActivities.get(activitySelect.getSelectionModel().getSelectedIndex());
         ArrayList<ActivityDataPoint> records = dbManager.getActivityManager().getActivityRecords(selectedActivity.getActivityid());
 
-        for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
-            rawDataTable.getItems().clear();
-        }
+       clearTable();
 
         // Adds the records to the raw data table.
         for (ActivityDataPoint record : records) {
@@ -326,6 +331,7 @@ public class RawDataController extends WorkoutsNavigator{
         } else {
             ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
             updateListView();
+            activitySelect.getSelectionModel().select(0);
         }
     }
 

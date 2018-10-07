@@ -57,7 +57,7 @@
                         </Tab>
                       <Tab onSelectionChanged="#initMap" text="Maps">
                            <content>
-                              <Pane prefHeight="421.0" prefWidth="807.0">
+                              <Pane fx:id="mapView" prefHeight="421.0" prefWidth="807.0">
                                  <children>
                                     <WebView fx:id="mapWebView" layoutX="16.0" layoutY="17.0" prefHeight="372.0" prefWidth="789.0" />
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="90.0" layoutX="-3.0" layoutY="357.0" stroke="TRANSPARENT" strokeType="INSIDE" width="832.0" />
