@@ -91,7 +91,6 @@ public class loginController extends GeneralScreenController {
             // Directs to the Home Screen.
             changeScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
             tutorial();
-            ApplicationManager.displayRandomProgressReport();
     }
 
 

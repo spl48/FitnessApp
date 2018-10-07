@@ -2,7 +2,6 @@ package seng202.team6.controller;
 
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,7 +16,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import seng202.team6.analysis.HealthConcernChecker;
+import seng202.team6.utilities.HealthConcernChecker;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;

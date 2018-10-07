@@ -191,53 +191,62 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     }
 
 
+//    /**
+//     * Updates the current activity number to keep track of what was the last record to be uploaded.
+//     * Directs the user back to the Add Activities Splash Screen.
+//     * @param event When the user clicks the back arrow and wishes to exit from the upload activity checking area.
+//     */
+//    @FXML
+//    public void toAddWorkout(Event event) {
+//
+//        // Updates the current activity number and executes the super class version of to add workout screen.
+//        super.toAddWorkout(event);
+//
+////        // Checks if the user has achieved their step goal, if so displays a congratulatory message.
+////        if (stepsAchieved(user)) {
+////            int stepGoal = user.getStepGoal();
+////            String stepGoalString = Integer.toString(stepGoal) + " steps";
+////            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "!" , "confirmation");
+////        }
+////
+////        // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
+////        if (distanceAchieved(user)) {
+////            int distanceGoal = user.getDistanceGoal();
+////            String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
+////            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + distanceGoalString + "!" , "confirmation");
+////        } else {
+////            displayRandomProgressReport();
+////        }
+//    }
+
     /**
      * Updates the current activity number to keep track of what was the last record to be uploaded.
      * Directs the user back to the Add Activities Splash Screen.
      * @param event When the user clicks the back arrow and wishes to exit from the upload activity checking area.
      */
     @FXML
-    public void toAddWorkout(Event event) {
-
-        // Updates the current activity number and executes the super class version of to add workout screen.
-        super.toAddWorkout(event);
-
-//        // Checks if the user has achieved their step goal, if so displays a congratulatory message.
-//        if (stepsAchieved(user)) {
-//            int stepGoal = user.getStepGoal();
-//            String stepGoalString = Integer.toString(stepGoal) + " steps";
-//            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "!" , "confirmation");
-//        }
-//
-//        // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
-//        if (distanceAchieved(user)) {
-//            int distanceGoal = user.getDistanceGoal();
-//            String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
-//            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + distanceGoalString + "!" , "confirmation");
-//        } else {
-//            displayRandomProgressReport();
-//        }
-    }
-
-    @FXML
     private void doneEditing(Event event) {
-        // Checks if the user has achieved their step goal, if so displays a congratulatory message.
-        if (stepsAchieved(user)) {
-            int stepGoal = user.getStepGoal();
-            String stepGoalString = Integer.toString(stepGoal) + " steps";
-            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "!" , "confirmation");
-        }
+        boolean finishedEditing = ApplicationManager.getAnswerFromPopUp("Are you sure you are finished editing these records?\nFurther editing can be done in Raw Data Viewer if desired.");
 
-        // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
-        if (distanceAchieved(user)) {
-            int distanceGoal = user.getDistanceGoal();
-            String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
-            ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + distanceGoalString + "!" , "confirmation");
-        } else {
-            displayRandomProgressReport();
+        if (finishedEditing) {
+            // Checks if the user has achieved their step goal, if so displays a congratulatory message.
+            if (stepsAchieved(user)) {
+                int stepGoal = user.getStepGoal();
+                String stepGoalString = Integer.toString(stepGoal) + " steps";
+                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "!", "confirmation");
+            }
+
+            // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
+            if (distanceAchieved(user)) {
+                int distanceGoal = user.getDistanceGoal();
+                String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
+                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + distanceGoalString + "!", "confirmation");
+            } else {
+                displayRandomProgressReport();
+            }
+            ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber() + activityTable.getItems().size());
+            super.toAddWorkout(event);
         }
-        ApplicationManager.setCurrentActivityNumber(ApplicationManager.getCurrentActivityNumber()+activityTable.getItems().size());
-        super.toAddWorkout(event);
     }
 
 

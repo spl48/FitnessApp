@@ -1,4 +1,4 @@
-package seng202.team6.analysis;
+package seng202.team6.utilities;
 
 
 import seng202.team6.models.Activity;
@@ -30,8 +30,6 @@ public class HealthConcernChecker {
             return checkTachycardiaThreshold(100, activities);
         }
     }
-
-
 
     /**
      * A function that determines if the any maximum heart rate of a walking activity, from an

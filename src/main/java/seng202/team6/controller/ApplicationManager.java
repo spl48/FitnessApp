@@ -258,30 +258,5 @@ public class ApplicationManager {
         return getAnswerFromPopUp("Would you like to stop editing?\nYour data will not be saved.");
     }
 
-    /**
-     * Displays a random progress report based on the user's updated goal once updating their activity goals.
-     */
-    public static void displayRandomProgressReport() throws SQLException {
-
-        // Gets a random double to act as the probability.
-        double ran = Math.random();
-        User user = databaseManager.getUserReader().getUser(currentUsername);
-
-        // Displays a goal or distance motivation pop up with a chance of 50%.
-        if (ran <= 0.5) {
-            int stepGoal = user.getStepGoal();
-            double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
-            double stepsLeft = stepGoal - totalSteps;
-            String stepsLeftString = String.format("%.0f Steps", stepsLeft);
-            ApplicationManager.displayPopUp("Congratulations", "You only have " + stepsLeftString + " until you reach your goal steps!", "confirmation");
-        } else {
-            int distanceGoal = user.getDistanceGoal();
-            double totalDistance = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedDistanceGoal(ApplicationManager.getCurrentUserID());
-            double distanceLeft = distanceGoal - totalDistance;
-            String distanceLeftString = String.format("%.0f Kilometers", distanceLeft);
-            ApplicationManager.displayPopUp("Congratulations", "You only have " + distanceLeftString + " until you reach your goal distance!" , "confirmation");
-        }
-    }
-
 }
 

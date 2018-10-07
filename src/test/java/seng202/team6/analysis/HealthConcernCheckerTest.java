@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
+import seng202.team6.utilities.HealthConcernChecker;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;

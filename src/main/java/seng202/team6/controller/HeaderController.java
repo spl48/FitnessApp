@@ -92,7 +92,7 @@ public class HeaderController extends WorkoutsNavigator {
         if (ApplicationManager.getPrevScreenName() == "ADD WORKOUT") {
             ApplicationManager.setBackOptions(true, "/seng202/team6/view/WorkoutsScreenSplash.fxml", "WORKOUTS");
         } else if (ApplicationManager.getPrevScreenName() == "WORKOUTS") {
-            ApplicationManager.setBackOptions(false, "", "");
+            ApplicationManager.setBackOptions(false,"seng202/team6/view/AddWorkout.fxml", "ADD WORKOUT");
         }
 
         // Changes to the previous screen.

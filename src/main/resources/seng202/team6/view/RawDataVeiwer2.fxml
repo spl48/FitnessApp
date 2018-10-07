@@ -31,7 +31,7 @@
          <center>
             <BorderPane prefHeight="566.0" prefWidth="1079.0" BorderPane.alignment="CENTER">
                <center>
-                  <TableView fx:id="rawDataTable" prefHeight="434.0" prefWidth="612.0" style="-fx-font-style: bold;" BorderPane.alignment="CENTER">
+                  <TableView fx:id="rawDataTable" prefHeight="633.0" prefWidth="594.0" style="-fx-font-style: bold;" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
                      </BorderPane.margin>
@@ -228,7 +228,7 @@
                   </GridPane>
                </left>
                <right>
-                  <GridPane prefHeight="536.0" prefWidth="239.0" BorderPane.alignment="CENTER">
+                  <GridPane prefHeight="653.0" prefWidth="267.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -237,7 +237,7 @@
                       <RowConstraints maxHeight="626.0" minHeight="10.0" prefHeight="616.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ListView fx:id="activitySelect" onMouseClicked="#showActivity" prefHeight="543.0" prefWidth="239.0" GridPane.rowIndex="1">
+                        <ListView fx:id="activitySelect" onMouseClicked="#showActivity" prefHeight="596.0" prefWidth="255.0" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="20.0" />
                            </GridPane.margin>
@@ -246,13 +246,16 @@
                            <font>
                               <Font name="NexaBold" size="20.0" />
                            </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
                         </Label>
                         <ImageView fx:id="filterButton" fitHeight="28.0" fitWidth="28.0" onMouseClicked="#filterActivities" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                            <image>
                               <Image url="@../resources/pics/filter2.png" />
                            </image>
                            <GridPane.margin>
-                              <Insets right="30.0" />
+                              <Insets right="20.0" />
                            </GridPane.margin>
                            <cursor>
                               <Cursor fx:constant="HAND" />
