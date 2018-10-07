@@ -40,7 +40,7 @@
                     <children>
                   <TabPane fx:id="graphMapTab" maxWidth="-Infinity" prefHeight="468.0" prefWidth="822.0" stylesheets="@../resources/css/tabs.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="30.0">
                     <tabs>
-                      <Tab onCloseRequest="#closeGraphs" onSelectionChanged="#initGraphs" text="Graphical Analysis">
+                      <Tab onSelectionChanged="#initGraphs" text="Graphical Analysis">
                            <content>
                                     <LineChart fx:id="analysisGraph" maxHeight="-Infinity" maxWidth="912.0" prefHeight="420.0" prefWidth="803.0">
                                         <xAxis>

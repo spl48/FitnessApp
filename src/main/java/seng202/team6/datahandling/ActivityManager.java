@@ -1,6 +1,5 @@
 package seng202.team6.datahandling;
 
-import org.apache.commons.beanutils.converters.SqlDateConverter;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
@@ -366,6 +365,8 @@ public class ActivityManager {
         prep.setString(7, notes);
         prep.execute();
     }
+
+
     public ArrayList<Integer> getActivityIDs(int userid) throws SQLException {
         ArrayList<Integer> activities = new ArrayList<Integer>();
         Statement state = connection.createStatement();
@@ -400,6 +401,7 @@ public class ActivityManager {
      * @throws SQLException
      */
     public Activity getActivity(int activityID) throws SQLException {
+
         // Tries to query the database for a user.
         Statement statement = connection.createStatement();
         ResultSet res = statement.executeQuery("SELECT * FROM activity WHERE activityID = " + activityID );
@@ -409,12 +411,12 @@ public class ActivityManager {
             activity.addActivityData(dataPoint);
         }
         activity.setDistance(res.getDouble("distance"));
-        //activity.updateType();
         activity.updateMaxHeartRate();
         activity.updateMinHeartRate();
 
         return activity;
     }
+
 
     public ArrayList<Activity> getActivitiesWithRecords(int userid) throws SQLException {
         ArrayList<Activity> activities = new ArrayList<>();
@@ -436,41 +438,31 @@ public class ActivityManager {
         return activities;
     }
 
+
     public void updateActivityType(String type, int activityID) {
-        try {
-            String sql = "UPDATE activity SET workout = ? WHERE activityid = '" + activityID + "'";
-            PreparedStatement updateType = connection.prepareStatement(sql);
-            updateType.setString(1, type);
-            updateType.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            ApplicationManager.displayPopUp("Database Update Error", "Could not update activity type!", "error");
-        }
+        updateActivityProperty(type, activityID, "workout");
     }
 
+
     public void updateNotes(String notes, int activityID) {
-        try {
-            String sql = "UPDATE activity SET notes = ? WHERE activityid = '" + activityID + "'";
-            PreparedStatement updateNotes = connection.prepareStatement(sql);
-            updateNotes.setString(1, notes);
-            updateNotes.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            ApplicationManager.displayPopUp("Database Update Error", "Could not update activity notes!", "error");
-        }
+        updateActivityProperty(notes, activityID, "notes");
     }
+
 
     public void updateDescription(String description, int activityID) {
         updateActivityProperty(description, activityID, "description");
     }
 
+
     public void updateStartDate(String start, int activityID) {
         updateActivityProperty(start, activityID, "start");
     }
 
+
     public void updateEndDate(String end, int activityID) {
         updateActivityProperty(end, activityID, "end");
     }
+
 
     public void updateActivityProperty(String notes, int activityID, String property) {
         try {
@@ -483,6 +475,7 @@ public class ActivityManager {
             ApplicationManager.displayPopUp("Database Update Error", "Could not update activity " + property + "s!", "error");
         }
     }
+
 
     public ArrayList<Activity> getActivitiesForWeeklyGoal(int userid) {
         ArrayList<Activity> activities = new ArrayList<Activity>();
@@ -497,6 +490,7 @@ public class ActivityManager {
         return activities;
     }
 
+
     public double getUpdatedDistanceGoal(int userid) {
 
         ArrayList<Activity> activities = getActivitiesForWeeklyGoal(userid);
@@ -508,6 +502,8 @@ public class ActivityManager {
         }
         return totalDistance;
     }
+
+
     public double getUpdatedStepGoal(int userid) {
 
         double totalStepCount = 0;

@@ -485,8 +485,4 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         }
     }
 
-    public void closeGraphs() {
-
-    }
-
 }

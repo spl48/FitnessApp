@@ -23,7 +23,7 @@ import java.util.HashMap;
  * <p>Displays activity records in a table view while high level activities are displayed to the side.
  * Allows selection of activities though a list view which can be filtered based on date or type information.</p>
  */
-public class RawDataController extends WorkoutsNavigator{
+public class RawDataController3 extends WorkoutsNavigator{
 
     /**
      * The year filter value.
@@ -146,10 +146,7 @@ public class RawDataController extends WorkoutsNavigator{
     private Button updateButton;
 
 
-    private Activity selectedActivity;
-
-    private int selectedActivityIndex;
-
+    Activity selectedActivity;
     /**
      * The list view which contains the activities to select from.
      */
@@ -164,7 +161,7 @@ public class RawDataController extends WorkoutsNavigator{
     /**
      * The filtered list of activities.
      */
-    private  ArrayList<Activity> filteredActivities;
+    HashMap<String, Integer> filteredActivities;
 
     private boolean isEditing = false;
 
@@ -173,34 +170,20 @@ public class RawDataController extends WorkoutsNavigator{
      * Initialises the raw data viewer screen, populates table and list view based on filters.
      */
     public void initialize() {
+        // Gets the current activity data manager.
+        ActivityManager activityManager = dbManager.getActivityManager();
 
         // Resets the filter values and gets the filtered activities.
         resetFilters();
         setupTable();
-        updateListView();
+        filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+        ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
+        addActivitiesToListView(activityList);
 
         // Sets up the activity type editing drop down.
         ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking", "Other");
         typeEdit.setItems(activityTypes);
     }
-
-    private void updateListView() {
-
-        filteredActivities = dbManager.getActivityManager().getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
-        ObservableList<String> availableActivities = FXCollections.observableArrayList();
-
-        // Checks if there are activities available
-        if (filteredActivities.size() > 0) {
-
-           for (Activity activity : filteredActivities) { // Add all activities to available activities initially
-               availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
-           }
-        }
-
-        addActivitiesToListView(availableActivities);
-    }
-
-
 
     /**
      * Adds activities to the list view if there are any with the current filter.
@@ -289,8 +272,7 @@ public class RawDataController extends WorkoutsNavigator{
      */
     public void showActivity() throws SQLException {
         // Gets the filtered records to populate the raw data table.
-        selectedActivity = filteredActivities.get(activitySelect.getSelectionModel().getSelectedIndex());
-        ArrayList<ActivityDataPoint> records = dbManager.getActivityManager().getActivityRecords(selectedActivity.getActivityid());
+        ArrayList<ActivityDataPoint> records = dbManager.getActivityManager().getActivityRecords(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
 
         for ( int i = 0; i<rawDataTable.getItems().size(); i++) {
             rawDataTable.getItems().clear();
@@ -302,6 +284,7 @@ public class RawDataController extends WorkoutsNavigator{
         }
 
         // Gets the selected activity object and sets the information values to those which correspond with the activity.
+        selectedActivity = dbManager.getActivityManager().getActivity(filteredActivities.get(activitySelect.getSelectionModel().getSelectedItem()));
         selectedActivity.addAllActivityData(records);
         descriptionLabel.setText(selectedActivity.getDescription());
         velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
@@ -325,7 +308,12 @@ public class RawDataController extends WorkoutsNavigator{
             ApplicationManager.displayPopUp("Can't open filter", "Please finish editing before trying to filter!", "error");
         } else {
             ApplicationManager.displayPopUp("Activity Filtering", "To be - filtering window", "filter");
-            updateListView();
+            ActivityManager activityManager = dbManager.getActivityManager();
+
+            // Gets the activities based on the new applied filter and displays this in the list view.
+            filteredActivities = activityManager.getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+            ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
+            addActivitiesToListView(activityList);
         }
     }
 
@@ -440,7 +428,9 @@ public class RawDataController extends WorkoutsNavigator{
             dbManager.getActivityManager().updateNotes(notesEdit.getText(), selectedActivity.getActivityid());
 
             // Updates the list view to express the new changes made if any.
-            updateListView();
+            filteredActivities = dbManager.getActivityManager().getFilteredActivties(yearFilter, monthFilter, dayFilter, typeFilter);
+            ObservableList<String> activityList = FXCollections.observableArrayList(filteredActivities.keySet());
+            addActivitiesToListView(activityList);
 
             // Stops the user editing and reloads the data.
             stopEditing();
@@ -462,7 +452,7 @@ public class RawDataController extends WorkoutsNavigator{
         Double distance;
 
         // Checks if the data is valid, this is different for the manual entry as a there are more fields
-        // as there are more fields to edit.
+        // as there are more fileds an;e
         if (selectedActivity.isManualActivity()) {
             distance = Double.parseDouble(distanceEdit.getText());
             return (DatabaseValidation.validateDescription(descriptionEdit.getText())) &&
