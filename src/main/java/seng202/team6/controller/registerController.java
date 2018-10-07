@@ -31,7 +31,7 @@ public class registerController extends GeneralScreenController {
      * User details textual fields.
      */
     @FXML
-    private TextField usernameEntry, firstNameEntry, lastNameEntry, heightEntry, weightEntry, strideEntry;
+    private TextField usernameEntry, firstNameEntry, lastNameEntry, heightEntry, weightEntry;
 
     /**
      * Date Picker for user to choose their birth date.
@@ -91,7 +91,7 @@ public class registerController extends GeneralScreenController {
      * @throws SQLException Error with database.
      */
     @FXML
-    public void createNewUser(ActionEvent event) throws ClassNotFoundException, SQLException {
+    public void createNewUser(ActionEvent event) {
         ArrayList<String> usernames = databaseManager.getUserReader().getUsernames();
         // Checks for Register Limit
         if (usernames.size() == 5) {
@@ -107,6 +107,7 @@ public class registerController extends GeneralScreenController {
             }
         }
 
+        // Checks if duplicates present then if so
         if (duplicate == true) {
             ApplicationManager.displayPopUp("Username Already Exists", "Please choose another username.", "error");
         } else if (validEnteredData()) {
@@ -127,6 +128,8 @@ public class registerController extends GeneralScreenController {
      * if not displays an error pop up.
      */
     private void setEnteredData() {
+
+
         username = usernameEntry.getText();
         first = firstNameEntry.getText();
         last = lastNameEntry.getText();

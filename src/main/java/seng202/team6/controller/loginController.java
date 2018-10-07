@@ -93,7 +93,7 @@ public class loginController extends GeneralScreenController {
             tutorial();
     }
 
-    
+
     /**
      * A function that does a User Tutorial for First Time Users.
      */
