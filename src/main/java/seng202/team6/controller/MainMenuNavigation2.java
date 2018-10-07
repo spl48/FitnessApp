@@ -52,6 +52,10 @@ public class MainMenuNavigation2 extends GeneralScreenController {
         selected.setVisible(true);
     }
 
+    /**
+     * A function that shows a tutorial for each specific page when you click the MATES avatar on the
+     * sidebar menu.
+     */
     public void tutorial() {
         if (selected.getId().equals(homeButton.getId())) {
             ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
