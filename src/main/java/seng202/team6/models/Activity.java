@@ -484,7 +484,7 @@ public class Activity
      * @return a double representing the number of steps taken
      */
     public double findStepCount(double strideLength) {
-        if (type.equalsIgnoreCase("walking") || type.equalsIgnoreCase("running") || type.equalsIgnoreCase("other")) {
+        if (type.equalsIgnoreCase("walking") || type.equalsIgnoreCase("running")) {
             int finalIndex = activityData.size();
             if (finalIndex != 0) {
                 distance = findDistanceFromStart(finalIndex - 1);
