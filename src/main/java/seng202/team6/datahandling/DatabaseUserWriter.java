@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 /**
- * DatabaseUserWriter handles all the input methods in the database.
+ * DatabaseUserWriter handles all the writer methods in the database.
  */
 
 public class DatabaseUserWriter {

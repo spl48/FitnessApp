@@ -12,6 +12,9 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * ActivityManager is responsible for managing all the activity related in the database.
+ */
 public class ActivityManager {
 
     /**

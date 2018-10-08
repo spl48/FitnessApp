@@ -10,6 +10,9 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * DatabaseUserReader handles all the user reader related methods.
+ */
 public class DatabaseUserReader {
     /**
      * The database connection

@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 
 import seng202.team6.controller.ApplicationManager;
 
+/**
+ * A DatabaseManager that handles all the database information and methods.
+ */
+
 public class DatabaseManager {
     private Connection con;
     private boolean hasData = false;
