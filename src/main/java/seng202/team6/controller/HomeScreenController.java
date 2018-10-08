@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng202.team6.utilities.HealthConcernChecker;
@@ -21,6 +24,8 @@ import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
+import java.util.Random;
+
 
 public class HomeScreenController extends GeneralScreenController {
     
@@ -65,6 +70,9 @@ public class HomeScreenController extends GeneralScreenController {
     @FXML
     private Label quoteLabel;
 
+    @FXML
+    private ImageView matesPicture;
+
     /**
      * The current database manager
      */
@@ -86,7 +94,13 @@ public class HomeScreenController extends GeneralScreenController {
     private ArrayList<String> quoteList = new ArrayList<>(Arrays.asList("DREAMS DON'T WORK UNLESS YOU DO", "LIFE HAS NO REMOTE, GET UP AND CHANGE IT YOURSELF", "LIFE IS ABOUT GETTING UP AN HOUR EARLIER, SO YOU CAN LIVE AN HOUR LONGER",
             "GOOD THINGS COME TO THOSE THAT SWEAT", "IT'S NOT ALWAYS EASY, BUT IT'S ALWAYS WORTH IT", "THE ONLY BAD WORKOUT IS THE ONE THAT DIDN'T HAPPEN", "LIFE IS TOUGH, BUT SO ARE YOU!"));
 
+    /**
+     * List of all the filenames for the different MATES pictures
+     */
+    private ArrayList<String> matesList = new ArrayList<>((Arrays.asList("seng202/team6/resources/pics/catpanel.png", "seng202/team6/resources/pics/christmaspanel.png", "seng202/team6/resources/pics/doggypanel.png",
+            "seng202/team6/resources/pics/swagpanel.png", "seng202/team6/resources/pics/vanillapanel.png")));
 
+    
     public void initialize() throws SQLException {
         ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(activityDataTypes);
@@ -97,6 +111,18 @@ public class HomeScreenController extends GeneralScreenController {
         setStepsInfo();
         newGraph();
         updateQuote();
+        displayMate();
+    }
+
+    /**
+     * stes the MATE picture in the bottom left panel to a random MATES image
+     */
+    private void displayMate() {
+        Random random = new Random();
+        int randIndex = random.nextInt(matesList.size());
+        String imageURL = matesList.get(randIndex);
+        Image image = new Image(imageURL);
+        matesPicture.setImage(image);
     }
 
 
