@@ -30,7 +30,7 @@ You will also need to download:
 
 ####Run by .jar:
 1. Open terminal
-2. Navigate to path of MATES.jar
+2. Navigate to path of MATES.jar in `seng202_2018_team6_3` folder
 2. Run command `java -jar MATES.jar`
 
 
