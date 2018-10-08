@@ -2,14 +2,11 @@ package seng202.team6.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
-import seng202.team6.models.ActivityDataPoint;
-
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +18,11 @@ import java.util.ArrayList;
  */
 public class CalendarScreenController {
 
+    /**
+     * Index for if there are multiple activities on one day
+     */
     private int activityArrayIndex = 0;
+
     /**
      * Button for next activity
      */
@@ -84,7 +85,9 @@ public class CalendarScreenController {
     GridPane calendar;
 
 
-    // List of the current users activities
+    /**
+     * List of the current users activities
+     */
     ArrayList<Activity> activities;
 
     /**
@@ -197,12 +200,14 @@ public class CalendarScreenController {
         for(Activity activity : activities) {
             if (activity.getStartDate().equals(date)) {     // Activity was undertake on current date
 
+                //Sets date numbers on calendar date box
                 pane.getChildren().clear();
                 Text text = new Text(String.valueOf(date.getDayOfMonth()));
                 pane.setTopAnchor(text, 5.0);
                 pane.setLeftAnchor(text, 5.0);
                 pane.getChildren().add(text);
 
+                //Sets image on calendar date box if there is an activity on that date
                 ImageView image = new ImageView("/seng202/team6/resources/pics/calendaractivityicon.png");
                 pane.getChildren().add(image);
                 pane.setBottomAnchor(image, 12.0);
@@ -239,6 +244,8 @@ public class CalendarScreenController {
         if (activities.size() == 0) {     // No activity on selected date
             activityNext.setVisible(false);
             activityPrev.setVisible(false);
+
+            //display activity data
             descriptionLabel.setText("No Activity Selected");
             velocityLabel.setText("No Activity Selected");
             distanceLabel.setText("No Activity Selected");
@@ -248,9 +255,11 @@ public class CalendarScreenController {
             endDateLabel.setText("No Activity Selected");
             typeLabel.setText("No Activity Selected");
             notesLabel.setText("No Activity Selected");
-        } else if (activities.size() == 1){
+        } else if (activities.size() == 1){     // one activity on selected date
             activityNext.setVisible(false);
             activityPrev.setVisible(false);
+
+            //display activity data
             Activity selectedActivity = activities.get(0);
             descriptionLabel.setText(selectedActivity.getDescription());
             velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
@@ -261,9 +270,11 @@ public class CalendarScreenController {
             endTimeLabel.setText(selectedActivity.getEndTime().toString());
             typeLabel.setText(selectedActivity.getType());
             notesLabel.setText(selectedActivity.getNotes());
-        } else if (activities.size() > 1) {
-            activityNext.setVisible(true);
+        } else if (activities.size() > 1) {     //more than one activity on selected date, so show next and prev buttons to allow
+            activityNext.setVisible(true);      //user to scroll through them
             activityPrev.setVisible(true);
+
+            //display activity data
             Activity selectedActivity = activities.get(0);
             descriptionLabel.setText(selectedActivity.getDescription());
             velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
@@ -290,27 +301,7 @@ public class CalendarScreenController {
         if (activityArrayIndex >= dayActivities.size()) {
             activityArrayIndex = 0;
         }
-        Activity selectedActivity = dayActivities.get(activityArrayIndex);
-        descriptionLabel.setText(selectedActivity.getDescription());
-        velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
-        distanceLabel.setText(String.format("%.2f Km\n", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1)));
-        startDateLabel.setText(selectedActivity.getStartDate().toString());
-        endDateLabel.setText(selectedActivity.getEndDate().toString());
-        startTimeLabel.setText(selectedActivity.getStartTime().toString());
-        endTimeLabel.setText(selectedActivity.getEndTime().toString());
-        typeLabel.setText(selectedActivity.getType());
-        notesLabel.setText(selectedActivity.getNotes());
-    }
-
-
-
-    public void prevActivity() {
-        activityArrayIndex--;
-
-        // if you want to do a cyclic loop of the data
-        if (activityArrayIndex < 0) {
-            activityArrayIndex = dayActivities.size() - 1;
-        }
+        //display activity data
         Activity selectedActivity = dayActivities.get(activityArrayIndex);
         descriptionLabel.setText(selectedActivity.getDescription());
         velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
@@ -326,6 +317,31 @@ public class CalendarScreenController {
     /**
      * Button to let user see previous activity of that day on calendar.
      * allows for cyclic loop of activities.
+     */
+
+    public void prevActivity() {
+        activityArrayIndex--;
+
+        // if you want to do a cyclic loop of the data
+        if (activityArrayIndex < 0) {
+            activityArrayIndex = dayActivities.size() - 1;
+        }
+        //display activity data
+        Activity selectedActivity = dayActivities.get(activityArrayIndex);
+        descriptionLabel.setText(selectedActivity.getDescription());
+        velocityLabel.setText(Double.toString(Math.round(selectedActivity.findAverageSpeed())) + " km/h");
+        distanceLabel.setText(String.format("%.2f Km\n", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1)));
+        startDateLabel.setText(selectedActivity.getStartDate().toString());
+        endDateLabel.setText(selectedActivity.getEndDate().toString());
+        startTimeLabel.setText(selectedActivity.getStartTime().toString());
+        endTimeLabel.setText(selectedActivity.getEndTime().toString());
+        typeLabel.setText(selectedActivity.getType());
+        notesLabel.setText(selectedActivity.getNotes());
+    }
+
+    /**
+     * sets dayActivities to an arraylist with the activities performed on that day
+     * @param activities
      */
     public void setDayActivities(ArrayList<Activity> activities) {
         dayActivities = activities;
