@@ -95,14 +95,15 @@ public class CalendarScreenController {
      */
     LocalDate date = LocalDate.now();
 
-
+    /**
+     * The ArrayList of the days
+     */
     ArrayList<AnchorPane> days = new ArrayList<>();
 
     /**
      * Array list containing the activities performed on that day.
      */
     ArrayList<Activity> dayActivities = new ArrayList<>();
-
 
     /**
      * Initializes the fitness calendar screen, setting panes for each
@@ -127,7 +128,6 @@ public class CalendarScreenController {
 
         setUpCalendar();
     }
-
 
     /**
      * Sets the calender up for the current month
@@ -188,7 +188,6 @@ public class CalendarScreenController {
         pane.setBackground(null);
     }
 
-
     /**
      * Checks if any activities were done at the
      * current date and displays in the calendar if so
@@ -234,7 +233,6 @@ public class CalendarScreenController {
         date = date.minusMonths(1);
         setUpCalendar();
     }
-
 
     /**
      * Displays activities performed on selected day

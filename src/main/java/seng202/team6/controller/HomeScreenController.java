@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -100,7 +99,10 @@ public class HomeScreenController extends GeneralScreenController {
     private ArrayList<String> matesList = new ArrayList<>((Arrays.asList("seng202/team6/resources/pics/catpanel.png", "seng202/team6/resources/pics/christmaspanel.png", "seng202/team6/resources/pics/doggypanel.png",
             "seng202/team6/resources/pics/swagpanel.png", "seng202/team6/resources/pics/vanillapanel.png")));
 
-    
+    /**
+     * Initialises the Home Screen page.
+     * @throws SQLException
+     */
     public void initialize() throws SQLException {
         ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(activityDataTypes);
@@ -125,7 +127,6 @@ public class HomeScreenController extends GeneralScreenController {
         matesPicture.setImage(image);
     }
 
-
     /**
      * Updates the quote by MATES AI to be the quote at the given index in the quote list
      */
@@ -139,7 +140,6 @@ public class HomeScreenController extends GeneralScreenController {
             curQuoteIndex++;
         }
         ApplicationManager.setCurQuoteIndex(curQuoteIndex);
-
     }
 
     /**
@@ -220,7 +220,6 @@ public class HomeScreenController extends GeneralScreenController {
         }
     }
 
-    
     /**
      * Displays the steps a user has taken and the user's weekly step goal
      */
@@ -235,7 +234,6 @@ public class HomeScreenController extends GeneralScreenController {
         String stepsLeftString = String.format("%.0f", stepsLeft);
         stepsLeftLabel.setText(stepsLeftString);
     }
-
 
     /**
      * Creates a new graph to be displayed in the chart.
@@ -260,6 +258,7 @@ public class HomeScreenController extends GeneralScreenController {
         	noDataText.setVisible(true);
         }
     }
+
     /**
      *Adds a series of data from the most recent activity to the chart
      * @throws SQLException
