@@ -7,7 +7,7 @@ This README will help you to install and run MATES.
 
 === Prerequisites ===
 
-To run this app you will need the seng202_2018_team6_2 folder.
+To run this app you will need the seng202_2018_team6_3 folder.
 
 You will also need to download:
 1. Oracle Java 1.8 (https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -15,7 +15,7 @@ You will also need to download:
 
 === To run the app ===
 
-1. Locate the seng202_2018_team6_2 folder
+1. Locate the seng202_2018_team6_3 folder
 2. Either run the MATES.jar, or build the source code.
 
     Run by source code:
