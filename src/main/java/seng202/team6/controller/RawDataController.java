@@ -184,7 +184,7 @@ public class RawDataController extends WorkoutsNavigator{
         activitySelect.getSelectionModel().select(0);
 
         // Sets up the activity type editing drop down.
-        ObservableList<String> activityTypes = FXCollections.observableArrayList("All", "Walking", "Running", "Biking", "Other");
+        ObservableList<String> activityTypes = FXCollections.observableArrayList("Walking", "Running", "Biking", "Other");
         typeEdit.setItems(activityTypes);
     }
 
