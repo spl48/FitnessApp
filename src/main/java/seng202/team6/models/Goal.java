@@ -9,7 +9,6 @@ import java.util.ArrayList;
 /**
  * This class implements Goal and sets the required information about a Goal specified by
  * the User.
- * @author Angelica Dela Cruz
  * @version 1.2, Aug 2018.
  */
 public class Goal

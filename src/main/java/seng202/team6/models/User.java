@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 /**
  * This class implements User and sets the information regarding the User.
- * @author Angelica Dela Cruz
  * @version 1.1, Aug 2018.
  */
 
@@ -371,8 +370,6 @@ public class User
         return firstName + " " + lastName;
     }
 
-
-
     /**
      * A function that takes an Integer id and sets the User ID to the given
      * parameter.
@@ -405,16 +402,22 @@ public class User
         ApplicationManager.getDatabaseManager().getUserWriter().setStepGoal(userID, stepGoal);
     }
 
+    /**
+     * A function that gets the distance goal of the user.
+     * @return
+     */
     public int getDistanceGoal() {
         return distanceGoal;
     }
 
+    /**
+     * A function that sets the distance goal of the user by the given parameter.
+     * @param distanceGoal A Integer parameter that represents the distance goal.
+     */
     public void setDistanceGoal(int distanceGoal) {
         this.distanceGoal = distanceGoal;
         ApplicationManager.getDatabaseManager().getUserWriter().setDistanceGoal(userID, distanceGoal);
     }
-
-
 
     /**
      * A function that returns the body mass index of a user.
@@ -440,8 +443,6 @@ public class User
             return "Obese";
         }
     }
-
-
 
     public void printUser() {
         System.out.println("-----------------------------------------");

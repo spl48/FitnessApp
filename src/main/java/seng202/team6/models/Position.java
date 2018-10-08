@@ -5,10 +5,13 @@ package seng202.team6.models;
  * of an activity
  */
 public class Position {
+
     /**
      * Value representing the latitude of a point
      */
+
     public double lat;
+
     /**
      * Value representing the longitude of a point
      */

@@ -443,8 +443,6 @@ public class Activity
         return maxHeartRate;
     }
 
-
-
     /**
      * Finds and returns the minimum heart rate recorded in
      * an activity.
