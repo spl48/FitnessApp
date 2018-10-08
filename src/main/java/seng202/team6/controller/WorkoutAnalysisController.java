@@ -21,6 +21,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The WorkoutAnalysisController responsible for the Workout Analysis page.
+ */
 public class WorkoutAnalysisController extends WorkoutsNavigator {
 
     /**

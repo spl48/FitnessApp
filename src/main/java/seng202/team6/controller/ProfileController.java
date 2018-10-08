@@ -109,7 +109,6 @@ public class ProfileController extends GeneralScreenController {
         birthDateLabel.setText(currUser.getDOB().format(formatter));
     }
 
-
     /**
      * Turns on editing functionality for the profile screen.
      */
@@ -142,7 +141,6 @@ public class ProfileController extends GeneralScreenController {
     public void toProfile(Event event) throws IOException {
         changeScreen(event, "/seng202/team6/view/ProfileScreen.fxml", "PROFILE");
     }
-
 
     /**
      * Updates the user profile and returns the user to the profile screen.
@@ -226,7 +224,6 @@ public class ProfileController extends GeneralScreenController {
             ApplicationManager.setEditingStatus(false);
         }
     }
-
 
     /** Sets the viability to all the profile edit fields to true or false as desired. Hiding or showing them */
     private void setVisablityProfileEdit(Boolean isVisable) {
