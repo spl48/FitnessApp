@@ -11,8 +11,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * The class File Data Loader handles all the Data File Importation and Loading.
+ */
+
 public class FileDataLoader {
 
+    /**
+     * A function that imports activity data of the user from CSV files.
+     * @param userid An Integer that represents the user id of the User
+     * @param CSVLocation A String that represents the CSV location
+     * @param databaseManager An instance of database manager.
+     * @return Returns a boolean true if the activity data is valid or false if not.
+     * @throws IOException
+     * @throws SQLException
+     */
     public boolean importDataFromCSV(int userid, String CSVLocation, DatabaseManager databaseManager) throws IOException, SQLException {int numLines = countLines(CSVLocation);
 
         try {
@@ -130,6 +143,12 @@ public class FileDataLoader {
         }
     }
 
+    /**
+     * A function that converts the date and time format.
+     * @param date A String parameter that represents the date
+     * @param time A String parameter that represents the time
+     * @return Returns a String combination of date and time.
+     */
     public String convertToDateTimeFormat(String date, String time) {
         String[] parts = date.split("/");
         if (parts[0].length() == 1) {
@@ -142,6 +161,12 @@ public class FileDataLoader {
         return combined;
     }
 
+    /**
+     * A function that counts the lines of the file name.
+     * @param filename A String that represents the file name.
+     * @return Returns an integer that represents the number of lines the file has.
+     * @throws IOException
+     */
     public int countLines(String filename) throws IOException {
         InputStream is = new BufferedInputStream(new FileInputStream(filename));
         try {

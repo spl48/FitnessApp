@@ -3,6 +3,10 @@ package seng202.team6.datahandling;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * DataHandlerUtilities handle all the utilities for the Database.
+ */
+
 public class DataHandlerUtilities {
 
 
