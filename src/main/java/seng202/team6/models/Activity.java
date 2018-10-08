@@ -486,8 +486,6 @@ public class Activity
         }
     }
 
-
-
     /**
      * Converts a given angle in degrees, to radians
      * @param degrees the angle in degrees
@@ -496,7 +494,6 @@ public class Activity
     private double deg2rad(double degrees) {
         return (degrees * Math.PI / 180.0);
     }
-
 
     /** Finds the total distance covered from the start of an activity
      * to a particular activity point at an index in that same activity
@@ -624,7 +621,6 @@ public class Activity
         }
         return "Other";
     }
-
 
     /**
      * Returns if the activity is manual based off if it has any records or not.
