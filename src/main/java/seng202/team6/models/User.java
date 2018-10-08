@@ -75,25 +75,6 @@ public class User
      * The Goals of the User that the Profile is associated with
      */
     private ArrayList<Goal> goals = new ArrayList<Goal>();
-    /**
-     * A function that takes a Goal parameter and adds the goal to an ArrayList
-     * of Goal.
-     * @param goal A Goal parameter that is added to an ArrayList of Goal.
-     */
-    public void addGoals(Goal goal)
-    {
-        goals.add(goal);
-    }
-
-    /**
-     * A function that returns an ArrayList of User's Goals.
-     * @return Returns an ArrayList representing User Goals.
-     */
-    public ArrayList<Goal> getGoals()
-    {
-        return goals;
-    }
-
 
     /**
      * Goal object that holds the goal number of steps per week
@@ -104,19 +85,6 @@ public class User
      * Goal object that holds the goal distance per week
      */
     public int distanceGoal;
-
-
-
-    /**
-     * A function that takes a Boolean parameter and sets the status of the Goal's progress
-     * if the Goal has been achieved (true) or not (false) based on the given parameter.
-     * @param goal A Goal parameter
-     * @param status A Boolean parameter used to set the status of the Goal.
-     */
-    public void setGoalStatus(Goal goal, boolean status)
-    {
-        goal.setGoalReached(status);
-    }
 
     /**
      * The constructor for the User that takes the parameter name, dob, age height, weight, stride length and username.

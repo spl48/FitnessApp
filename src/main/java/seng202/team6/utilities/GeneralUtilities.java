@@ -15,26 +15,6 @@ import java.util.Set;
 
 public class GeneralUtilities {
 
-
-    // Code for internet for testing the database output. Note: TEMPORARY
-    final public static void printResultSet(ResultSet rs) throws SQLException
-    {
-        ResultSetMetaData rsmd = rs.getMetaData();
-        int columnsNumber = rsmd.getColumnCount();
-        while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(" | ");
-                System.out.print(rs.getString(i));
-            }
-            System.out.println("");
-        }
-    }
-
-    public static void writeToErrorFile(Exception e) {
-        String errorToWrite = e.toString();
-
-    }
-
     /**
      * Checks if given string can be parsed into a LocalDate.
      * @param inDate string to be parsed into a LocalDate.
@@ -73,7 +53,6 @@ public class GeneralUtilities {
      * @return false if given string cannot be parsed into a LocalTime, true if it can.
      */
     public static boolean isValidTime(String inTime) {
-        //SimpleDateFormat dateFormat = new DateTimeFormatter("dd/MM/yyyy");
         DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
                 .withResolverStyle(ResolverStyle.STRICT);
         try {

@@ -234,7 +234,6 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
     /**
      * Checks if the user has achieved any weekly goals with the new file upload and displays a pop up if they have saying the goal has been achieved.
      * If not will display a random progress pop up to say how many steps or kilometers to achieve a weekly goal.
-     * @param event
      */
     @FXML
     private void doneEditing(Event event) {
@@ -243,24 +242,26 @@ public class  ActivityUploaderController extends WorkoutsNavigator {
 
             if (finishedEditing) {
 
-            // Checks if the user has achieved their step goal, if so displays a congratulatory message.
-            if (stepsAchieved(user)) {
-                int stepGoal = user.getStepGoal();
-                String stepGoalString = Integer.toString(stepGoal) + " steps";
-                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "." , "confirmation");
-            }
+                // Checks if the user has achieved their step goal, if so displays a congratulatory message.
+                if (stepsAchieved(user)) {
+                    int stepGoal = user.getStepGoal();
+                    String stepGoalString = Integer.toString(stepGoal) + " steps";
+                    ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly step goal of " + stepGoalString + "." , "confirmation");
+                }
 
-            // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
-            if (distanceAchieved(user)) {
-                int distanceGoal = user.getDistanceGoal();
-                String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
-                ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly distance goal of " + distanceGoalString + "." , "confirmation");
-            }
+                // Checks if the user has achieved their distance goal and if so displays a congratulatory message. Otherwise there is a chance to display a random progress report.
+                if (distanceAchieved(user)) {
+                    int distanceGoal = user.getDistanceGoal();
+                    String distanceGoalString = Integer.toString(distanceGoal) + " kilometers";
+                    ApplicationManager.displayPopUp("Congratulations", "You have achieved your weekly distance goal of " + distanceGoalString + "." , "confirmation");
+                }
 
-            // If no weekly goal has been achieved, display a random progress pop up
-            if (!stepsAchieved(user) & !distanceAchieved(user)) {
-                displayRandomProgressReport();
-            }
+                // If no weekly goal has been achieved, display a random progress pop up
+                if (!stepsAchieved(user) & !distanceAchieved(user)) {
+                    displayRandomProgressReport();
+                }
+
+                toAddWorkout(event);
         }
     }
 

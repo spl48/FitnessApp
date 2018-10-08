@@ -204,7 +204,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
         if (activities.size() > 0) {
             Activity selectedActivity = activities.get(selectionIndex);
-            activityList.getSelectionModel().select(selectionIndex);
+            if (activityList.getSelectionModel().isSelected(selectionIndex)) {
+                activityList.getSelectionModel().select(selectionIndex);
+            }
 
             String distanceString = String.format("%.1f", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1));
             String velocityString = String.format("%.1f", selectedActivity.findAverageSpeed());
@@ -444,7 +446,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
             clearGraph();
             activityList.getSelectionModel().clearSelection();
             activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            activityList.getSelectionModel().select(selectionIndex);
             selectNewActivity();
 
             analysisGraph.setCreateSymbols(false);

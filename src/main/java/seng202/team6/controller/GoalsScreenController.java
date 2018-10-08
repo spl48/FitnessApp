@@ -104,7 +104,6 @@ public class GoalsScreenController {
     }
 
     /**
-<<<<<<< HEAD
      * Updated the users step goal in the database to the users entered value
      * @throws SQLException
      */
@@ -138,8 +137,6 @@ public class GoalsScreenController {
     }
 
     /**
-=======
->>>>>>> cf3c021e495446e00e50bf8ab113897789342098
      * Sets the data for the step goal section with the users current step goal per week, and how many steps until this goal is reached.
      * If the goal is reached, only the progress chart is displayed
      * @throws SQLException

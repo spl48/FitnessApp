@@ -353,6 +353,17 @@ public class ActivityManager {
         return activity;
     }
 
+    /**
+     * A function that adds an activity to the given user based on the userid.
+     * @param userid An Integer parameter that represents the userid
+     * @param description A String parameter that is used as the activity description.
+     * @param start A String parameter that represents th start time.
+     * @param end A String parameter that represents the end time.
+     * @param workout A String parameter that represents the type of the workout.
+     * @param distance A Double parameter that represents the distance.
+     * @param notes A String parameter that represents the activity notes.
+     * @throws SQLException
+     */
     public void addActivity(int userid, String description, String start, String end, String workout, double distance, String notes) throws SQLException {
         String sqlprep1 = "INSERT INTO activity(userid,description,start,end,distance,workout,notes) VALUES(?,?,?,?,?,?,?)";
         PreparedStatement prep = connection.prepareStatement(sqlprep1);
@@ -366,7 +377,12 @@ public class ActivityManager {
         prep.execute();
     }
 
-
+    /**
+     * A function that gets the activities based on the userid given.
+     * @param userid An Integer parameter that represents user's ID.
+     * @return Returns an ArrayList of activity ids.
+     * @throws SQLException
+     */
     public ArrayList<Integer> getActivityIDs(int userid) throws SQLException {
         ArrayList<Integer> activities = new ArrayList<Integer>();
         Statement state = connection.createStatement();
@@ -393,7 +409,6 @@ public class ActivityManager {
         return activities;
     }
 
-
     /**
      * Gets an activity object based on an id.
      * @param activityID The activity id.
@@ -417,7 +432,12 @@ public class ActivityManager {
         return activity;
     }
 
-
+    /**
+     * A function that gets the activities with records based on the user id.
+     * @param userid An Integer parameter that represents user's ID.
+     * @return Returns an ArrayList of activity ids.
+     * @throws SQLException
+     */
     public ArrayList<Activity> getActivitiesWithRecords(int userid) throws SQLException {
         ArrayList<Activity> activities = new ArrayList<>();
         Statement state = connection.createStatement();
@@ -431,35 +451,66 @@ public class ActivityManager {
         return activities;
     }
 
-
+    /**
+     * A function that updates the activity type.
+     * @param type A String parameter that represents the activity type.
+     * @param activityID An Integer that represents the activity ID.
+     */
     public void updateActivityType(String type, int activityID) {
         updateActivityProperty(type, activityID, "workout");
     }
 
-
+    /**
+     * A function that updates the notes of the activity.
+     * @param notes A String parameter that represents the notes of the activity.
+     * @param activityID An Integer that represents the activity ID.
+     */
     public void updateNotes(String notes, int activityID) {
         updateActivityProperty(notes, activityID, "notes");
     }
 
-
+    /**
+     * A function that updates the description of the activity.
+     * @param description A String parameter that represents the description of the activity.
+     * @param activityID An Integer that represents the activity ID.
+     */
     public void updateDescription(String description, int activityID) {
         updateActivityProperty(description, activityID, "description");
     }
 
+    /**
+     * A function that updates the distance of the activity.
+     * @param distance A String parameter that represents the distance of the activity.
+     * @param activityID An Integer that represents the activity ID.
+     */
     public void updateDistance(String distance, int activityID) {
         updateActivityProperty(distance, activityID, "distance");
     }
 
+    /**
+     * A function that updates the start date of the activity.
+     * @param start A String parameter that represents the start date of the activity.
+     * @param activityID An Integer that represents the activity ID.
+     */
     public void updateStartDate(String start, int activityID) {
         updateActivityProperty(start, activityID, "start");
     }
 
-
+    /**
+     * A function that updates the end date of the activity.
+     * @param end A String parameter that represents the end date of the activity.
+     * @param activityID An Integer that represents the activity ID.
+     */
     public void updateEndDate(String end, int activityID) {
         updateActivityProperty(end, activityID, "end");
     }
 
-
+    /**
+     * A function that updates the notes and the property of the activity.
+     * @param notes A String parameter that represents the notes of the activity.
+     * @param activityID An Integer that represents the activity ID.
+     * @param property A String parameter that represents the property that will be updated.
+     */
     public void updateActivityProperty(String notes, int activityID, String property) {
         try {
             String sql = "UPDATE activity SET " + property + " = ? WHERE activityid = '" + activityID + "'";
@@ -472,7 +523,11 @@ public class ActivityManager {
         }
     }
 
-
+    /**
+     * A function that gets all the activities for the weekly goal.
+     * @param userid An Integer that represents the user's user id.
+     * @return Returns an ArrayList of Activities.
+     */
     public ArrayList<Activity> getActivitiesForWeeklyGoal(int userid) {
         ArrayList<Activity> activities = new ArrayList<Activity>();
         try {
@@ -486,7 +541,11 @@ public class ActivityManager {
         return activities;
     }
 
-
+    /**
+     * A function that gets the total distance travelled by the user for the week.
+     * @param userid An Integer that represents the user's user id.
+     * @return Returns an integer parameter that represents the total distance done by the user.
+     */
     public double getUpdatedDistanceGoal(int userid) {
 
         ArrayList<Activity> activities = getActivitiesForWeeklyGoal(userid);
@@ -498,7 +557,11 @@ public class ActivityManager {
         return totalDistance;
     }
 
-
+    /**
+     * A function that gets the total step count of the user for the week.
+     * @param userid An Integer that represents the user's user id.
+     * @return Returns an integer parameter that represents the total steps done by the user.
+     */
     public double getUpdatedStepGoal(int userid) {
 
         double totalStepCount = 0;

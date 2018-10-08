@@ -14,11 +14,6 @@ public class MatesAI
     private String name;
 
     /**
-     * The image of MATES AI
-     */
-    private BufferedImage buddyImage;
-
-    /**
      * The greeting for the User
      */
     private String greeting;
