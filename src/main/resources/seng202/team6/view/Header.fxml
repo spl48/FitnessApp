@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -17,7 +26,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="65.0" prefWidth="1139.0" styleClass="header" stylesheets="@../resources/css/test.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HeaderController">
+<AnchorPane prefHeight="65.0" prefWidth="1139.0" styleClass="header" stylesheets="@../resources/css/test.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HeaderController">
    <children>
       <GridPane prefHeight="65.0" prefWidth="1141.0" stylesheets="@../resources/css/style.css" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -34,7 +43,7 @@
                <menus>
                   <Menu fx:id="usernameMenu" mnemonicParsing="false" styleClass="menuItem" text="JOE BLOGGS">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#toStartScreen" style="-fx-text-fill: black; -fx-font-size: 18px;" text="Logout" />
+                        <MenuItem mnemonicParsing="false" onAction="#toLoginScreen" style="-fx-text-fill: black; -fx-font-size: 18px;" text="Logout" />
                         <MenuItem mnemonicParsing="false" onAction="#toStartScreen" style="-fx-text-fill: black; -fx-font-size: 18;" text="Exit" />
                      </items>
                   </Menu>
