@@ -13,6 +13,10 @@ public class DatabaseManager {
     private DatabaseUserReader databaseUserReader;
     private DatabaseUserWriter databaseUserWriter;
 
+    /**
+     * A constructor for the Database Manager that gets the database connection.
+     * @param testOrMain
+     */
     public DatabaseManager(String testOrMain) {
         if(testOrMain.equalsIgnoreCase("main")) {
             getConnection();
@@ -143,10 +147,19 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * A function that gets the connection.
+     * @return Returns the connection.
+     */
     public Connection getCon(){
         return con;
     }
 
+    /**
+     * A function that converts the Date to the format yyyy-MM-dd.
+     * @param date A LocalDate parameter date that is being formatted
+     * @return Returns a String that represents the date.
+     */
     public String convertToDBDateFormat(LocalDate date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedString = date.format(formatter);
