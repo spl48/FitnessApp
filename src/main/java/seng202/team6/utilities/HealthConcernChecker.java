@@ -49,8 +49,6 @@ public class HealthConcernChecker {
         return false;
     }
 
-
-
     /**
      * A function which checks if a user is at risk for Bradycardia from their
      * activities. Returns true if so, false otherwise.
@@ -66,11 +64,7 @@ public class HealthConcernChecker {
         } else { // User is an adult
             return determineBradycardiaOutcome(50, activities);
         }
-
-
     }
-
-
 
     /**
      * Checks if any of a users heart rates for walking activities are below a
@@ -88,8 +82,6 @@ public class HealthConcernChecker {
         }
         return false;
     }
-
-
 
     /**
      * A function which checks if a user may have cardiovascular concerns, buy
@@ -110,5 +102,4 @@ public class HealthConcernChecker {
         }
         return false;
     }
-
 }

@@ -11,6 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 
+/**
+ * DatabaseValidation handles all the database validation before being inputted in the database.
+ */
 public class DatabaseValidation {
 
     /**

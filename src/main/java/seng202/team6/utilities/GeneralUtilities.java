@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * GeneralUtilities handles all the general validation such as date, time, int, double and duplicates
+ */
 public class GeneralUtilities {
 
     /**
