@@ -43,6 +43,7 @@ public class HealthController extends GeneralScreenController {
      * 1 : tachycardia button
      * 2 : bradycardia button
      * 3 : cardiovascular button
+     * 4 : custom websearch
      */
     private static int type = 0;
 
