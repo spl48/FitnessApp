@@ -71,8 +71,6 @@ public class FileDataLoader {
                     previousLine = nextLine;
                 }
                 for (int x = 1; x < rawData.size(); x++) {
-                    System.out.println(x);
-                    System.out.println(activityDescription);
                     nextLine = rawData.get(x);
                     if (nextLine != null) {
                         if (nextLine[0].equalsIgnoreCase("#start")) {
@@ -115,7 +113,6 @@ public class FileDataLoader {
                             }
                         } else {
                             String dateTime = convertToDateTimeFormat(nextLine[0], nextLine[1]);
-                            System.out.println(dateTime);
                             String sql = "INSERT INTO record(activityid,datetime,heartrate,latitude,longitude,elevation) VALUES(?,?,?,?,?,?)";
                             PreparedStatement insertRecord = databaseManager.getCon().prepareStatement(sql);
                             insertRecord.setInt(1, activityid);
