@@ -146,7 +146,7 @@ public class workoutManualEntryController extends GeneralScreenController {
                 DatabaseValidation.validateDateWithFormat(startDateString) &&
                 DatabaseValidation.validateDateWithFormat(endDateString) &&
                 DatabaseValidation.validateStartEndDate(startDate, endDate) &&
-                DatabaseValidation.validateStartEndTime(startTime, endTime) &&
+                DatabaseValidation.validateStartEndTime(startTime, endTime, startDate, endDate) &&
                 ActivityValidation.validateDistance(distance) &&
                 ActivityValidation.validateNotes(notes_E.getText())) {
             LocalTime localEndTime = LocalTime.parse(endTime, strictTimeFormatter);
