@@ -11,14 +11,13 @@ import javafx.scene.input.MouseEvent;
  * <h1>Main Menu Navigation Controller</h1>
  * <p>Main application navigation using side bar.</p>
  */
-public class MainMenuNavigation2 extends GeneralScreenController {
+public class MainMenuNavigation extends GeneralScreenController {
 
     /**
      * The home button on the side bar.
      */
     @FXML
     private Node homeButton;
-
 
        /**
      * The home button on the side bar.
@@ -32,7 +31,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
     public static Node selected;
 
     /**
-     * Initialises the screen
+     * Initialises the Main Menu Screen
      */
     @FXML
     void initialize() {
@@ -62,17 +61,17 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     public void tutorial() {
         if (selected.getId().equals(homeButton.getId())) {
-//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-//                    "The top left corner of the Home Screen shows your BMI and potential health issues.", "tutorialsmall");
-//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-//                    "The top right corner of the Home Screen shows the steps taken and the remaining steps to reach your goal.", "tutorialsmall");
-//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-//                    "The bottom right corner shows your latest activity analysis assuming that you have uploaded an activity data already.", "tutorialbig");
-//            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
-//                    "The bottom left corner is where you will see me. I will be giving you motivational quotes because I believe in you. Not because I’m programmed to but because I want to.", "tutorialbig");
-//            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
-//                    " and I will give you a detailed tutorial for the page you are on.\n\n"
-//                    + "I hope I helped!", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The top left corner of the Home Screen shows your BMI and potential health issues.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The top right corner of the Home Screen shows the steps taken and the remaining steps to reach your goal.", "tutorialsmall");
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The bottom right corner shows your latest activity analysis assuming that you have uploaded an activity data already.", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Help", "'HOME'\n\n" +
+                    "The bottom left corner is where you will see me. I will be giving you motivational quotes because I believe in you. Not because I’m programmed to but because I want to.", "tutorialbig");
+            ApplicationManager.displayPopUp("MATES Help", "If you want to get help from me again, feel free to click the photo on the sidebar menu" +
+                    " and I will give you a detailed tutorial for the page you are on.\n\n"
+                    + "I hope I helped!", "tutorialbig");
         } else if (selected.getId().equals(profileButton.getId())) {
             ApplicationManager.displayPopUp("MATES Help", "'PROFILE'\n\n" +
                     "This is where you will see your personal information and body measurements.", "tutorialsmall");
@@ -152,7 +151,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     @FXML
     public void toProfileScreen(Event event) {
-        changeMenuScreen(event, "/seng202/team6/view/profileScreen.fxml", "PROFILE");
+        changeMenuScreen(event, "/seng202/team6/view/ProfileScreen.fxml", "PROFILE");
     }
 
     /**
@@ -170,7 +169,7 @@ public class MainMenuNavigation2 extends GeneralScreenController {
      */
     @FXML
     public void toGoalsScreen(Event event) {
-        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen2.fxml", "WEEKLY GOALS");
+        changeMenuScreen(event, "/seng202/team6/view/GoalsScreen.fxml", "WEEKLY GOALS");
     }
 
     /**
@@ -191,7 +190,6 @@ public class MainMenuNavigation2 extends GeneralScreenController {
         changeMenuScreen(event, "/seng202/team6/view/HealthScreen.fxml", "HEALTH");
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
-
 
     /**
      * Changes the selected menu item and formats it accordingly.

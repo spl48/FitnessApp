@@ -100,12 +100,28 @@ public class HeaderController extends WorkoutsNavigator {
     }
 
     /**
-     * Redirects the user to the start screen when logging out.
+     * Redirects the user to the start screen when exiting.
      */
     @FXML
     public void toStartScreen() {
         try {
-            Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/startScreen2.fxml"));
+            Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/StartScreen.fxml"));
+            Scene loginScene = new Scene(loginParent);
+            Stage appStage = (Stage) (headerScreenName.getScene().getWindow());
+            appStage.setScene(loginScene);
+            appStage.show();
+        } catch (IOException e) {
+            System.out.println("Cannot load the fxml file.");
+        }
+    }
+
+    /**
+     * Redirects the user to the login screen when logging out.
+     */
+    @FXML
+    public void toLoginScreen() {
+        try {
+            Parent loginParent = FXMLLoader.load(getClass().getResource("/seng202/team6/view/LoginScreen.fxml"));
             Scene loginScene = new Scene(loginParent);
             Stage appStage = (Stage) (headerScreenName.getScene().getWindow());
             appStage.setScene(loginScene);

@@ -1,9 +1,6 @@
 package seng202.team6.controller;
 
 import seng202.team6.datahandling.DatabaseManager;
-import seng202.team6.models.User;
-
-import java.sql.SQLException;
 
 /**
  * <h1>Application Manager</h1>
@@ -245,15 +242,26 @@ public class ApplicationManager {
      */
     public static int getCurQuoteIndex() { return curQuoteIndex; }
 
-
+    /**
+     * A function that gets the editing status based on the yes or no pop-up.
+     * @return Returns true if editing status is yes and they are stopping editing and false if no.
+     */
     public static boolean getEditingStatus() {
         return editingStatus;
     }
 
+    /**
+     * A function that sets the editing status based on the yes or no pop-up.
+     * @param isEditing A Boolean variable used to set the isEditing variable.
+     */
     public static void setEditingStatus(boolean isEditing) {
         editingStatus = isEditing;
     }
 
+    /**
+     * A function that returns the answer from the yes or no pop-up about editing.
+     * @return Returns true if user clicks yes and stops editing and false if the user clicks no.
+     */
     public static boolean exitEditingCheck() {
         return getAnswerFromPopUp("Would you like to stop editing? All the data that is changed will not be saved.");
     }

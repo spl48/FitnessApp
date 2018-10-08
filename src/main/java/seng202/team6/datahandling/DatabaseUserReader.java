@@ -10,11 +10,15 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * DatabaseUserReader handles all the user reader related methods.
+ */
 public class DatabaseUserReader {
     /**
      * The database connection
      */
     private Connection connection;
+
     /**
      * The database manager
      */
@@ -28,7 +32,6 @@ public class DatabaseUserReader {
         connection = con;
         databaseManager = db;
     }
-
 
     /**
      * Returns a result set of users in the database.
@@ -61,7 +64,6 @@ public class DatabaseUserReader {
         String gender = userData.getString("gender");
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
-        Double stridelength = userData.getDouble("stridelength");
         int stepgoal = userData.getInt("stepgoal");
         int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);
@@ -70,6 +72,14 @@ public class DatabaseUserReader {
         User user = new User(firstName, lastName, dob, gender, height, weight, aUsername, id, stepgoal, distancegoal);
         return user;
     }
+
+    /**
+     * Given a user id, finds the details of that user in the data base and
+     * returns a User object with these details.
+     * @param userid An Integer parameter that is the userid of the User.
+     * @return A user object with the details of the user with the given username.
+     * @throws SQLException Occurs when there is an error in the query process.
+     */
     public User getUserFromID(int userid) throws SQLException {
         // Checks the connection to the database.
         // Tries to query the database for a user.
@@ -85,7 +95,6 @@ public class DatabaseUserReader {
         String gender = userData.getString("gender");
         Double height = userData.getDouble("height");
         Double weight = userData.getDouble("weight");
-        Double stridelength = userData.getDouble("stridelength");
         int stepgoal = userData.getInt("stepgoal");
         int distancegoal = userData.getInt("distancegoal");
         LocalDate dob = LocalDate.parse(dobString);
@@ -116,6 +125,11 @@ public class DatabaseUserReader {
         return usernames;
     }
 
+    /**
+     * A function that gets the number of times the user has login.
+     * @return Returns an integer that represents the login count of the user.
+     * @throws SQLException
+     */
     public int getLoginCount() throws SQLException {
         System.out.println("In login functions");
         int logins = 0;

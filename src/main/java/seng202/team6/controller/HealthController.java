@@ -26,21 +26,14 @@ import static javafx.scene.text.TextAlignment.JUSTIFY;
 
 public class HealthController extends GeneralScreenController {
     /**
-     * Text that represent each different potential health concern
+     * HBox holds information panels
      */
-    @FXML
-    private Text tachycardiaText, bradycardiaText, cardioVascularText;
-
-    /**
-     * Buttons that take a user to a search page specific to each
-     * potential health concern
-     */
-    @FXML
-    private Button tachycardiaButton, bradycardiaButton, cardiovascularButton;
-
     @FXML
     private HBox healthBox;
 
+    /**
+     * text field acts as a search bar
+     */
     @FXML
     private TextField searchBar;
 
@@ -50,6 +43,7 @@ public class HealthController extends GeneralScreenController {
      * 1 : tachycardia button
      * 2 : bradycardia button
      * 3 : cardiovascular button
+     * 4 : custom websearch
      */
     private static int type = 0;
 
@@ -63,11 +57,13 @@ public class HealthController extends GeneralScreenController {
      */
     ArrayList<Activity> activities;
 
-
+    /**
+     * String that stores the users search query in text field
+     */
     private static String query;
 
     /**
-     * Initializes the health concern screen by displaying the text and button
+     * Initializes the health concern screen by displaying the information panel
      * corresponding to a particular health concerns if they are at risk for it.
      *
      * @throws SQLException When there is an error in the database when getting usernames and/or activities.
@@ -76,9 +72,10 @@ public class HealthController extends GeneralScreenController {
         getUserDetails();
         int i = 0;
         healthBox.setAlignment(Pos.CENTER);
+
+        //if user has tachycardia, creates information panel with relevant informaton
         if (HealthConcernChecker.checkTachycardia(activities, age)) {
 
-            //healthGrid.setStyle();
             GridPane healthGrid = addGrid();
 
             ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
@@ -103,18 +100,11 @@ public class HealthController extends GeneralScreenController {
             healthGrid.add(description, i, 2);
 
             i++;
-//            GridPane.setHalignment(selectProfileButton, HPos.CENTER);
-//            GridPane.setValignment(selectProfileButton, VPos.CENTER);
             healthBox.getChildren().add(healthGrid);
-
-//            System.out.println(" ");
-//            tachycardiaText.setText("Tachycardia");
-//            tachycardiaButton.setVisible(true);
         }
 
+        //if user has bradycardia, creates information panel with relevant informaton
         if (HealthConcernChecker.checkBradycardia(activities, age)) {
-//            bradycardiaText.setText("Bradycardia");
-//            bradycardiaButton.setVisible(true);
             GridPane healthGrid = addGrid();
             ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
             healthGrid.setHalignment(image, HPos.CENTER);
@@ -124,7 +114,7 @@ public class HealthController extends GeneralScreenController {
             Label title = new Label("BRADYCARDIA");
             Label description = new Label("Bradycardia is a condition wherein an individual has a very slow heart " +
                     "rate, typically defined as a resting heart rate of under 60 beats per minute (BPM) in adults. " +
-                    "Bradycardia typically does not cause symptoms until the rate drops below 50 BPM. When symptomatic, " +
+                    "When symptomatic, " +
                     "it may cause fatigue, weakness, dizziness, sweating, and at very low rates, fainting.");
             description.setPrefWidth(280);
             description.setWrapText(true);
@@ -139,9 +129,8 @@ public class HealthController extends GeneralScreenController {
             healthBox.getChildren().add(healthGrid);
         }
 
+        //if user has cardiovascular mortality, creates information panel with relevant informaton
         if (HealthConcernChecker.checkCardiovascularMortality(activities, age)) {
-            //            cardioVascularText.setText("Cardiovascular Disease");
-            //            cardiovascularButton.setVisible(true);
             GridPane healthGrid = addGrid();
             ImageView image = new ImageView("/seng202/team6/resources/pics/hearticon.png");
             healthGrid.setHalignment(image, HPos.CENTER);
@@ -190,7 +179,12 @@ public class HealthController extends GeneralScreenController {
         }
     }
 
+    /**
+     * dynamically creates a information panel gui
+     * @return grid
+     */
     private GridPane addGrid() {
+        //formatting
         GridPane grid = new GridPane();
         healthBox.setMargin(grid, new Insets(50, 20, 50, 20));
         grid.setPrefSize(280, 484);
@@ -198,9 +192,11 @@ public class HealthController extends GeneralScreenController {
         grid.setAlignment(Pos.TOP_CENTER);
         grid.setVgap(10);
 
+        //sets image icon
         Image image = new Image("/seng202/team6/resources/pics/healthGrid.png");
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
 
+        //sets background image
         grid.setBackground(new Background(new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
@@ -279,6 +275,10 @@ public class HealthController extends GeneralScreenController {
         type = Type;
     }
 
+    /**
+     * changes screen to websearch when user presses enter
+     * @param ae
+     */
     @FXML
     public void onEnter(ActionEvent ae){
         setType(4);
@@ -287,10 +287,18 @@ public class HealthController extends GeneralScreenController {
         //searchBar.clear();
     }
 
+    /**
+     * sets query to the input from search bar
+     * @param searchquery
+     */
     public static void setURL(String searchquery) {
         query = searchquery;
     }
 
+    /**
+     * returns the search query string
+     * @return query
+     */
     public static String getURL() {
         return query;
     }

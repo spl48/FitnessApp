@@ -2,6 +2,9 @@ package seng202.team6.utilities;
 
 import seng202.team6.controller.ApplicationManager;
 
+/**
+ * ActivityValidation handles all the Activity validation before being inputted in the database.
+ */
 public class ActivityValidation {
     /**
      * Validates if the given description is too long

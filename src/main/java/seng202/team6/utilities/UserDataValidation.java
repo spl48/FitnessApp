@@ -6,6 +6,9 @@ import java.util.Calendar;
 import seng202.team6.controller.ApplicationManager;
 import seng202.team6.controller.PopUpBoxController;
 
+/**
+ * UserDataValidation is responsible for all user validation before being inputted in the database.
+ */
 public class UserDataValidation {
 
     /**
@@ -164,6 +167,11 @@ public class UserDataValidation {
        return valid;
     }
 
+    /**
+     * A function that validates the user gender based on the given parameter.
+     * @param gender A String parameter that is being validated.
+     * @return Returns true if the data is valid and false if not.
+     */
     public static boolean validateGender(String gender) {
         boolean valid = false;
         if (gender == "") {

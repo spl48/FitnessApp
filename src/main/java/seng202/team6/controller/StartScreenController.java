@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * <h1>Start Screen Controller</h1>
  * <p>Initialises and applies functionality to the Start screen allowing the user to navigate to login or register.</p>
  */
-public class startScreenController extends GeneralScreenController {
+public class StartScreenController extends GeneralScreenController {
 
     /**
      * Directs the user to the login screen.
@@ -23,7 +23,7 @@ public class startScreenController extends GeneralScreenController {
     public void toLoginScreen(ActionEvent event) throws SQLException, ClassNotFoundException {
         DatabaseManager databaseManager = ApplicationManager.getDatabaseManager();
         if (databaseManager.getUserReader().getUsernames().size() > 0) {
-            changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
+            changeScreen(event, "/seng202/team6/view/LoginScreen.fxml", "LOGIN");
         } else {
             ApplicationManager.displayPopUp("No Users", "It seems like there are no users in the database.\nPlease register first.", "error");
         }
@@ -35,7 +35,7 @@ public class startScreenController extends GeneralScreenController {
      */
     @FXML
     public void toRegisterScreen(ActionEvent event) {
-        changeScreen(event, "/seng202/team6/view/registerScreen2.fxml", "REGISTER");
+        changeScreen(event, "/seng202/team6/view/RegisterScreen.fxml", "REGISTER");
     }
 
     /**

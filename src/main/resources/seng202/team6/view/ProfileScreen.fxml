@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.profileController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.ProfileController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -27,7 +27,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <fx:include source="header.fxml" />
+                  <fx:include source="Header.fxml" />
                </top>
                <center>
                   <AnchorPane prefHeight="496.0" prefWidth="1182.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
@@ -219,7 +219,7 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <fx:include source="sidebar.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <fx:include source="Sidebar.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </left>

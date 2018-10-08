@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * <p>Sets up the login screen and dynamically sets the user profile display depending on the users
  * currently within the database. Logs the user in when desired user selected.</p>
  */
-public class loginController extends GeneralScreenController {
+public class LoginController extends GeneralScreenController {
 
     /**
      * The grid which the profiles from the database will be displayed.
@@ -74,7 +74,6 @@ public class loginController extends GeneralScreenController {
         }
     }
 
-
     /**
      * Sets the current user property of ApplicationManager and directs the user to the Home Screen.
      * @param event When the login button is clicked.
@@ -92,7 +91,6 @@ public class loginController extends GeneralScreenController {
             changeScreen(event, "/seng202/team6/view/HomeScreen.fxml", "HOME");
             tutorial();
     }
-
 
     /**
      * A function that does a User Tutorial for First Time Users.
@@ -138,16 +136,14 @@ public class loginController extends GeneralScreenController {
         }
     }
 
-
     /**
      * Redirects user back to the start screen.
      * @param event When the user clicks the back button.
      */
     @FXML
     public void toStartScreen(Event event) {
-        changeScreen(event, "/seng202/team6/view/startScreen2.fxml", "START");
+        changeScreen(event, "/seng202/team6/view/StartScreen.fxml", "START");
     }
-
 
     /**
      * Changes the selected user profile when clicked and formats accordingly.
@@ -166,7 +162,6 @@ public class loginController extends GeneralScreenController {
         selected.setFont(Font.font("Nexa Bold", 23));
     }
 
-
     /**
      * Given a border width returns a formatting string for the user profile selection button.
      * @param borderWidth The width of the bottom border.
@@ -178,7 +173,6 @@ public class loginController extends GeneralScreenController {
         "-fx-background-radius: 0;" +
         "-fx-background-color: transparent;";
     }
-
 
     /**
      * Gets the column constraints for a user profile column.
@@ -192,7 +186,6 @@ public class loginController extends GeneralScreenController {
         colConstraint.setPrefWidth(210.0);
         return colConstraint;
     }
-
 
     /**
      * Adds a profile image to the grid in a specified column index.
@@ -222,7 +215,6 @@ public class loginController extends GeneralScreenController {
         grid.add(imgView, columnInd, 1); // Adds the image to the grid.
     }
 
-
     /**
      * Adds the selection button for the user profile to the grid.
      * @param grid The user profile grid.
@@ -242,7 +234,7 @@ public class loginController extends GeneralScreenController {
         selectProfileButton.setMnemonicParsing(false);
         selectProfileButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                loginController.this.changeSelected(event);
+                LoginController.this.changeSelected(event);
             }
         });
         selectProfileButton.setPrefHeight(226.0);
@@ -262,6 +254,12 @@ public class loginController extends GeneralScreenController {
         grid.add(selectProfileButton, columnInd, 1);
     }
 
+    /**
+     * A function that adds the delete button in the Login Controller.
+     * @param grid The user profile grid.
+     * @param columnInd The desired column for the button to be placed.
+     * @param username The username associated with the profile.
+     */
     public void addDeleteButton(GridPane grid, int columnInd, String username) {
 
         // Gets the image and sets constraints to go on top of the circle.
@@ -281,7 +279,7 @@ public class loginController extends GeneralScreenController {
                 if (answer == true) {
                     databaseManager.getUserWriter().removeUser(username);
                     if (databaseManager.getUserReader().getUsernames().size() > 0) {
-                        changeScreen(event, "/seng202/team6/view/loginScreen.fxml", "LOGIN");
+                        changeScreen(event, "/seng202/team6/view/LoginScreen.fxml", "LOGIN");
                     } else {
                         toStartScreen(event);
                     }
@@ -292,7 +290,6 @@ public class loginController extends GeneralScreenController {
         // Adds the delete button to the header.
         grid.add(delButton, columnInd, 0); // Adds the image to the grid.
     }
-
 
     /**
      * Adds a full profile selection box to the grid.
@@ -314,7 +311,4 @@ public class loginController extends GeneralScreenController {
         // Add the delete button
         addDeleteButton(grid, columnInd, username);
     }
-
-
-
 }

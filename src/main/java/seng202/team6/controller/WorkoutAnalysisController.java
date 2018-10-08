@@ -21,6 +21,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The WorkoutAnalysisController responsible for the Workout Analysis page.
+ */
 public class WorkoutAnalysisController extends WorkoutsNavigator {
 
     /**
@@ -157,21 +160,24 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         // Sets the activity array and creates an array of strings for these
         activities = databaseManager.getActivityManager().getFilteredFullActivties(yearFilter, monthFilter, dayFilter, typeFilter);
         ObservableList<String> availableActivities = FXCollections.observableArrayList();
+        clearList();
 
         // Checks if there are activities available
         if (activities.size() > 0) {
             mapWebView.setVisible(true);
-            initGraphs();
 
             for (Activity activity : activities) { // Add all activities to available activities initially
                 availableActivities.add(activity.getStartDate().toString() + " " + activity.getDescription());
             }
             // Adds the activities to the list view.
-            activityList.setItems(FXCollections.observableArrayList(availableActivities));;
+            activityList.setItems(FXCollections.observableArrayList(availableActivities));
             activityList.setMouseTransparent( false );
             activityList.setFocusTraversable( true );
+
             selectionIndex = 0;
             selectNewActivity();
+
+
         // If activities not available then locks up list view and clears the labels. Cleans the graph
         } else {
             // Sets the activity list to notify that there are no activities available.
@@ -201,6 +207,9 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
 
         if (activities.size() > 0) {
             Activity selectedActivity = activities.get(selectionIndex);
+            if (activityList.getSelectionModel().isSelected(selectionIndex)) {
+                activityList.getSelectionModel().select(selectionIndex);
+            }
 
             String distanceString = String.format("%.1f", selectedActivity.findDistanceFromStart(selectedActivity.getActivityData().size() - 1));
             String velocityString = String.format("%.1f", selectedActivity.findAverageSpeed());
@@ -221,7 +230,6 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
                 }
             } else {
                 activityTypeSelection.setVisible(false);
-                activityList.getSelectionModel().select(selectionIndex);
                 Activity desiredActivity = activities.get(selectionIndex);
                 Route route = makeRoute(desiredActivity);
                 displayRoute(route);
@@ -243,8 +251,11 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     @FXML
     private void newGraph() {
         if (activities.size() > 0) {
+
             int activity = selectionIndex;
             Activity selectedActivity = activities.get(selectionIndex);
+            activityList.getSelectionModel().select(selectionIndex);
+
             String seriesType = activityTypeSelection.getSelectionModel().getSelectedItem();
             if (activityList.getFocusModel().toString().equals("No Activities")) {
                 ApplicationManager.displayPopUp("Oh Mate!", "You have no activities with the selected dates mate", "error");
@@ -342,8 +353,8 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
     public void toFilter() throws SQLException {
         if (numActivities >= 1) {
             ApplicationManager.displayPopUp("test", "test", "filter");
-            updateListView();
             clearGraph();
+            updateListView();
         } else {
             ApplicationManager.displayPopUp("Error", "There is nothing to filter.", "error");
         }
@@ -435,11 +446,10 @@ public class WorkoutAnalysisController extends WorkoutsNavigator {
         if (activities.size() > 0) {
             activityTypeSelection.setVisible(true);
             selectedtab = "Graph";
-            analysisGraph.setVisible(true);
             clearGraph();
-            activityList.getSelectionModel().select(selectionIndex);
-            selectNewActivity();
+            activityList.getSelectionModel().clearSelection();
             activityList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            selectNewActivity();
 
             analysisGraph.setCreateSymbols(false);
             activityList.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {

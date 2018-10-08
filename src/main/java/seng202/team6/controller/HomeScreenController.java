@@ -14,6 +14,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng202.team6.utilities.HealthConcernChecker;
@@ -21,6 +23,8 @@ import seng202.team6.datahandling.DatabaseManager;
 import seng202.team6.models.Activity;
 import seng202.team6.models.ActivityDataPoint;
 import seng202.team6.models.User;
+import java.util.Random;
+
 
 public class HomeScreenController extends GeneralScreenController {
     
@@ -65,6 +69,9 @@ public class HomeScreenController extends GeneralScreenController {
     @FXML
     private Label quoteLabel;
 
+    @FXML
+    private ImageView matesPicture;
+
     /**
      * The current database manager
      */
@@ -86,7 +93,16 @@ public class HomeScreenController extends GeneralScreenController {
     private ArrayList<String> quoteList = new ArrayList<>(Arrays.asList("DREAMS DON'T WORK UNLESS YOU DO", "LIFE HAS NO REMOTE, GET UP AND CHANGE IT YOURSELF", "LIFE IS ABOUT GETTING UP AN HOUR EARLIER, SO YOU CAN LIVE AN HOUR LONGER",
             "GOOD THINGS COME TO THOSE THAT SWEAT", "IT'S NOT ALWAYS EASY, BUT IT'S ALWAYS WORTH IT", "THE ONLY BAD WORKOUT IS THE ONE THAT DIDN'T HAPPEN", "LIFE IS TOUGH, BUT SO ARE YOU!"));
 
+    /**
+     * List of all the filenames for the different MATES pictures
+     */
+    private ArrayList<String> matesList = new ArrayList<>((Arrays.asList("seng202/team6/resources/pics/catpanel.png", "seng202/team6/resources/pics/christmaspanel.png", "seng202/team6/resources/pics/doggypanel.png",
+            "seng202/team6/resources/pics/swagpanel.png", "seng202/team6/resources/pics/vanillapanel.png")));
 
+    /**
+     * Initialises the Home Screen page.
+     * @throws SQLException
+     */
     public void initialize() throws SQLException {
         ObservableList<String> activityDataTypes = FXCollections.observableArrayList("Distance", "Heart Rate", "Elevation", "Calories");
         activityTypeSelection.setItems(activityDataTypes);
@@ -97,8 +113,19 @@ public class HomeScreenController extends GeneralScreenController {
         setStepsInfo();
         newGraph();
         updateQuote();
+        displayMate();
     }
 
+    /**
+     * stes the MATE picture in the bottom left panel to a random MATES image
+     */
+    private void displayMate() {
+        Random random = new Random();
+        int randIndex = random.nextInt(matesList.size());
+        String imageURL = matesList.get(randIndex);
+        Image image = new Image(imageURL);
+        matesPicture.setImage(image);
+    }
 
     /**
      * Updates the quote by MATES AI to be the quote at the given index in the quote list
@@ -113,7 +140,6 @@ public class HomeScreenController extends GeneralScreenController {
             curQuoteIndex++;
         }
         ApplicationManager.setCurQuoteIndex(curQuoteIndex);
-
     }
 
     /**
@@ -132,17 +158,20 @@ public class HomeScreenController extends GeneralScreenController {
      * health concerns they have
      */
     private void setHealthInfo() {
-
-
+        //Calculate BMI
         double BMI = user.calculateBMI();
         int age = user.getAge();
 
+        //Set label for BMI
         String BMIString = String.format("%.1f", BMI);
         BMIText.setText(BMIString);
 
+        //Set weight label
         weightType.setText("(" + user.analyseBMI().toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
+
+	    //Display health concerns that are applicable and creates hyperlink to relevant websearch
         if (true) {
             if (HealthConcernChecker.checkTachycardia(activities, age)) {
                 String healthConcerns = "-" + "Tachycardia\n".toUpperCase();
@@ -191,12 +220,10 @@ public class HomeScreenController extends GeneralScreenController {
         }
     }
 
-    
     /**
      * Displays the steps a user has taken and the user's weekly step goal
      */
     private void setStepsInfo() {
-        //double strideLength = user.getWalkingStrideLength();
         double totalSteps = ApplicationManager.getDatabaseManager().getActivityManager().getUpdatedStepGoal(ApplicationManager.getCurrentUserID());
         String totalStepsString = String.format("%.0f", totalSteps);
         stepCount.setText(totalStepsString);
@@ -207,7 +234,6 @@ public class HomeScreenController extends GeneralScreenController {
         String stepsLeftString = String.format("%.0f", stepsLeft);
         stepsLeftLabel.setText(stepsLeftString);
     }
-
 
     /**
      * Creates a new graph to be displayed in the chart.
@@ -232,6 +258,7 @@ public class HomeScreenController extends GeneralScreenController {
         	noDataText.setVisible(true);
         }
     }
+
     /**
      *Adds a series of data from the most recent activity to the chart
      * @throws SQLException

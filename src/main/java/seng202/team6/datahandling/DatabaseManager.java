@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 
 import seng202.team6.controller.ApplicationManager;
 
+/**
+ * A DatabaseManager that handles all the database information and methods.
+ */
+
 public class DatabaseManager {
     private Connection con;
     private boolean hasData = false;
@@ -13,6 +17,10 @@ public class DatabaseManager {
     private DatabaseUserReader databaseUserReader;
     private DatabaseUserWriter databaseUserWriter;
 
+    /**
+     * A constructor for the Database Manager that gets the database connection.
+     * @param testOrMain
+     */
     public DatabaseManager(String testOrMain) {
         if(testOrMain.equalsIgnoreCase("main")) {
             getConnection();
@@ -138,27 +146,24 @@ public class DatabaseManager {
                         + "elevation REAL,"
                         + "FOREIGN KEY(activityid) REFERENCES activity(activityid));";
                 recordTableStatement.execute(recordTablesql);
-                //inserting some sample data
-//                String sqlprep1 = "INSERT INTO user(username, dateofbirth, firstname, lastname, gender, height, weight, stridelength) VALUES(?,?,?,?,?,?,?,?)";
-//                PreparedStatement prep = con.prepareStatement(sqlprep1);
-//                prep.setString(1, "Billythekidzz");
-//                prep.setString(2, "1998-08-23");
-//                prep.setString(3, "Gavin");
-//                prep.setString(4, "Ong");
-//                prep.setString(5, "Male");
-//                prep.setDouble(6, 170.0);
-//                prep.setDouble(7, 65.0);
-//                prep.setDouble(8, 2.0);
-//                prep.execute();
                 System.out.println("User tables built");
             }
         }
     }
 
+    /**
+     * A function that gets the connection.
+     * @return Returns the connection.
+     */
     public Connection getCon(){
         return con;
     }
 
+    /**
+     * A function that converts the Date to the format yyyy-MM-dd.
+     * @param date A LocalDate parameter date that is being formatted
+     * @return Returns a String that represents the date.
+     */
     public String convertToDBDateFormat(LocalDate date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedString = date.format(formatter);

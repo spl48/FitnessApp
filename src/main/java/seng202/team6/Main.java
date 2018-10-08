@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seng202.team6.controller.ApplicationManager;
 
@@ -15,12 +16,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException, ClassNotFoundException {
-        Parent root = FXMLLoader.load(getClass().getResource("view/startScreen2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/StartScreen.fxml"));
         primaryStage.setTitle("MATES");
         primaryStage.setScene(new Scene(root, 1366, 768));
         primaryStage.show();
         primaryStage.setResizable(false);
         ApplicationManager.initializeApplication();
+        primaryStage.getIcons().add(new Image("/seng202/team6/resources/pics/windowicon.png"));
     }
     public static void main(String[] args) {
         launch(args);
