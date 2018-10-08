@@ -1,79 +1,3 @@
-/* 
-.headerMenu .label {
-	-fx-text-fill: white;
-	-fx-font-size: 21px;
-	-fx-font-family: "Nexa Bold";
-}
-
-.headerMenu .label:hover {
-	-fx-text-fill: lightGray;
-}
-
-.headerMenu:focused {
-	-fx-background-color: transparent;
-}
-
-.headerMenu {
-	-fx-background-color: transparent;
-}
-
-.menu-item:focused {
-     -fx-background-color: #969A9F;
-}
-
-.context-menu:focused {
-     -fx-background-color: #969A9F;
-}
-
-.menu:focused {
-	-fx-background-color: transparent;
-}
-
-
-.menu-item .label {
-    -fx-text-fill: white;
-}
-
-.menu-item:focused {
-     -fx-background-color: darkgray;
-}
-
-.menu-item:focused .label {
-    -fx-text-fill: blue;
-}
-
-.context-menu {
-    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
-    -fx-background-color: black;
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
-/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 
-    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;  4 1 8 1 */
-/*}
-
-
-#comboBox .list-cell
- {
-    -fx-font-family: arial;
-    -fx-font-size: 16px;
-    -fx-text-fill: white; 
- }
-
- #comboBox
-  {
-     -fx-font-family: arial;
-     -fx-font-size: 16px;
-     -fx-text-fill: white;
-  }
-
-.choice-box .context-menu {
-    -fx-background-color: black;
-}
-
-.cb .label {
-   -fx-text-fill: white
-}
- */
 
  /* VARIABLE DEFINITIONS: Only these 4 variables have to be adjusted, the rest is copy-paste */
 * {
@@ -81,7 +5,7 @@
     -fx-my-menu-color:  rgb(62,71,88);                 /* Change according to your needs */
     -fx-my-menu-color-highlighted: rgb(60,60,60);      /* Change according to your needs */
     -fx-my-menu-font-color:white;             /* Change according to your needs */
-    -fx-my-menu-font-color-highlighted: lightYellow; /* Change according to your needs */
+    -fx-my-menu-font-color-highlighted: white; /* Change according to your needs */
 }
 
 .menu-bar > .container > .menu-button > .label {
@@ -105,7 +29,6 @@
     -fx-text-fill: -fx-my-menu-font-color;
     -fx-font-size: 15px;
     -fx-font-family: "Nexa Bold";
-    /*-fx-text-alignment: right;*/
 }
 
 /*** Top-level menu's label (disabled) ***/

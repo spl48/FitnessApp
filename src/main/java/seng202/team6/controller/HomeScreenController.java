@@ -132,17 +132,20 @@ public class HomeScreenController extends GeneralScreenController {
      * health concerns they have
      */
     private void setHealthInfo() {
-
-
+        //Calculate BMI
         double BMI = user.calculateBMI();
         int age = user.getAge();
 
+        //Set label for BMI
         String BMIString = String.format("%.1f", BMI);
         BMIText.setText(BMIString);
 
+        //Set weight label
         weightType.setText("(" + user.analyseBMI().toUpperCase() + ")");
 	    newGraph();
 	    analysisGraph.setCreateSymbols(false);
+
+	    //Display health concerns that are applicable and creates hyperlink to relevant websearch
         if (true) {
             if (HealthConcernChecker.checkTachycardia(activities, age)) {
                 String healthConcerns = "-" + "Tachycardia\n".toUpperCase();
