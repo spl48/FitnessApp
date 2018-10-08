@@ -70,7 +70,9 @@ public class FileDataLoader {
                     }
                     previousLine = nextLine;
                 }
-                for (int x = 2; x < rawData.size(); x++) {
+                for (int x = 1; x < rawData.size(); x++) {
+                    System.out.println(x);
+                    System.out.println(activityDescription);
                     nextLine = rawData.get(x);
                     if (nextLine != null) {
                         if (nextLine[0].equalsIgnoreCase("#start")) {
@@ -99,10 +101,21 @@ public class FileDataLoader {
                                 if (generatedKeys.next()) {
                                     activityid = generatedKeys.getInt(1);
                                 }
+                                String dateTime = convertToDateTimeFormat(nextLine[0], nextLine[1]);
+                                String sql2 = "INSERT INTO record(activityid,datetime,heartrate,latitude,longitude,elevation) VALUES(?,?,?,?,?,?)";
+                                PreparedStatement insertRecord = databaseManager.getCon().prepareStatement(sql2);
+                                insertRecord.setInt(1, activityid);
+                                insertRecord.setString(2, dateTime);
+                                insertRecord.setDouble(3, Double.parseDouble(nextLine[2]));
+                                insertRecord.setDouble(4, Double.parseDouble(nextLine[3]));
+                                insertRecord.setDouble(5, Double.parseDouble(nextLine[4]));
+                                insertRecord.setDouble(6, Double.parseDouble(nextLine[5]));
+                                insertRecord.execute();
                                 previousLine = nextLine;
                             }
                         } else {
                             String dateTime = convertToDateTimeFormat(nextLine[0], nextLine[1]);
+                            System.out.println(dateTime);
                             String sql = "INSERT INTO record(activityid,datetime,heartrate,latitude,longitude,elevation) VALUES(?,?,?,?,?,?)";
                             PreparedStatement insertRecord = databaseManager.getCon().prepareStatement(sql);
                             insertRecord.setInt(1, activityid);
@@ -114,7 +127,6 @@ public class FileDataLoader {
                             insertRecord.execute();
                             previousLine = nextLine;
                         }
-                        //if(nextLine[0])
                     }
 
                 }

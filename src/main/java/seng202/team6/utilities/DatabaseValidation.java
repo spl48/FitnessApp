@@ -333,18 +333,23 @@ public class DatabaseValidation {
      * @param endTime A String that represents the end time.
      * @return Returns true if data is valid and false if not.
      */
-    public static boolean validateStartEndTime(String startTime, String endTime) {
+    public static boolean validateStartEndTime(String startTime, String endTime, LocalDate startDate, LocalDate endDate) {
         DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
                 .withResolverStyle(ResolverStyle.STRICT);
         LocalTime start = LocalTime.parse(startTime, strictTimeFormatter);
         LocalTime end = LocalTime.parse(endTime, strictTimeFormatter);
-        if (!(start.isBefore(end))) {
-            if (ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Please ensure start time is before end time.", "error");
+        if(startDate.isEqual(endDate)) {
+            if (!(start.isBefore(end))) {
+                if (ApplicationManager.getCurrentUserID() != 0) {
+                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure start time is before end time.", "error");
+                }
+                System.out.println("Invalid times. Make sure start time is before end time.");
+                return false;
+            } else {
+                return true;
             }
-            System.out.println("Invalid times. Make sure start time is before end time.");
-            return false;
-        } else {
+        }
+        else{
             return true;
         }
     }

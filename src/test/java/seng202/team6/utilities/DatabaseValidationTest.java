@@ -205,8 +205,11 @@ public class DatabaseValidationTest extends TestCase {
     public void testValidateStartEndTime() {
         String beforeTime = "10:15:28";
         String afterTime = "11:09:23";
-        assertTrue(DatabaseValidation.validateStartEndTime(beforeTime, afterTime));
-        assertFalse(DatabaseValidation.validateStartEndTime(afterTime, beforeTime));
+        LocalDate beforeDate = LocalDate.of(2018, 9, 28);
+        LocalDate afterDate = LocalDate.of(2018, 9, 29);
+        assertTrue(DatabaseValidation.validateStartEndTime(beforeTime, afterTime,beforeDate,beforeDate));
+        assertFalse(DatabaseValidation.validateStartEndTime(afterTime, beforeTime,beforeDate,beforeDate));
+        assertTrue(DatabaseValidation.validateStartEndTime(afterTime, beforeTime,beforeDate,afterDate));
     }
 
     public void testValidateNonDuplicateData() {

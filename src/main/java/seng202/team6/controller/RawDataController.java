@@ -486,7 +486,7 @@ public class RawDataController extends WorkoutsNavigator{
                         DatabaseValidation.validateDateWithFormat(startDateEdit.getValue().toString()) &&
                         DatabaseValidation.validateDateWithFormat(endDateEdit.getValue().toString()) &&
                         DatabaseValidation.validateStartEndDate(startDateEdit.getValue(), endDateEdit.getValue()) &&
-                        DatabaseValidation.validateStartEndTime(startTimeEdit.getText(), endTimeEdit.getText()) &&
+                        DatabaseValidation.validateStartEndTime(startTimeEdit.getText(), endTimeEdit.getText(),startDateEdit.getValue(),endDateEdit.getValue()) &&
                         ActivityValidation.validateNotes(notesEdit.getText()) &&
                         ActivityValidation.validateDistance(distance) &&
                         DatabaseValidation.validateNonDuplicateActivity(LocalTime.parse(endTimeEdit.getText()), startDateEdit.getValue(), endDateEdit.getValue(),ApplicationManager.getDatabaseManager());
