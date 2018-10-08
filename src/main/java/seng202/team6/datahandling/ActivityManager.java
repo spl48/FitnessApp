@@ -563,7 +563,6 @@ public class ActivityManager {
      * @return Returns an integer parameter that represents the total steps done by the user.
      */
     public double getUpdatedStepGoal(int userid) {
-
         double totalStepCount = 0;
 
         try {
