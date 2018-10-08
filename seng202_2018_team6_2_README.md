@@ -24,7 +24,7 @@ You will also need to download:
 ####Run by source code:
 
 1. Open preferred IDE
-2. Import the folder Team6-Fitness-App as a new project.                                
+2. Import the folder Team6-Fitness-App as a new project.
 3. Navigate to `/Team6-Fitness-App/src/main/java/seng202/team6`
 4. Run Main.java
 
