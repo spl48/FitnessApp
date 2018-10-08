@@ -31,7 +31,7 @@ You will also need to download:
 ####Run by .jar:
 1. Open terminal
 2. Navigate to path of MATES.jar
-2. Run command 'java -jar MATES.jar'
+2. Run command `java -jar MATES.jar`
 
 
 
