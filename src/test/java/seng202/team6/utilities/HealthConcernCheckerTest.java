@@ -1,4 +1,4 @@
-package seng202.team6.analysis;
+package seng202.team6.utilities;
 
 import junit.framework.TestCase;
 
