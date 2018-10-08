@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -16,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HomeScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team6.controller.HomeScreenController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
@@ -76,14 +83,14 @@
                         </GridPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="347.0" prefWidth="200.0" style="-fx-background-color: rgb(217,217,217); -fx-border-color: rgb(138,138,138);" GridPane.rowIndex="1">
+                  <AnchorPane fx:id="homePane" prefHeight="347.0" prefWidth="200.0" style="-fx-background-color: rgb(217,217,217); -fx-border-color: rgb(138,138,138);" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="8.0" left="8.0" right="4.0" top="4.0" />
                      </GridPane.margin>
                      <children>
-                        <ImageView fitHeight="329.0" fitWidth="527.0" layoutX="12.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="matesPicture" fitHeight="329.0" fitWidth="527.0" layoutX="12.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/pics/rockstarpanel.png" />
+                              <Image url="@../resources/pics/vanillapanel.png" />
                            </image>
                         </ImageView>
                         <GridPane layoutX="83.0" layoutY="24.0" prefHeight="129.0" prefWidth="430.0">
