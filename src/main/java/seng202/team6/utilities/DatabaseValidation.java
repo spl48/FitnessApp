@@ -13,6 +13,13 @@ import java.util.ArrayList;
 
 public class DatabaseValidation {
 
+    /**
+     * A function that validates the data date, time, heart rate, latitude, longitude and elevation.
+     * @param data An ArrayList of data to be validated.
+     * @param databaseManager An instance of Database Manager
+     * @return Returns true if data is valid and false if not.
+     * @throws SQLException
+     */
     public static boolean validate(ArrayList<String[]> data, DatabaseManager databaseManager) throws SQLException {
         if(!validateNotEmpty(data)) {
             return false;
@@ -41,6 +48,11 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the line length of the CSV file.
+     * @param data An ArrayList of String data that is being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateLineLength(ArrayList<String[]> data){
         if(data.get(0).length < 6){
             System.out.println("Invalid line length detected!");
@@ -67,6 +79,11 @@ public class DatabaseValidation {
         return true;
     }
 
+    /**
+     * A function that validates the first line of the CSV data.
+     * @param data An ArrayList String data that is being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateFirstLine(ArrayList<String[]> data){
         String[] firstLine = data.get(0);
         if(firstLine[0].equalsIgnoreCase("#start")){
@@ -81,6 +98,11 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates if the activity data is empty.
+     * @param data An ArrayList String data that is being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateNotEmpty(ArrayList<String[]> data){
         if(!(data.size() < 2 && data.get(0).length == 1 && data.get(0)[0].length() == 0)){
             return true;
@@ -94,6 +116,11 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the longitude data from the activity data.
+     * @param inLongitude A String that represents the longitude that is being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateLongitude(String inLongitude){
         if(!GeneralUtilities.isValidDouble(inLongitude)){
             if(ApplicationManager.getCurrentUserID() != 0) {
@@ -117,6 +144,11 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the latitude data from the activity data.
+     * @param inLatitude A String that represents the latitude that is being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateLatitude(String inLatitude){
         if(!GeneralUtilities.isValidDouble(inLatitude)){
             if(ApplicationManager.getCurrentUserID() != 0) {
@@ -140,10 +172,15 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the heart rate data from the activity data.
+     * @param inHeartRate A String that represents the heart rate that is being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateHeartRate(String inHeartRate){
         if(!GeneralUtilities.isValidInt(inHeartRate)){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Please ensure heart rate is a numerical value and is in range 0 to 400 bpm.", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure heart rate is a numerical value and is in range of 0 to 400 bpm.", "error");
             }
             System.out.println("Invalid heart rate detected!");
             return false;
@@ -153,7 +190,7 @@ public class DatabaseValidation {
             if(!(heartRate >= 0 && heartRate <= 400)){
                 System.out.println("Invalid heart rate detected! Heart rate out of range.");
                 if(ApplicationManager.getCurrentUserID() != 0) {
-                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure heart rate is in range 0 to 400 bpm.", "error");
+                    ApplicationManager.displayPopUp("Invalid Data", "Please ensure heart rate is in range of 0 to 400 bpm.", "error");
                 }
                 return false;
             }
@@ -163,6 +200,11 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the elevation data from the activity data.
+     * @param inElevation A String that represents the elevation that is being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateElevation(String inElevation){
         if(!GeneralUtilities.isValidDouble(inElevation)){
             if(ApplicationManager.getCurrentUserID() != 0) {
@@ -186,11 +228,16 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the date data from the activity data.
+     * @param date A String that represents the date being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateDate(String date){
         if(!GeneralUtilities.isValidDate(date)){
             System.out.println("Invalid date detected!");
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Please ensure date is of the form DD/MM/YY!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure date is of the form DD/MM/YY.", "error");
             }
             return false;
         }
@@ -210,6 +257,11 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the date with a certain format.
+     * @param date A String parameter that represents the date being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateDateWithFormat(String date){
         if(!GeneralUtilities.isValidDateWithFormat(date)){
             System.out.println("Invalid date detected!");
@@ -233,10 +285,16 @@ public class DatabaseValidation {
             }
         }
     }
+
+    /**
+     * A function that validates time from the activity data.
+     * @param time A String parameter that represents the time being validated.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateTime(String time){
         if(!GeneralUtilities.isValidTime(time)){
             if(ApplicationManager.getCurrentUserID() != 0) {
-                ApplicationManager.displayPopUp("Invalid Data", "Please ensure time is of the form HH:mm:ss!", "error");
+                ApplicationManager.displayPopUp("Invalid Data", "Please ensure that time is of the form HH:mm:ss!", "error");
             }
             System.out.println("Invalid time detected!");
             return false;
@@ -246,6 +304,13 @@ public class DatabaseValidation {
         }
     }
 
+    /**
+     * A function that validates the start and end date to ensure start date is before the end
+     * date.
+     * @param startDate A String parameter that represents the start date of the activity.
+     * @param endDate A String parameter that represents the end date of the activity.
+     * @return Returns true if data is valid and false if not.
+     */
     public static boolean validateStartEndDate(LocalDate startDate, LocalDate endDate){
         if(!(startDate.isBefore(endDate) || startDate.isEqual(endDate))){
             if(ApplicationManager.getCurrentUserID() != 0) {
@@ -263,7 +328,7 @@ public class DatabaseValidation {
      * A function that ensures the start time is before the end time.
      * @param startTime A String that represents the start time.
      * @param endTime A String that represents the end time.
-     * @return Returns a boolean value if the start and end time is valid.
+     * @return Returns true if data is valid and false if not.
      */
     public static boolean validateStartEndTime(String startTime, String endTime) {
         DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("H:mm:ss")
@@ -308,6 +373,16 @@ public class DatabaseValidation {
         }
         return true;
     }
+
+    /**
+     * A function that validates if the given activity data is a duplicate or not.
+     * @param endTime A String that represents the end time being validated.
+     * @param startDate A String that represents the start date being validated.
+     * @param endDate A String that represents the end date being validated.
+     * @param databaseManager An instance of the database manager.
+     * @return Returns true if data is valid and false if not.
+     * @throws SQLException
+     */
     public static boolean validateNonDuplicateActivity(LocalTime endTime, LocalDate startDate, LocalDate endDate, DatabaseManager databaseManager) throws SQLException {
         ArrayList<Activity> activities = databaseManager.getActivityManager().getActivities(ApplicationManager.getCurrentUserID());
         for (Activity activity : activities){
