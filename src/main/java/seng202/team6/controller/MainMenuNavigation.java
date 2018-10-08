@@ -19,7 +19,6 @@ public class MainMenuNavigation extends GeneralScreenController {
     @FXML
     private Node homeButton;
 
-
        /**
      * The home button on the side bar.
      */
@@ -32,7 +31,7 @@ public class MainMenuNavigation extends GeneralScreenController {
     public static Node selected;
 
     /**
-     * Initialises the screen
+     * Initialises the Main Menu Screen
      */
     @FXML
     void initialize() {
@@ -191,7 +190,6 @@ public class MainMenuNavigation extends GeneralScreenController {
         changeMenuScreen(event, "/seng202/team6/view/HealthScreen.fxml", "HEALTH");
         selected.setStyle("-fx-background-color:#85ab97; -fx-background-radius: 0;");
     }
-
 
     /**
      * Changes the selected menu item and formats it accordingly.
